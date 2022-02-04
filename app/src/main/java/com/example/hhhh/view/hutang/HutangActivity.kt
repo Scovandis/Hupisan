@@ -1,0 +1,329 @@
+package com.example.hhhh.view.hutang
+
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hhhh.view.main.MainActivity
+import com.example.hhhh.R
+import com.example.hhhh.database.DataViewModel
+import com.example.hhhh.database.entity.DataModel
+import com.example.hhhh.databinding.ActivityHutangBinding
+import com.example.hhhh.view.hutang.adapter.HutangAdapter
+
+import android.content.Context
+import android.graphics.Color
+import android.os.Build
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.*
+import androidx.appcompat.app.AlertDialog
+
+import androidx.recyclerview.widget.RecyclerView
+
+import androidx.recyclerview.widget.ItemTouchHelper
+import com.example.hhhh.database.PembayaranViewModel
+import com.example.hhhh.databinding.AlertDeleteAllBinding
+import com.example.hhhh.databinding.AlertDeleteBinding
+import com.google.android.material.snackbar.Snackbar
+
+import com.example.hhhh.util.SwipeToDeleteCallback
+import com.example.hhhh.view.hutang.adapter.onButtonClicked
+
+
+class HutangActivity : AppCompatActivity(), onButtonClicked{
+    private val TAG = HutangActivity::class.java.simpleName
+
+    private lateinit var binding: ActivityHutangBinding
+
+    lateinit var hAdapter: HutangAdapter
+
+    lateinit var viewModel: DataViewModel
+    lateinit var viewModelPembayaran: PembayaranViewModel
+    var isRefresh: Boolean = true
+    var typeJenis: String? = null
+
+    private var listData: ArrayList<DataModel>?= null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityHutangBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.lottieAnimation.visibility = View.GONE
+        binding.rvHutang.visibility = View.GONE
+
+        typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS)
+
+
+        Log.d(TAG, "INTENT.GETSTRINGEXTRA $typeJenis")
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.title = typeJenis
+
+        viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
+        viewModelPembayaran = ViewModelProvider(this).get(PembayaranViewModel::class.java)
+        binding.fabAddAction.setColorFilter(Color.WHITE)
+        binding.fabAddAction.setOnClickListener{
+            val intent = Intent(this, AddHutangActivity::class.java)
+            intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, typeJenis)
+            startActivity(intent)
+        }
+        Log.d(TAG, "DATAA ARRAY $listData")
+        setData(true)
+        Log.d(TAG, "DATAA ARRAY2 $listData")
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            setData(isRefresh)
+        }
+    }
+    private fun setData(isRefresh: Boolean){
+        binding.lottieAnimation.visibility = View.GONE
+        binding.tvIsEmpty.visibility = View.GONE
+        binding.rvHutang.visibility = View.GONE
+        if (isRefresh) {
+            binding.shimmer1.startShimmer()
+            binding.shimmer1.visibility = View.VISIBLE
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.shimmer1.stopShimmer()
+                binding.shimmer1.visibility = View.GONE
+                binding.rvHutang.visibility = View.VISIBLE
+
+                hAdapter = HutangAdapter(this@HutangActivity, this)
+                when (typeJenis) {
+                    getString(R.string.hutang) -> { viewModel.getAllDataWhereStatusData(
+                            getString(R.string.belum_lunas),
+                            getString(R.string.hutang)
+                        ).observe(this, Observer {
+                            if (it.isEmpty()) {
+                                binding.rvHutang.visibility = View.GONE
+                                binding.lottieAnimation.visibility = View.VISIBLE
+                                binding.tvIsEmpty.visibility = View.VISIBLE
+                                binding.tvIsEmpty.text =
+                                    getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
+                            } else {
+                                Log.d(TAG, "DATAAA $it")
+                                listData = it as ArrayList<DataModel>
+                                hAdapter.setData(listData!!)
+                            }
+                        })
+                    }
+                    getString(R.string.piutang) -> {
+                        viewModel.getAllDataWhereStatusData(
+                            getString(R.string.belum_lunas),
+                            getString(R.string.piutang)
+                        ).observe(this, Observer {
+                            if (it.isEmpty()) {
+                                binding.rvHutang.visibility = View.GONE
+                                binding.lottieAnimation.visibility = View.VISIBLE
+                                binding.tvIsEmpty.visibility = View.VISIBLE
+                                binding.tvIsEmpty.text =
+                                    getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
+                            } else {
+                                listData = it as ArrayList<DataModel>
+                                hAdapter.setData(listData!!)
+                                Log.d(TAG, "DATAAA $it")
+                            }
+                        })
+                    }
+                }
+                binding.swipeRefreshLayout.isRefreshing = false
+                bindview()
+            }, 900)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            android.R.id.home -> {
+                startActivity(Intent(this, MainActivity::class.java))
+                return true
+            }
+            R.id.delete_all -> {
+                alertDeleteAll()
+                return true
+            }
+            else ->{
+                return onOptionsItemSelected(item)
+            }
+        }
+    }
+    private fun alertDeleteAll(){
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val alertBindingDeleteAll : AlertDeleteAllBinding = AlertDeleteAllBinding.inflate(inflater)
+        dialogBuilder.setView(alertBindingDeleteAll.root)
+
+        alertBindingDeleteAll.tvTypeCatatan.text = getString(R.string.semua_data)+ " " + typeJenis
+        alertBindingDeleteAll.tvJudulCatatanAlert.text = getString(R.string.hapus_semua_data)
+        alertBindingDeleteAll.tvView1.text = getString(R.string.semua_data)+ " " + typeJenis
+
+        rulersDeleteAll(alertBindingDeleteAll)
+
+        val judul = getString(R.string.hapus_semua_data)
+        val etEdit = alertBindingDeleteAll.etHapusAlert.editText!!.text
+
+        dialogBuilder.setPositiveButton(getString(R.string.hapus)){dialog, i ->
+            Handler(Looper.getMainLooper()).postDelayed({
+                if (etEdit.toString() != judul){
+                    Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
+                }else {
+                    viewModel.deleteAllDataWhere(typeJenis.toString(), getString(R.string.belum_lunas))
+                    Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
+                }
+            },700)
+            dialog.cancel()
+        }
+        dialogBuilder.setNegativeButton(getString(R.string.kembali)){dialog, i->
+            dialog.dismiss()
+
+        }
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+    }
+    private fun rulersDeleteAll(alertBindingDeleteAll: AlertDeleteAllBinding){
+        alertBindingDeleteAll.etHapusAlert.editText!!.addTextChangedListener(object: TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val etDelete = alertBindingDeleteAll.etHapusAlert.editText!!.text
+
+                if (p0!!.length >= 20){
+                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.nama_tidak_boleh_lebih_dari_20_huruf)
+                }else if(p0.length > 2 && etDelete.toString() != getString(R.string.hapus_semua_data)){
+                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.sepertinya_nama_yang_anda_masukkan_berbeda_dari_daftar_item_ini)
+                }else if(etDelete.toString() == getString(R.string.hapus_semua_data)){
+                    alertBindingDeleteAll.etHapusAlert.helperText = getString(R.string.benar)
+                }
+                else if(p0.isBlank() or p0.isEmpty()){
+                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.nama_tidak_boleh_kosong)
+                }
+                else {
+                    alertBindingDeleteAll.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
+                }
+            }
+        })
+    }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.item_delete, menu)
+        val item = menu!!.findItem(R.id.delete_all)
+        if (MainActivity.ISNULL == 1){
+            item.isVisible = true
+        }
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    fun bindview(){
+        binding.rvHutang.apply {
+            layoutManager = LinearLayoutManager(this@HutangActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = hAdapter
+        }
+        swipeToDelete()
+    }
+    private fun swipeToDelete(){
+        val swipeHandler = object : SwipeToDeleteCallback(this) {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.bindingAdapterPosition
+                val item = hAdapter.getData().get(position)
+                alertDelete(position, item)
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeHandler)
+        itemTouchHelper.attachToRecyclerView(binding.rvHutang)
+    }
+    override fun onResume() {
+        super.onResume()
+        binding.shimmer1.startShimmer()
+    }
+    override fun onPause() {
+        binding.shimmer1.stopShimmer()
+        super.onPause()
+    }
+    private fun alertDelete(position: Int, item: DataModel) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val alertBinding : AlertDeleteBinding = AlertDeleteBinding.inflate(inflater)
+        dialogBuilder.setView(alertBinding.root)
+
+        alertBinding.tvJudulCatatanAlert.text = item.username
+        rulers(alertBinding, item)
+        dialogBuilder.setPositiveButton(getString(R.string.hapus)){ dialogInterface, int ->
+            val userJudul = item.username
+            val etDelete = alertBinding.etHapusAlert.editText!!.text
+
+            if (etDelete.toString() != userJudul){
+                Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
+            }else{
+                alertBinding.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
+                viewModel.deleteData(item)
+                val snackbar = Snackbar
+                    .make(
+                        binding.swipeRefreshLayout,
+                        getString(R.string.item_telah_di_hapus_dari_daftar),
+                        Snackbar.LENGTH_LONG
+                    )
+                snackbar.setAction(getString(R.string.urungkan)) {
+                    viewModel.insertData(item)
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    snackbar.setActionTextColor(getColor(R.color.purple_500))
+                }else{
+                    snackbar.setActionTextColor(Color.YELLOW)
+                }
+                snackbar.show()
+            }
+        }
+        dialogBuilder.setNegativeButton(getString(R.string.kembali)){ dialogInterface, int -> dialogInterface.dismiss()}
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+    }
+
+    private fun rulers(alertBinding: AlertDeleteBinding, item: DataModel) {
+        alertBinding.etHapusAlert.editText!!.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                val userJudul = item.username
+                val etDelete = alertBinding.etHapusAlert.editText!!.text
+
+                if (p0!!.length >= 20){
+                    alertBinding.etHapusAlert.error = getString(R.string.nama_tidak_boleh_lebih_dari_20_huruf)
+                }else if(p0.length > 2 && etDelete.toString() != userJudul){
+                    alertBinding.etHapusAlert.error = getString(R.string.sepertinya_nama_yang_anda_masukkan_berbeda_dari_daftar_item_ini)
+                }else if(etDelete.toString() == userJudul){
+                    alertBinding.etHapusAlert.helperText = getString(R.string.benar)
+                }
+                else if(p0.isBlank() or p0.isEmpty()){
+                    alertBinding.etHapusAlert.error = getString(R.string.nama_tidak_boleh_kosong)
+                }
+                else {
+                    alertBinding.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
+                }
+            }
+        })
+    }
+    companion object{
+        var EXTRA_TYPE_JENIS = "extra_type_jenis"
+    }
+
+
+    override fun onClick(data: DataModel) {
+        viewModel.updateData(data)
+    }
+}

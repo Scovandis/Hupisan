@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_8sdp"
+            >
+            <androidx.constraintlayout.widget.ConstraintLayout
+                style="@style/headerText"
+                android:layout_marginBottom="20dp">
+                <TextView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_26sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/info"
+                    android:id="@+id/tv_informasi"
+                    />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_verification"
+                    app:layout_constraintTop_toTopOf="@id/tv_informasi"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_informasi"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_width="@dimen/_30sdp"
+                    app:layout_constraintStart_toEndOf="@id/tv_informasi"
+                    android:layout_height="@dimen/_30sdp"/>
+
+                <ImageView
+                    android:id="@+id/iv_verification_icon"
+                    app:layout_constraintTop_toTopOf="@id/iv_verification"
+                    app:layout_constraintStart_toStartOf="@id/iv_verification"
+                    app:layout_constraintBottom_toBottomOf="@id/iv_verification"
+                    app:layout_constraintEnd_toEndOf="@id/iv_verification"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:translationZ="@dimen/_4sdp"
+                    android:src="@drawable/ic_baseline_check_24"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <RelativeLayout style="@style/profileDetailsLayout"
+                >
+
+                <ImageView
+                    android:id="@+id/nameOfUser"
+                    style="@style/profileDetailsImage"
+                    android:src="@drawable/user_profile" />
+
+                <TextView
+                    android:id="@+id/nameTextView"
+                    android:text="@string/nama"
+                    android:layout_toRightOf="@id/nameOfUser"
+                    style="@style/profileDetailsTextMain" />
+
+                <TextView
+                    android:id="@+id/tv_nama"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/nameOfUser"
+                    android:text="@string/gondres" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+
+                <ImageView
+                    android:id="@+id/mobileImageView"
+                    style="@style/profileDetailsImage"
+                    android:src="@drawable/ux_create_at" />
+
+                <TextView
+                    android:text="@string/tanggal_dibuat"
+                    android:layout_toRightOf="@id/mobileImageView"
+                    style="@style/profileDetailsTextMain"/>
+
+                <TextView
+                    android:id="@+id/tv_tanggal_dibuat"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/mobileImageView"
+                    android:text="@string/_12_22_2021" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/descriptionImageView"
+                    android:src="@drawable/ux_description"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:text="@string/deskripsi"
+                    android:layout_toRightOf="@id/descriptionImageView"
+                    style="@style/profileDetailsTextMain" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/descriptionImageView"
+                    android:ellipsize="end"
+                    android:maxLength="15"
+                    android:maxLines="1"
+                    android:text="@string/deskripsi" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+
+                <ImageView
+                    android:id="@+id/jumlahImageView"
+                    style="@style/profileDetailsImage"
+                    android:src="@drawable/ux_wallet" />
+
+                <TextView
+                    android:id="@+id/tv_jumlah_status"
+                    style="@style/profileDetailsTextMain"
+                    android:layout_toRightOf="@id/jumlahImageView"
+                    android:text="@string/jumlah_utang" />
+
+                <TextView
+                    android:id="@+id/tv_jumlah"
+                    android:text="@string/_rp_3000_000"
+                    android:layout_toRightOf="@id/jumlahImageView"
+                    style="@style/profileDetailsMiniText" />
+
+            </RelativeLayout>
+
+            <View style="@style/proifleDetailsView" />
+            <RelativeLayout style="@style/profileDetailsLayout">
+                <ImageView
+                    android:id="@+id/genderImageView"
+                    android:src="@drawable/ux_gender"
+                    style="@style/profileDetailsImage" />
+
+                <TextView
+                    android:text="@string/gender"
+                    android:layout_toRightOf="@id/genderImageView"
+                    style="@style/profileDetailsTextMain" />
+
+                <TextView
+                    android:id="@+id/tv_gender"
+                    style="@style/profileDetailsMiniText"
+                    android:layout_toRightOf="@id/genderImageView"
+                    android:text="@string/laki_laki" />
+
+            </RelativeLayout>
+            <View style="@style/proifleDetailsView" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                style="@style/profileDetailsLayout"
+                >
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.5"
+                    app:shimmer_duration="1500">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <include layout="@layout/shimmer_row_pembayaran"/>
+                        <include layout="@layout/shimmer_row_pembayaran"/>
+                        <include layout="@layout/shimmer_row_pembayaran"/>
+
+                    </LinearLayout>
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_data_pembayaran_from_id"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_height="wrap_content"/>
+                <RelativeLayout
+                    android:id="@+id/rl_text_null"
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_data_pembayaran_from_id"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="@dimen/_70sdp">
+                    <TextView
+                        android:text="@string/data_masih_kosong"
+                        android:textSize="@dimen/_22sdp"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

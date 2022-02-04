@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="publicRed">#cc0000</color>
+<!--    <color name="primaryBlue">#FF6200EE</color>-->
+    <color name="kuning">#EC9411</color>
+    <color name="transparentBlack">#E6000000</color>
+    <color name="transparantBlack60">#60000000</color>
+    <color name="transparantBlack75">#75000000</color>
+    <color name="transparantBlack94">#E6000000</color>
+    <color name="transparantBlack15">#15000000</color>
+    <color name="transparantBlack10">#10000000</color>
+    <color name="transparantBlack5">#05000000</color>
+    <color name="transparantBlack8">#08000000</color>
+    <color name="transparentwhite">#9FFFFFFF</color>
+    <!--     shimmer -->
+    <color name="preview">#b0abb0</color>
+    <color name="shimmerBase0">#c2c2c2</color>
+    <color name="shimmerHighlight0">#ffffff</color>
+    <color name="shimmerHighlight1">#DFDEDE</color>
+    <color name="color_flat_text_selector">@drawable/radio_flat_text_selector</color>
+
+<!--    animation detail hutang color-->
+    <color name="background_Image_tint">#77002237</color>
+
+    <color name="color_gray_green">#375730</color>
+    <color name="background_green_image_tint">#613C5730</color>
+    <color name="color_transparent">#00FFFFFF</color>
+
+<!--    color chart-->
+    <color name="Hari_dibayar">#fcf000</color>
+    <color name="Minggu_dibayar">#42ff00</color>
+    <color name="Bulan_dibayar">#ff1106</color>
+    <color name="Tahun_dibayar">#2afbff</color>
+
+    <color name="Hari_dipinjam">#FFA726</color>
+    <color name="Minggu_dipinjam">#66BB6A</color>
+    <color name="Bulan_dipinjam">#EF5350</color>
+    <color name="Tahun_dipinjam">#29B6F6</color>
+
+
+</resources>

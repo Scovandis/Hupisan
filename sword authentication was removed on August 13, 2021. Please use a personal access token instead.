@@ -1,0 +1,12 @@
+user.mail=Andriyan354354@gmail.com
+user.name=andriyan354354@gmail.com
+user.email=contoh@petanikode.com
+user.password=new@Password321
+core.repositoryformatversion=0
+core.filemode=true
+core.bare=false
+core.logallrefupdates=true
+remote.origin.url=https://github.com/Scovandis/H.H.H.H.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+remote.beta-version.url=https://github.com/Scovandis/H.H.H.H.git
+remote.beta-version.fetch=+refs/heads/*:refs/remotes/beta-version/*

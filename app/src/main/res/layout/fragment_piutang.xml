@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.core.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        tools:context=".view.analistic.PiutangFragment"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewGraph"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="15dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <org.eazegraph.lib.charts.PieChart
+                        android:id="@+id/piechart"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:padding="6dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="15dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="20dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical"
+                        >
+                        <!--                        <Spinner-->
+                        <!--                            android:id="@+id/spinner"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_height="wrap_content"/>-->
+                        <!--                        <View-->
+                        <!--                            android:layout_marginBottom="@dimen/_14sdp"-->
+                        <!--                            android:layout_width="match_parent"-->
+                        <!--                            android:layout_marginEnd="@dimen/_8sdp"-->
+                        <!--                            android:background="@color/transparantBlack15"-->
+                        <!--                            android:layout_height="1dp"/>-->
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_8sdp"
+                            android:layout_gravity="center_vertical">
+
+<!--                            <View-->
+<!--                                android:layout_width="15dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@color/Hari_dibayar"/>-->
+                            <View
+                                android:layout_width="15dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:background="@color/Hari_dipinjam"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/hari"
+                                android:paddingStart="10dp"/>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp">
+
+<!--                            <View-->
+<!--                                android:layout_width="15dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@color/Minggu_dibayar"/>-->
+                            <View
+                                android:layout_width="15dp"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_height="match_parent"
+                                android:background="@color/Minggu_dipinjam"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/minggu"
+                                android:paddingStart="10dp"/>
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp">
+
+<!--                            <View-->
+<!--                                android:layout_width="15dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@color/Bulan_dibayar"/>-->
+                            <View
+                                android:layout_width="15dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:background="@color/Bulan_dipinjam"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/bulan"
+                                android:paddingStart="10dp"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginTop="5dp">
+<!--                            <View-->
+<!--                                android:layout_width="15dp"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:background="@color/Tahun_dibayar"/>-->
+
+                            <View
+                                android:layout_width="15dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:background="@color/Tahun_dipinjam"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tahun"
+                                android:paddingStart="10dp"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/cardViewGraph"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/cardViewGraph"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginBottom="20dp"-->
+<!--                android:elevation="10dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                android:id="@+id/cardViewDibayar">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_margin="@dimen/_8sdp"-->
+<!--                    android:orientation="vertical">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/jumlah_dibayar_dalam_rupiah"-->
+<!--                        android:textSize="23sp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:layout_marginStart="25dp"-->
+<!--                        android:layout_marginTop="20dp"/>-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/transparantBlack10"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp"-->
+<!--                        android:layout_marginTop="5dp"/>-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="10dp">-->
+
+<!--                        &lt;!&ndash;Text view to display R &ndash;&gt;-->
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/hari"-->
+<!--                            android:textSize="18sp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvHari_dibayar"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/_0"-->
+<!--                            android:textAlignment="textEnd"-->
+<!--                            android:textColor="@color/Hari_dibayar"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </RelativeLayout>-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/transparantBlack10"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="10dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/minggu"-->
+<!--                            android:textSize="18sp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvMinggu_dibayar"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/_0"-->
+<!--                            android:textAlignment="textEnd"-->
+<!--                            android:textColor="@color/Minggu_dibayar"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </RelativeLayout>-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/transparantBlack10"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="10dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/bulan"-->
+<!--                            android:textSize="18sp"/>-->
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvBulan_dibayar"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/_0"-->
+<!--                            android:textAlignment="textEnd"-->
+<!--                            android:textColor="@color/Bulan_dibayar"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold" />-->
+
+<!--                    </RelativeLayout>-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/transparantBlack10"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp" />-->
+
+<!--                    <RelativeLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginRight="25dp"-->
+<!--                        android:layout_marginLeft="25dp"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginBottom="10dp">-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/tahun"-->
+<!--                            android:textSize="18sp"/>-->
+
+<!--                        <TextView-->
+<!--                            android:id="@+id/tvTahun_dibayar"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:fontFamily="sans-serif-light"-->
+<!--                            android:text="@string/_0"-->
+<!--                            android:textAlignment="textEnd"-->
+<!--                            android:textColor="@color/Tahun_dibayar"-->
+<!--                            android:textSize="18sp"-->
+<!--                            android:textStyle="bold" />-->
+<!--                    </RelativeLayout>-->
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="1dp"-->
+<!--                        android:background="@color/transparantBlack10"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_marginRight="20dp" />-->
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/cardViewGraph"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cardViewGraph"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:elevation="10dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardViewDipinjam">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/jumlah_dipinjam_dalam_rupiah"
+                        android:textSize="23sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="25dp"
+                        android:layout_marginTop="20dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/transparantBlack10"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="5dp"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <!--Text view to display R -->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/hari"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/tvHari_dipinjam"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/_0"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/Hari_dipinjam"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/transparantBlack10"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/minggu"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/_0"
+                            android:id="@+id/tvMinggu_dipinjam"
+                            android:textAlignment="textEnd"
+                            android:textSize="18sp"
+                            android:textColor="@color/Minggu_dipinjam"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-light"
+                            android:layout_alignParentEnd="true"/>
+
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/transparantBlack10"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/bulan"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/tvBulan_dipinjam"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/_0"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/Bulan_dipinjam"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/transparantBlack10"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/tahun"
+                            android:textSize="18sp"/>
+
+                        <TextView
+                            android:id="@+id/tvTahun_dipinjam"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:fontFamily="sans-serif-light"
+                            android:text="@string/_0"
+                            android:textAlignment="textEnd"
+                            android:textColor="@color/Tahun_dipinjam"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/transparantBlack10"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
