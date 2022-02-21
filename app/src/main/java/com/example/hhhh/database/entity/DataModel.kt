@@ -23,11 +23,11 @@ data class DataModel(
     @ColumnInfo(name = "notif")//ini di buat ketika true maka notif muncul
     var notif: Boolean,
     @ColumnInfo(name = "gender")//ini untuk perubahan data bagian foto ketika gender lelaki ataupun perempuan
-    var gender: String,//gender user hutang / piutang
+    var genderUser: String,//gender user hutang / piutang
     @ColumnInfo(name = "jenis")
-    var jenis: String,//hutang / piutang
+    var jenisPinjaman: Boolean,//hutang bernilai false / piutang bernilai true
     @ColumnInfo(name = "statusData")
-    var statusData: String, //ini datanya antara lunas atau belum lunas jika jumlah belum 0 maka belum lunas
+    var statusDataSelesai: Boolean, //ini datanya antara lunas atau belum lunas jika jumlah belum false jika lunas true
     @ColumnInfo(name = "jam_jatuh_tempo")// tanggal untuk notifiki
     var jam_jatuh_tempo: String,
     @ColumnInfo(name = "tanggal_lunas")//tanggal selesai sebuah data

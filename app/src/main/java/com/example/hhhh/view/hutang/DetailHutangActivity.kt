@@ -38,6 +38,7 @@ import com.example.hhhh.databinding.AlertDicicilBinding
 import com.example.hhhh.view.hutang.adapter.PembayaranAdapter
 import com.example.hhhh.view.lunas.LunasActivity
 import com.example.hhhh.view.lunas.WindowFragmentLunas
+import com.example.hhhh.view.main.MainActivity
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import java.text.DecimalFormat
@@ -49,7 +50,7 @@ class DetailHutangActivity : AppCompatActivity() {
     private val TAG = DetailHutangActivity::class.java.simpleName
     private lateinit var binding: ActivityDetailHutangBinding
 
-    private var typeJenis: String? = null
+    private var typeJenis: Boolean? = null
 
     private lateinit var viewModel: DataViewModel
     private lateinit var pembayaranViewModel: PembayaranViewModel
@@ -118,7 +119,8 @@ class DetailHutangActivity : AppCompatActivity() {
 
         //get id && typejenis data
         val uid = intent.extras?.get(EXTRA_UID)
-        typeJenis = intent.extras?.get(EXTRA_TYPE_JENIS).toString()
+        val jenis = intent.extras?.get(EXTRA_TYPE_JENIS).toString()
+        typeJenis = jenis.toBoolean()
         binding.content.tvJumlahStatus.text = getString(R.string.jumlah) + " "+ typeJenis
         setData(uid.toString())
 
@@ -195,6 +197,7 @@ class DetailHutangActivity : AppCompatActivity() {
         alertBinding.tvTotalHutang.text = getString(R.string.dolar) +"." + decimalFormat.format(activityJumlah)
         alertBinding.tvUsername.text = binding.tvProfileName.text
 
+
         val dibuatPada = alertBinding.tvAlertDibuatPada
         dibuatPada.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
 
@@ -210,10 +213,10 @@ class DetailHutangActivity : AppCompatActivity() {
 
             }
         }
-
+        val type = if (!typeJenis!!) getString(R.string.hutang) else getString(R.string.piutang)
         onRules(alertBinding, statusOption)
         if (statusOption.equals(getString(R.string.dikurangi))){
-            alertBinding.tvStatusType.text = getString(R.string.mengurangi) + " " +typeJenis
+            alertBinding.tvStatusType.text = getString(R.string.mengurangi) + " " +type
             //dikurangi
             dialogBuilder.setPositiveButton(getString(R.string.bayar)
             ) { dialogInterface, p1 ->
@@ -223,7 +226,7 @@ class DetailHutangActivity : AppCompatActivity() {
             dialogBuilder.setNegativeButton(getString(R.string.kembali)
             ) { dialogInterface, p1 -> dialogInterface!!.dismiss() }
         }else if(statusOption.equals(getString(R.string.lunas))){
-            alertBinding.tvStatusType.text = getString(R.string.melunasi) + " "+typeJenis
+            alertBinding.tvStatusType.text = getString(R.string.melunasi) + " "+type
 
             //lunas
             dialogBuilder.setPositiveButton(getString(R.string.lunas)){ dialogInterface, p1 ->
@@ -235,7 +238,7 @@ class DetailHutangActivity : AppCompatActivity() {
             }
         }
         else{
-            alertBinding.tvStatusType.text = getString(R.string.menambah) + " "+typeJenis
+            alertBinding.tvStatusType.text = getString(R.string.menambah) + " "+type
             //ditambah
             dialogBuilder.setPositiveButton(getString(R.string.ditambah)){
                 dialogInterface, p1 ->
@@ -286,7 +289,7 @@ class DetailHutangActivity : AppCompatActivity() {
                             alertJumlah,
                             keterangan,
                             statusOption,
-                            typeJenis.toString()
+                            typeJenis!!
                         )
                         when(statusOption){
                             getString(R.string.dikurangi) -> {
@@ -301,7 +304,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     var bayar = activityDibayar + alertJumlah
                                     Log.d(TAG, "BAYAR $bayar")
                                     pembayaranViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, getString(R.string.lunas), simpleDateFormat.toString(), bayar)
+                                    viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(binding.clRootContent, getString(R.string.berhasil_dilunasi)+" "+ getString(R.string.dolar) +" "+ dateFormat.format(alertJumlah), Snackbar.LENGTH_SHORT).show()
                                     },700)
@@ -313,7 +316,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 }else {
                                     var bayar = activityDibayar + alertJumlah
                                     pembayaranViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, getString(R.string.belum_lunas), "-", bayar)
+                                    viewModel.updateDataJumlah(total, fromUid, false, "-", bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
                                             binding.clRootContent,
@@ -326,7 +329,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 var total = activityJumlah + alertJumlah
                                 Log.d(TAG, "TOTAL DITAMBAH $total")
                                 pembayaranViewModel.insertData(dataBayar)
-                                viewModel.updateDataJumlah(total, fromUid, getString(R.string.belum_lunas), "-", activityDibayar)
+                                viewModel.updateDataJumlah(total, fromUid, false, "-", activityDibayar)
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     Snackbar.make(
                                         binding.clRootContent,
@@ -341,7 +344,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 if(total == 0){
                                     var bayar = activityDibayar + alertJumlah
                                     pembayaranViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, getString(R.string.lunas), simpleDateFormat.toString(), bayar)
+                                    viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
                                             binding.clRootContent,
@@ -391,37 +394,27 @@ class DetailHutangActivity : AppCompatActivity() {
                 }
             }
             override fun afterTextChanged(p0: Editable?) {
-                when(optionsString){
-                    getString(R.string.ditambah)->{
-                        if (p0!!.length > 9){
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-                        }else if(p0.startsWith("-")){
-                            alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_diawali_nilai_negative)
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(0))
-                        }else if (p0.startsWith("0")){
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(1))
-                        }else {
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.masukkan_jumlah_nominal)
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(9))
-                        }
-                    }
-                    getString(R.string.lunas)->{
-                    }
-                    getString(R.string.dikurangi)->{
-                        if (p0!!.length >= 9){
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-                        }else if(p0!!.startsWith("-")){
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(0))
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.nominal_tidak_boleh_diawali_nilai_negative)
-                        }else if(p0.startsWith("0")){
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(1))
-                        }else if(p0.length >= 9){
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-                        }else{
-                            alertBinding.etJumlahAlert.helperText = getString(R.string.masukkan_jumlah_nominal)
-                            p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(9))
-                        }
-                    }
+                if(p0!!.length >= 9){
+                    alertBinding.etJumlahAlert.helperText = getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
+                    p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(9))
+                }else if (p0.startsWith("-")){
+                    alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_diawali_nilai_negative)
+                    p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(0))
+                }else if(p0.startsWith("0")){
+                    alertBinding.etJumlahAlert.helperText = getString(R.string.tidak_boleh_diawali_dengan_0)
+                    p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(1))
+                }else if(p0.startsWith(" ")){
+                    alertBinding.etJumlahAlert.error = getString(R.string.tidak_boleh_diawali_dengan_nilai_kosong)
+                    p0.filters = arrayOf(InputFilter.LengthFilter(0))
+                }else if(p0.startsWith(".")){
+                    alertBinding.etJumlahAlert.error = getString(R.string.masukkan_nilai_dengan_benar)
+                    p0.filters = arrayOf(InputFilter.LengthFilter(0))
+                }else if(p0.startsWith(",")){
+                    alertBinding.etJumlahAlert.error = getString(R.string.masukkan_nilai_dengan_benar)
+                    p0.filters = arrayOf(InputFilter.LengthFilter(0))
+                } else {
+                    p0.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(9))
+                    alertBinding.etJumlahAlert.helperText = getString(R.string.masukkan_jumlah_nominal)
                 }
             }
         })
@@ -432,7 +425,10 @@ class DetailHutangActivity : AppCompatActivity() {
             if (WindowFragmentLunas.STAY_LUNAS == 1){
                 WindowFragmentLunas.STAY_LUNAS = 0
                 startActivity(Intent(this, LunasActivity::class.java))
-            }else{
+            }else if(STAY_MAIN_MENU == 101){
+                STAY_MAIN_MENU = 100
+                startActivity(Intent(this, MainActivity::class.java))
+            } else{
                 val intent = Intent(this, HutangActivity::class.java)
                 intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, jenis)
                 startActivity(intent)
@@ -671,7 +667,8 @@ class DetailHutangActivity : AppCompatActivity() {
             Log.d(TAG, " OBSERVER COOOOOOOOOKKKK  $it")
             with(binding){
                 if (it != null){
-                    jenis = it.jenis
+                    val jenisPinjaman = if (!it.jenisPinjaman) getString(R.string.hutang) else getString(R.string.piutang)
+                    jenis = jenisPinjaman
                     Glide.with(this@DetailHutangActivity).load("").apply(option).into(ivAvatar)
                     titleToolbarText.text = it.username
                     activityJumlah = it.jumlah
@@ -680,8 +677,9 @@ class DetailHutangActivity : AppCompatActivity() {
                     content.tvNama.text = it.username
                     content.tvTanggalDibuat.text = it.diBuat
                     content.tvDescription.text = it.deskripsi
-                    content.tvGender.text = it.gender
+                    content.tvGender.text = it.genderUser
                     content.tvJumlah.text = getString(R.string.dolar)+ ". " + decimalFormat.format(it.jumlah)
+                    content.tvJumlahStatus.text = getString(R.string.jumlah) + " " +jenisPinjaman
                     if (it.jumlah.toInt() == 0){
                         binding.content.ivVerification.visibility = View.VISIBLE
                         binding.content.ivVerificationIcon.visibility = View.VISIBLE
@@ -715,6 +713,7 @@ class DetailHutangActivity : AppCompatActivity() {
 
         private val mLowerLimitTransparently = ABROAD * 0.45
         private val mUpperLimitTransparently = ABROAD * 0.65
+        var STAY_MAIN_MENU = 100
 
         val decimalFormat = DecimalFormat("##,###,###")
     }

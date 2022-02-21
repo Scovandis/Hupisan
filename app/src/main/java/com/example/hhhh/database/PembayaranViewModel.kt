@@ -27,4 +27,8 @@ class PembayaranViewModel (app: Application): AndroidViewModel(app){
     fun getDataPembayaranFromUid(uid: Int): LiveData<List<DataPembayaranModel>>{
         return repository.getDataPembayaran(uid)
     }
+
+    fun deleteDataFormUid(uid: Int)=viewModelScope.launch (Dispatchers.IO) {
+        repository.deleteDataFromUid(uid)
+    }
 }

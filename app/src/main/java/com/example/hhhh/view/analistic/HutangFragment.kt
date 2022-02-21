@@ -25,6 +25,7 @@ class HutangFragment : Fragment() {
     var jumlah_minggu_dipinjam = 0
     var jumlah_bulan_dipinjam = 0
     var jumlah_tahun_dipinjam = 0
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
@@ -64,7 +65,7 @@ class HutangFragment : Fragment() {
             val oneYearAgo = year.time
             Log.d(TAG, "ONE YEAR AGO $oneYearAgo")
 
-            viewModel.getAllDataWhereStatusData(getString(R.string.belum_lunas), getString(R.string.hutang)).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            viewModel.getAllDataWhereStatusData(statusData = false, jenis = false).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
                 for (i in it){
                     val perserI = SimpleDateFormat("dd/MM/yyyy")
                     val tgl_dibuat = formatter.format(perserI.parse("${i.diBuat}")).replace("/", "").trim().toInt()
@@ -146,30 +147,6 @@ class HutangFragment : Fragment() {
                 Color.parseColor("#29B6F6")
             )
         )
-//        binding.piechart.addPieSlice(
-//            PieModel(
-//                getString(R.string.hari_dipinjam), jumlah_hari_dipinjam.toFloat(),
-//                Color.parseColor("#fcf000")
-//            )
-//        )
-//        binding.piechart.addPieSlice(
-//            PieModel(
-//                getString(R.string.minggu_dipinjam), jumlah_minggu_dipinjam.toFloat(),
-//                Color.parseColor("#42ff00")
-//            )
-//        )
-//        binding.piechart.addPieSlice(
-//            PieModel(
-//                getString(R.string.bulan_dipinjam), jumlah_bulan_dipinjam.toFloat(),
-//                Color.parseColor("#ff1106")
-//            )
-//        )
-//        binding.piechart.addPieSlice(
-//            PieModel(
-//                getString(R.string.tahun_dipinjam), jumlah_tahun_dipinjam.toFloat(),
-//                Color.parseColor("#2afbff")
-//            )
-//        )
         binding.piechart.startAnimation()
     }
 

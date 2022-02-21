@@ -28,8 +28,8 @@
     <string name="xavier">xavier</string>
     <string name="laki_laki">Laki-Laki</string>
     <string name="perempuan">Perempuan</string>
-    <string name="kosong">Kosong</string>
-    <string name="kosongkan">Kosongkan</string>
+    <string name="kosong">Lainnya</string>
+    <string name="kosongkan">Lainnya</string>
     <string name="gender">Gender</string>
     <string name="dolar">Rp</string>
     <string name="masukkan_jumlah_nominal">Masukkan Jumlah Nominal</string>
@@ -185,11 +185,31 @@
     <string name="pref_file_key">pref file key</string>
     <string name="pref_is_user_login">pref is user login</string>
     <string name="language">idn</string>
+
     <string name="indonesia">Indonesia</string>
     <string name="english">English</string>
     <string name="thailand">Thailand</string>
+
     <string name="ubah">ubah</string>
     <string name="Pengaturan">Pengaturan</string>
-    <string name="trems_and_conditions">Terms and Conditions</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="trems_and_conditions">Syarat dan ketentuan</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="arisan">Arisan</string>
+    <string name="cari">cari</string>
+    <string name="member">Member</string>
+    <string name="_98">98</string>
+    <string name="hadiah">Hadiah</string>
+    <string name="group_name">Nama group</string>
+    <string name="prize_poll">Total hadiah</string>
+    <string name="paymet_amount">Paymet Amount</string>
+    <string name="member_name">Member Name</string>
+    <string name="anggota">Anggota</string>
+    <string name="nama_tidak_boleh_diawali_dengan_space">Nama tidak boleh di awali dengan space</string>
+    <string name="group_berhasil_dibuat">Group berhasil di buat</string>
+    <string name="masukkan_nama_memeber">Masukkan nama anggota</string>
+    <string name="minimal_3_anggota_untuk_memulai">minimal 3 anggota untuk memulai</string>
+    <string name="masukan_ini_terlebih_dahulu">masukkan bagian ini terlebih dahulu</string>
+    <string name="anggota_berhasil_di_tambahkan">Anggota berhasil di tambahkan</string>
+    <string name="nominal">Nominal</string>
+    <string name="group">group</string>
 </resources>

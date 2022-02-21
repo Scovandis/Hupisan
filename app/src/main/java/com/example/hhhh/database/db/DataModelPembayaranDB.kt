@@ -24,7 +24,6 @@ abstract class DataModelPembayaranDB: RoomDatabase(){
 
         @Volatile
         private var INSTANCE: DataModelPembayaranDB? = null
-//        Environment.getExternalStorageDirectory().absolutePath
         fun getDataBase(context: Context): DataModelPembayaranDB{
             return INSTANCE ?: synchronized(this){
                 val instance = Room.databaseBuilder(

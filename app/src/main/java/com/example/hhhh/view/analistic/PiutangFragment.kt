@@ -68,7 +68,7 @@ class PiutangFragment : Fragment() {
         val oneYearAgo = year.time
         Log.d(TAG, "ONE YEAR AGO $oneYearAgo")
 
-        viewModel.getAllDataWhereStatusData(getString(R.string.belum_lunas), getString(R.string.piutang)).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+        viewModel.getAllDataWhereStatusData(false, true).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             for (i in it){
                 val perserI = SimpleDateFormat("dd/MM/yyyy")
                 val tgl_dibuat = formatter.format(perserI.parse("${i.diBuat}")).replace("/", "").trim().toInt()

@@ -25,7 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/linear1">
-
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -343,6 +342,7 @@
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:text="@string/simpan"
+        app:cornerRadius="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="@id/cardView_tanggal"
         app:layout_constraintStart_toStartOf="@id/cardView_tanggal"
         app:layout_constraintTop_toBottomOf="@+id/radio_group" />

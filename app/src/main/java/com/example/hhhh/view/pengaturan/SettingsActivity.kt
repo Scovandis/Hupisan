@@ -3,6 +3,7 @@ package com.example.hhhh.view.pengaturan
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -15,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.hhhh.BuildConfig
 import com.example.hhhh.R
 import com.example.hhhh.databinding.ActivitySettingsBinding
 import com.example.hhhh.databinding.AlertLanguageBinding
@@ -27,6 +29,9 @@ class SettingsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingsBinding
     private lateinit var appsConfig: AppsConfig
 
+    val versionCode = BuildConfig.VERSION_CODE
+    val versionName = BuildConfig.VERSION_NAME
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
@@ -34,7 +39,9 @@ class SettingsActivity : AppCompatActivity() {
 
         appsConfig = AppsConfig()
         appsConfig.AppsConfig(this)
+        binding.tvAppVersion.text = getString(R.string.app_version) +" " +  versionName
         setActionView()
+
         binding.progressbar.visibility = View.GONE
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.Pengaturan)
@@ -42,7 +49,6 @@ class SettingsActivity : AppCompatActivity() {
             supportActionBar!!.setDisplayHomeAsUpEnabled(false)
             supportActionBar!!.title = ""
         }
-
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
@@ -67,22 +73,12 @@ class SettingsActivity : AppCompatActivity() {
             transaction.commit()
         }
     }
-
-//    override fun onBackPressed() {
-//        if(supportFragmentManager.backStackEntryCount == 1){
-//            finish()
-//        }else {
-//            super.onBackPressed()
-//        }
-//
-//    }
     private fun setActionView(){
-//        if (binding.switchOnTheme.isChecked){
-//            application.setTheme(R.style.LightTheme)
-//        }else {
-//            application.setTheme(R.style.DarkTheme)
-//        }
 
+        binding.relative5.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/Dxy404"))
+            startActivity(browserIntent)
+        }
         binding.relative2.setOnClickListener {
             showAlertDialog()
         }

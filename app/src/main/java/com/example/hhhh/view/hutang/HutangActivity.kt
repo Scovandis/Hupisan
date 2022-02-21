@@ -22,6 +22,7 @@ import android.os.Build
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
+import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AlertDialog
 
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,7 @@ import com.google.android.material.snackbar.Snackbar
 
 import com.example.hhhh.util.SwipeToDeleteCallback
 import com.example.hhhh.view.hutang.adapter.onButtonClicked
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 
 class HutangActivity : AppCompatActivity(), onButtonClicked{
@@ -96,8 +98,8 @@ class HutangActivity : AppCompatActivity(), onButtonClicked{
                 hAdapter = HutangAdapter(this@HutangActivity, this)
                 when (typeJenis) {
                     getString(R.string.hutang) -> { viewModel.getAllDataWhereStatusData(
-                            getString(R.string.belum_lunas),
-                            getString(R.string.hutang)
+                        statusData = false, // false ini bernilai belum lunas, sementara true bernilai lunas
+                        jenis = false// false ini bernilai hutang, sementara true bernilai piutang
                         ).observe(this, Observer {
                             if (it.isEmpty()) {
                                 binding.rvHutang.visibility = View.GONE
@@ -114,8 +116,8 @@ class HutangActivity : AppCompatActivity(), onButtonClicked{
                     }
                     getString(R.string.piutang) -> {
                         viewModel.getAllDataWhereStatusData(
-                            getString(R.string.belum_lunas),
-                            getString(R.string.piutang)
+                            statusData = false,
+                            jenis = true
                         ).observe(this, Observer {
                             if (it.isEmpty()) {
                                 binding.rvHutang.visibility = View.GONE
@@ -172,7 +174,8 @@ class HutangActivity : AppCompatActivity(), onButtonClicked{
                 if (etEdit.toString() != judul){
                     Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
                 }else {
-                    viewModel.deleteAllDataWhere(typeJenis.toString(), getString(R.string.belum_lunas))
+                    val jenis: Boolean = !typeJenis.equals(getString(R.string.hutang))
+                    viewModel.deleteAllDataWhere(jenis, false)
                     Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
                 }
             },700)
@@ -272,9 +275,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked{
                         getString(R.string.item_telah_di_hapus_dari_daftar),
                         Snackbar.LENGTH_LONG
                     )
-                snackbar.setAction(getString(R.string.urungkan)) {
-                    viewModel.insertData(item)
-                }
+                viewModelPembayaran.deleteDataFormUid(item.id)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     snackbar.setActionTextColor(getColor(R.color.purple_500))
                 }else{

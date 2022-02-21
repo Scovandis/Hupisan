@@ -5,15 +5,23 @@
     android:layout_height="wrap_content"
     android:clipChildren="false"
     android:clipToPadding="false"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true"
     android:elevation="@dimen/_3sdp"
     app:cardCornerRadius="@dimen/_5sdp"
     app:cardElevation="@dimen/_2sdp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true">
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <View
+            app:layout_constraintTop_toTopOf="@id/imv_random_color"
+            app:layout_constraintBottom_toBottomOf="@id/imv_random_color"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/bg_anchor_primary"
+            android:layout_width="@dimen/_3sdp"
+            android:layout_height="@dimen/_35sdp"/>
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imv_random_color"
             app:layout_constraintTop_toTopOf="@id/linear1"
@@ -61,13 +69,10 @@
                 android:textStyle="bold"/>
 
             <TextView
-                android:layout_marginTop="@dimen/_2sdp"
                 android:id="@+id/tv_dibuat_pada"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/_12_22_2021"
-
-                android:textColor="@color/black"
                 android:textStyle="italic"
                 />
 
@@ -78,8 +83,6 @@
                 android:ellipsize="end"
                 android:maxLines="2"
                 android:text="@string/_intro_deskription"
-                android:textStyle="normal"
-                android:textSize="@dimen/_14sdp"
                 />
 
             <TextView
@@ -87,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:textSize="@dimen/_14sdp"
+                android:textSize="@dimen/_12sdp"
                 android:maxLines="1"
                 android:text="@string/_rp_3000_000"
                 android:textStyle="bold" />
@@ -104,7 +107,8 @@
             android:insetRight="0dp"
             android:insetBottom="0dp"
             android:padding="0dp"
-            android:layout_margin="@dimen/_4sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             app:icon="@drawable/ic_notifications_active_black_24dp"
             app:iconGravity="textStart"
             app:iconPadding="0dp"

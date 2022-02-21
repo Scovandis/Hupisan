@@ -21,5 +21,5 @@ data class DataPembayaranModel(
     @ColumnInfo(name = "ditambah_atau_dikurangi")
     var diTambahAtaudiKurangi: String, //ini adalah option status di tambah atau di kurangi
     @ColumnInfo(name = "type_jenis")//ini type jesnis dari status penghutang atau hutang
-    var typeJenis: String
+    var typeJenis: Boolean
 )

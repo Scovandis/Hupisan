@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.arisan.AddMemberActivity"
+        >
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_65sdp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="@dimen/_3sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_2sdp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_16sdp"
+                    android:text="@string/anggota"
+                    />
+                <LinearLayout
+                    android:id="@+id/linearlayout_member"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content"
+                    >
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+                        <com.google.android.material.textfield.TextInputLayout
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/btn_add_member"
+                            android:id="@+id/et_memeber_name1"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/member_name"
+                            android:maxLines="1"
+                            android:textStyle="normal"
+                            app:boxBackgroundColor="@android:color/transparent"
+                            app:counterEnabled="true"
+                            app:counterMaxLength="20"
+                            app:errorEnabled="true"
+                            >
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLength="20" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <ImageButton
+                            android:id="@+id/btn_add_member"
+                            android:layout_width="@dimen/_45sdp"
+                            app:layout_constraintStart_toEndOf="@id/et_memeber_name1"
+                            android:layout_height="@dimen/_45sdp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_margin="@dimen/_8sdp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:background="@drawable/add_member"
+                            android:src="@drawable/ic_baseline_add_white_24"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:gravity="center_horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_2sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:orientation="horizontal"
+                        >
+                        <TextView
+                            android:paddingStart="@dimen/_2sdp"
+                            android:text="@string/bayar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switch_on_pay"
+                            android:layout_width="wrap_content"
+                            app:trackTint="@color/switch_track_selector"
+                            app:thumbTint="@color/switch_thumb_selector"
+                            android:layout_height="wrap_content"
+                            android:switchMinWidth="56dp"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:textOff="@string/off"
+                            android:textOn="@string/on"
+                            app:layout_constraintBottom_toBottomOf="@id/linearDate"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/linearDate" />
+
+                        <RadioGroup
+                            android:id="@+id/radio_group1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rb_gender_laki1"
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/radio_flat_selector"
+                                android:button="@android:color/transparent"
+                                android:checked="true"
+                                android:gravity="center"
+                                android:text="@string/laki_laki"
+                                android:textColor="@color/color_flat_text_selector" />
+
+                            <RadioButton
+                                android:id="@+id/rb_gender_perempuan1"
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/radio_flat_selector"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/perempuan"
+                                android:textColor="@color/color_flat_text_selector" />
+
+                            <RadioButton
+                                android:id="@+id/rb_gender_lainnya1"
+                                android:layout_width="@dimen/_70sdp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/radio_flat_selector"
+                                android:button="@android:color/transparent"
+                                android:gravity="center"
+                                android:text="@string/lainnya"
+                                android:textColor="@color/color_flat_text_selector" />
+                        </RadioGroup>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_username"
+        app:layout_constraintTop_toBottomOf="@id/cardView1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="@dimen/_8sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_simpan_member"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:text="@string/simpan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="@dimen/_22sdp"
+            app:cornerRadius="@dimen/_5sdp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>

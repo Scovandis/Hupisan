@@ -32,7 +32,7 @@ open class DataViewModel(app : Application): AndroidViewModel(app) {
         repository.insert(data)
     }
 
-    fun updateDataJumlah(jumlah: Int, uidFrom: Int, statusData: String, tanggal_lunas: String, dibayar: Int) = viewModelScope.launch (Dispatchers.IO){
+    fun updateDataJumlah(jumlah: Int, uidFrom: Int, statusData: Boolean, tanggal_lunas: String, dibayar: Int) = viewModelScope.launch (Dispatchers.IO){
         repository.updateJumlah(jumlah, uidFrom, statusData, tanggal_lunas, dibayar)
     }
 
@@ -40,7 +40,7 @@ open class DataViewModel(app : Application): AndroidViewModel(app) {
         return repository.getDataWhereUid(uid)
     }
 
-    fun getAllDataWhereStatusData(statusData: String, jenis: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereStatusData(statusData: Boolean, jenis: Boolean): LiveData<List<DataModel>>{
         return repository.getAllDataWhereStatusData(statusData, jenis)
     }
 
@@ -48,17 +48,17 @@ open class DataViewModel(app : Application): AndroidViewModel(app) {
         return repository.getAllDataFromDate(tanggalDibuat)
     }
 
-    fun loadDataLimit(statusData: String): LiveData<List<DataModel>>{
+    fun loadDataLimit(statusData: Boolean): LiveData<List<DataModel>>{
         return repository.loadDataLimit(statusData)
     }
-    fun deleteAllDataWhere(jenis: String, statusData: String) = viewModelScope.launch (Dispatchers.IO){
+    fun deleteAllDataWhere(jenis: Boolean, statusData: Boolean) = viewModelScope.launch (Dispatchers.IO){
         repository.deleteAllDataWhere(jenis, statusData)
     }
 
-    fun getAllDataWhereStatusLunas(statusData: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereStatusLunas(statusData: Boolean): LiveData<List<DataModel>>{
         return repository.getAllDataWhereStatusLunas(statusData)
     }
-    fun getAllDataWhereJenis(jenis: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereJenis(jenis: Boolean): LiveData<List<DataModel>>{
         return repository.getAllDataWhereJenis(jenis)
     }
 }

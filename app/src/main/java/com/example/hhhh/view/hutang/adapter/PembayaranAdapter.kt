@@ -42,14 +42,13 @@ class PembayaranAdapter(val context: Context) : RecyclerView.Adapter<PembayaranA
 
                 when(item.diTambahAtaudiKurangi){
                     context.getString(R.string.dikurangi) -> {
-
                         when(item.typeJenis){
-                            context.getString(R.string.hutang) -> {
+                            false -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.RED)
                                 ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrow_keluar))
                                 ivStatus.setColorFilter(Color.RED)
                             }
-                            context.getString(R.string.piutang) -> {
+                            true -> {
                                 //piutang
                                 tvBankRiwayatPembayaran.setTextColor(Color.GREEN)
                                 ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrouw_masuk))
@@ -63,12 +62,12 @@ class PembayaranAdapter(val context: Context) : RecyclerView.Adapter<PembayaranA
                     }
                     context.getString(R.string.ditambah) -> {
                         when(item.typeJenis){
-                            context.getString(R.string.hutang) -> {
+                            false -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.GREEN)
                                 ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrouw_masuk))
                                 ivStatus.setColorFilter(Color.GREEN)
                             }
-                            context.getString(R.string.piutang) -> {
+                            true -> {
                                 //piutang
                                 tvBankRiwayatPembayaran.setTextColor(Color.RED)
                                 ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrow_keluar))

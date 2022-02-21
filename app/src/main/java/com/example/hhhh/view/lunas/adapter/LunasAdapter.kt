@@ -35,17 +35,19 @@ class LunasAdapter(val context: Context): RecyclerView.Adapter<LunasAdapter.View
     }
     inner class ViewHolder(val binding: RowLunasBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(data: DataModel){
+            val jenis = if (!data.jenisPinjaman) context.getString(R.string.hutang) else context.getString(R.string.piutang)
+            val status = if(data.statusDataSelesai) context.getString(R.string.lunas) else context.getString(R.string.belum_lunas)
             with(binding){
-                tvStatus.text = "  :  " +data.statusData
+                tvStatus.text = "  :  $status"
                 tvTanggalDibuat.text = "  :  " +data.diBuat
                 tvUsername.text = data.username
                 tvTanggalSelesai.text = "  :  " +data.tanggal_lunas
-                tvJenis.text = "  :  " + data.jenis
+                tvJenis.text = "  :  $jenis"
 
                 imvRandomColor.background = getRandomDrawbleColor()
 
                 imgSrcBgGender.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                    when(data.gender){
+                    when(data.genderUser){
                         context.getString(R.string.laki_laki) -> {
                             imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
                         }
@@ -72,7 +74,7 @@ class LunasAdapter(val context: Context): RecyclerView.Adapter<LunasAdapter.View
             WindowFragmentLunas.STAY_LUNAS = 1
             val intent = Intent(context, DetailHutangActivity::class.java)
             intent.putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
-            intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenis)
+            intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
             context.startActivity(intent)
         }
     }

@@ -27,23 +27,23 @@ interface DataDao {
     fun getDataWhereUid(id: Int): LiveData<DataModel>
 
     @Query("UPDATE data_model SET jumlah = :jumlah, statusData = :statusData, tanggal_lunas = :tanggal_lunas, dibayar = :dibayar WHERE model_id = :id")
-    suspend fun updateDataJumlah(jumlah: Int, id: Int, statusData: String, tanggal_lunas: String, dibayar: Int)
+    suspend fun updateDataJumlah(jumlah: Int, id: Int, statusData: Boolean, tanggal_lunas: String, dibayar: Int)
 
     @Query("SELECT * FROM data_model WHERE statusData = :statusData ORDER BY model_id DESC")
-    fun getAllDataWhereStatusLunas(statusData: String): LiveData<List<DataModel>>
+    fun getAllDataWhereStatusLunas(statusData: Boolean): LiveData<List<DataModel>>
 
     @Query("SELECT * FROM data_model WHERE statusData = :statusData and jenis = :jenis")
-    fun getAllDataWhereStatusData(statusData: String, jenis: String): LiveData<List<DataModel>>
+    fun getAllDataWhereStatusData(statusData: Boolean, jenis: Boolean): LiveData<List<DataModel>>
 
     @Query("SELECT * FROM data_model WHERE diBuat = :tanggalDibuat")
     fun getAllDataNewFromDate(tanggalDibuat: String): LiveData<List<DataModel>>
 
     @Query("SELECT * FROM data_model WHERE statusData = :statusData ORDER BY model_id DESC LIMIT :limit")
-    fun loadDataWhereLimit(statusData: String, limit: Int): LiveData<List<DataModel>>
+    fun loadDataWhereLimit(statusData: Boolean, limit: Int): LiveData<List<DataModel>>
 
     @Query("SELECT * FROM data_model WHERE jenis = :jenis")
-    fun getAllDataWhereJenis(jenis: String): LiveData<List<DataModel>>
+    fun getAllDataWhereJenis(jenis: Boolean): LiveData<List<DataModel>>
 
     @Query("DELETE FROM data_model WHERE jenis = :jenis and statusData = :statusData")
-    fun deleteAllData(jenis: String, statusData: String)
+    fun deleteAllData(jenis: Boolean, statusData: Boolean)
 }

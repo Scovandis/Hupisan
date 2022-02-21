@@ -20,7 +20,7 @@ class DataRepository(private val dataDao: DataDao) {
     suspend fun update(data: DataModel){
         dataDao.updateData(data)
     }
-    suspend fun updateJumlah(jumlah: Int, idFrom: Int, statusData: String, tanggal_lunas:String, dibayar: Int){
+    suspend fun updateJumlah(jumlah: Int, idFrom: Int, statusData: Boolean, tanggal_lunas:String, dibayar: Int){
         dataDao.updateDataJumlah(jumlah, idFrom, statusData, tanggal_lunas, dibayar)
     }
 
@@ -28,7 +28,7 @@ class DataRepository(private val dataDao: DataDao) {
         return dataDao.getDataWhereUid(uid)
     }
 
-    fun getAllDataWhereStatusData(statusData: String, jenis: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereStatusData(statusData: Boolean, jenis: Boolean): LiveData<List<DataModel>>{
         return dataDao.getAllDataWhereStatusData(statusData, jenis)
     }
 
@@ -36,16 +36,16 @@ class DataRepository(private val dataDao: DataDao) {
         return dataDao.getAllDataNewFromDate(tanggalDibuat)
     }
 
-    fun loadDataLimit(statusData: String): LiveData<List<DataModel>>{
+    fun loadDataLimit(statusData: Boolean): LiveData<List<DataModel>>{
         return dataDao.loadDataWhereLimit(statusData, 12)
     }
-    fun deleteAllDataWhere(jenis: String, statusData: String){
+    fun deleteAllDataWhere(jenis: Boolean, statusData: Boolean){
         dataDao.deleteAllData(jenis, statusData)
     }
-    fun getAllDataWhereStatusLunas(status: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereStatusLunas(status: Boolean): LiveData<List<DataModel>>{
         return dataDao.getAllDataWhereStatusLunas(status)
     }
-    fun getAllDataWhereJenis(jenis: String): LiveData<List<DataModel>>{
+    fun getAllDataWhereJenis(jenis: Boolean): LiveData<List<DataModel>>{
         return dataDao.getAllDataWhereJenis(jenis)
     }
 

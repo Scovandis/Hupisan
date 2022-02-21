@@ -15,4 +15,7 @@ class DataPembayaranRepository (private val fromDao: DataPembayaranDao){
     fun getDataPembayaran(uid: Int): LiveData<List<DataPembayaranModel>>{
         return fromDao.getDataWhereUid(uid)
     }
+    fun deleteDataFromUid(uid: Int){
+        fromDao.deleteDataFromUid(uid)
+    }
 }

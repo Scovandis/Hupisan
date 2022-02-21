@@ -56,7 +56,6 @@ class SplashScreenActivity : AppCompatActivity() {
         if (nLanguage != null){
             loadLanguage(false)
         }
-//        loadLanguage(false)
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
             Snackbar.make(binding.constraint, getString(R.string.izin_diberikan), Snackbar.LENGTH_SHORT).show()
@@ -71,7 +70,8 @@ class SplashScreenActivity : AppCompatActivity() {
         Dexter.withContext(this)
             .withPermissions(
                 Manifest.permission.WRITE_CALENDAR,
-                Manifest.permission.READ_EXTERNAL_STORAGE
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.RECEIVE_BOOT_COMPLETED
             )
             .withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
@@ -174,9 +174,6 @@ class SplashScreenActivity : AppCompatActivity() {
                     .putBoolean("isFirstRun", false).apply()
                 dialogInterface.cancel()
             }
-            dialogBuilder.setNegativeButton(getString(R.string.kembali)){
-                    dialogInterface, p0 -> dialogInterface.dismiss()
-            }
             val alertDialog = dialogBuilder.create()
         alertDialog.setOnShowListener {
             alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#FF6200EE"))
@@ -194,21 +191,20 @@ class SplashScreenActivity : AppCompatActivity() {
             }else if(lang.equals("Thailand")){
                 lang = "tpi"
             }
-//            val locale = Locale(lang)
-//            Locale.setDefault(locale)
-//            val config = Configuration()
-            val myLocale = Locale(lang)
-            val res: Resources = resources
-            val dm: DisplayMetrics = res.getDisplayMetrics()
-            val conf: Configuration = res.getConfiguration()
-            conf.locale = myLocale
-            res.updateConfiguration(conf, dm)
-            val refresh = Intent(this, MainActivity::class.java)
-            finish()
-            startActivity(refresh)
-
-//            config.locale = locale
-//            baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+            val locale = Locale(lang)
+            Locale.setDefault(locale)
+            val config = Configuration()
+            config.locale = locale
+            baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
+//            val myLocale = Locale(lang)
+//            val res: Resources = resources
+//            val dm: DisplayMetrics = res.getDisplayMetrics()
+//            val conf: Configuration = res.getConfiguration()
+//            conf.locale = myLocale
+//            res.updateConfiguration(conf, dm)
+//            val refresh = Intent(this, MainActivity::class.java)
+//            finish()
+//            startActivity(refresh)
         }else {
             var language = appsConfig.getRegionLanguage()
             Log.d(TAG, "LANGUAGE getRegion $language")
@@ -216,9 +212,9 @@ class SplashScreenActivity : AppCompatActivity() {
             if(language.equals("English")){
                 language ="en"
             }else if (language.equals("Indonesia")){
-                language = "idn"
+                language = "in"
             }else if(language.equals("Thailand")){
-                language = "th"
+                language = "tpi"
             }
 
             val locale = Locale(language)

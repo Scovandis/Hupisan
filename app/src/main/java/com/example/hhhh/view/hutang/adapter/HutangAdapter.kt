@@ -1,33 +1,36 @@
 package com.example.hhhh.view.hutang.adapter
 
+
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
-import android.view.View
+
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.hhhh.R
 import com.example.hhhh.database.entity.DataModel
 import com.example.hhhh.databinding.RowItemBinding
 import com.example.hhhh.view.hutang.DetailHutangActivity
 import java.text.DecimalFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import android.content.DialogInterface
+import android.view.animation.AnimationUtils
+import com.example.hhhh.R
 
-import com.example.hhhh.view.main.MainActivity
-
-
-
+import com.example.hhhh.view.hutang.HutangActivity
 
 
-class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) : RecyclerView.Adapter<HutangAdapter.ViewHolder>() {
+
+
+
+
+
+class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) : RecyclerView.Adapter<HutangAdapter.ViewHolder>(){
     var list = ArrayList<DataModel>()
-
+    var lastPosition = -1
 
     var isNotif: Boolean = true
 
@@ -45,10 +48,6 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
         notifyItemRemoved(position)
     }
 
-    fun restoreItem(data: DataModel, position: Int) {
-        list.addAll(position, listOf(data))
-        notifyItemInserted(position)
-    }
 
     private val vibrantLightColorList = arrayOf(
         ColorDrawable(Color.parseColor("#9ACCCD")), ColorDrawable(Color.parseColor("#8FD8A0")),
@@ -74,7 +73,7 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
                 imvRandomColor.background = getRandomDrawbleColor()
 
                 imgSrcBgGender.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                when(data.gender){
+                when(data.genderUser){
                     context.getString(R.string.laki_laki) -> {
                         imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
                     }
@@ -108,21 +107,38 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
             }
         }
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = RowItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
+    fun remove(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
+    fun add(data: DataModel, position: Int) {
+        list.add(position, data)
+        notifyItemInserted(position)
+    }
+
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        super.onViewDetachedFromWindow(holder)
+        holder.itemView.clearAnimation()
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailHutangActivity::class.java)
             intent.putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
-            intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenis)
+            intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
             context.startActivity(intent)
         }
+        val animation = AnimationUtils.loadAnimation(
+            holder.itemView.context,
+            android.R.anim.slide_in_left
+        )
+        holder.itemView.startAnimation(animation)
     }
 
     override fun getItemCount() = list.size

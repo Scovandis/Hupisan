@@ -28,8 +28,8 @@
     <string name="xavier">xavier</string>
     <string name="laki_laki">ชาย</string>
     <string name="perempuan">หญิง</string>
-    <string name="kosong">ว่างเปล่า</string>
-    <string name="kosongkan">ว่างเปล่า</string>
+    <string name="kosong">คนอื่น</string>
+    <string name="kosongkan">คนอื่น</string>
     <string name="gender">เพศ</string>
     <string name="dolar">฿</string>
     <string name="masukkan_jumlah_nominal">ใส่จำนวนเล็กน้อย</string>
@@ -194,7 +194,25 @@
     <string name="ubah">แก้ไข</string>
     <string name="Pengaturan">การตั้งค่า</string>
 
-    <string name="trems_and_conditions">Terms and Conditions</string>
-    <string name="privacy_policy">Privacy Policy</string>
+    <string name="trems_and_conditions">ข้อกำหนดและเงื่อนไข</string>
+    <string name="privacy_policy">นโยบายความเป็นส่วนตัว</string>
+    <string name="arisan">สโมสรลอตเตอรี</string>
+    <string name="cari">ค้นหา</string>
+    <string name="member">สมาชิก</string>
+    <string name="_98">98</string>
+    <string name="hadiah">รางวัล</string>
+    <string name="group_name">ชื่อกลุ่ม</string>
+    <string name="prize_poll">เงินรางวัล</string>
+    <string name="paymet_amount">จำนวนเงินที่ชำระ</string>
+    <string name="member_name">ชื่อสมาชิก</string>
+    <string name="anggota">สมาชิก</string>
+    <string name="nama_tidak_boleh_diawali_dengan_space">ชื่อไม่สามารถเริ่มต้นด้วยการเว้นวรรค</string>
+    <string name="group_berhasil_dibuat">สร้างกลุ่มแล้ว</string>
+    <string name="masukkan_nama_memeber">ใส่ชื่อสมาชิก</string>
+    <string name="minimal_3_anggota_untuk_memulai">สมาชิกขั้นต่ำ 3 เพื่อเริ่มต้น</string>
+    <string name="masukan_ini_terlebih_dahulu">เข้าส่วนนี้ก่อน</string>
+    <string name="anggota_berhasil_di_tambahkan">เพิ่มสมาชิกสำเร็จแล้ว</string>
+    <string name="nominal">ระบุ</string>
+    <string name="group">กลุ่ม</string>
 
 </resources>

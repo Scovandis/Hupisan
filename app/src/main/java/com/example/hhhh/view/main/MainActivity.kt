@@ -35,13 +35,21 @@ import android.os.SystemClock
 import android.app.PendingIntent
 import android.content.res.Configuration
 import android.net.Uri
+import androidx.activity.result.contract.ActivityResultContracts
 import com.example.hhhh.R
 import androidx.core.app.NotificationCompat
+import com.example.hhhh.database.ArisanGroupViewModel
 import com.example.hhhh.notification.service.MyService
 
 import com.example.hhhh.notification.service.NotificationService
 import com.example.hhhh.util.AppsConfig
+import com.example.hhhh.view.arisan.ArisanActivity
+import com.example.hhhh.view.arisan.FitureArisanActivity
 import com.example.hhhh.view.pengaturan.SettingsActivity
+import android.text.format.DateUtils
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -50,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: DataViewModel
     lateinit var newAdapter: NewAdapter
+    private lateinit var groupVM : ArisanGroupViewModel
 
     lateinit var appsConfig: AppsConfig
 
@@ -69,6 +78,47 @@ class MainActivity : AppCompatActivity() {
         val formattedDate = timeNow.format(parser.parse("2018-12-14T09:55:00"))
         Log.d(TAG, "FORMATEDDATE $formattedDate")
 
+        val c = Calendar.getInstance()
+        val ms = c.get(Calendar.MILLISECOND)
+        Log.d(TAG, "MILLISECOND $ms")
+
+        val rightNow = Calendar.getInstance()
+
+        val myDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date()).toString()
+        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
+        val date = sdf.parse(myDate)
+        val millis = date.time
+        Log.d(TAG, "MILLLISEEECOND $millis")
+        val cal = Calendar.getInstance() //current date and time
+
+        cal.add(Calendar.DAY_OF_MONTH, 1) //add a day
+
+        cal[Calendar.HOUR_OF_DAY] = 23 //set hour to last hour
+
+        cal[Calendar.MINUTE] = 59 //set minutes to last minute
+
+        cal[Calendar.SECOND] = 59 //set seconds to last second
+
+        cal[Calendar.MILLISECOND] = 999 //set milliseconds to last millisecond
+
+        val millis1 = cal.timeInMillis
+        println("MILLIESS $millis1")
+        val currentTime = System.currentTimeMillis()
+        val endOfTomorrow = (currentTime + DateUtils.DAY_IN_MILLIS
+                + (DateUtils.DAY_IN_MILLIS - currentTime % DateUtils.DAY_IN_MILLIS))
+        println("ENDOFTOMOROW $endOfTomorrow")
+
+
+        val offset = (millis + rightNow[Calendar.DST_OFFSET]).toLong()
+        val sinceMid: Long = (rightNow.timeInMillis + offset) % (24 * 60 * 60 * 1000)
+        println("$offset offset")
+        println("RIGHT NOW $rightNow")
+        println("${rightNow[Calendar.ZONE_OFFSET]} righnow zoneoffset")
+        println("${rightNow[Calendar.DST_OFFSET]} righnow zoneoffset")
+
+        println("$sinceMid milliseconds since midnight")
+
+
 
         autoSlider()
         onPageChange()
@@ -82,9 +132,9 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, StatisticActivity::class.java))
         }
         binding.cardViewHutang.setOnClickListener {
-            viewModel.getAllDataWhereStatusData(getString(R.string.belum_lunas),
-                getString(R.string.hutang)).observe(this, Observer {
-                if (it.isEmpty()){ ISNULL =0 }else{ ISNULL =1 }
+            viewModel.getAllDataWhereStatusData(false,
+                false).observe(this, Observer {
+                ISNULL = if (it.isEmpty()){ 0 }else{ 1 }
             })
             val intent = Intent(this, HutangActivity::class.java)
             intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, HUTANG)
@@ -92,17 +142,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.cardViewPiutang.setOnClickListener {
-            viewModel.getAllDataWhereStatusData(getString(R.string.belum_lunas),
-                getString(R.string.piutang)).observe(this, Observer {
-                if (it.isEmpty()){ ISNULL =0 }else{ ISNULL =1 }
+            viewModel.getAllDataWhereStatusData(false,
+                true).observe(this, Observer {
+                ISNULL = if (it.isEmpty()){ 0 }else{ 1 }
             })
             val intent = Intent(this, HutangActivity::class.java)
             intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, PIUTAG)
             startActivity(intent)
         }
 
-        binding.cardViewGames.setOnClickListener {
-            Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
+        binding.cardViewArisan.setOnClickListener {
+            startActivity(Intent(this, FitureArisanActivity::class.java))
         }
         binding.cardViewLunas.setOnClickListener {
             startActivity(Intent(this, LunasActivity::class.java))
@@ -113,9 +163,12 @@ class MainActivity : AppCompatActivity() {
         binding.cardViewTentang.setOnClickListener {
             Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
         }
-
+        binding.cardViewCaraMenggunakan.setOnClickListener {
+            Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
+        }
         newAdapter = NewAdapter(this@MainActivity)
         viewModel = ViewModelProvider(this).get(DataViewModel::class.java)
+        groupVM = ViewModelProvider(this).get(ArisanGroupViewModel::class.java)
         binding.rvNew.visibility = View.GONE
 
         Handler(Looper.getMainLooper()).postDelayed({
@@ -164,32 +217,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setServiceNotifcation(){
-        viewModel.getAllDataWhereStatusLunas(getString(R.string.belum_lunas)).observe(this, Observer {
-            it.forEach {
-                if (it.notif){
-                    Log.d(TAG, "NOTIF BOOLEAN ${it.notif} , from USERNAME ${it.username}")
-
-                    val jam = it.jam_jatuh_tempo.toString().replace("AM", "").replace("PM", "")
-                    val timeTempo = "${it.jatuhTempo} ${jam}"
-                    Log.d(TAG, "JAM JATUH TEMPO $timeTempo")
-
-                    val timeNow = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
-                    val parser =  SimpleDateFormat("dd/MM/yyyy HH:mm")
-                    val format = SimpleDateFormat("dd/MM/yyyy HH:mm")
-                    val formattedDate = format.format(parser.parse(timeTempo))
-                    Log.d(TAG, "PARSE DDDDDDDD $formattedDate")
-                    Log.d(TAG, "TIME NOW $timeNow")
-
-                    if (timeNow.equals(formattedDate)){
-                        val type = it.jenis
-                        val uname = it.username
-                        getNotification("${getString(R.string.ada)} $type ${getString(R.string.yang_harus_dibayar_dari)} $uname")?.let { scheduleNotification(it, 0) }
-                    }
-                }
-            }
-        })
-    }
     private fun onPageChange() {
         binding.viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrolled(
@@ -291,7 +318,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setData() {
-        viewModel.loadDataLimit(getString(R.string.belum_lunas)).observe(this, Observer {
+        viewModel.loadDataLimit(false).observe(this, Observer {
             binding.shimmer1.stopShimmer()
             binding.shimmer1.visibility = View.GONE
             if (it.isEmpty()) {

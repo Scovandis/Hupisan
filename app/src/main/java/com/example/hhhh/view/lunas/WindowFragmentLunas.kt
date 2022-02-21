@@ -66,7 +66,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         super.onPause()
     }
     private fun setDataFirstOpen(){
-        viewModel.getAllDataWhereStatusLunas(getString(R.string.lunas)).observe(viewLifecycleOwner, Observer {
+        viewModel.getAllDataWhereStatusLunas(true).observe(viewLifecycleOwner, Observer {
             binding.shimmer1.stopShimmer()
             binding.shimmer1.visibility = View.GONE
             if (it.isEmpty()){
@@ -102,14 +102,14 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         }
     }
     var jumlah: Int = 0
-    private fun setDataFilter(typeJenis: String){
+    private fun setDataFilter(typeJenis: Boolean){
         binding.rvLunas.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE
         binding.shimmer1.visibility = View.VISIBLE
         binding.shimmer1.startShimmer()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getAllDataWhereStatusData(getString(R.string.lunas), typeJenis).observe(viewLifecycleOwner, Observer {
+            viewModel.getAllDataWhereStatusData(true, typeJenis).observe(viewLifecycleOwner, Observer {
                 binding.shimmer1.stopShimmer()
                 binding.shimmer1.visibility = View.GONE
                 if (it.isEmpty()){
@@ -142,9 +142,9 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
                 setDataFirstOpen()
             }, 800)
         }else if (LunasActivity.STATUS_TYPE == getString(R.string.hutang)){
-            setDataFilter(getString(R.string.hutang))
+            setDataFilter(false)
         }else if (LunasActivity.STATUS_TYPE == getString(R.string.piutang)){
-            setDataFilter(getString(R.string.piutang))
+            setDataFilter(true)
         }else{
             LunasActivity.STATUS_TYPE == null
         }
