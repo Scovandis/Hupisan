@@ -344,7 +344,7 @@
                     <ImageView
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/ux_lottry" />
+                        android:src="@drawable/new_arisan" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -429,7 +429,7 @@
                     <ImageView
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/ux_grosir" />
+                        android:src="@drawable/new_grosir" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -472,13 +472,13 @@
                     <ImageView
                         android:layout_width="@dimen/_50sdp"
                         android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/ux_about" />
+                        android:src="@drawable/new_ux_pembayaran" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/lottery_berlangsung"
+                        android:text="@string/suku_bunga"
                         android:maxLength="9"
                         android:maxLines="1"
                         android:ellipsize="end"

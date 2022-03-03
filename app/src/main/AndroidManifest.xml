@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.hhhh">
+    package="my.notes.HHHH">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -15,11 +15,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HHHH">
         <activity
+            android:name=".view.bantuan.BantuanActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.arisan.FitureArisanActivity"
             android:exported="false" />
         <activity
             android:name=".view.arisan.AddMemberActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.HHHH.noActionBar"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.arisan.ArisanMemberActivity"
             android:exported="false"

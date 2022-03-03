@@ -39,12 +39,12 @@
     <string name="jatuh_tempo">due date</string>
     <string name="off">OFF</string>
     <string name="on">ON</string>
-    <string name="nama_tidak_boleh_kurang_dari_2_huruf">name cannot be less than 2 latters</string>
+    <string name="nama_tidak_boleh_kurang_dari_2_huruf">name cannot be less than 2 letters</string>
     <string name="jumlah_hutang_hanya_dibatasi_11_angka">the number cannot be more than 11 digits</string>
-    <string name="keterangan_tidak_boleh_lebih_dari_210_huruf">information is limited to 210 latters</string>
+    <string name="keterangan_tidak_boleh_lebih_dari_210_huruf">information is limited to 210 letters</string>
     <string name="data_berhasil_di_dimpan">data saved successfully</string>
     <string name="nama_tidak_boleh_kosong">name cannot be empty</string>
-    <string name="tidak_boleh_lebih_dari_20_huruf">no more than 20 latters</string>
+    <string name="tidak_boleh_lebih_dari_20_huruf">no more than 20 letters</string>
     <string name="dicicil">in installments</string>
 
     <string name="back_to_nhome">Back to\nHome</string>
@@ -180,15 +180,20 @@
     <string name="yang_harus_dibayar">to be paid</string>
     <string name="ada">there is</string>
     <string name="yang_harus_dibayar_dari">to be paid</string>
-    <string name="beri_nilai_dan_masukkan">rete and review</string>
+    <string name="beri_nilai_dan_masukkan">Rete and Review</string>
     <string name="theme">Theme</string>
     <string name="bahasa">Language</string>
     <string name="pref_file_key">pref file key</string>
     <string name="pref_is_user_login">pref is user login</string>
+
     <string name="language">idn</string>
+
     <string name="indonesia">Indonesia</string>
     <string name="english">English</string>
     <string name="thailand">Thailand</string>
+    <string name="india">India</string>
+    <string name="vietnamese">Vietnamese</string>
+
     <string name="ubah">Edit</string>
     <string name="Pengaturan">Settings</string>
     <string name="trems_and_conditions">Terms and Conditions</string>
@@ -213,4 +218,79 @@
     <string name="anggota_berhasil_di_tambahkan">member successfully added</string>
     <string name="nominal">Nominal</string>
     <string name="group">Group</string>
+
+
+    <string name="terkumpul">Collected</string>
+    <string name="donation">Donation</string>
+    <string name="delete">Delete</string>
+    <string name="nominal_tidak_boleh_diawali_nilai_kosong">nominal cannot start with an empty value</string>
+    <string name="untuk_membuat_group_kamu_harus_memasukkan_minimal_3_nama_anggota_untuk_memulainya">To create a group, you must enter at least 3 member names to get started.</string>
+    <string name="lainnya">others</string>
+    <string name="tidak_boleh_diawali_dengan_0">cannot start with 0</string>
+    <string name="tidak_boleh_diawali_dengan_nilai_kosong">cannot start with an empty value</string>
+    <string name="masukkan_nilai_dengan_benar">enter value correctly</string>
+    <string name="lottery_berlangsung">Lottery in progress</string>
+    <string name="cara_menggunakan">How to use</string>
+    <string name="bagaimana_aku_bisa_menggunakan_applikasi_ini_sebagaimana_mestinya">how can i use this\napplication properly</string>
+    <string name="umum">General</string>
+    <string name="support">Support</string>
+    <string name="app_version">App Version</string>
+    <string name="buat_group">Create Group</string>
+    <string name="tambahkan_anggota">Add</string>
+    <string name="kamu_suadah_memasukkan_banyak_user_silahkan_simpan_terlebih_dahulu">You have entered many users, please save them first</string>
+    <string name="peringatan">Warning!</string>
+    <string name="kembali_akan_menghapus_semua_data_yang_telah_kamu_buat_sebelumnya">going back will delete all the data you created earlier</string>
+    <string name="buat_acara">Create Event</string>
+    <string name="untuk_menjalankan_event_arisan_kamu_harus_membuat_sebuah_acara_terlebih_dahulu">To run the social gathering event, you\nmust create an event first</string>
+    <string name="acara_berlangsung">Event</string>
+    <string name="setelah_memulai_sebuah_acara_kamu_tidak_bisa_mengedit_atau_kamu_tidak_bisa_menambahkan_anggota_lagi">after starting an event you can\'t edit or you can\'t add any more members</string>
+    <string name="acak_pemenang_dalam_acara_yang_kamu_selenggarakan">random winner in the \nevent you are hosting</string>
+    <string name="salah">wrong</string>
+    <string name="kamu_sudah_bisa_memulainya">you can start</string>
+    <string name="kamu_bisa_menambahkan_maksimal_9_anggota">you can add a maximum of 9 members</string>
+    <string name="informasi_group">Group Information</string>
+    <string name="nama_group">Group Name</string>
+    <string name="di_update">Update at</string>
+    <string name="anggaran">Budget</string>
+    <string name="update">Update</string>
+    <string name="group_id">Group ID</string>
+    <string name="mulai_acara">start\nevent</string>
+    <string name="kocok">shake</string>
+    <string name="dengan_memulai_sebuah_acara_kamu_tidak_akan_bisa_menambahkan_anggota_atau_menghapus_anggota">by starting an event, you will not be able to add members or delete members</string>
+    <string name="yakin_mulai">sure, start!</string>
+    <string name="berhasil_memulai_acara">successfully started the event!!</string>
+    <string name="dimulai">Started</string>
+    <string name="belum_dimulai">not yet started</string>
+    <string name="suku_bunga">interest rate</string>
+    <string name="fitur_sedang_dikembangkan">features in progress</string>
+    <string name="donasi_dengan_paypal">Donate with Paypal</string>
+
+    <string name="apa_itu_hutang">
+        Debt is a form of credit or loan of funds, both cash and securities to meet needs. It can also be said if debt is money that you borrow from other people.
+        Loans or debts must be returned within the agreed period. The amount of debt or debt depends on the needs of each individual or company.
+    </string>
+    <string name="apa_itu_piutang">
+        Receivables are the provision of credit or loan funds both in cash and non-cash to individuals and companies.
+        In general, receivables occur because someone cannot pay off the transaction on time. In another sense, receivables is a term for money that you lend to other people.
+    </string>
+
+    <string name="pengertian_hutang">Definition of Debt</string>
+    <string name="pengertian_piutang">Understanding Accounts Receivable</string>
+    <string name="bagaimana_cara_menghapus_data_hutang_atau_piutang">How to delete Accounts Payable or Receivable data</string>
+    <string name="geser_kekiri_pada_bagaian_data_hutang_atau_piutang_yang_ingin_anda_hapus_setelah_itu_ketikkan_nama_dari_data_tersebut_sesuai_dengan_nama_data_yang_ingin_di_hapus_setelah_itu_klik_hapus">swipe left on the Debt or Receivable data section that you want to delete, after that type the name of the data according to the name of the data you want to delete after that click delete</string>
+    <string name="bagaimana_cara_menghapus_data_keseluruhan_hutang_atau_piutang">How to delete the entire Debt or Receivable data</string>
+    <string name="pada_bagian_pojok_kanan_atas_terdapat_menu_untuk_menghapus_keseluruhan_data_dari_hutang_atau_piutang_tekan_menu_tersebuat_dan_masukkan_kata_sesuai_dengan_alert_yang_di_minta_untuk_menghapus_keseluruhan_data">In the upper right corner there is a menu to delete all data from Payables or Receivables, press the menu and enter the word according to the alert requested to delete all data</string>
+    <string name="bagaimana_cara_melihat_daftar_hutang_atau_piutang_yang_telah_selesai_di_bayar">How to see a list of Debts or Receivables that have been paid off</string>
+    <string name="pada_bagian_menu_awal_terdapat_fitur_dengan_nama_lunas_klik_pada_menu_tersebut_dan_lihat_data_data_yang_telah_kamu_selesaikan">In the initial menu there is a feature with the name Paid off, Click on the menu and see the data you have completed</string>
+    <string name="bagaimana_cara_menambahkan_data_hutang_atau_piutang">How to add Accounts Payable or Receivable data</string>
+    <string name="pada_aktivitas_hutang_atau_piutang_terdapat_tombol_tambahkan_dibagian_pojok_kiri_bawah_untuk_menambahkan_data_klik_dan_isi_from_data_tersebut_untuk_menambahkan_sebuah_data_baru">In the Debt or Receivable activity there is an Add button in the lower left corner, to add data click and fill in from the data to add a new data</string>
+    <string name="bagaimana_cara_membayar_data_pada_bagian_hutang_atau_piutang">How to pay for data in the Accounts Payable or Receivable section</string>
+    <string name="klik_pada_item_yang_ingin_kamu_bayar_atau_tambah_kemudia_pada_bagian_pojok_kanan_bawah_terdapat_menu_untuk_menambahkan_melunasi_atau_mengurangi_data_yang_ingin_kamu_rubah">Click on the item you want to pay or add, then in the lower right corner there is a menu to add, pay off or reduce the data you want to change</string>
+    <string name="bagaimana_cara_mendukung_pengembang_applikasi_ini">How to support this app developer?</string>
+    <string name="masuk_menu_pengaturan_dan_klik_donasi_untuk_mendukung_pengembang">Enter the settings menu and click donate to support the developer!</string>
+    <string name="bagaimana_cara_merubah_bahasa_applikasi_ini">How do I change the language of this application?</string>
+    <string name="pada_pengaturan_terdapat_menu_bahasa_untuk_merubah_bahasa_yang_kamu_inginkan_klik_menu_tersebuat_dan_rubah_bahasa_sesuai_keinginmu">In the settings there is a language menu to change the language you want, click the menu and change the language according to your wishes</string>
+    <string name="bagaimana_aku_melaporkan_bug_pada_applikasi_ini">How do I report a Bug on this App?</string>
+    <string name="klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug">Click on the Rate and feedback section on the start menu to rate this application, or send it directly to the developer Email andriyan354354@gmail.com to report a Bug</string>
+    <string name="bantuan">Help</string>
 </resources>

@@ -71,17 +71,29 @@
                     android:textSize="14sp"
                     android:visibility="invisible" />
 
-
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imgb_avatar_wrap"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        android:theme="@style/roundedCorners"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_gravity="bottom|center_horizontal"
                         app:layout_constraintBottom_toTopOf="parent"
                         android:layout_width="@dimen/default_expanded_image_size"
                         android:layout_height="@dimen/default_expanded_image_size"
                          />
+                <ImageView
+                    android:id="@+id/imgb_avatar_gender"
+                    android:translationZ="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_gravity="bottom|center_horizontal"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_80sdp"
+                    />
+
             </FrameLayout>
 
             <androidx.appcompat.widget.AppCompatTextView                android:id="@+id/tv_profile_name_single"

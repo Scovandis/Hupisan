@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -35,7 +36,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -43,52 +44,175 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_member_arisan"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="@dimen/_4sdp"
-                />
+                android:orientation="vertical"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView1"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_65sdp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:elevation="@dimen/_3sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="true">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottieAnimation"
-                android:layout_width="@dimen/_300sdp"
-                android:layout_height="@dimen/_200sdp"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_4sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                app:lottie_rawRes="@raw/empty_fils" />
-            <TextView
-                android:id="@+id/tv_is_empty"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/oops_sepertinya_anda_belum_memiliki_rekap_data"
-                android:textSize="@dimen/_20sdp"
-                android:gravity="center"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
+                    <include
+                        android:id="@+id/content"
+                        layout="@layout/content_add_member" />
+                </androidx.cardview.widget.CardView>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_member_arisan"
+                    android:layout_width="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/lottieAnimation"
+                    android:layout_width="@dimen/_300sdp"
+                    android:layout_height="@dimen/_200sdp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_4sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/empty_fils" />
+                <TextView
+                    android:id="@+id/tv_is_empty"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/oops_sepertinya_anda_belum_memiliki_rekap_data"
+                    android:textSize="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:translationZ="@dimen/_5sdp"
+        android:id="@+id/progressbar"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foregroundGravity="bottom"
+        android:layout_marginEnd="@dimen/_4sdp"
+        android:translationZ="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:layout_gravity="end|bottom"
+        >
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/option_f"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            app:elevation="@dimen/_4sdp"
+            app:borderWidth="0dp"
+            app:backgroundTint="@color/white"
+            app:maxImageSize="45dp"
+            app:srcCompat="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="VectorDrawableCompat" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_mulai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            app:backgroundTint="@color/purple_500"
+            android:visibility="invisible"
+            android:focusable="true"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/option_f"
+            app:layout_constraintEnd_toEndOf="@+id/option_f"
+            app:srcCompat="@drawable/ic_tambahkan_jumlah_24dp" />
+        <TextView
+            android:id="@+id/tv_fab_mulai"
+            app:layout_constraintTop_toBottomOf="@id/fab_mulai"
+            app:layout_constraintEnd_toEndOf="@id/fab_mulai"
+            app:layout_constraintStart_toStartOf="@id/fab_mulai"
+            android:layout_width="wrap_content"
+            android:textColor="@color/purple_500"
+            android:text="@string/mulai_acara"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_tambahkan_anggota"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            android:tint="@color/white"
+            app:backgroundTint="@color/purple_500"
+            app:layout_constraintBottom_toTopOf="@+id/fab_mulai"
+            app:layout_constraintEnd_toEndOf="@+id/fab_mulai"
+            app:srcCompat="@drawable/ic_cicil_24dp" />
+
+        <TextView
+            android:id="@+id/tv_fab_tambahkan"
+            app:layout_constraintTop_toBottomOf="@id/fab_tambahkan_anggota"
+            app:layout_constraintEnd_toEndOf="@id/fab_tambahkan_anggota"
+            app:layout_constraintStart_toStartOf="@id/fab_tambahkan_anggota"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:textColor="@color/purple_500"
+            android:text="@string/tambahkan_anggota"
+            android:layout_height="wrap_content"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_member"
+        android:id="@+id/fab_kocok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_12sdp"
         android:clickable="true"
-        android:src="@drawable/ic_baseline_add_24"
+        android:translationZ="@dimen/_5sdp"
+        app:backgroundTint="@color/white"
+        android:src="@drawable/ic_baseline_add_white_24"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom|right|end"
-            android:focusable="true"
+        android:focusable="true"
          />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

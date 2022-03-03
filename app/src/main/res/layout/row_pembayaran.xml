@@ -9,9 +9,6 @@
     <LinearLayout
         android:id="@+id/linear1"
         android:orientation="horizontal"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:layout_marginTop="@dimen/_4sdp"
         android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    android:padding="@dimen/_12sdp"
+    android:layout_marginBottom="@dimen/_8sdp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_8sdp"
+        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/headerText"
+            android:layout_marginBottom="20dp">
+            <TextView
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_26sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/informasi_group"
+                android:id="@+id/tv_informasi"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout style="@style/profileDetailsLayout"
+            >
+            <ImageView
+                android:id="@+id/nameOfGroup"
+                style="@style/profileDetailsImage"
+                android:src="@drawable/user_profile" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:text="@string/nama_group"
+                android:layout_toRightOf="@id/nameOfGroup"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/tv_nama_group"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/nameOfGroup"
+                android:text="@string/gondres" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+
+            <ImageView
+                android:id="@+id/dibuatImageView"
+                style="@style/profileDetailsImage"
+                android:src="@drawable/ux_create_at" />
+
+            <TextView
+                android:text="@string/tanggal_dibuat"
+                android:layout_toRightOf="@id/dibuatImageView"
+                style="@style/profileDetailsTextMain"/>
+
+            <TextView
+                android:id="@+id/tv_tanggal_dibuat"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/dibuatImageView"
+                android:text="@string/_12_22_2021" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/diupdateImageView"
+                android:src="@drawable/ux_description"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="@string/update"
+                android:layout_toRightOf="@id/diupdateImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/tv_diupdate"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/diupdateImageView"
+                android:ellipsize="end"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:text="@string/_12_22_2021" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+
+            <ImageView
+                android:id="@+id/anggaranImageView"
+                style="@style/profileDetailsImage"
+                android:src="@drawable/ux_wallet" />
+
+            <TextView
+                style="@style/profileDetailsTextMain"
+                android:layout_toRightOf="@id/anggaranImageView"
+                android:text="@string/anggaran" />
+
+            <TextView
+                android:id="@+id/tv_anggaran"
+                android:text="@string/_rp_3000_000"
+                android:layout_toRightOf="@id/anggaranImageView"
+                style="@style/profileDetailsMiniText" />
+
+        </RelativeLayout>
+
+        <View style="@style/proifleDetailsView" />
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/prizePollImageView"
+                android:src="@drawable/ux_gender"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="@string/prize_poll"
+                android:layout_toRightOf="@id/prizePollImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/tv_prize_poll"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/prizePollImageView"
+                android:text="@string/_rp_3000_000" />
+
+        </RelativeLayout>
+        <View style="@style/proifleDetailsView" />
+
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/groupIdlImageView"
+                android:src="@drawable/ux_gender"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                android:text="@string/group_id"
+                android:layout_toRightOf="@id/groupIdlImageView"
+                style="@style/profileDetailsTextMain" />
+
+            <TextView
+                android:id="@+id/tv_group_id"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/groupIdlImageView"
+                android:text="@string/_rp_3000_000" />
+
+        </RelativeLayout>
+        <View style="@style/proifleDetailsView" />
+
+        <RelativeLayout style="@style/profileDetailsLayout">
+            <ImageView
+                android:id="@+id/terkumpullImageView"
+                android:src="@drawable/ux_gender"
+                style="@style/profileDetailsImage" />
+
+            <TextView
+                style="@style/profileDetailsTextMain"
+                android:layout_toRightOf="@id/terkumpullImageView"
+                android:text="@string/terkumpul" />
+
+            <TextView
+                android:id="@+id/tv_jumlah_terkumpul"
+                style="@style/profileDetailsMiniText"
+                android:layout_toRightOf="@id/terkumpullImageView"
+                android:text="@string/_rp_3000_000" />
+
+        </RelativeLayout>
+        <View style="@style/proifleDetailsView" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

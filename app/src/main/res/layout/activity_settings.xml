@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint"
     android:background="@color/transparantBlack5"
     tools:context=".view.pengaturan.SettingsActivity"
     >
@@ -48,12 +49,14 @@
                     android:layout_height="@dimen/_40sdp">
 
                     <ImageView
+                        android:src="@drawable/ic_languages"
                         android:id="@+id/img_bahasa"
                         android:layout_width="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true" />
+                        android:padding="@dimen/_8sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/_4sdp" />
 
                     <TextView
                         android:id="@+id/tv_bahasa"
@@ -88,10 +91,12 @@
                     <ImageView
                         android:id="@+id/img_trims"
                         android:layout_width="@dimen/_40sdp"
-                        android:layout_marginStart="@dimen/_4sdp"
                         android:layout_height="@dimen/_40sdp"
                         android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true" />
+                        android:src="@drawable/ic_terms"
+                        android:padding="@dimen/_8sdp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/_4sdp" />
 
                     <TextView
                         android:id="@+id/tv_trems"
@@ -129,6 +134,8 @@
                         android:layout_width="@dimen/_40sdp"
                         android:layout_marginStart="@dimen/_4sdp"
                         android:layout_height="@dimen/_40sdp"
+                        android:src="@drawable/ic_trems_condition"
+                        android:padding="@dimen/_8sdp"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true" />
 
@@ -185,6 +192,8 @@
                             android:layout_width="@dimen/_40sdp"
                             android:layout_marginStart="@dimen/_4sdp"
                             android:layout_height="@dimen/_40sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:src="@drawable/ic_donation"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true" />
 
@@ -198,7 +207,7 @@
                             android:layout_marginStart="@dimen/_4sdp"
                             android:layout_toEndOf="@id/img_donate"
                             android:gravity="center_vertical"
-                            android:text="@string/donation"
+                            android:text="@string/donasi_dengan_paypal"
                             android:textSize="@dimen/_14sdp" />
                     </RelativeLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -223,14 +232,4 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <FrameLayout
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/frame_layout">
-
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

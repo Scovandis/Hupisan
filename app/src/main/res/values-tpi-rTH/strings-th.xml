@@ -187,9 +187,12 @@
     <string name="pref_file_key">pref file key</string>
     <string name="pref_is_user_login">pref is user login</string>
     <string name="language">idn</string>
+
     <string name="indonesia">Indonesia</string>
     <string name="english">English</string>
     <string name="thailand">Thailand</string>
+    <string name="india">India</string>
+    <string name="vietnamese">Vietnamese</string>
 
     <string name="ubah">แก้ไข</string>
     <string name="Pengaturan">การตั้งค่า</string>
@@ -215,4 +218,78 @@
     <string name="nominal">ระบุ</string>
     <string name="group">กลุ่ม</string>
 
+    <string name="terkumpul">สะสม</string>
+    <string name="donation">บริจาค</string>
+    <string name="delete">ลบ</string>
+    <string name="nominal_tidak_boleh_diawali_nilai_kosong">nominal ไม่สามารถเริ่มต้นด้วยค่าว่าง</string>
+    <string name="untuk_membuat_group_kamu_harus_memasukkan_minimal_3_nama_anggota_untuk_memulainya">ในการสร้างกลุ่ม คุณต้องป้อนชื่อสมาชิกอย่างน้อย 3 ชื่อเพื่อเริ่มต้น</string>
+    <string name="lainnya">คนอื่น</string>
+    <string name="tidak_boleh_diawali_dengan_0">ไม่สามารถเริ่มต้นด้วย 0</string>
+    <string name="tidak_boleh_diawali_dengan_nilai_kosong">ไม่สามารถเริ่มต้นด้วยค่าว่าง</string>
+    <string name="masukkan_nilai_dengan_benar">ใส่ค่าให้ถูกต้อง</string>
+    <string name="lottery_berlangsung">ลอตเตอรี่อยู่ในระหว่างดำเนินการ</string>
+    <string name="cara_menggunakan">วิธีใช้</string>
+    <string name="bagaimana_aku_bisa_menggunakan_applikasi_ini_sebagaimana_mestinya">ฉันจะใช้\nแอปพลิเคชัน นี้อย่างถูกต้องได้อย่างไร</string>
+    <string name="umum">ทั่วไป</string>
+    <string name="support">สนับสนุน</string>
+        <string name="app_version">เวอร์ชันแอป</string>
+    <string name="buat_group">สร้างกลุ่ม</string>
+    <string name="tambahkan_anggota">เพิ่ม</string>
+    <string name="kamu_suadah_memasukkan_banyak_user_silahkan_simpan_terlebih_dahulu">คุณป้อนผู้ใช้จำนวนมาก โปรดบันทึกก่อน</string>
+    <string name="peringatan">คำเตือน!</string>
+    <string name="kembali_akan_menghapus_semua_data_yang_telah_kamu_buat_sebelumnya">การย้อนกลับจะลบข้อมูลทั้งหมดที่คุณสร้างไว้ก่อนหน้านี้</string>
+    <string name="buat_acara">สร้างกิจกรรม</string>
+    <string name="untuk_menjalankan_event_arisan_kamu_harus_membuat_sebuah_acara_terlebih_dahulu">ในการดำเนินกิจกรรมการรวบรวมทางสังคม คุณต้อง\nต้องสร้างกิจกรรมก่อน</string>
+    <string name="acara_berlangsung">เหตุการณ์</string>
+    <string name="setelah_memulai_sebuah_acara_kamu_tidak_bisa_mengedit_atau_kamu_tidak_bisa_menambahkan_anggota_lagi">หลังจากเริ่มกิจกรรมแล้ว คุณไม่สามารถแก้ไขหรือเพิ่มสมาชิกได้อีก</string>
+    <string name="acak_pemenang_dalam_acara_yang_kamu_selenggarakan">ผู้ชนะแบบสุ่มใน \nกิจกรรมที่คุณเป็นเจ้าภาพ</string>
+    <string name="salah">ผิด</string>
+    <string name="kamu_sudah_bisa_memulainya">คุณสามารถเริ่มต้นได้</string>
+    <string name="kamu_bisa_menambahkan_maksimal_9_anggota">คุณสามารถเพิ่มสมาชิกได้สูงสุด 9 คน</string>
+    <string name="informasi_group">ข้อมูลกลุ่ม</string>
+    <string name="nama_group">ชื่อกลุ่ม</string>
+    <string name="di_update">อัพเดทที่</string>
+    <string name="anggaran">งบประมาณ</string>
+    <string name="update">อัปเดต</string>
+    <string name="group_id">รหัสกลุ่ม</string>
+    <string name="mulai_acara">เริ่ม\nเหตุการณ์</string>
+    <string name="kocok">เขย่า</string>
+    <string name="dengan_memulai_sebuah_acara_kamu_tidak_akan_bisa_menambahkan_anggota_atau_menghapus_anggota">เมื่อเริ่มกิจกรรม คุณจะไม่สามารถเพิ่มสมาชิกหรือลบสมาชิกได้</string>
+    <string name="yakin_mulai">แน่นอน เริ่ม!</string>
+    <string name="berhasil_memulai_acara">เริ่มกิจกรรมได้สำเร็จ!!</string>
+    <string name="dimulai">เริ่ม</string>
+    <string name="belum_dimulai">ยังไม่เริ่ม</string>
+    <string name="suku_bunga">อัตราดอกเบี้ย</string>
+    <string name="fitur_sedang_dikembangkan">คุณสมบัติที่กำลังดำเนินการอยู่</string>
+    <string name="donasi_dengan_paypal">บริจาคด้วย Paypal</string>
+
+
+    <string name="apa_itu_hutang">
+        หนี้เป็นรูปแบบสินเชื่อหรือเงินกู้ของกองทุนทั้งเงินสดและหลักทรัพย์เพื่อตอบสนองความต้องการ นอกจากนี้ยังสามารถกล่าวได้ว่าถ้าหนี้เป็นเงินที่คุณยืมจากคนอื่น
+        เงินกู้ยืมหรือหนี้จะต้องคืนภายในระยะเวลาที่ตกลงกันไว้ จำนวนหนี้หรือหนี้ขึ้นอยู่กับความต้องการของแต่ละบุคคลหรือบริษัท
+    </string>
+    <string name="apa_itu_piutang">
+        ลูกหนี้คือการจัดหาเงินให้สินเชื่อหรือเงินกู้ยืมทั้งเงินสดและไม่ใช่เงินสดแก่บุคคลและบริษัท
+        โดยทั่วไปแล้ว ลูกหนี้จะเกิดขึ้นเนื่องจากบางคนไม่สามารถชำระเงินตามธุรกรรมได้ตรงเวลา ในอีกแง่หนึ่ง ลูกหนี้เป็นคำที่ใช้เรียกเงินที่คุณให้คนอื่นยืม
+    </string>
+
+    <string name="pengertian_hutang">คำจำกัดความของหนี้</string>
+    <string name="pengertian_piutang">ทำความเข้าใจเกี่ยวกับบัญชีลูกหนี้</string>
+    <string name="bagaimana_cara_menghapus_data_hutang_atau_piutang">วิธีลบข้อมูลบัญชีเจ้าหนี้หรือลูกหนี้</string>
+    <string name="geser_kekiri_pada_bagaian_data_hutang_atau_piutang_yang_ingin_anda_hapus_setelah_itu_ketikkan_nama_dari_data_tersebut_sesuai_dengan_nama_data_yang_ingin_di_hapus_setelah_itu_klik_hapus">ปัดไปทางซ้ายบนส่วนข้อมูลหนี้หรือลูกหนี้ที่คุณต้องการลบหลังจากนั้นพิมพ์ชื่อข้อมูลตามชื่อของข้อมูลที่คุณต้องการลบหลังจากนั้นคลิกลบ</string>
+    <string name="bagaimana_cara_menghapus_data_keseluruhan_hutang_atau_piutang">วิธีการลบข้อมูลหนี้หรือลูกหนี้ทั้งหมด</string>
+    <string name="pada_bagian_pojok_kanan_atas_terdapat_menu_untuk_menghapus_keseluruhan_data_dari_hutang_atau_piutang_tekan_menu_tersebuat_dan_masukkan_kata_sesuai_dengan_alert_yang_di_minta_untuk_menghapus_keseluruhan_data">ที่มุมขวาบนมีเมนูลบข้อมูลทั้งหมดจากเจ้าหนี้หรือลูกหนี้ให้กดเมนูแล้วป้อนคำตามการแจ้งเตือนที่ขอให้ลบข้อมูลทั้งหมด</string>
+    <string name="bagaimana_cara_melihat_daftar_hutang_atau_piutang_yang_telah_selesai_di_bayar">วิธีดูรายการหนี้หรือลูกหนี้ที่ชำระแล้ว</string>
+    <string name="pada_bagian_menu_awal_terdapat_fitur_dengan_nama_lunas_klik_pada_menu_tersebut_dan_lihat_data_data_yang_telah_kamu_selesaikan">ในเมนูเริ่มต้นจะมีคุณสมบัติที่มีชื่อว่า Lunas คลิกที่เมนูและดูข้อมูลที่คุณทำเสร็จแล้ว</string>
+    <string name="bagaimana_cara_menambahkan_data_hutang_atau_piutang">วิธีเพิ่มข้อมูลบัญชีเจ้าหนี้หรือลูกหนี้</string>
+    <string name="pada_aktivitas_hutang_atau_piutang_terdapat_tombol_tambahkan_dibagian_pojok_kiri_bawah_untuk_menambahkan_data_klik_dan_isi_from_data_tersebut_untuk_menambahkan_sebuah_data_baru">ในกิจกรรมหนี้หรือลูกหนี้มีปุ่มเพิ่มที่มุมล่างซ้ายเพื่อเพิ่มข้อมูลคลิกและกรอกข้อมูลเพื่อเพิ่มข้อมูลใหม่</string>
+    <string name="bagaimana_cara_membayar_data_pada_bagian_hutang_atau_piutang">วิธีชำระค่าข้อมูลในส่วนบัญชีเจ้าหนี้หรือลูกหนี้</string>
+    <string name="klik_pada_item_yang_ingin_kamu_bayar_atau_tambah_kemudia_pada_bagian_pojok_kanan_bawah_terdapat_menu_untuk_menambahkan_melunasi_atau_mengurangi_data_yang_ingin_kamu_rubah">คลิกรายการที่ต้องการชำระหรือเพิ่ม จากนั้นตรงมุมขวาล่างจะมีเมนูเพิ่ม ชำระ หรือลดข้อมูลที่ต้องการเปลี่ยน</string>
+    <string name="bagaimana_cara_mendukung_pengembang_applikasi_ini">จะสนับสนุนนักพัฒนาแอพนี้ได้อย่างไร?</string>
+    <string name="masuk_menu_pengaturan_dan_klik_donasi_untuk_mendukung_pengembang">เข้าสู่เมนูการตั้งค่าและคลิกบริจาคเพื่อสนับสนุนนักพัฒนา!</string>
+    <string name="bagaimana_cara_merubah_bahasa_applikasi_ini">ฉันจะเปลี่ยนภาษาของแอปพลิเคชันนี้ได้อย่างไร</string>
+    <string name="pada_pengaturan_terdapat_menu_bahasa_untuk_merubah_bahasa_yang_kamu_inginkan_klik_menu_tersebuat_dan_rubah_bahasa_sesuai_keinginmu">ในการตั้งค่าจะมีเมนูภาษาสำหรับเปลี่ยนภาษาที่คุณต้องการ คลิกเมนูและเปลี่ยนภาษาตามที่คุณต้องการ</string>
+    <string name="bagaimana_aku_melaporkan_bug_pada_applikasi_ini">ฉันจะรายงานข้อบกพร่องในแอปนี้ได้อย่างไร</string>
+    <string name="klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug">คลิกที่ส่วนอัตราและข้อเสนอแนะในเมนูเริ่มต้นเพื่อให้คะแนนแอปพลิเคชันนี้ หรือส่งโดยตรงไปยังอีเมลของนักพัฒนาซอฟต์แวร์ andriyan354354@gmail.com เพื่อรายงานข้อบกพร่อง</string>
+    <string name="bantuan">ช่วย</string>
 </resources>

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_margin="@dimen/_4sdp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/_8sdp"
     android:layout_marginBottom="@dimen/_8sdp"
@@ -58,7 +59,7 @@
                 <ImageView
                     android:id="@+id/nameOfUser"
                     style="@style/profileDetailsImage"
-                    android:src="@drawable/user_profile" />
+                    android:src="@drawable/new_ux_username" />
 
                 <TextView
                     android:id="@+id/nameTextView"
@@ -80,7 +81,7 @@
                 <ImageView
                     android:id="@+id/mobileImageView"
                     style="@style/profileDetailsImage"
-                    android:src="@drawable/ux_create_at" />
+                    android:src="@drawable/new_ux_dibuat" />
 
                 <TextView
                     android:text="@string/tanggal_dibuat"
@@ -99,7 +100,7 @@
             <RelativeLayout style="@style/profileDetailsLayout">
                 <ImageView
                     android:id="@+id/descriptionImageView"
-                    android:src="@drawable/ux_description"
+                    android:src="@drawable/new_ux_deskripsi"
                     style="@style/profileDetailsImage" />
 
                 <TextView
@@ -124,7 +125,7 @@
                 <ImageView
                     android:id="@+id/jumlahImageView"
                     style="@style/profileDetailsImage"
-                    android:src="@drawable/ux_wallet" />
+                    android:src="@drawable/new_ux_jumlah" />
 
                 <TextView
                     android:id="@+id/tv_jumlah_status"
@@ -142,10 +143,11 @@
 
             <View style="@style/proifleDetailsView" />
             <RelativeLayout style="@style/profileDetailsLayout">
+
                 <ImageView
                     android:id="@+id/genderImageView"
-                    android:src="@drawable/ux_gender"
-                    style="@style/profileDetailsImage" />
+                    style="@style/profileDetailsImage"
+                    android:src="@drawable/new_ux_gender" />
 
                 <TextView
                     android:text="@string/gender"

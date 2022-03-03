@@ -189,6 +189,8 @@
     <string name="indonesia">Indonesia</string>
     <string name="english">English</string>
     <string name="thailand">Thailand</string>
+    <string name="india">India</string>
+    <string name="vietnamese">Vietnamese</string>
 
     <string name="ubah">ubah</string>
     <string name="Pengaturan">Pengaturan</string>
@@ -204,12 +206,86 @@
     <string name="paymet_amount">Paymet Amount</string>
     <string name="member_name">Member Name</string>
     <string name="anggota">Anggota</string>
-    <string name="nama_tidak_boleh_diawali_dengan_space">Nama tidak boleh di awali dengan space</string>
+    <string name="nama_tidak_boleh_diawali_dengan_space">Nama tidak boleh di awali dengan spasi</string>
     <string name="group_berhasil_dibuat">Group berhasil di buat</string>
     <string name="masukkan_nama_memeber">Masukkan nama anggota</string>
     <string name="minimal_3_anggota_untuk_memulai">minimal 3 anggota untuk memulai</string>
     <string name="masukan_ini_terlebih_dahulu">masukkan bagian ini terlebih dahulu</string>
     <string name="anggota_berhasil_di_tambahkan">Anggota berhasil di tambahkan</string>
     <string name="nominal">Nominal</string>
-    <string name="group">group</string>
+    <string name="group">Group</string>
+
+    <string name="terkumpul">Terkumpul</string>
+    <string name="donation">Donation</string>
+    <string name="delete">Delete</string>
+    <string name="nominal_tidak_boleh_diawali_nilai_kosong">nominal tidak boleh diawali nilai kosong</string>
+    <string name="untuk_membuat_group_kamu_harus_memasukkan_minimal_3_nama_anggota_untuk_memulainya">Untuk membuat group, kamu harus memasukkan minimal 3 nama anggota untuk memulainya.</string>
+    <string name="lainnya">lainnya</string>
+    <string name="tidak_boleh_diawali_dengan_0">tidak boleh di awali dengan 0</string>
+    <string name="tidak_boleh_diawali_dengan_nilai_kosong">tidak boleh di awali dengan nilai kosong</string>
+    <string name="masukkan_nilai_dengan_benar">masukkan nilai dengan benar</string>
+    <string name="lottery_berlangsung">Lottery berlangsung</string>
+    <string name="cara_menggunakan">Cara Menggunakan</string>
+    <string name="bagaimana_aku_bisa_menggunakan_applikasi_ini_sebagaimana_mestinya">bagaimana aku bisa menggunakan\napplikasi ini sebagaimana mestinya</string>
+    <string name="umum">Umum</string>
+    <string name="support">Support</string>
+    <string name="app_version">App Version</string>
+    <string name="buat_group">Buat group</string>
+    <string name="tambahkan_anggota">Tambahkan\nanggota</string>
+    <string name="kamu_suadah_memasukkan_banyak_user_silahkan_simpan_terlebih_dahulu">Kamu suadah memasukkan banyak user silahkan simpan terlebih dahulu</string>
+    <string name="peringatan">Peringatan!</string>
+    <string name="kembali_akan_menghapus_semua_data_yang_telah_kamu_buat_sebelumnya">kembali akan menghapus semua data yang telah kamu buat sebelumnya</string>
+    <string name="buat_acara">Buat Acara</string>
+    <string name="untuk_menjalankan_event_arisan_kamu_harus_membuat_sebuah_acara_terlebih_dahulu">untuk menjalankan event arisan, kamu\nharus membuat sebuah acara terlebih dahulu</string>
+    <string name="acara_berlangsung">Acara Berlangsung</string>
+    <string name="setelah_memulai_sebuah_acara_kamu_tidak_bisa_mengedit_atau_kamu_tidak_bisa_menambahkan_anggota_lagi">setelah memulai sebuah acara kamu tidak bisa mengedit atau tidak bisa menambahkan anggota lagi</string>
+    <string name="acak_pemenang_dalam_acara_yang_kamu_selenggarakan">acak pemenang dalam acara\nyang kamu selenggarakan</string>
+    <string name="salah">salah</string>
+    <string name="kamu_sudah_bisa_memulainya">kamu sudah bisa memulainnya</string>
+    <string name="kamu_bisa_menambahkan_maksimal_9_anggota">kamu bisa menambahkan maksimal 9 anggota</string>
+    <string name="informasi_group">Informasi Group</string>
+    <string name="nama_group">Nama Group</string>
+    <string name="di_update">Di Update</string>
+    <string name="anggaran">Anggaran</string>
+    <string name="update">Update</string>
+    <string name="group_id">Group ID</string>
+    <string name="mulai_acara">mulai\nacara</string>
+    <string name="kocok">kocok</string>
+    <string name="dengan_memulai_sebuah_acara_kamu_tidak_akan_bisa_menambahkan_anggota_atau_menghapus_anggota">dengan memulai sebuah acara, kamu tidak akan bisa menambahkan anggota atau mengapus anggota</string>
+    <string name="yakin_mulai">yakin, mulai!</string>
+    <string name="berhasil_memulai_acara">berhasil memulai acara!!</string>
+    <string name="dimulai">dimulai</string>
+    <string name="belum_dimulai">belum dimulai</string>
+    <string name="suku_bunga">suku bunga</string>
+    <string name="fitur_sedang_dikembangkan">fitur sedang di buat</string>
+    <string name="donasi_dengan_paypal">Donasi dengan Paypal</string>
+
+    <string name="apa_itu_hutang">
+        Hutang adalah bentuk kredit atau pinjaman dana baik tunai maupun surat berharga guna memenuhi kebutuhan. Dapat dikatakan pula jika hutang adalah uang yang Anda pinjam dari orang lain.
+        Pinjaman atau hutang wajib untuk dikembalikan dalam jangka waktu yang telah disepakati. Besaran utang atau hutang tergantung dari masing-masing kebutuhan individu atau perusahaan.
+    </string>
+    <string name="apa_itu_piutang">
+        Piutang adalah pemberian kredit atau pinjaman dana baik secara tunai dan nontunai kepada individu maupun perusahaan.
+        Pada umumnya piutang terjadi karena seseorang tidak bisa melunasi transaksi tepat waktu. Dalam artian lain, piutang adalah sebutan bagi uang yang Anda pinjamkan kepada orang lain.
+    </string>
+
+    <string name="bantuan">Bantuan</string>
+    <string name="pengertian_hutang">Pengertian Hutang</string>
+    <string name="pengertian_piutang">Pengertian Piutang</string>
+    <string name="bagaimana_cara_menghapus_data_hutang_atau_piutang">Bagaimana cara menghapus data Hutang atau Piutang</string>
+    <string name="geser_kekiri_pada_bagaian_data_hutang_atau_piutang_yang_ingin_anda_hapus_setelah_itu_ketikkan_nama_dari_data_tersebut_sesuai_dengan_nama_data_yang_ingin_di_hapus_setelah_itu_klik_hapus">geser kekiri pada bagaian data Hutang atau Piutang yang ingin anda hapus, setelah itu ketikkan nama dari data tersebut sesuai dengan nama data yang ingin di hapus setelah itu klik hapus</string>
+    <string name="bagaimana_cara_menghapus_data_keseluruhan_hutang_atau_piutang">Bagaimana cara menghapus data keseluruhan Hutang atau Piutang</string>
+    <string name="pada_bagian_pojok_kanan_atas_terdapat_menu_untuk_menghapus_keseluruhan_data_dari_hutang_atau_piutang_tekan_menu_tersebuat_dan_masukkan_kata_sesuai_dengan_alert_yang_di_minta_untuk_menghapus_keseluruhan_data">Pada bagian pojok kanan atas terdapat menu untuk menghapus keseluruhan data dari Hutang atau Piutang, tekan menu tersebuat dan masukkan kata sesuai dengan alert yang di minta untuk menghapus keseluruhan data</string>
+    <string name="bagaimana_cara_melihat_daftar_hutang_atau_piutang_yang_telah_selesai_di_bayar">Bagaimana cara melihat daftar Hutang atau Piutang yang telah selesai di bayar</string>
+    <string name="pada_bagian_menu_awal_terdapat_fitur_dengan_nama_lunas_klik_pada_menu_tersebut_dan_lihat_data_data_yang_telah_kamu_selesaikan">Pada bagian menu awal terdapat fitur dengan nama Lunas, Klik pada menu tersebut dan lihat data-data yang telah kamu selesaikan</string>
+    <string name="bagaimana_cara_menambahkan_data_hutang_atau_piutang">Bagaimana cara menambahkan data Hutang atau Piutang</string>
+    <string name="pada_aktivitas_hutang_atau_piutang_terdapat_tombol_tambahkan_dibagian_pojok_kiri_bawah_untuk_menambahkan_data_klik_dan_isi_from_data_tersebut_untuk_menambahkan_sebuah_data_baru">Pada aktivitas Hutang atau Piutang terdapat Tombol Tambahkan dibagian pojok kiri bawah, untuk menambahkan data klik dan isi from data tersebut untuk menambahkan sebuah data baru</string>
+    <string name="bagaimana_cara_membayar_data_pada_bagian_hutang_atau_piutang">Bagaimana cara membayar data pada bagian Hutang atau Piutang</string>
+    <string name="klik_pada_item_yang_ingin_kamu_bayar_atau_tambah_kemudia_pada_bagian_pojok_kanan_bawah_terdapat_menu_untuk_menambahkan_melunasi_atau_mengurangi_data_yang_ingin_kamu_rubah">Klik pada item yang ingin kamu Bayar atau Tambah, kemudia pada bagian pojok kanan bawah terdapat menu untuk menambahkan, melunasi atau mengurangi data yang ingin kamu rubah</string>
+    <string name="bagaimana_cara_mendukung_pengembang_applikasi_ini">Bagaimana cara mendukung pengembang applikasi ini?</string>
+    <string name="masuk_menu_pengaturan_dan_klik_donasi_untuk_mendukung_pengembang">Masuk menu pengaturan dan klik donasi untuk mendukung pengembang!</string>
+    <string name="bagaimana_cara_merubah_bahasa_applikasi_ini">Bagaimana cara merubah bahasa applikasi ini?</string>
+    <string name="pada_pengaturan_terdapat_menu_bahasa_untuk_merubah_bahasa_yang_kamu_inginkan_klik_menu_tersebuat_dan_rubah_bahasa_sesuai_keinginmu">Pada pengaturan terdapat menu bahasa untuk merubah bahasa yang kamu inginkan, klik menu tersebuat dan rubah bahasa sesuai keinginmu</string>
+    <string name="bagaimana_aku_melaporkan_bug_pada_applikasi_ini">Bagaimana Aku melaporkan Bug pada Applikasi ini?</string>
+    <string name="klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug">Klik pada bagian Beri nilai dan masukan pada bagian menu awal untuk menilai apllikasi ini, atau kirimkan langsung kepada Email andriyan354354@gmail.com pengembang untuk melaporkan Bug</string>
 </resources>
