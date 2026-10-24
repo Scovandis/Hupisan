@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import my.notes.HHHH.R
 import my.notes.HHHH.database.entity.ArisanModel
 import my.notes.HHHH.databinding.ActivityArisanMemberBinding
-import my.notes.HHHH.view.arisan.adapter.ArisanMemeberAdapter
+import my.notes.HHHH.view.arisan.adapter.ArisanMemberAdapter
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,7 +32,7 @@ class ArisanMemberActivity : AppCompatActivity() {
     private lateinit var binding: ActivityArisanMemberBinding
     val memberVM: ArisanViewModel by viewModel()
     val groupVM: ArisanGroupViewModel by viewModel()
-    lateinit var memberAdapter: ArisanMemeberAdapter
+    lateinit var memberAdapter: ArisanMemberAdapter
 
 
     var isRefres: Boolean = true
@@ -62,7 +62,7 @@ class ArisanMemberActivity : AppCompatActivity() {
             binding.optionF.visibility = View.VISIBLE
         }
 
-        memberAdapter = ArisanMemeberAdapter(this)
+        memberAdapter = ArisanMemberAdapter(this)
 
         groupId = intent.extras?.get(EXTRA_GROUP_ID)?.toString()?.toIntOrNull() ?: 0
         groupName = intent.extras?.get(EXTRA_GROUP_NAME)?.toString() ?: ""

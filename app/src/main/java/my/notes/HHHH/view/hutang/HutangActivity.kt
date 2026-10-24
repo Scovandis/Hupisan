@@ -9,7 +9,7 @@ import android.util.Log
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import my.notes.HHHH.viewmodel.DataViewModel
-import my.notes.HHHH.viewmodel.PembayaranViewModel
+import my.notes.HHHH.viewmodel.PaymentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import android.content.Context
@@ -44,7 +44,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
     lateinit var hAdapter: HutangAdapter
 
     val viewModel: DataViewModel by viewModel()
-    val viewModelPembayaran: PembayaranViewModel by viewModel()
+    val paymentViewModel: PaymentViewModel by viewModel()
     var isRefresh: Boolean = true
     var typeJenis: String? = null
 
@@ -271,7 +271,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
                         getString(R.string.item_telah_di_hapus_dari_daftar),
                         Snackbar.LENGTH_LONG
                     )
-                viewModelPembayaran.deleteDataFormUid(item.id)
+                paymentViewModel.deleteDataFormUid(item.id)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     snackbar.setActionTextColor(getColor(R.color.purple_500))
                 }else{

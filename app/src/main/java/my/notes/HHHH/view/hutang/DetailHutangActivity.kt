@@ -26,17 +26,17 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import my.notes.HHHH.viewmodel.DataViewModel
-import my.notes.HHHH.viewmodel.PembayaranViewModel
+import my.notes.HHHH.viewmodel.PaymentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import my.notes.HHHH.R
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import my.notes.HHHH.database.entity.DataPembayaranModel
+import my.notes.HHHH.database.entity.PaymentModel
 import my.notes.HHHH.databinding.ActivityDetailHutangBinding
 import my.notes.HHHH.databinding.AlertDicicilBinding
-import my.notes.HHHH.view.hutang.adapter.PembayaranAdapter
+import my.notes.HHHH.view.hutang.adapter.PaymentAdapter
 import my.notes.HHHH.view.lunas.LunasActivity
 import my.notes.HHHH.view.lunas.WindowFragmentLunas
 import my.notes.HHHH.view.main.MainActivity
@@ -52,9 +52,9 @@ class DetailHutangActivity : AppCompatActivity() {
     private var typeJenis: Boolean? = null
 
     private val viewModel: DataViewModel by viewModel()
-    private val pembayaranViewModel: PembayaranViewModel by viewModel()
+    private val paymentViewModel: PaymentViewModel by viewModel()
     private var jenis: String? = null
-    private lateinit var pembayaranAdapter: PembayaranAdapter
+    private lateinit var paymentAdapter: PaymentAdapter
 
     private lateinit var ivAvatar: ImageView
     private lateinit var ivAvatarGender: ImageView
@@ -139,7 +139,7 @@ class DetailHutangActivity : AppCompatActivity() {
             })
 
         onActionListener()
-        pembayaranAdapter = PembayaranAdapter(this)
+        paymentAdapter = PaymentAdapter(this)
         binding.content.rvDataPembayaranFromId.visibility = View.INVISIBLE
         binding.content.rlTextNull.visibility = View.INVISIBLE
         Handler(Looper.getMainLooper()).postDelayed(
@@ -165,11 +165,11 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private fun setListPembayaran(uid: Int) {
-        pembayaranViewModel.getDataPembayaranFromUid(uid).observe(this, Observer {
+        paymentViewModel.getDataPembayaranFromUid(uid).observe(this, Observer {
             if (it != null){
                 binding.content.rlTextNull.visibility = View.GONE
                 binding.content.rvDataPembayaranFromId.visibility = View.VISIBLE
-                pembayaranAdapter.setData(it as ArrayList<DataPembayaranModel>)
+                paymentAdapter.setData(it as ArrayList<PaymentModel>)
             }else {
                 binding.content.rlTextNull.visibility = View.VISIBLE
                 binding.content.rvDataPembayaranFromId.visibility = View.GONE
@@ -180,7 +180,7 @@ class DetailHutangActivity : AppCompatActivity() {
     private fun bindRv() {
         binding.content.rvDataPembayaranFromId.apply {
             layoutManager = LinearLayoutManager(this@DetailHutangActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = pembayaranAdapter
+            adapter = paymentAdapter
         }
     }
 
@@ -278,7 +278,7 @@ class DetailHutangActivity : AppCompatActivity() {
                         alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
                     }else{
                         val dateFormat = DecimalFormat("##,###,###")
-                        val dataBayar = DataPembayaranModel(
+                        val dataBayar = PaymentModel(
                             0,
                             fromUid,
                             dibuat,
@@ -299,7 +299,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 else if (total == 0){
                                     var bayar = activityDibayar + alertJumlah
                                     Log.d(TAG, "BAYAR $bayar")
-                                    pembayaranViewModel.insertData(dataBayar)
+                                    paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(binding.clRootContent, getString(R.string.berhasil_dilunasi)+" "+ getString(R.string.dolar) +" "+ dateFormat.format(alertJumlah), Snackbar.LENGTH_SHORT).show()
@@ -311,7 +311,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     },700)
                                 }else {
                                     var bayar = activityDibayar + alertJumlah
-                                    pembayaranViewModel.insertData(dataBayar)
+                                    paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, false, "-", bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
@@ -324,7 +324,7 @@ class DetailHutangActivity : AppCompatActivity() {
                             2 -> {
                                 var total = activityJumlah + alertJumlah
                                 Log.d(TAG, "TOTAL DITAMBAH $total")
-                                pembayaranViewModel.insertData(dataBayar)
+                                paymentViewModel.insertData(dataBayar)
                                 viewModel.updateDataJumlah(total, fromUid, false, "-", activityDibayar)
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     Snackbar.make(
@@ -339,7 +339,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 Log.d(TAG, "TOTAL LUNAS $total")
                                 if(total == 0){
                                     var bayar = activityDibayar + alertJumlah
-                                    pembayaranViewModel.insertData(dataBayar)
+                                    paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(

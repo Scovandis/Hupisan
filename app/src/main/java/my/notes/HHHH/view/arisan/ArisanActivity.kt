@@ -30,7 +30,7 @@ import my.notes.HHHH.databinding.ActivityArisanBinding
 import my.notes.HHHH.databinding.AlertDeleteAllBinding
 import my.notes.HHHH.databinding.AlertDeleteBinding
 import my.notes.HHHH.util.SwipeToDeleteCallback
-import my.notes.HHHH.view.arisan.adapter.ArisanGorupAdapter
+import my.notes.HHHH.view.arisan.adapter.ArisanGroupAdapter
 import my.notes.HHHH.view.main.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -40,7 +40,7 @@ class ArisanActivity : AppCompatActivity() {
     lateinit var binding: ActivityArisanBinding
     private val TAG = ArisanActivity::class.java.simpleName
     val groupArisanVM: ArisanGroupViewModel by viewModel()
-    lateinit var groupAdapter: ArisanGorupAdapter
+    lateinit var groupAdapter: ArisanGroupAdapter
     val userArisanVM: ArisanViewModel by viewModel()
 
 //    perbaikan pada gridview pada member
@@ -55,7 +55,7 @@ class ArisanActivity : AppCompatActivity() {
         dateTimeNow = SimpleDateFormat("dd/MM/yyyy").format(Date())
         timeNow = SimpleDateFormat("HH:mm").format(Date())
 
-        groupAdapter = ArisanGorupAdapter(this)
+        groupAdapter = ArisanGroupAdapter(this)
 
 
         firstView()
