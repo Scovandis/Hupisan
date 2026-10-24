@@ -8,7 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import my.notes.HHHH.viewmodel.DataViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -22,7 +23,7 @@ import my.notes.HHHH.view.lunas.adapter.LunasAdapter
 class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
     lateinit var binding: FragmentWindowLunasBinding
     private var currentState: Int = BottomSheetBehavior.STATE_EXPANDED
-    private lateinit var viewModel: my.notes.HHHH.database.DataViewModel
+    private val viewModel: DataViewModel by activityViewModel()
     private lateinit var lunasAdapter: LunasAdapter
     lateinit var listData: ArrayList<DataModel>
 
@@ -34,7 +35,6 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         binding = FragmentWindowLunasBinding.inflate(inflater, container, false)
         (activity as LunasActivity).setOnBottomSheetCallbacks(this)
         binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
-        viewModel = ViewModelProvider(requireActivity()).get(my.notes.HHHH.database.DataViewModel::class.java)
         lunasAdapter = LunasAdapter(binding.root.context)
         binding.rvLunas.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE

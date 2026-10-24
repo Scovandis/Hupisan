@@ -24,7 +24,9 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.DataViewModel
+import my.notes.HHHH.viewmodel.PembayaranViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -49,8 +51,8 @@ class DetailHutangActivity : AppCompatActivity() {
 
     private var typeJenis: Boolean? = null
 
-    private lateinit var viewModel: my.notes.HHHH.database.DataViewModel
-    private lateinit var pembayaranViewModel: my.notes.HHHH.database.PembayaranViewModel
+    private val viewModel: DataViewModel by viewModel()
+    private val pembayaranViewModel: PembayaranViewModel by viewModel()
     private var jenis: String? = null
     private lateinit var pembayaranAdapter: PembayaranAdapter
 
@@ -82,9 +84,6 @@ class DetailHutangActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        pembayaranViewModel = ViewModelProvider(this).get(my.notes.HHHH.database.PembayaranViewModel::class.java)
-        viewModel = ViewModelProvider(this).get(my.notes.HHHH.database.DataViewModel::class.java)
 
         //bindview
         EXPAND_AVATAR_SIZE = resources.getDimension(R.dimen.default_expanded_image_size)
@@ -190,9 +189,6 @@ class DetailHutangActivity : AppCompatActivity() {
         val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val alertBinding : AlertDicicilBinding = AlertDicicilBinding.inflate(inflater)
         dialogBuilder.setView(alertBinding.root)
-
-        pembayaranViewModel = ViewModelProvider(this).get(my.notes.HHHH.database.PembayaranViewModel::class.java)
-
 
         alertBinding.tvTotalHutang.text = getString(R.string.dolar) +"." + decimalFormat.format(activityJumlah)
         alertBinding.tvUsername.text = binding.tvProfileName.text

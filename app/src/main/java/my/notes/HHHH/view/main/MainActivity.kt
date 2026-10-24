@@ -13,7 +13,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.DataViewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.snackbar.Snackbar
@@ -49,9 +51,9 @@ class MainActivity : AppCompatActivity() {
     private val TAG = MainActivity::class.simpleName
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: my.notes.HHHH.database.DataViewModel
+    private val viewModel: DataViewModel by viewModel()
     lateinit var newAdapter: NewAdapter
-    private lateinit var groupVM : my.notes.HHHH.database.ArisanGroupViewModel
+    private val groupVM: ArisanGroupViewModel by viewModel()
 
     lateinit var appsConfig: AppsConfig
 
@@ -162,8 +164,6 @@ class MainActivity : AppCompatActivity() {
 //            Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
         }
         newAdapter = NewAdapter(this@MainActivity)
-        viewModel = ViewModelProvider(this).get(my.notes.HHHH.database.DataViewModel::class.java)
-        groupVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         binding.rvNew.visibility = View.GONE
 
         Handler(Looper.getMainLooper()).postDelayed({

@@ -16,7 +16,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.DataViewModel
 import my.notes.HHHH.R
 import my.notes.HHHH.R.id
 import com.google.android.material.snackbar.Snackbar
@@ -55,15 +56,13 @@ class AddHutangActivity : AppCompatActivity(){
     var nJenis : String? = null
     var nTime: String? = null
 
-    lateinit var dbViewModel: my.notes.HHHH.database.DataViewModel
+    val dbViewModel: DataViewModel by viewModel()
 
     private lateinit var binding: ActivityAddHutangBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        dbViewModel = ViewModelProvider.AndroidViewModelFactory(application).create(my.notes.HHHH.database.DataViewModel::class.java)
 
         binding.tvDibuatPada.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
         binding.tvDateTime.text = SimpleDateFormat("dd/MM/yyyy").format(Date())

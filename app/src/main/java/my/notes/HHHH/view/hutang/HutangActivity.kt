@@ -7,7 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.DataViewModel
+import my.notes.HHHH.viewmodel.PembayaranViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import android.content.Context
@@ -41,8 +43,8 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
 
     lateinit var hAdapter: HutangAdapter
 
-    lateinit var viewModel: my.notes.HHHH.database.DataViewModel
-    lateinit var viewModelPembayaran: my.notes.HHHH.database.PembayaranViewModel
+    val viewModel: DataViewModel by viewModel()
+    val viewModelPembayaran: PembayaranViewModel by viewModel()
     var isRefresh: Boolean = true
     var typeJenis: String? = null
 
@@ -64,8 +66,6 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = typeJenis
 
-        viewModel = ViewModelProvider(this).get(my.notes.HHHH.database.DataViewModel::class.java)
-        viewModelPembayaran = ViewModelProvider(this).get(my.notes.HHHH.database.PembayaranViewModel::class.java)
         binding.fabAddAction.setColorFilter(Color.WHITE)
         binding.fabAddAction.setOnClickListener{
             val intent = Intent(this, AddHutangActivity::class.java)

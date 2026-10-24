@@ -17,7 +17,9 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.ArisanViewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,9 +39,9 @@ import kotlin.collections.ArrayList
 class ArisanActivity : AppCompatActivity() {
     lateinit var binding: ActivityArisanBinding
     private val TAG = ArisanActivity::class.java.simpleName
-    lateinit var groupArisanVM: my.notes.HHHH.database.ArisanGroupViewModel
+    val groupArisanVM: ArisanGroupViewModel by viewModel()
     lateinit var groupAdapter: ArisanGorupAdapter
-    lateinit var userArisanVM : my.notes.HHHH.database.ArisanViewModel
+    val userArisanVM: ArisanViewModel by viewModel()
 
 //    perbaikan pada gridview pada member
 
@@ -53,8 +55,6 @@ class ArisanActivity : AppCompatActivity() {
         dateTimeNow = SimpleDateFormat("dd/MM/yyyy").format(Date())
         timeNow = SimpleDateFormat("HH:mm").format(Date())
 
-        userArisanVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanViewModel::class.java)
-        groupArisanVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         groupAdapter = ArisanGorupAdapter(this)
 
 

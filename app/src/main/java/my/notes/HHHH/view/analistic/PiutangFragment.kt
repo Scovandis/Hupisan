@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
+import my.notes.HHHH.viewmodel.DataViewModel
 import my.notes.HHHH.R
 import my.notes.HHHH.databinding.FragmentPiutangBinding
 import org.eazegraph.lib.models.PieModel
@@ -18,7 +19,7 @@ import java.util.*
 class PiutangFragment : Fragment() {
     private val TAG = PiutangFragment::class.java.simpleName
     lateinit var binding: FragmentPiutangBinding
-    lateinit var viewModel: my.notes.HHHH.database.DataViewModel
+    val viewModel: DataViewModel by activityViewModel()
 
     var jumlah_hari_dipinjam = 0
     var jumlah_minggu_dipinjam = 0
@@ -37,7 +38,6 @@ class PiutangFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPiutangBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(requireActivity()).get(my.notes.HHHH.database.DataViewModel::class.java)
         setUpData()
         return binding.root
     }

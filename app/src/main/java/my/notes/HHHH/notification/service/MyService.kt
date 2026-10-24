@@ -18,7 +18,6 @@ import java.util.concurrent.Executors
 
 
 class MyService : Service(){
-    lateinit var viewModel: my.notes.HHHH.database.DataViewModel
     companion object{
         internal val TAG = MyService::class.java.simpleName
         val NOTIFICATION_CHANNEL_ID = "10001"

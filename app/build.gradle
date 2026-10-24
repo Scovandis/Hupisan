@@ -113,4 +113,8 @@ dependencies {
 
     // kotlin recycler animator
     implementation 'jp.wasabeef:recyclerview-animators:4.0.2'
+
+    // koin
+    def koin_version = "3.5.6"
+    implementation "io.insert-koin:koin-android:$koin_version"
 }

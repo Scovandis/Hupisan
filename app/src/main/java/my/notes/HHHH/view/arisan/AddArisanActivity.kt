@@ -16,7 +16,9 @@ import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.ArisanViewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 
@@ -31,8 +33,8 @@ class AddArisanActivity : AppCompatActivity() {
     lateinit var binding : ActivityAddArisanBinding
     private var dateTimeNow :String = ""
 
-    lateinit var groupArisanVM: my.notes.HHHH.database.ArisanGroupViewModel
-    lateinit var userArisanVM: my.notes.HHHH.database.ArisanViewModel
+    val groupArisanVM: ArisanGroupViewModel by viewModel()
+    val userArisanVM: ArisanViewModel by viewModel()
 
     private var isBayar1: SwitchMaterial? = null
     var groupId : Int? = null
@@ -42,8 +44,6 @@ class AddArisanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddArisanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        groupArisanVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
-        userArisanVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanViewModel::class.java)
         dateTimeNow = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

@@ -14,7 +14,9 @@ import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.ArisanViewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import my.notes.HHHH.R
 import my.notes.HHHH.database.entity.ArisanModel
@@ -28,8 +30,8 @@ import kotlin.collections.ArrayList
 class ArisanMemberActivity : AppCompatActivity() {
     private val TAG = ArisanMemberActivity::class.java.simpleName
     private lateinit var binding: ActivityArisanMemberBinding
-    lateinit var memberVM: my.notes.HHHH.database.ArisanViewModel
-    lateinit var groupVM: my.notes.HHHH.database.ArisanGroupViewModel
+    val memberVM: ArisanViewModel by viewModel()
+    val groupVM: ArisanGroupViewModel by viewModel()
     lateinit var memberAdapter: ArisanMemeberAdapter
 
 
@@ -60,8 +62,6 @@ class ArisanMemberActivity : AppCompatActivity() {
             binding.optionF.visibility = View.VISIBLE
         }
 
-        memberVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanViewModel::class.java)
-        groupVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         memberAdapter = ArisanMemeberAdapter(this)
 
         groupId = intent.extras?.get(EXTRA_GROUP_ID)?.toString()?.toIntOrNull() ?: 0

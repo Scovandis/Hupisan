@@ -13,7 +13,9 @@ import android.view.View
 import android.widget.RadioButton
 import androidx.appcompat.app.AlertDialog
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.ArisanViewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -30,8 +32,8 @@ import kotlin.collections.ArrayList
 class AddMemberActivity : AppCompatActivity() {
     private val TAG = AddMemberActivity::class.java.simpleName
     lateinit var binding: ActivityAddMemberBinding
-    lateinit var memberVM: my.notes.HHHH.database.ArisanViewModel
-    lateinit var groupArisanVM: my.notes.HHHH.database.ArisanGroupViewModel
+    val memberVM: ArisanViewModel by viewModel()
+    val groupArisanVM: ArisanGroupViewModel by viewModel()
     lateinit var userAdapter: ListUser
 
     var groupId: Int? = null
@@ -56,8 +58,6 @@ class AddMemberActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         listUsername = ArrayList<String>()
         firstData()
-        memberVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanViewModel::class.java)
-        groupArisanVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         userAdapter = ListUser()
 
         collapsingToolbar.title = "$groupName (${getString(R.string.dolar)} $groupPembayaran)"

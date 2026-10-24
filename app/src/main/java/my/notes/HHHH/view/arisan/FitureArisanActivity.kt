@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import my.notes.HHHH.viewmodel.ArisanGroupViewModel
 
 import my.notes.HHHH.R
 import my.notes.HHHH.databinding.ActivityFitureArisanBinding
@@ -13,14 +14,13 @@ import my.notes.HHHH.view.main.MainActivity
 
 class FitureArisanActivity : AppCompatActivity() {
     lateinit var binding: ActivityFitureArisanBinding
-    lateinit var groupVM: my.notes.HHHH.database.ArisanGroupViewModel
+    val groupVM: ArisanGroupViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFitureArisanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.arisan)
-        groupVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         setOnActionView()
     }
     private fun setOnActionView(){
