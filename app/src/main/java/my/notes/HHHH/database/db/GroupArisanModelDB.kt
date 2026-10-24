@@ -30,7 +30,7 @@ abstract class GroupArisanModelDB : RoomDatabase(){
                     GroupArisanModelDB::class.java,
                     "grup_arisan"
                 )
-                    .addMigrations(migration_1_2)
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

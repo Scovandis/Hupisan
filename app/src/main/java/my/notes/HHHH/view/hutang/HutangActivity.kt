@@ -146,7 +146,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
                 return true
             }
             else ->{
-                return onOptionsItemSelected(item)
+                return super.onOptionsItemSelected(item)
             }
         }
     }

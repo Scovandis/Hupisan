@@ -65,6 +65,10 @@ class HutangFragment : Fragment() {
             Log.d(TAG, "ONE YEAR AGO $oneYearAgo")
 
             viewModel.getAllDataWhereStatusData(statusData = false, jenis = false).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                jumlah_hari_dipinjam = 0
+                jumlah_minggu_dipinjam = 0
+                jumlah_bulan_dipinjam = 0
+                jumlah_tahun_dipinjam = 0
                 for (i in it){
                     val perserI = SimpleDateFormat("dd/MM/yyyy")
                     val tgl_dibuat = formatter.format(perserI.parse("${i.diBuat}")).replace("/", "").trim().toInt()
@@ -122,6 +126,7 @@ class HutangFragment : Fragment() {
         }
     }
     private fun addPieChart(){
+        binding.piechart.clearChart()
         binding.piechart.addPieSlice(
             PieModel(
                 getString(R.string.hari_dibayar), jumlah_hari_dipinjam.toFloat(),

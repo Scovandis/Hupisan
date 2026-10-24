@@ -20,6 +20,7 @@ class ArisanMemeberAdapter(val context: Context): RecyclerView.Adapter<ArisanMem
 
     fun setData(lists: ArrayList<ArisanModel>){
         this.list = lists
+        notifyDataSetChanged()
     }
     inner class ViewHolder(val binding: ItemUserArisanBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: ArisanModel){

@@ -118,9 +118,10 @@ class DetailHutangActivity : AppCompatActivity() {
 
         //get id && typejenis data
         val uid = intent.extras?.get(EXTRA_UID)
-        val jenis = intent.extras?.get(EXTRA_TYPE_JENIS).toString()
-        typeJenis = jenis.toBoolean()
-        binding.content.tvJumlahStatus.text = getString(R.string.jumlah) + " "+ typeJenis
+        this.jenis = intent.extras?.get(EXTRA_TYPE_JENIS)?.toString()
+        typeJenis = this.jenis?.toBoolean() ?: false
+        val jenisLabel = if (typeJenis == true) getString(R.string.piutang) else getString(R.string.hutang)
+        binding.content.tvJumlahStatus.text = "${getString(R.string.jumlah)} $jenisLabel"
         setData(uid.toString())
 
 
@@ -259,8 +260,8 @@ class DetailHutangActivity : AppCompatActivity() {
         Log.d(TAG, " roomDbSave uid : $fromUid")
         val dibuat = alertBinding.tvAlertDibuatPada.text.toString()
         val keterangan = alertBinding.etKeteranganAlert.editText!!.text.toString()
-        val aJumlah = alertBinding.etJumlahAlert.editText!!.text
-        var alertJumlah = aJumlah.toString().replace(" ", "").replace(".", "").toInt()
+        val aJumlah = alertBinding.etJumlahAlert.editText?.text?.toString() ?: ""
+        val alertJumlah = aJumlah.replace(" ", "").replace(".", "").toIntOrNull() ?: 0
         //activity
 
         Log.d(TAG , "ACTIVITY JUMLAH ::::::::::::::::: $activityJumlah")

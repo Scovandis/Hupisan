@@ -1,4 +1,4 @@
-package my.notes.HHHH.database
+﻿package my.notes.HHHH.database
 
 import androidx.lifecycle.LiveData
 import my.notes.HHHH.database.dao.ArisanGroupDataDao

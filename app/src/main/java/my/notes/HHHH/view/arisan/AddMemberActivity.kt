@@ -95,7 +95,7 @@ class AddMemberActivity : AppCompatActivity() {
     private fun deleteData(){
         memberVM.getAllMemberFromGroupId(groupId!!).observe(this, androidx.lifecycle.Observer {
             for(i in it){
-                if (i.username.equals(listUsername)){
+                if (listUsername.contains(i.username)){
                     memberVM.deleteMemberWhereUID(i.uid)
                 }
             }
@@ -119,6 +119,7 @@ class AddMemberActivity : AppCompatActivity() {
                 intent.putExtra(ArisanMemberActivity.EXTRA_TANGGAL_DIBUAT, groupDibuat)
                 intent.putExtra(ArisanMemberActivity.EXTRA_GROUP_ANGGARAN, groupPembayaran)
                 intent.putExtra(ArisanMemberActivity.EXTRA_TANGGAL_DIUPDATE, groupDiupdate)
+                intent.putExtra(ArisanMemberActivity.EXTRA_GROUP_TERKUMPUL, 0)
                 startActivity(intent)
             },700)
         }
@@ -139,6 +140,7 @@ class AddMemberActivity : AppCompatActivity() {
                 intent.putExtra(ArisanMemberActivity.EXTRA_TANGGAL_DIBUAT, groupDibuat)
                 intent.putExtra(ArisanMemberActivity.EXTRA_GROUP_ANGGARAN, groupPembayaran)
                 intent.putExtra(ArisanMemberActivity.EXTRA_TANGGAL_DIUPDATE, groupDiupdate)
+                intent.putExtra(ArisanMemberActivity.EXTRA_GROUP_TERKUMPUL, 0)
                 startActivity(intent)
                 return true
             }else -> {
@@ -168,7 +170,7 @@ class AddMemberActivity : AppCompatActivity() {
                 }
             }
         }
-        binding.etMemeberName1.editText!!.addTextChangedListener{object: TextWatcher {
+        binding.etMemeberName1.editText!!.addTextChangedListener(object: TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -187,7 +189,7 @@ class AddMemberActivity : AppCompatActivity() {
                     binding.etMemeberName1.error = ""
                 }
             }
-        }}
+        })
         val member1 = binding.etMemeberName1.editText!!.text
         count=0
         var prefixText = 1

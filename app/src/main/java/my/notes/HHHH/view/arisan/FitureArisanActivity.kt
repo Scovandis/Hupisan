@@ -1,4 +1,4 @@
-package my.notes.HHHH.view.arisan
+﻿package my.notes.HHHH.view.arisan
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

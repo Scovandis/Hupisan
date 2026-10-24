@@ -127,7 +127,7 @@ class AddHutangActivity : AppCompatActivity(){
                 binding.etJumlah.error = getString(R.string.nominal_tidak_boleh_kosong)
             }else {
                 if (nDeskripsi.length > 210){
-                    binding.etKeterangan.error = R.string.keterangan_tidak_boleh_lebih_dari_210_huruf.toString()
+                    binding.etKeterangan.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
                 } else {
                     val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat, nJatuhTempo, notif, nGender!!, jenis, false, nTime!!, "-", nDibayar)
                     Log.d(TAG, "dataInsert $data")
@@ -167,11 +167,16 @@ class AddHutangActivity : AppCompatActivity(){
         val notificationIntent = Intent(this, NotificationService::class.java)
         notificationIntent.putExtra(NotificationService.NOTIFICATION_ID, 1)
         notificationIntent.putExtra(NotificationService.NOTIFICATION, notification)
+        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
         val pendingIntent = PendingIntent.getBroadcast(
             this,
             0,
             notificationIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            flags
         )
         val futureInMillis = SystemClock.elapsedRealtime() + delay
         val alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)

@@ -101,7 +101,7 @@ class AddArisanActivity : AppCompatActivity() {
     private fun setOnActionAddView(){
         binding.tvCreateAt.text = dateTimeNow
 
-        binding.etNamaGroup.editText!!.addTextChangedListener { object: TextWatcher{
+        binding.etNamaGroup.editText!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -113,8 +113,8 @@ class AddArisanActivity : AppCompatActivity() {
             override fun afterTextChanged(p0: Editable?) {
                 rulesGroupName(p0.toString())
             }
-        } }
-        binding.etNominalPembayaran.editText!!.addTextChangedListener { object: TextWatcher{
+        })
+        binding.etNominalPembayaran.editText!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -147,8 +147,8 @@ class AddArisanActivity : AppCompatActivity() {
                     binding.etNominalPembayaran.helperText = getString(R.string.masukkan_jumlah_nominal)
                 }
             }
-        } }
-        binding.etPrizePoll.editText!!.addTextChangedListener { object: TextWatcher{
+        })
+        binding.etPrizePoll.editText!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -181,9 +181,9 @@ class AddArisanActivity : AppCompatActivity() {
                     binding.etPrizePoll.helperText = getString(R.string.masukkan_jumlah_nominal)
                 }
             }
-        } }
+        })
 
-        binding.etMemeberName1.editText!!.addTextChangedListener{object:TextWatcher{
+        binding.etMemeberName1.editText!!.addTextChangedListener(object: TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -202,7 +202,7 @@ class AddArisanActivity : AppCompatActivity() {
                     binding.etMemeberName1.error = ""
                 }
             }
-        }}
+        })
         binding.radioGroup1.setOnCheckedChangeListener { _, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
             when (radio.id) {

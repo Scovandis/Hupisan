@@ -64,13 +64,13 @@ class ArisanMemberActivity : AppCompatActivity() {
         groupVM = ViewModelProvider(this).get(my.notes.HHHH.database.ArisanGroupViewModel::class.java)
         memberAdapter = ArisanMemeberAdapter(this)
 
-        groupId = intent.extras!!.get(EXTRA_GROUP_ID).toString().toInt()
-        groupName = intent.extras!!.get(EXTRA_GROUP_NAME).toString()
-        groupAnggaran = intent.extras!!.get(EXTRA_GROUP_ANGGARAN).toString().toInt()
-        groupPrizePool = intent.extras!!.get(EXTRA_GROUP_PRIZE_POLL).toString().toInt()
-        groupDiBuat = intent.extras!!.get(EXTRA_TANGGAL_DIBUAT).toString()
-        groupDiUpdate = intent.extras!!.get(EXTRA_TANGGAL_DIBUAT).toString()
-        groupTerkumpul = intent.extras!!.get(EXTRA_GROUP_TERKUMPUL).toString().toInt()
+        groupId = intent.extras?.get(EXTRA_GROUP_ID)?.toString()?.toIntOrNull() ?: 0
+        groupName = intent.extras?.get(EXTRA_GROUP_NAME)?.toString() ?: ""
+        groupAnggaran = intent.extras?.get(EXTRA_GROUP_ANGGARAN)?.toString()?.toIntOrNull() ?: 0
+        groupPrizePool = intent.extras?.get(EXTRA_GROUP_PRIZE_POLL)?.toString()?.toIntOrNull() ?: 0
+        groupDiBuat = intent.extras?.get(EXTRA_TANGGAL_DIBUAT)?.toString() ?: ""
+        groupDiUpdate = intent.extras?.get(EXTRA_TANGGAL_DIUPDATE)?.toString() ?: groupDiBuat
+        groupTerkumpul = intent.extras?.get(EXTRA_GROUP_TERKUMPUL)?.toString()?.toIntOrNull() ?: 0
 
         binding.fabTambahkanAnggota.setColorFilter(Color.WHITE)
         binding.fabMulai.setColorFilter(Color.WHITE)
@@ -114,13 +114,9 @@ class ArisanMemberActivity : AppCompatActivity() {
                 binding.tvIsEmpty.visibility = View.GONE
                 binding.rvMemberArisan.visibility = View.VISIBLE
                 memberAdapter.setData(it as ArrayList<ArisanModel>)
-                val numb: Int = 0
-                for (i in it){
-                    numb+1
-                    if (numb >= 50){
-                        binding.fabTambahkanAnggota.visibility = View.GONE
-                        binding.tvFabTambahkan.visibility = View.GONE
-                    }
+                if (it.size >= 50){
+                    binding.fabTambahkanAnggota.visibility = View.GONE
+                    binding.tvFabTambahkan.visibility = View.GONE
                 }
             }
         })

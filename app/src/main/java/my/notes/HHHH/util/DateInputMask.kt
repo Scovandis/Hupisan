@@ -1,4 +1,4 @@
-package com.example.hutangkuhutangmuhutanghutangan.apputils
+package my.notes.HHHH.util
 
 import android.text.Editable
 import android.text.TextWatcher

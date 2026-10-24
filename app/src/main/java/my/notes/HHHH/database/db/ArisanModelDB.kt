@@ -29,7 +29,7 @@ abstract class ArisanModelDB :RoomDatabase(){
                     my.notes.HHHH.database.db.ArisanModelDB::class.java,
                     "arisan"
                 )
-                    .addMigrations(my.notes.HHHH.database.db.ArisanModelDB.Companion.migration_1_2)
+                    .fallbackToDestructiveMigration()
                     .build()
                 my.notes.HHHH.database.db.ArisanModelDB.Companion.INSTANCE = instance
                 instance

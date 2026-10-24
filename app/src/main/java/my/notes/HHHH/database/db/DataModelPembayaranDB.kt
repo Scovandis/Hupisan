@@ -30,7 +30,7 @@ abstract class DataModelPembayaranDB: RoomDatabase(){
                     DataModelPembayaranDB::class.java,
                      "pembayaran"
                 )
-                    .addMigrations(migration_1_2)
+                    .fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 instance

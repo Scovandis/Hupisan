@@ -21,6 +21,7 @@ class ArisanGorupAdapter(val context: Context): RecyclerView.Adapter<ArisanGorup
 
     fun setData(lists: ArrayList<GrupArisanModel>){
         this.list = lists
+        notifyDataSetChanged()
     }
     fun getData(): ArrayList<GrupArisanModel>{
         return list
