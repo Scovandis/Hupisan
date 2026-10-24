@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.lunas.adapter
+package my.notes.HHHH.view.lunas.adapter
 
 import android.content.Context
 import android.content.Intent

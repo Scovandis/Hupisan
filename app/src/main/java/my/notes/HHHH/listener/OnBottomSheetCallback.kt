@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.listener
+package my.notes.HHHH.listener
 
 import android.view.View
 

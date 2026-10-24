@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.util
+package my.notes.HHHH.util
 
 import android.content.Context
 import android.util.AttributeSet

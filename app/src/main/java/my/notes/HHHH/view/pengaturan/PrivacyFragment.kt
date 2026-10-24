@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.pengaturan
+package my.notes.HHHH.view.pengaturan
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

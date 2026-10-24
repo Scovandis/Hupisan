@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.onboarding
+package my.notes.HHHH.view.onboarding
 
 import android.content.Context
 import androidx.fragment.app.Fragment

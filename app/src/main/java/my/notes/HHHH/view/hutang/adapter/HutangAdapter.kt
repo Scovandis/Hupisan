@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.hutang.adapter
+package my.notes.HHHH.view.hutang.adapter
 
 
 import android.app.AlertDialog

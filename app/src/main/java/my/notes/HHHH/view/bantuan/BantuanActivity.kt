@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.bantuan
+package my.notes.HHHH.view.bantuan
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

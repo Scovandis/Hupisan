@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.arisan.adapter
+package my.notes.HHHH.view.arisan.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

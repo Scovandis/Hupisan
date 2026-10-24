@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.lunas
+package my.notes.HHHH.view.lunas
 
 import android.content.Intent
 import android.content.res.ColorStateList

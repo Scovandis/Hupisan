@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.notification.service
+package my.notes.HHHH.notification.service
 
 import android.app.Notification
 import android.content.BroadcastReceiver

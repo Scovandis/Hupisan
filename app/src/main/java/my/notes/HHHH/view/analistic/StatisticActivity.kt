@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.analistic
+package my.notes.HHHH.view.analistic
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.view.main.adapter
+package my.notes.HHHH.view.main.adapter
 
 import android.content.Context
 import androidx.fragment.app.Fragment

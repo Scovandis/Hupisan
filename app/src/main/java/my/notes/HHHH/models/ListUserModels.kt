@@ -1,4 +1,4 @@
-﻿package my.notes.HHHH.models
+package my.notes.HHHH.models
 
 class ListUserModels (
     var username: String,
