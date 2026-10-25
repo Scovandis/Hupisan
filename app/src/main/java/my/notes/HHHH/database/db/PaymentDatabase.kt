@@ -13,8 +13,6 @@ import my.notes.HHHH.database.entity.PaymentModel
 abstract class PaymentDatabase : RoomDatabase() {
     abstract fun paymentDao(): PaymentDao
 
-    fun dataPembayaranDao(): PaymentDao = paymentDao()
-
     companion object {
         private val migration_1_2: Migration = object : Migration(1, 2) {
             override fun migrate(database: SupportSQLiteDatabase) {
