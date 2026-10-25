@@ -31,7 +31,7 @@ import my.notes.HHHH.databinding.ActivityAddArisanBinding
 class AddArisanActivity : AppCompatActivity() {
     private val TAG = AddArisanActivity::class.java.simpleName
     lateinit var binding : ActivityAddArisanBinding
-    private var dateTimeNow :String = ""
+    private var dateTimeNow: String? = null
 
     val groupArisanVM: ArisanGroupViewModel by viewModel()
     val userArisanVM: ArisanViewModel by viewModel()
@@ -92,11 +92,6 @@ class AddArisanActivity : AppCompatActivity() {
     private fun deleteData(){
         groupArisanVM.deleteGroupWhereUid(groupId!!.toInt())
     }
-
-//    override fun onPause() {
-//        deleteData()
-//        super.onPause()
-//    }
 
     private fun setOnActionAddView(){
         binding.tvCreateAt.text = dateTimeNow
@@ -255,10 +250,9 @@ class AddArisanActivity : AppCompatActivity() {
 
     }
     private fun savedGroupData(){
-        //grup arisan saved
         val groupName = binding.etNamaGroup.editText!!.text.toString()
-        val dibuat = dateTimeNow
-        val diupdate = dateTimeNow
+        val dibuat = dateTimeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+        val diupdate = dibuat
         val anggaran_kesepakatan_peruser = binding.etNominalPembayaran.editText!!.text
         val anggaran_terkumpul = 0
         val prize_poll = binding.etPrizePoll.editText!!.text
@@ -343,7 +337,8 @@ class AddArisanActivity : AppCompatActivity() {
                         anggaranTerkumpul += it.jumlah_bayar
                     }
                 }
-                groupArisanVM.updateDataWhereGroupNeeded(dateTimeNow, anggaranTerkumpul, totalMember, groupId)
+                val now = dateTimeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+                groupArisanVM.updateDataWhereGroupNeeded(now, anggaranTerkumpul, totalMember, groupId ?: 0)
             }
         })
         Log.d(TAG, "TOTAL MEMEBER $totalMember")

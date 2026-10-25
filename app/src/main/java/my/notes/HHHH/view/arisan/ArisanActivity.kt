@@ -43,17 +43,10 @@ class ArisanActivity : AppCompatActivity() {
     lateinit var groupAdapter: ArisanGroupAdapter
     val userArisanVM: ArisanViewModel by viewModel()
 
-//    perbaikan pada gridview pada member
-
-//    tambhakan tutorial pada bagian main acitivty
-    var dateTimeNow: String = ""
-    var timeNow: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArisanBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        dateTimeNow = SimpleDateFormat("dd/MM/yyyy").format(Date())
-        timeNow = SimpleDateFormat("HH:mm").format(Date())
 
         groupAdapter = ArisanGroupAdapter(this)
 

@@ -29,8 +29,6 @@ import my.notes.HHHH.view.main.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-//, DatePickerDialog.OnDateSetListener
 class AddHutangActivity : AppCompatActivity(){
     private val TAG = AddHutangActivity::class.java.simpleName
 
@@ -50,10 +48,10 @@ class AddHutangActivity : AppCompatActivity(){
     var nDeskripsi = "-"
     var nJumlah: Int = 0
     var nDibayar: Int = 0
-    var nDiBuat = "-"
-    var nJatuhTempo = "-"
+    var nDiBuat: String? = null
+    var nJatuhTempo: String? = null
     var nNotif: SwitchMaterial? = null
-    var nJenis : String? = null
+    var nJenis: String? = null
     var nTime: String? = null
 
     val dbViewModel: DataViewModel by viewModel()
@@ -115,7 +113,6 @@ class AddHutangActivity : AppCompatActivity(){
         } catch (e: NumberFormatException) {
             Log.e("exptn", e.toString())
         }
-//        val gender = nGender
         val notif = nNotif!!.isChecked
         Log.d(TAG, "dibuat : $nDiBuat\nusername : $nUname\njumlah nominal : $nJumlah\nketerangan : $nDeskripsi\njatuh tempo : $nJatuhTempo\ngender : $nGender\njenis : $nJenis\nnotif : $notif \nwaktu : $nTime")
 
@@ -128,7 +125,7 @@ class AddHutangActivity : AppCompatActivity(){
                 if (nDeskripsi.length > 210){
                     binding.etKeterangan.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
                 } else {
-                    val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat, nJatuhTempo, notif, nGender!!, jenis, false, nTime!!, "-", nDibayar)
+                    val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", notif, nGender, jenis, false, nTime ?: "", "-", nDibayar)
                     Log.d(TAG, "dataInsert $data")
                     dbViewModel.insertData(data)
                     Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
@@ -145,15 +142,10 @@ class AddHutangActivity : AppCompatActivity(){
     private fun isNotification(){
         if (nNotif!!.isChecked){
             val myDate = "$nJatuhTempo $nTime"
-            val sdf1 = SimpleDateFormat("dd/MM/yyyy HH:mm")
+            val sdf1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             val jtem = sdf1.parse(myDate)
-            val mil = jtem.time
-            Log.d(TAG, "DFJLKSJFLKSDJFK $mil")
-
-            val timeNow = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date()).toString()
-            val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
-            val date = sdf.parse(timeNow)
-            val millis = date.time
+            val mil = jtem?.time ?: System.currentTimeMillis()
+            val millis = System.currentTimeMillis()
             Log.d(TAG, "MILLLISEEECOND $millis")
             Log.d(TAG, "TOTAL ${mil - millis}")
             val postDelay = mil - millis
@@ -334,8 +326,6 @@ class AddHutangActivity : AppCompatActivity(){
                 am_pm = "PM"
             }
                 binding.tvTime.text = "" + checkDigit(selectedHour) + ":" +checkDigit(selectedMinute)
-//                +" "+ am_pm
-//                binding.tvTime.text = "$selectedHour:$selectedMinute $am_pm"
             },
             hour,
             minute,
@@ -345,7 +335,6 @@ class AddHutangActivity : AppCompatActivity(){
             mTimePicker.getButton(AlertDialog.BUTTON_POSITIVE ).setTextColor(Color.parseColor("#FF6200EE"))
             mTimePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF6200EE"))
         }
-//        mTimePicker.setTitle("Select Time")
         mTimePicker.show()
 
     }

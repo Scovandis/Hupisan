@@ -44,7 +44,7 @@ class ArisanMemberActivity : AppCompatActivity() {
     private var groupDiUpdate: String? = null
     private var groupTerkumpul: Int? = null
 
-    var timeNow: String = ""
+    var timeNow: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityArisanMemberBinding.inflate(layoutInflater)
@@ -90,11 +90,7 @@ class ArisanMemberActivity : AppCompatActivity() {
         binding.rvMemberArisan.visibility = View.GONE
         binding.tvIsEmpty.visibility = View.GONE
         if (isRefresh){
-//            binding.shimmer1.visibility = View.VISIBLE
-//            binding.shimmer1.startShimmer()
             Handler(Looper.getMainLooper()).postDelayed({
-//                binding.shimmer1.stopShimmer()
-//                binding.shimmer1.visibility = View.GONE
                 setData()
                 binding.swipeRefreshLayout.isRefreshing = false
             }, 1000)
@@ -130,13 +126,11 @@ class ArisanMemberActivity : AppCompatActivity() {
     }
 
     override fun onPause() {
-//        binding.shimmer1.stopShimmer()
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-//        binding.shimmer1.startShimmer()
     }
     private fun setActionView(){
         binding.optionF.setOnClickListener {
@@ -168,7 +162,8 @@ class ArisanMemberActivity : AppCompatActivity() {
         alert.setPositiveButton(getString(R.string.yakin_mulai)){
                 dialog, witch ->
             dialog.dismiss()
-            groupVM.updateDataWhereStatus(timeNow, true, groupId!!.toInt())
+            val updateTime = timeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+            groupVM.updateDataWhereStatus(updateTime, true, groupId ?: 0)
             Toast.makeText(this, getString(R.string.berhasil_memulai_acara), Toast.LENGTH_SHORT).show()
             binding.progressbar.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
@@ -236,9 +231,6 @@ class ArisanMemberActivity : AppCompatActivity() {
     }
 
     private fun setFirstView(){
-//        binding.shimmer1.startShimmer()
-//        binding.shimmer1.visibility = View.VISIBLE
-//        binding.fabAddMember.setColorFilter(android.graphics.Color.parseColor("#FF6200EE"))
         val decimalFormat = DecimalFormat("##,###,###")
         binding.content.tvNamaGroup.text = groupName
         binding.content.tvAnggaran.text = getString(R.string.dolar) + " " + decimalFormat.format(groupAnggaran)

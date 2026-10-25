@@ -43,7 +43,7 @@ class AddMemberActivity : AppCompatActivity() {
     var groupDibuat: String? = null
     var groupPrizePoll: Int? = null
 
-    var timeNow: String = ""
+    var timeNow: String? = null
     var isBayar1: SwitchMaterial? = null
     var gender: Int = 1
 
@@ -84,7 +84,6 @@ class AddMemberActivity : AppCompatActivity() {
         timeNow = time.toString()
     }
     private fun setHide(){
-//        binding.btnAddMember.setColorFilter(Color.parseColor("#FF6200EE"))
         isBayar1 = binding.switchOnPay
         binding.btnSimpanMember.visibility = View.GONE
         binding.rvUsername.visibility = View.GONE
@@ -230,7 +229,7 @@ class AddMemberActivity : AppCompatActivity() {
                         anggaranTerkumpul += it.jumlah_bayar
                     }
                 }
-                groupArisanVM.updateDataWhereGroupNeeded(timeNow!!, anggaranTerkumpul, totalMember, groupId)
+                groupArisanVM.updateDataWhereGroupNeeded(timeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()), anggaranTerkumpul, totalMember, groupId ?: 0)
             }
         })
         Log.d(TAG, "TOTAL MEMEBER $totalMember")
