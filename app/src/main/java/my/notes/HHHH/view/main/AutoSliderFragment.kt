@@ -12,7 +12,6 @@ class AutoSliderFragment: Fragment() {
     private var title: String? = null
     private var description: String? = null
     private var lottieAnimation: Int? = null
-//    private var layoutBaground: Int? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,22 +19,19 @@ class AutoSliderFragment: Fragment() {
             title = requireArguments().getString(ARGS_PARAMS1)
             description = requireArguments().getString(ARGS_PARAMS2)
             lottieAnimation = requireArguments().getInt(ARGS_PARAMS3)
-//            layoutBaground = requireArguments().getInt(ARGS_PARAMS4)
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentAutoSliderBinding.inflate(inflater,container, false)
         val view = binding.root
 
-
         binding.tvTitle.text = title
         binding.tvDesc.text = description
-        binding.lottieAnimation.setAnimation(lottieAnimation!!)
-//        binding.linearBgChange.setBackgroundColor(layoutBaground!!)
+        binding.lottieAnimation.setAnimation(lottieAnimation ?: 0)
 
         return view
     }
@@ -44,21 +40,18 @@ class AutoSliderFragment: Fragment() {
         private const val ARGS_PARAMS1 = "params1"
         private const val ARGS_PARAMS2 = "params2"
         private const val ARGS_PARAMS3 = "params3"
-//        private const val ARGS_PARAMS4 = "params4"
 
         @JvmStatic
         fun newInstance(
             title: String,
             deskription: String,
-            animationLottie: Int,
-//            color: Int
+            animationLottie: Int
         ) =
             AutoSliderFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARGS_PARAMS1, title)
                     putString(ARGS_PARAMS2, deskription)
                     putInt(ARGS_PARAMS3, animationLottie)
-//                    putInt(ARGS_PARAMS4, color)
                 }
             }
     }

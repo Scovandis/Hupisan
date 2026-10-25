@@ -68,53 +68,6 @@ class MainActivity : AppCompatActivity() {
         val HUTANG: String = getString(R.string.hutang)
         val PIUTAG: String = getString(R.string.piutang)
 
-        val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        val timeNow = SimpleDateFormat("dd/MM/yyyy HH:mm")
-        val formattedDate = timeNow.format(parser.parse("2018-12-14T09:55:00"))
-        Log.d(TAG, "FORMATEDDATE $formattedDate")
-
-        val c = Calendar.getInstance()
-        val ms = c.get(Calendar.MILLISECOND)
-        Log.d(TAG, "MILLISECOND $ms")
-
-        val rightNow = Calendar.getInstance()
-
-        val myDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Date()).toString()
-        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
-        val date = sdf.parse(myDate)
-        val millis = date.time
-        Log.d(TAG, "MILLLISEEECOND $millis")
-        val cal = Calendar.getInstance() //current date and time
-
-        cal.add(Calendar.DAY_OF_MONTH, 1) //add a day
-
-        cal[Calendar.HOUR_OF_DAY] = 23 //set hour to last hour
-
-        cal[Calendar.MINUTE] = 59 //set minutes to last minute
-
-        cal[Calendar.SECOND] = 59 //set seconds to last second
-
-        cal[Calendar.MILLISECOND] = 999 //set milliseconds to last millisecond
-
-        val millis1 = cal.timeInMillis
-        println("MILLIESS $millis1")
-        val currentTime = System.currentTimeMillis()
-        val endOfTomorrow = (currentTime + DateUtils.DAY_IN_MILLIS
-                + (DateUtils.DAY_IN_MILLIS - currentTime % DateUtils.DAY_IN_MILLIS))
-        println("ENDOFTOMOROW $endOfTomorrow")
-
-
-        val offset = (millis + rightNow[Calendar.DST_OFFSET]).toLong()
-        val sinceMid: Long = (rightNow.timeInMillis + offset) % (24 * 60 * 60 * 1000)
-        println("$offset offset")
-        println("RIGHT NOW $rightNow")
-        println("${rightNow[Calendar.ZONE_OFFSET]} righnow zoneoffset")
-        println("${rightNow[Calendar.DST_OFFSET]} righnow zoneoffset")
-
-        println("$sinceMid milliseconds since midnight")
-
-
-
         autoSlider()
         onPageChange()
         binding.viewPager.background = getRandomDrawbleColor()
@@ -148,7 +101,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.cardViewArisan.setOnClickListener {
             Snackbar.make(binding.constraint, getString(R.string.fitur_sedang_dikembangkan), Snackbar.LENGTH_SHORT).show()
-//            startActivity(Intent(this, FitureArisanActivity::class.java))
         }
         binding.cardViewLunas.setOnClickListener {
             startActivity(Intent(this, LunasActivity::class.java))
@@ -161,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         }
         binding.cardViewCaraMenggunakan.setOnClickListener {
             startActivity(Intent(this, BantuanActivity::class.java))
-//            Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
         }
         newAdapter = NewAdapter(this@MainActivity)
         binding.rvNew.visibility = View.GONE
@@ -170,8 +121,6 @@ class MainActivity : AppCompatActivity() {
             setData()
         }, 700)
         bindRecycler()
-
-//        setServiceNotifcation()
     }
     private fun loadLanguage(){
         var lang = appsConfig.getRegionLanguage()
@@ -297,23 +246,6 @@ class MainActivity : AppCompatActivity() {
     private fun autoSlider(){
         binding.viewPager.adapter = AutoSliderAdapter(supportFragmentManager, this)
         binding.indicator.setAnimationType(AnimationType.WORM)
-
-//        val handler = Handler()
-//        val Update = Runnable {
-//            if (currentPage == getItem(+1)) {
-//                currentPage = 0
-//            }
-//            binding.viewPager.setCurrentItem(currentPage++, true)
-//        }
-
-//        timer = Timer()
-//
-//        timer!!.schedule(object : TimerTask() {
-//            override fun run() {
-//                handler.post(Update)
-//            }
-//        }, DELAY_MS, PERIOD_MS)
-
     }
 
     private fun setData() {

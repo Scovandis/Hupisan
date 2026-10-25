@@ -200,15 +200,6 @@ class SplashScreenActivity : AppCompatActivity() {
             val config = Configuration()
             config.locale = locale
             baseContext.resources.updateConfiguration(config, baseContext.resources.displayMetrics)
-//            val myLocale = Locale(lang)
-//            val res: Resources = resources
-//            val dm: DisplayMetrics = res.getDisplayMetrics()
-//            val conf: Configuration = res.getConfiguration()
-//            conf.locale = myLocale
-//            res.updateConfiguration(conf, dm)
-//            val refresh = Intent(this, MainActivity::class.java)
-//            finish()
-//            startActivity(refresh)
         }else {
             var language = appsConfig.getRegionLanguage()
             Log.d(TAG, "LANGUAGE getRegion $language")

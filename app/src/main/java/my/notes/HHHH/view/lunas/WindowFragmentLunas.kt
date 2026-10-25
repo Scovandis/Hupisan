@@ -21,21 +21,23 @@ import my.notes.HHHH.listener.OnBottomSheetCallback
 import my.notes.HHHH.view.lunas.adapter.LunasAdapter
 
 class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
-    lateinit var binding: FragmentWindowLunasBinding
+    private var _binding: FragmentWindowLunasBinding? = null
+    private val binding get() = _binding!!
+
     private var currentState: Int = BottomSheetBehavior.STATE_EXPANDED
     private val viewModel: DataViewModel by activityViewModel()
     private lateinit var lunasAdapter: LunasAdapter
-    lateinit var listData: ArrayList<DataModel>
+    private var listData = ArrayList<DataModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentWindowLunasBinding.inflate(inflater, container, false)
-        (activity as LunasActivity).setOnBottomSheetCallbacks(this)
+    ): View {
+        _binding = FragmentWindowLunasBinding.inflate(inflater, container, false)
+        (activity as? LunasActivity)?.setOnBottomSheetCallbacks(this)
         binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
-        lunasAdapter = LunasAdapter(binding.root.context)
+        lunasAdapter = LunasAdapter(requireContext())
         binding.rvLunas.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE
         binding.tvIsEmpty.visibility = View.GONE
@@ -46,6 +48,11 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         }, 800)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
     private fun initRecyclerview(){
         binding.rvLunas.apply {
@@ -159,7 +166,6 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
                 binding.filterImage.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
                 binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
             }
-            //todo: when the bottom sheet is moving update data
         }
     }
 

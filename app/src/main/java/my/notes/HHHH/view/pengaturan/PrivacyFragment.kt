@@ -9,7 +9,8 @@ import my.notes.HHHH.R
 import my.notes.HHHH.databinding.FragmentPrivacyBinding
 
 class PrivacyFragment : Fragment() {
-    private lateinit var binding: FragmentPrivacyBinding
+    private var _binding: FragmentPrivacyBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -72,21 +73,22 @@ This privacy policy page was created at privacypolicytemplate.net and modified/g
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentPrivacyBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentPrivacyBinding.inflate(inflater, container, false)
         if (SettingsActivity.IS_TRIMES == 0) {
             binding.tvTitle.text = getString(R.string.trems_and_conditions)
             binding.tvDescription.text = _trems_condition
-        }else if(SettingsActivity.IS_TRIMES == 1){
+        } else if (SettingsActivity.IS_TRIMES == 1) {
             binding.tvTitle.text = getString(R.string.privacy_policy)
             binding.tvDescription.text = _privacy_policy
-        }else{
+        } else {
             SettingsActivity.IS_TRIMES = 2
         }
-//        binding.btnOke.setOnClickListener {
-//            activity!!.onBackPressed()
-////            activity!!.supportFragmentManager.popBackStack()
-//        }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

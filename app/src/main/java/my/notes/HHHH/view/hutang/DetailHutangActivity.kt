@@ -267,16 +267,16 @@ class DetailHutangActivity : AppCompatActivity() {
         if (aJumlah.length > 9) {
             alertBinding.etJumlahAlert.helperText =
                 getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-        }else {
-            if(aJumlah.isNullOrEmpty() || aJumlah.length == null){
+        } else {
+            if (aJumlah.isEmpty()) {
                 alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
-            }else{
-                if (keterangan.length > 210){
+            } else {
+                if (keterangan.length > 210) {
                     alertBinding.etKeteranganAlert.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
-                }else{
-                    if(alertJumlah == 0 || aJumlah.isEmpty() || aJumlah.isNullOrEmpty()){
+                } else {
+                    if (alertJumlah == 0 || aJumlah.isEmpty()) {
                         alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
-                    }else{
+                    } else {
                         val dateFormat = DecimalFormat("##,###,###")
                         val dataBayar = PaymentModel(
                             0,
@@ -501,12 +501,10 @@ class DetailHutangActivity : AppCompatActivity() {
         /* Collapsing avatar transparent*/
         when {
             percentOffset > mUpperLimitTransparently -> {
-                //avatarContainerView.alpha = 0.0f
                 titleToolbarText.alpha = 0.0F
             }
 
             percentOffset < mUpperLimitTransparently -> {
-                //  avatarContainerView.alpha = 1 - percentOffset
                 titleToolbarText.alpha = 1f
             }
         }
@@ -699,14 +697,10 @@ class DetailHutangActivity : AppCompatActivity() {
         Log.d(TAG, "UID FROM ADAPTER $uid")
         val id = uid.toInt()
         viewModel.getDataWhereId(id).observe(this, Observer{
-//            val option = RequestOptions()
-//                .centerCrop()
-//                .placeholder(getRandomDrawbleColor())
             with(binding){
                 if (it != null){
                     val jenisPinjaman = if (!it.jenisPinjaman) getString(R.string.hutang) else getString(R.string.piutang)
                     jenis = jenisPinjaman
-//                    Glide.with(this@DetailHutangActivity).load("").apply(option).into(ivAvatar)
                     activityJumlah = it.jumlah
                     activityDibayar = it.jumlah_dibayar
                     ivAvatar.background = getRandomDrawbleColor()

@@ -2,152 +2,140 @@ package my.notes.HHHH.view.analistic
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import org.koin.androidx.viewmodel.ext.android.activityViewModel
-import my.notes.HHHH.viewmodel.DataViewModel
-import my.notes.HHHH.databinding.FragmentHutangBinding
+import androidx.fragment.app.Fragment
 import my.notes.HHHH.R
+import my.notes.HHHH.databinding.FragmentHutangBinding
+import my.notes.HHHH.viewmodel.DataViewModel
 import org.eazegraph.lib.models.PieModel
+import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class HutangFragment : Fragment() {
-    private val TAG = HutangFragment::class.java.simpleName
+
     val viewModel: DataViewModel by activityViewModel()
-    lateinit var binding: FragmentHutangBinding
 
-    var jumlah_hari_dipinjam = 0
-    var jumlah_minggu_dipinjam = 0
-    var jumlah_bulan_dipinjam = 0
-    var jumlah_tahun_dipinjam = 0
+    private var _binding: FragmentHutangBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
+    private var jumlahHariDipinjam = 0
+    private var jumlahMingguDipinjam = 0
+    private var jumlahBulanDipinjam = 0
+    private var jumlahTahunDipinjam = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentHutangBinding.inflate(inflater, container, false)
-        setUpData()
+    ): View {
+        _binding = FragmentHutangBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    private fun setUpData(){
-            //time now
-            val formatter = SimpleDateFormat("yyyy/MM/dd")
-            val timeNow = SimpleDateFormat("yyyy/MM/dd").format(Date()).replace("/", "").trim().toInt()
-            Log.d(TAG, "TIMENOW $timeNow")
-
-            //minggu
-            val calendar1 = Calendar.getInstance()
-            calendar1.add(Calendar.DATE, -7)
-            val afterOneWeek = calendar1.time
-
-            Log.d(TAG, "NEW DATE BERFOR 7 Days : $afterOneWeek")
-
-            //bulan
-            val month = Calendar.getInstance()
-            month.add(Calendar.MONTH, -1) // Added one month
-            val oneMonthBefor = month.time
-            Log.d(TAG, "ONEMONTHFROM NOW $oneMonthBefor")
-
-            //tahun
-            val year = Calendar.getInstance()
-            year.add(Calendar.YEAR, -1)
-            val oneYearAgo = year.time
-            Log.d(TAG, "ONE YEAR AGO $oneYearAgo")
-
-            viewModel.getAllDataWhereStatusData(statusData = false, jenis = false).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                jumlah_hari_dipinjam = 0
-                jumlah_minggu_dipinjam = 0
-                jumlah_bulan_dipinjam = 0
-                jumlah_tahun_dipinjam = 0
-                for (i in it){
-                    val perserI = SimpleDateFormat("dd/MM/yyyy")
-                    val tgl_dibuat = formatter.format(perserI.parse("${i.diBuat}")).replace("/", "").trim().toInt()
-
-                    val parser =  SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.ENGLISH)
-
-                    val formatDateOneWeek = formatter.format(parser.parse("$afterOneWeek")).replace("/", "").trim().toInt()
-
-                    val formatDateOneMonth = formatter.format(parser.parse("$oneMonthBefor")).replace("/", "").trim().toInt()
-
-                    val formatOneYearAgo = formatter.format(parser.parse("$oneYearAgo")).replace("/", "").trim().toInt()
-
-                    if (tgl_dibuat == timeNow){
-                        jumlah_hari_dipinjam += i.jumlah
-//                        jumlah_hari_dibayar += i.jumlah_dibayar
-                    }
-                    if (tgl_dibuat > formatDateOneWeek && tgl_dibuat <= timeNow){
-                        jumlah_minggu_dipinjam += i.jumlah
-//                        jumlah_minggu_dibayar += i.jumlah_dibayar
-                    }
-                    if (tgl_dibuat > formatDateOneMonth && tgl_dibuat <= timeNow){
-                        jumlah_bulan_dipinjam += i.jumlah
-//                        jumlah_bulan_dibayar += i.jumlah_dibayar
-                    }
-                    if (tgl_dibuat > formatOneYearAgo && tgl_dibuat <= timeNow){
-                        jumlah_tahun_dipinjam += i.jumlah
-//                        jumlah_tahun_dibayar += i.jumlah_dibayar
-                    }
-                }
-                Log.d(TAG, "HARI $jumlah_hari_dipinjam")
-                Log.d(TAG, "MINGGU $jumlah_minggu_dipinjam")
-                Log.d(TAG, "BULAN $jumlah_bulan_dipinjam")
-                Log.d(TAG, "TAHUN $jumlah_tahun_dipinjam")
-//                Log.d(TAG, "HARI $jumlah_hari_dibayar")
-//                Log.d(TAG, "MINGGU $jumlah_minggu_dibayar")
-//                Log.d(TAG, "BULAN $jumlah_bulan_dibayar")
-//                Log.d(TAG, "TAHUN $jumlah_tahun_dibayar")
-
-                bindView()
-                addPieChart()
-            })
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpData()
     }
-    private fun bindView(){
-        val decimalFormat = DecimalFormat("##,###,###")
-        with(binding){
-            tvHariDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlah_hari_dipinjam)
-            tvMingguDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlah_minggu_dipinjam)
-            tvBulanDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlah_bulan_dipinjam)
-            tvTahunDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlah_tahun_dipinjam)
 
-//            tvHariDibayar.text = getString(com.example.hhhh.R.string.dolar) + " " + decimalFormat.format(jumlah_hari_dibayar)
-//            tvMingguDibayar.text = getString(com.example.hhhh.R.string.dolar) + " " + decimalFormat.format(jumlah_minggu_dibayar)
-//            tvBulanDibayar.text = getString(com.example.hhhh.R.string.dolar) + " " + decimalFormat.format(jumlah_bulan_dibayar)
-//            tvTahunDibayar.text = getString(com.example.hhhh.R.string.dolar) + " " + decimalFormat.format(jumlah_tahun_dibayar)
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setUpData() {
+        val outputFormatter = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val inputParser = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        val now = Date()
+        val todayInt = outputFormatter.format(now).toIntOrNull() ?: 0
+
+        val cal = Calendar.getInstance()
+        cal.time = now
+        cal.add(Calendar.DATE, -7)
+        val oneWeekAgoInt = outputFormatter.format(cal.time).toIntOrNull() ?: 0
+
+        cal.time = now
+        cal.add(Calendar.MONTH, -1)
+        val oneMonthAgoInt = outputFormatter.format(cal.time).toIntOrNull() ?: 0
+
+        cal.time = now
+        cal.add(Calendar.YEAR, -1)
+        val oneYearAgoInt = outputFormatter.format(cal.time).toIntOrNull() ?: 0
+
+        viewModel.getAllDataWhereStatusData(statusData = false, jenis = false).observe(viewLifecycleOwner) { dataList ->
+            jumlahHariDipinjam = 0
+            jumlahMingguDipinjam = 0
+            jumlahBulanDipinjam = 0
+            jumlahTahunDipinjam = 0
+
+            for (item in dataList) {
+                val parsedDate = try {
+                    inputParser.parse(item.diBuat)
+                } catch (e: Exception) {
+                    null
+                }
+                val tglDibuat = parsedDate?.let { outputFormatter.format(it).toIntOrNull() } ?: 0
+
+                if (tglDibuat == todayInt) {
+                    jumlahHariDipinjam += item.jumlah
+                }
+                if (tglDibuat in (oneWeekAgoInt + 1)..todayInt) {
+                    jumlahMingguDipinjam += item.jumlah
+                }
+                if (tglDibuat in (oneMonthAgoInt + 1)..todayInt) {
+                    jumlahBulanDipinjam += item.jumlah
+                }
+                if (tglDibuat in (oneYearAgoInt + 1)..todayInt) {
+                    jumlahTahunDipinjam += item.jumlah
+                }
+            }
+
+            bindView()
+            addPieChart()
         }
     }
-    private fun addPieChart(){
+
+    private fun bindView() {
+        val decimalFormat = DecimalFormat("##,###,###")
+        binding.tvHariDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlahHariDipinjam)
+        binding.tvMingguDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlahMingguDipinjam)
+        binding.tvBulanDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlahBulanDipinjam)
+        binding.tvTahunDipinjam.text = getString(R.string.dolar) + " " + decimalFormat.format(jumlahTahunDipinjam)
+    }
+
+    private fun addPieChart() {
         binding.piechart.clearChart()
         binding.piechart.addPieSlice(
             PieModel(
-                getString(R.string.hari_dibayar), jumlah_hari_dipinjam.toFloat(),
+                getString(R.string.hari_dibayar),
+                jumlahHariDipinjam.toFloat(),
                 Color.parseColor("#FFA726")
             )
         )
         binding.piechart.addPieSlice(
             PieModel(
-                getString(R.string.minggu_dibayar), jumlah_minggu_dipinjam.toFloat(),
+                getString(R.string.minggu_dibayar),
+                jumlahMingguDipinjam.toFloat(),
                 Color.parseColor("#66BB6A")
             )
         )
         binding.piechart.addPieSlice(
             PieModel(
-                getString(R.string.bulan_dibayar), jumlah_bulan_dipinjam.toFloat(),
+                getString(R.string.bulan_dibayar),
+                jumlahBulanDipinjam.toFloat(),
                 Color.parseColor("#EF5350")
             )
         )
         binding.piechart.addPieSlice(
             PieModel(
-                getString(R.string.tahun_dibayar), jumlah_tahun_dipinjam.toFloat(),
+                getString(R.string.tahun_dibayar),
+                jumlahTahunDipinjam.toFloat(),
                 Color.parseColor("#29B6F6")
             )
         )
@@ -156,9 +144,8 @@ class HutangFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() =
-            HutangFragment().apply {
-                arguments = Bundle()
-            }
+        fun newInstance() = HutangFragment().apply {
+            arguments = Bundle()
+        }
     }
 }

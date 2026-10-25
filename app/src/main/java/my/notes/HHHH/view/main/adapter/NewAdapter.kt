@@ -41,44 +41,21 @@ class NewAdapter(val context: Context): RecyclerView.Adapter<NewAdapter.ViewHold
 
     inner class ViewHolder(val binding: RowNewDataBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(dataModel: DataModel){
-
             val decimalFormat = DecimalFormat("##,###,###")
-
-            val dateFormat= SimpleDateFormat("dd/MM/yyyy")
-            val dateString: String = dataModel.diBuat
-            val myDate: Date = dateFormat.parse(dateString)
-            val calendar1 = Calendar.getInstance()
-            calendar1.time = myDate
-            calendar1.add(Calendar.DAY_OF_YEAR, -1)
-            val newDate = calendar1.time
-            Log.d("NEW ADAPTER", "NEW DATE $newDate")
-
-            val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-            val formatter = SimpleDateFormat("yyyy/MM/dd")
-            val formatDate = formatter.format(parser.parse("2018-12-14T09:55:00"))
-            Log.d("NEW ADAPTER ,", "FORMATDATE $formatDate")
+            val todayString = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
             with(binding){
-                val sdf = SimpleDateFormat("dd/MM/yyyy").format(Date())
-                Log.d("NEW ADAPTER ", "DATA MODEL ${dataModel.diBuat}")
-                Log.d("ADAPTER ", "dataDibuat :${dataModel.diBuat} \n newData : ${sdf.toString()}")
-
-                if (dataModel.diBuat == sdf.toString()){
-                    Log.d("NEW ADAPTER ", "DATA MODEL2 ${dataModel.diBuat}")
+                if (dataModel.diBuat == todayString){
                     tvLabelNew.visibility = View.VISIBLE
-                }else{
-                    Log.d("NEW ADAPTER ", "DATA MODEL3 ${dataModel.diBuat}")
+                } else {
                     tvLabelNew.visibility = View.GONE
                 }
 
                 imvRandomColor.background = getRandomDrawbleColor()
-//                tvStatusType.text = dataModel.jenis
                 tvJumlahNominal.text = context.getString(R.string.dolar) + " " + decimalFormat.format(dataModel.jumlah)
                 tvUsername.text = dataModel.username
                 tvCreateAt.text = dataModel.diBuat
-//                if ()
             }
-
         }
     }
 

@@ -15,22 +15,17 @@ class AutoSliderAdapter(manager: FragmentManager, val context: Context): Fragmen
             0 -> AutoSliderFragment.newInstance(
                 context.resources.getString(R.string.buat_catatan_title),
                 context.resources.getString(R.string.buat_catatan_des),
-                R.raw.buat_cataatan,
-//                Color.parseColor("#FF018786")
+                R.raw.buat_cataatan
             )
             1 -> AutoSliderFragment.newInstance(
                 context.resources.getString(R.string.monitoring_pengeluaran_title),
                 context.resources.getString(R.string.monitoring_pengeluaran_des),
-                R.raw.line_chart,
-//                Color.parseColor("#EC9411")
-//                R.color.publicRed
+                R.raw.line_chart
             )
             2 -> AutoSliderFragment.newInstance(
                 context.resources.getString(R.string.lihat_log_aktivasi_title),
                 context.resources.getString(R.string.lihat_log_aktivasi_desk),
-                R.raw.log_aktivitas,
-//                Color.parseColor("#FF3700B3")
-//                R.color.Minggu
+                R.raw.log_aktivitas
             )
             else -> {
                 null
