@@ -81,30 +81,22 @@ class ArisanMemberActivity : AppCompatActivity() {
         collapsingToolbar.title = groupName
 
 
-        setFirstView()
+        setRecyclerView()
         setActionView()
-        setDataView(true)
-    }
-    private fun setDataView(isRefresh: Boolean){
-        binding.lottieAnimation.visibility = View.GONE
-        binding.rvMemberArisan.visibility = View.GONE
-        binding.tvIsEmpty.visibility = View.GONE
-        if (isRefresh){
-            Handler(Looper.getMainLooper()).postDelayed({
-                setData()
-                binding.swipeRefreshLayout.isRefreshing = false
-            }, 1000)
-
-        }
+        observeData()
     }
 
-    private fun setData(){
-        memberVM.getAllMemberFromGroupId(groupId!!.toInt()).observe(this, Observer {
+    private fun observeData(){
+        setFirstView()
+        val id = groupId ?: 0
+        memberVM.getAllMemberFromGroupId(id).observe(this, Observer {
+            binding.swipeRefreshLayout.isRefreshing = false
             Log.d(TAG, "DATA ALL MEMBER FROM GROUP ID $it")
             if (it.isNullOrEmpty()){
                 binding.lottieAnimation.visibility = View.VISIBLE
                 binding.tvIsEmpty.visibility = View.VISIBLE
                 binding.rvMemberArisan.visibility = View.GONE
+                memberAdapter.setData(ArrayList())
             }else {
                 binding.lottieAnimation.visibility = View.GONE
                 binding.tvIsEmpty.visibility = View.GONE
@@ -116,7 +108,6 @@ class ArisanMemberActivity : AppCompatActivity() {
                 }
             }
         })
-        setRecyclerView()
     }
     private fun setRecyclerView(){
         binding.rvMemberArisan.apply {
@@ -151,7 +142,7 @@ class ArisanMemberActivity : AppCompatActivity() {
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
-            setDataView(true)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
