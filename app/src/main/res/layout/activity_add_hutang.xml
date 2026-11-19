@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint"
@@ -8,397 +9,487 @@
     android:background="@color/hupisan_page_bg"
     tools:context=".view.hutang.AddHutangActivity">
 
+    <!-- TOP TOOLBAR -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/custom_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/btn_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                app:tint="@color/hupisan_text_primary" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tambah Hutang"
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="19sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
         android:fillViewport="true"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toTopOf="@id/layout_bottom_action"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/custom_toolbar">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="16dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
-            <!-- Subtitle Header: Current Date -->
-            <TextView
-                android:id="@+id/tv_dibuat_pada"
+            <!-- TOGGLE SEGMENTED PILLS (Hutang | Piutang) -->
+            <LinearLayout
+                android:id="@+id/layout_toggle_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:textColor="@color/hupisan_text_primary"
-                android:textSize="14sp"
-                tools:text="Kamis, 19 Nov 2026" />
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/bg_toggle_container"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="4dp">
 
-            <!-- Card 1: Nama Debitur / Kreditur -->
-            <com.google.android.material.card.MaterialCardView
+                <TextView
+                    android:id="@+id/tab_toggle_hutang"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_green_pill"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Hutang"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tab_toggle_piutang"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:text="Piutang"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- CARD 1: Nama Debitur -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/hupisan_card_bg"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/hupisan_card_stroke"
-                app:strokeWidth="1dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp">
 
-                    <TextView
-                        android:id="@+id/tv_label_nama"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Nama Debitur"
-                        android:textColor="@color/hupisan_text_primary"
-                        android:textSize="14sp" />
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_circle_icon_green">
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_nama"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:boxBackgroundColor="@color/hupisan_card_bg"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxStrokeColor="@color/hupisan_card_stroke"
-                        app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="1.5dp"
-                        app:counterEnabled="false"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="Masukkan nama debitur"
-                            android:maxLength="20"
-                            android:maxLines="1"
-                            android:paddingHorizontal="14dp"
-                            android:paddingVertical="12dp"
-                            android:textColor="@color/hupisan_text_primary"
-                            android:textColorHint="@color/hupisan_text_muted"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Card 2: Jumlah Hutang / Piutang -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/hupisan_card_bg"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/hupisan_card_stroke"
-                app:strokeWidth="1dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:id="@+id/tv_label_jumlah"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Jumlah Hutang"
-                        android:textColor="@color/hupisan_text_primary"
-                        android:textSize="14sp" />
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_nav_more"
+                            app:tint="@color/hupisan_primary" />
+                    </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_input_box"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="14dp">
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_label_nama"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Rp "
+                            android:text="Nama Debitur"
                             android:textColor="@color/hupisan_text_primary"
-                            android:textSize="18sp"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/et_jumlah"
+                        <EditText
+                            android:id="@+id/et_nama_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:boxBackgroundMode="none"
-                            app:counterEnabled="false"
-                            app:errorEnabled="false"
-                            app:hintEnabled="false">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@null"
-                                android:fontFamily="sans-serif-medium"
-                                android:hint="0"
-                                android:inputType="number"
-                                android:maxLength="9"
-                                android:maxLines="1"
-                                android:paddingVertical="12dp"
-                                android:textColor="@color/hupisan_text_primary"
-                                android:textColorHint="@color/hupisan_text_primary"
-                                android:textSize="18sp"
-                                android:textStyle="bold" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_marginTop="2dp"
+                            android:background="@null"
+                            android:hint="Masukkan nama"
+                            android:inputType="textPersonName"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textColorHint="@color/hupisan_text_muted"
+                            android:textSize="14sp" />
                     </LinearLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <!-- Card 3: Jatuh Tempo & Waktu -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- CARD 2: Jumlah Hutang -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="@color/hupisan_card_bg"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/hupisan_card_stroke"
-                app:strokeWidth="1dp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:baselineAligned="false"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp">
 
-                    <!-- Col 1: Jatuh Tempo -->
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_circle_icon_green">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_hupisan_currency" />
+                    </FrameLayout>
+
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="14dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_label_jumlah"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="@string/jatuh_tempo"
+                            android:text="Jumlah Hutang"
                             android:textColor="@color/hupisan_text_primary"
-                            android:textSize="14sp" />
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:id="@+id/cardView_tanggal"
+                        <EditText
+                            android:id="@+id/et_jumlah_input"
                             android:layout_width="match_parent"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_capsule_input"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="12dp">
-
-                            <ImageView
-                                android:id="@+id/iv_date"
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_hupisan_calendar"
-                                app:tint="@color/hupisan_text_primary" />
-
-                            <TextView
-                                android:id="@+id/tv_date_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:textColor="@color/hupisan_text_primary"
-                                android:textSize="13sp"
-                                tools:text="19/11/2026" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <!-- Col 2: Waktu -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Waktu"
-                            android:textColor="@color/hupisan_text_primary"
-                            android:textSize="14sp" />
-
-                        <LinearLayout
-                            android:id="@+id/cardView_time"
-                            android:layout_width="match_parent"
-                            android:layout_height="46dp"
-                            android:background="@drawable/bg_capsule_input"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="12dp">
-
-                            <ImageView
-                                android:id="@+id/iv_time"
-                                android:layout_width="18dp"
-                                android:layout_height="18dp"
-                                android:src="@drawable/ic_hupisan_clock"
-                                app:tint="@color/hupisan_text_primary" />
-
-                            <TextView
-                                android:id="@+id/tv_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="8dp"
-                                android:fontFamily="sans-serif-medium"
-                                android:textColor="@color/hupisan_text_primary"
-                                android:textSize="13sp"
-                                tools:text="14:54" />
-                        </LinearLayout>
+                            android:layout_marginTop="2dp"
+                            android:background="@null"
+                            android:hint="Rp 0"
+                            android:inputType="number"
+                            android:textColor="@color/hupisan_primary"
+                            android:textColorHint="@color/hupisan_text_muted"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <!-- Card 4: Catatan (Opsional) -->
-            <com.google.android.material.card.MaterialCardView
+            <!-- CARD 3: Jatuh Tempo -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_jatuh_tempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/hupisan_card_bg"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="0dp"
-                app:strokeColor="@color/hupisan_card_stroke"
-                app:strokeWidth="1dp">
+                android:layout_marginBottom="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp">
+
+                    <FrameLayout
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/bg_circle_icon_green">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_hupisan_calendar"
+                            app:tint="@color/hupisan_primary" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jatuh Tempo"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_selected_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="19/11/2026"
+                            android:textColor="@color/hupisan_primary"
+                            android:textSize="14.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Calendar button icon on right -->
+                    <FrameLayout
+                        android:id="@+id/btn_pick_date"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_input_multiline">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_hupisan_calendar"
+                            app:tint="@color/hupisan_text_secondary" />
+                    </FrameLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- CARD 4: Catatan (Opsional) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="2dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:paddingStart="14dp"
+                    android:paddingTop="14dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="14dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Catatan (Opsional)"
-                        android:textColor="@color/hupisan_text_primary"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_keterangan"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundColor="@color/hupisan_card_bg"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxStrokeColor="@color/hupisan_card_stroke"
-                        app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="1.5dp"
-                        app:counterEnabled="false"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
+                        <FrameLayout
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:background="@drawable/bg_circle_icon_green">
+
+                            <ImageView
+                                android:layout_width="22dp"
+                                android:layout_height="22dp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_hupisan_document"
+                                app:tint="@color/hupisan_primary" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="top|start"
-                            android:hint="Tambahkan catatan jika ada..."
-                            android:maxLength="210"
-                            android:minLines="3"
-                            android:paddingHorizontal="14dp"
-                            android:paddingVertical="12dp"
+                            android:layout_marginStart="14dp"
+                            android:text="Catatan (Opsional)"
                             android:textColor="@color/hupisan_text_primary"
-                            android:textColorHint="@color/hupisan_text_muted"
-                            android:textSize="14sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Multiline Note Box -->
+                    <EditText
+                        android:id="@+id/et_catatan_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_input_multiline"
+                        android:gravity="top|start"
+                        android:hint="Tambah catatan..."
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:padding="12dp"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textColorHint="@color/hupisan_text_muted"
+                        android:textSize="13sp" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
+            </androidx.cardview.widget.CardView>
 
-            <!-- Hidden components to maintain full backwards-compatibility with logic -->
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/switch_on_notif"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
+            <!-- Hidden compatibility views -->
+            <View
+                android:id="@+id/cardView_tanggal"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:visibility="gone" />
-
             <RadioGroup
-                android:id="@+id/radio_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:visibility="gone">
-
                 <RadioButton
                     android:id="@+id/rb_gender_laki"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true" />
-
+                    android:layout_height="wrap_content" />
                 <RadioButton
                     android:id="@+id/rb_gender_perempuan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <RadioButton
                     android:id="@+id/rb_gender_kosong"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RadioGroup>
+            <TextView
+                android:id="@+id/tv_dibuat_pada"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/tv_date_time"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_on_notif"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_nama"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_jumlah"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_keterangan"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Action Button: Simpan Catatan -->
+    <!-- BOTTOM ACTION BUTTON: [💾 Simpan] -->
     <LinearLayout
         android:id="@+id/layout_bottom_action"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:paddingBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:background="@color/hupisan_page_bg"
+        android:paddingStart="16dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_simpan"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:fontFamily="sans-serif-medium"
-            android:letterSpacing="0.02"
-            android:text="Simpan Catatan"
-            android:textAllCaps="false"
+            android:layout_height="52dp"
+            android:backgroundTint="@color/hupisan_primary"
+            android:text="Simpan"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            app:backgroundTint="@color/hupisan_primary_dark"
-            app:cornerRadius="27dp"
-            app:elevation="0dp"
-            app:rippleColor="@color/hupisan_accent_amber" />
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:cornerRadius="16dp"
+            app:elevation="2dp"
+            app:icon="@drawable/ic_hupisan_save"
+            app:iconGravity="textStart"
+            app:iconPadding="8dp"
+            app:iconTint="@color/white" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

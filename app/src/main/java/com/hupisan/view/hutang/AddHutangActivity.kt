@@ -62,36 +62,82 @@ class AddHutangActivity : AppCompatActivity(){
         binding = ActivityAddHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        supportActionBar?.hide()
 
-        try {
-            binding.tvDibuatPada.text = SimpleDateFormat("EEEE, d MMM yyyy", Locale("id", "ID")).format(Date())
-        } catch (e: Exception) {
-            binding.tvDibuatPada.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
         }
-        binding.tvDateTime.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
-        binding.tvTime.text = SimpleDateFormat("HH:mm").format(Date())
 
-        nNotif = binding.switchOnNotif
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
-        nJenis = intent.getStringExtra(EXTRA_STRING_JENIS)
+        val todayDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        binding.tvSelectedDate.text = todayDate
+        nJatuhTempo = todayDate
+        nTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+
+        nJenis = intent.getStringExtra(EXTRA_STRING_JENIS) ?: getString(R.string.hutang)
         val isPiutang = nJenis.equals(getString(R.string.piutang), ignoreCase = true)
+        updateTypeSelection(isPiutang)
+
+        binding.tabToggleHutang.setOnClickListener {
+            updateTypeSelection(false)
+        }
+        binding.tabTogglePiutang.setOnClickListener {
+            updateTypeSelection(true)
+        }
+
+        val openDatePicker = {
+            val calendar = Calendar.getInstance()
+            val dpd = DatePickerDialog(
+                this,
+                { _, year, monthOfYear, dayOfMonth ->
+                    val cal = Calendar.getInstance()
+                    cal.set(year, monthOfYear, dayOfMonth)
+                    val formatted = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(cal.time)
+                    binding.tvSelectedDate.text = formatted
+                    nJatuhTempo = formatted
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            dpd.show()
+        }
+
+        binding.cardJatuhTempo.setOnClickListener { openDatePicker() }
+        binding.btnPickDate.setOnClickListener { openDatePicker() }
+
+        binding.btnSimpan.setOnClickListener {
+            onSavedData()
+        }
+    }
+
+    private fun updateTypeSelection(isPiutang: Boolean) {
         if (isPiutang) {
+            nJenis = getString(R.string.piutang)
+            binding.tabTogglePiutang.setBackgroundResource(R.drawable.bg_green_pill)
+            binding.tabTogglePiutang.setTextColor(Color.WHITE)
+            binding.tabToggleHutang.background = null
+            binding.tabToggleHutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
+
+            binding.tvToolbarTitle.text = "Tambah Piutang"
             binding.tvLabelNama.text = "Nama Kreditur"
-            binding.etNama.editText?.hint = "Masukkan nama kreditur"
+            binding.etNamaInput.hint = "Masukkan nama kreditur"
             binding.tvLabelJumlah.text = "Jumlah Piutang"
         } else {
+            nJenis = getString(R.string.hutang)
+            binding.tabToggleHutang.setBackgroundResource(R.drawable.bg_green_pill)
+            binding.tabToggleHutang.setTextColor(Color.WHITE)
+            binding.tabTogglePiutang.background = null
+            binding.tabTogglePiutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
+
+            binding.tvToolbarTitle.text = "Tambah Hutang"
             binding.tvLabelNama.text = "Nama Debitur"
-            binding.etNama.editText?.hint = "Masukkan nama debitur"
+            binding.etNamaInput.hint = "Masukkan nama debitur"
             binding.tvLabelJumlah.text = "Jumlah Hutang"
         }
-
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        val screenTitle = if (nJenis?.contains("Catat", ignoreCase = true) == true) nJenis else "Catat ${nJenis ?: getString(R.string.hutang)}"
-        supportActionBar!!.title = screenTitle
-
-        Log.d(TAG, "GET STRINGEXTRA $nJenis")
-        onActionView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -108,46 +154,42 @@ class AddHutangActivity : AppCompatActivity(){
     }
 
     private fun onSavedData(){
-        val uid = UUID.randomUUID()
-        nDiBuat = SimpleDateFormat("dd/MM/yyyy").format(Date())
-        nUname = binding.etNama.editText?.text.toString()
-        nDeskripsi = binding.etKeterangan.editText?.text.toString()
-        var jumlah = binding.etJumlah.editText?.text.toString().replace(" ", "").replace(".", "").trim()
-        nJatuhTempo = binding.tvDateTime.text.toString()
-        nTime = binding.tvTime.text.toString()
-        //flase hutang true piutang
-        val jenis: Boolean = !nJenis.equals(getString(R.string.hutang))
-        Log.d(TAG, "JENIS $jenis")
-        try {
-            nJumlah= jumlah.toInt()
-        } catch (e: NumberFormatException) {
-            Log.e("exptn", e.toString())
-        }
-        val notif = nNotif!!.isChecked
-        Log.d(TAG, "dibuat : $nDiBuat\nusername : $nUname\njumlah nominal : $nJumlah\nketerangan : $nDeskripsi\njatuh tempo : $nJatuhTempo\ngender : $nGender\njenis : $nJenis\nnotif : $notif \nwaktu : $nTime")
+        nDiBuat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        nUname = binding.etNamaInput.text?.toString()?.trim() ?: ""
+        nDeskripsi = binding.etCatatanInput.text?.toString()?.trim() ?: ""
+        val rawJumlah = binding.etJumlahInput.text?.toString()?.replace(" ", "")?.replace(".", "")?.replace("Rp", "")?.trim() ?: ""
+        nJatuhTempo = binding.tvSelectedDate.text?.toString() ?: nDiBuat
+        nTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
 
-        if (nUname.length <= 2){
-            binding.etNama.error = getString(R.string.nama_tidak_boleh_kurang_dari_2_huruf)
-        }else {
-            if (binding.etJumlah.editText!!.text.isNullOrEmpty() || jumlah.isEmpty() || nJumlah == 0){
-                binding.etJumlah.error = getString(R.string.nominal_tidak_boleh_kosong)
-            }else {
-                if (nDeskripsi.length > 210){
-                    binding.etKeterangan.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
-                } else {
-                    val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", notif, nGender, jenis, false, nTime ?: "", "-", nDibayar)
-                    Log.d(TAG, "dataInsert $data")
-                    dbViewModel.insertData(data)
-                    Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
-                    isNotification()
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        val intent = Intent(this, HutangActivity::class.java)
-                        intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, nJenis)
-                        startActivity(intent)
-                    }, 1200)
-                }
-            }
+        val jenis: Boolean = nJenis.equals(getString(R.string.piutang), ignoreCase = true)
+        Log.d(TAG, "JENIS $jenis ($nJenis)")
+
+        try {
+            nJumlah = rawJumlah.toInt()
+        } catch (e: Exception) {
+            nJumlah = 0
         }
+
+        if (nUname.length < 2) {
+            binding.etNamaInput.error = getString(R.string.nama_tidak_boleh_kurang_dari_2_huruf)
+            binding.etNamaInput.requestFocus()
+            return
+        }
+
+        if (nJumlah <= 0) {
+            binding.etJumlahInput.error = getString(R.string.nominal_tidak_boleh_kosong)
+            binding.etJumlahInput.requestFocus()
+            return
+        }
+
+        val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", false, 1, jenis, false, nTime ?: "", "-", nDibayar)
+        Log.d(TAG, "dataInsert $data")
+        dbViewModel.insertData(data)
+        Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
+        
+        Handler(Looper.getMainLooper()).postDelayed({
+            finish()
+        }, 800)
     }
     private fun isNotification(){
         if (nNotif!!.isChecked){
@@ -196,129 +238,7 @@ class AddHutangActivity : AppCompatActivity(){
     }
 
     private fun onActionView(){
-        binding.cardViewTanggal.setOnClickListener {
-            val calender: Calendar = Calendar.getInstance()
-            day = calender.get(Calendar.DAY_OF_MONTH)
-            month = calender.get(Calendar.MONTH)
-            year = calender.get(Calendar.YEAR)
-
-            val datePicker = DatePickerDialog(this@AddHutangActivity, R.style.DialogTheme,
-                { view, myYears, monthOfYear, dayOfMonth ->
-                    val mont = monthOfYear +1
-                    binding.tvDateTime.text = "${dayOfMonth}/${mont}/$myYears"
-                }, year, month, day
-            )
-            val now = System.currentTimeMillis() - 1000
-            datePicker.datePicker.minDate = now
-
-            datePicker.setOnShowListener {
-                val primaryColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
-                datePicker.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor)
-                datePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor)
-            }
-            datePicker.show()
-        }
-        binding.cardViewTime.setOnClickListener { showTimePickerDialog() }
-
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            val radio: RadioButton = findViewById(checkedId)
-            when (radio.id) {
-                id.rb_gender_laki -> {
-                    nGender = 1
-                }
-                id.rb_gender_perempuan -> {
-                    nGender = 2
-                }
-                id.rb_gender_kosong -> {
-                    nGender = 3
-                }
-                else -> {
-                    Toast.makeText(this, getString(R.string.pilih_salah_satu), Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-
-        binding.etKeterangan.editText!!.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s!!.length >= 210){
-                    binding.etKeterangan.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
-                }else if(s.startsWith(" ")){
-                    binding.etKeterangan.error = getString(R.string.keterangan_tidak_boleh_diawali_dengan_huruf_kosong)
-                    binding.etKeterangan.editText!!.text.trim()
-                    s.filters = arrayOf<InputFilter>(LengthFilter(0))
-                }else {
-                    s.filters = arrayOf<InputFilter>(LengthFilter(210))
-                    binding.etKeterangan.helperText = getString(R.string.bila_ada_keterangan_yang_di_hutang)
-                }
-            }
-        })
-
-        binding.etNama.editText!!.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if (p0.toString().length <= 0){
-                    binding.etNama.error = getString(R.string.nama_tidak_boleh_kosong)
-                }else if(p0.toString().length >= 20){
-                    binding.etNama.error = getString(R.string.tidak_boleh_lebih_dari_20_huruf)
-                }else{
-                    binding.etNama.error = ""
-                }
-            }
-        })
-
-        binding.etJumlah.editText!!.addTextChangedListener(object: TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                if(p0!!.length >= 9){
-                    binding.etJumlah.helperText = getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-                    p0.filters = arrayOf<InputFilter>(LengthFilter(9))
-                }else if (p0.startsWith("-")){
-                    binding.etJumlah.error = getString(R.string.nominal_tidak_boleh_diawali_nilai_negative)
-                    p0.filters = arrayOf<InputFilter>(LengthFilter(0))
-                }else if(p0.startsWith("0")){
-                    binding.etJumlah.helperText = getString(R.string.tidak_boleh_diawali_dengan_0)
-                    p0.filters = arrayOf<InputFilter>(LengthFilter(1))
-                }else if(p0.startsWith(" ")){
-                    binding.etJumlah.error = getString(R.string.tidak_boleh_diawali_dengan_nilai_kosong)
-                    p0.filters = arrayOf(LengthFilter(0))
-                }else if(p0.startsWith(".")){
-                    binding.etJumlah.error = getString(R.string.masukkan_nilai_dengan_benar)
-                    p0.filters = arrayOf(LengthFilter(0))
-                }else if(p0.startsWith(",")){
-                    binding.etJumlah.error = getString(R.string.masukkan_nilai_dengan_benar)
-                    p0.filters = arrayOf(LengthFilter(0))
-                } else {
-                    p0.filters = arrayOf<InputFilter>(LengthFilter(9))
-                    binding.etJumlah.helperText = getString(R.string.masukkan_jumlah_nominal)
-                }
-            }
-        })
-
-        binding.btnSimpan.setOnClickListener {
-            onSavedData()
-        }
-
+        // Handled directly in onCreate
     }
     fun checkDigit(number: Int): String? {
         return if (number <= 9) "0$number" else number.toString()
