@@ -6,17 +6,24 @@ import com.hupisan.di.database.PaymentDB
 
 class PaymentRepository(private val paymentDB: PaymentDB) {
 
-    val dataFromUid: LiveData<List<PaymentModel>> = paymentDB.getDataPembayaran()
+    val payments: LiveData<List<PaymentModel>> = paymentDB.getDataPembayaran()
+    val dataFromUid: LiveData<List<PaymentModel>> get() = payments
 
-    suspend fun insertData(data: PaymentModel) {
+    suspend fun insertPayment(data: PaymentModel) {
         paymentDB.insert(data)
     }
 
-    fun getDataPembayaran(uid: Int): LiveData<List<PaymentModel>> {
+    suspend fun insertData(data: PaymentModel) = insertPayment(data)
+
+    fun getPaymentsByUid(uid: Int): LiveData<List<PaymentModel>> {
         return paymentDB.getDataWhereUid(uid)
     }
 
-    suspend fun deleteDataFromUid(uid: Int) {
+    fun getDataPembayaran(uid: Int): LiveData<List<PaymentModel>> = getPaymentsByUid(uid)
+
+    suspend fun deletePaymentsByUid(uid: Int) {
         paymentDB.deleteDataFromUid(uid)
     }
+
+    suspend fun deleteDataFromUid(uid: Int) = deletePaymentsByUid(uid)
 }

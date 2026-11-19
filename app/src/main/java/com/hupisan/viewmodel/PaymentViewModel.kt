@@ -9,17 +9,24 @@ import com.hupisan.data.repository.PaymentRepository
 import com.hupisan.database.entity.PaymentModel
 
 class PaymentViewModel(val repository: PaymentRepository) : ViewModel() {
-    val dataPembayaran: LiveData<List<PaymentModel>> = repository.dataFromUid
+    val payments: LiveData<List<PaymentModel>> = repository.payments
+    val dataPembayaran: LiveData<List<PaymentModel>> get() = payments
 
-    fun insertData(data: PaymentModel) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insertData(data)
+    fun insertPayment(data: PaymentModel) = viewModelScope.launch(Dispatchers.IO) {
+        repository.insertPayment(data)
     }
 
-    fun getDataPembayaranFromUid(uid: Int): LiveData<List<PaymentModel>> {
-        return repository.getDataPembayaran(uid)
+    fun insertData(data: PaymentModel) = insertPayment(data)
+
+    fun getPaymentsByUid(uid: Int): LiveData<List<PaymentModel>> {
+        return repository.getPaymentsByUid(uid)
     }
 
-    fun deleteDataFormUid(uid: Int) = viewModelScope.launch(Dispatchers.IO) {
-        repository.deleteDataFromUid(uid)
+    fun getDataPembayaranFromUid(uid: Int): LiveData<List<PaymentModel>> = getPaymentsByUid(uid)
+
+    fun deletePaymentsByUid(uid: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deletePaymentsByUid(uid)
     }
+
+    fun deleteDataFormUid(uid: Int) = deletePaymentsByUid(uid)
 }
