@@ -7,23 +7,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.material.snackbar.Snackbar
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import android.os.Build
+import androidx.activity.result.contract.ActivityResultContracts
 import my.notes.HHHH.R
 import my.notes.HHHH.databinding.ActivitySplashScreenBinding
 import my.notes.HHHH.databinding.AlertLanguageBinding
@@ -38,6 +32,11 @@ class SplashScreenActivity : AppCompatActivity() {
     lateinit var appsConfig: AppsConfig
 
     private lateinit var binding: ActivitySplashScreenBinding
+    private val requestNotificationLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
+            moveTo()
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
@@ -50,65 +49,15 @@ class SplashScreenActivity : AppCompatActivity() {
             loadLanguage(false)
         }
 
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-            Snackbar.make(binding.constraint, getString(R.string.izin_diberikan), Snackbar.LENGTH_SHORT).show()
-            moveTo()
-        }else {
-
-            requestPermissions()
-        }
-    }
-
-    private fun requestPermissions() {
-        Dexter.withContext(this)
-            .withPermissions(
-                Manifest.permission.WRITE_CALENDAR,
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.RECEIVE_BOOT_COMPLETED
-            )
-            .withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(multiplePermissionsReport: MultiplePermissionsReport) {
-                    if (multiplePermissionsReport.areAllPermissionsGranted()) {
-                        Toast.makeText(
-                            this@SplashScreenActivity,
-                            getString(R.string.semua_izin_diberikan),
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        moveTo()
-                    }else{
-                        showSettingsDialog()
-                    }
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    list: List<PermissionRequest>,
-                    permissionToken: PermissionToken
-                ) {
-                    permissionToken.continuePermissionRequest()
-                }
-            }).withErrorListener {
-                Toast.makeText(this, getString(R.string.terjadi_kesalahan), Toast.LENGTH_SHORT).show()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                moveTo()
+            } else {
+                requestNotificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
-            .onSameThread().check()
-    }
-
-    private fun showSettingsDialog() {
-        val builder = AlertDialog.Builder(this@SplashScreenActivity, R.style.AlertDialog)
-        builder.setTitle(getString(R.string.butuh_perizinan))
-
-        builder.setMessage(getString(R.string.aplikasi_ini_memerlukan_izin_untuk_menggunakan_fitur_ini_anda_dapat_memeberikannya_di_pengaturan_aplikasi))
-        builder.setPositiveButton(getString(R.string.pergi_ke_pengaturan)){ dialog, which ->
-            dialog.cancel()
-            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-            val uri: Uri = Uri.fromParts("package", packageName, null)
-            intent.data = uri
-            startActivityForResult(intent, 101)
+        } else {
+            moveTo()
         }
-        builder.setNegativeButton(getString(R.string.kembali)){ dialog, which ->
-            Snackbar.make(binding.constraint, getString(R.string.izin_ditolak), Snackbar.LENGTH_SHORT).show()
-            dialog.cancel()
-        }
-        builder.show()
     }
 
     private fun moveTo() {
