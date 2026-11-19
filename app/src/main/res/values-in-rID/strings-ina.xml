@@ -47,7 +47,7 @@
     <string name="tidak_boleh_lebih_dari_20_huruf">tidak boleh lebih dari 20 huruf</string>
     <string name="dicicil">Dicicil</string>
 
-    <string name="back_to_nhome">Kembali ke\nRumah</string>
+    <string name="back_to_nhome">Kembali ke\nBeranda</string>
     <string name="info">informasi</string>
     <string name="gondres">gondres</string>
     <string name="apakah_anda_ingin_menambahkan_hutang_dari">apakah anda ingin menambahkan hutang dari</string>
@@ -179,7 +179,7 @@
     <string name="yang_harus_dibayar">yang harus dibayar</string>
     <string name="ada">ada</string>
     <string name="yang_harus_dibayar_dari">yang harus dibayar dari</string>
-    <string name="beri_nilai_dan_masukkan">Beri Milai dan Masukkan</string>
+    <string name="beri_nilai_dan_masukkan">Beri Nilai dan Masukan</string>
     <string name="theme">Theme</string>
     <string name="bahasa">Bahasa</string>
     <string name="pref_file_key">pref file key</string>
