@@ -7,7 +7,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/lunas_corner"
-    tools:context="com.example.hhhh.view.lunas.WindowFragmentLunas">
+    tools:context=".view.lunas.WindowFragmentLunas">
 
     <FrameLayout
         android:animateLayoutChanges="true"

@@ -6,7 +6,7 @@
     android:id="@+id/cl_root_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hhhh.view.hutang.DetailHutangActivity"
+    tools:context=".view.hutang.DetailHutangActivity"
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout

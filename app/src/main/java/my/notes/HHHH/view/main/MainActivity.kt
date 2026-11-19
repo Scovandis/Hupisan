@@ -147,7 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun intentViewPlayStore(){
         val intent = Intent(Intent.ACTION_VIEW).apply {
-            data = Uri.parse("https://play.google.com/store/apps/details?id=com.example.hhhh")
+            data = Uri.parse("https://play.google.com/store/apps/details?id=my.notes.HHHH")
                 setPackage("com.android.vending")
         }
         startActivity(intent)
