@@ -139,13 +139,14 @@
                         app:errorEnabled="true"
                         app:hintEnabled="false"
                         app:prefixText="Rp "
-                        app:prefixTextColor="@color/hupisan_text_primary">
+                        app:prefixTextColor="@color/hupisan_text_primary"
+                        app:placeholderText="0"
+                        app:placeholderTextColor="@color/hupisan_text_primary">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:hint="0"
                             android:inputType="number"
                             android:maxLength="9"
                             android:maxLines="1"
@@ -236,7 +237,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="@string/waktu"
+                            android:text="Waktu"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="14sp" />
 
