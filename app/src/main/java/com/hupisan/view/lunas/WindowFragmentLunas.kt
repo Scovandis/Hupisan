@@ -30,6 +30,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
     private val viewModel: DataViewModel by activityViewModel()
     private lateinit var lunasAdapter: LunasAdapter
     private var listData = ArrayList<DataModel>()
+    var jumlah: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -119,7 +120,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
             }
         }
     }
-    var jumlah: Int = 0
+
     private fun setDataFilter(typeJenis: Boolean){
         binding.rvLunas.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE
@@ -163,9 +164,4 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
             }
         }
     }
-
-    companion object{
-        var STAY_LUNAS = 0
-    }
-
 }

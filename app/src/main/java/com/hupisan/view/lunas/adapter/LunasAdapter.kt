@@ -91,7 +91,6 @@ class LunasAdapter(val context: Context): RecyclerView.Adapter<LunasAdapter.View
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
-            WindowFragmentLunas.STAY_LUNAS = 1
             val intent = Intent(context, DetailHutangActivity::class.java)
             intent.putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
             intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)

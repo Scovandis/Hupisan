@@ -48,6 +48,8 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
     val paymentViewModel: PaymentViewModel by viewModel()
     var isRefresh: Boolean = true
     var typeJenis: String? = null
+    private var activeFilter = 0 // 0: Semua, 1: Belum Lunas, 2: Sebagian, 3: Lunas
+    private var searchQuery = ""
 
     private var listData: ArrayList<DataModel>?= null
 
@@ -59,10 +61,10 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         binding.lottieAnimation.visibility = View.GONE
         binding.rvHutang.visibility = View.GONE
 
-        typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS)
+        typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS) ?: getString(R.string.hutang)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
         }
         binding.swipeRefreshLayout.setColorSchemeColors(
             ContextCompat.getColor(this, R.color.hupisan_primary_dark),
@@ -70,12 +72,6 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         )
 
         supportActionBar?.hide()
-
-        typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS) ?: getString(R.string.hutang)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
-        }
 
         binding.tvToolbarTitle.text = typeJenis
         binding.tvSummaryLabel.text = "Total $typeJenis"
@@ -105,9 +101,6 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
-
-    private var activeFilter = 0 // 0: Semua, 1: Belum Lunas, 2: Sebagian, 3: Lunas
-    private var searchQuery = ""
 
     private fun setupFilterTabs() {
         binding.tabFilterAll.setOnClickListener { updateFilter(0) }
@@ -388,12 +381,11 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             }
         })
     }
-    companion object{
-        var EXTRA_TYPE_JENIS = "extra_type_jenis"
-    }
-
-
     override fun onClick(data: DataModel) {
         viewModel.updateData(data)
+    }
+
+    companion object {
+        const val EXTRA_TYPE_JENIS = "extra_type_jenis"
     }
 }
