@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
@@ -19,8 +20,28 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
     var list = ArrayList<DataModel>()
 
     fun setData(lists: ArrayList<DataModel>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = list.size
+            override fun getNewListSize() = lists.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition].id == lists[newItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                val old = list[oldItemPosition]
+                val new = lists[newItemPosition]
+                return old.username == new.username &&
+                        old.jumlah == new.jumlah &&
+                        old.statusDataSelesai == new.statusDataSelesai &&
+                        old.jenisPinjaman == new.jenisPinjaman &&
+                        old.diBuat == new.diBuat &&
+                        old.tanggal_lunas == new.tanggal_lunas
+            }
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list = lists
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     inner class ViewHolder(val binding: RowNewDataBinding) : RecyclerView.ViewHolder(binding.root) {
