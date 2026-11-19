@@ -85,7 +85,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
                 binding.rvLunas.visibility = View.VISIBLE
                 jumlah = it.size
                 binding.textResult.text = "$jumlah ${getString(R.string.hasil)}"
-                listData = it as ArrayList<DataModel>
+                listData = ArrayList(it)
                 lunasAdapter.setData(listData)
             }
         })
@@ -127,7 +127,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
 
                     jumlah = it.size
                     binding.textResult.text = "$jumlah ${getString(R.string.hasil)}"
-                    listData = it as ArrayList<DataModel>
+                    listData = ArrayList(it)
                     lunasAdapter.setData(listData)
                 }
             })

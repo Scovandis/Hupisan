@@ -113,7 +113,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
                                     getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
                             } else {
                                 Log.d(TAG, "DATAAA $it")
-                                listData = it as ArrayList<DataModel>
+                                listData = ArrayList(it)
                                 hAdapter.setData(listData!!)
                             }
                         })
@@ -130,7 +130,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
                                 binding.tvIsEmpty.text =
                                     getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
                             } else {
-                                listData = it as ArrayList<DataModel>
+                                listData = ArrayList(it)
                                 hAdapter.setData(listData!!)
                                 Log.d(TAG, "DATAAA $it")
                             }

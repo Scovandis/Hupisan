@@ -178,7 +178,7 @@ class ArisanActivity : AppCompatActivity() {
                 binding.lottieAnimation.visibility = View.GONE
                 binding.rvGroupArisan.visibility = View.VISIBLE
                 binding.tvIsEmpty.visibility = View.GONE
-                groupAdapter.setData(it as ArrayList<GrupArisanModel>)
+                groupAdapter.setData(ArrayList(it))
             }
         })
         binding.swipeRefreshLayout.isRefreshing = false

@@ -109,7 +109,7 @@ class ArisanMemberActivity : AppCompatActivity() {
                 binding.lottieAnimation.visibility = View.GONE
                 binding.tvIsEmpty.visibility = View.GONE
                 binding.rvMemberArisan.visibility = View.VISIBLE
-                memberAdapter.setData(it as ArrayList<ArisanModel>)
+                memberAdapter.setData(ArrayList(it))
                 if (it.size >= 50){
                     binding.fabTambahkanAnggota.visibility = View.GONE
                     binding.tvFabTambahkan.visibility = View.GONE

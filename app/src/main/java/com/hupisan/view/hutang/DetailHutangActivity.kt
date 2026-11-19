@@ -171,7 +171,7 @@ class DetailHutangActivity : AppCompatActivity() {
             if (it != null){
                 binding.content.rlTextNull.visibility = View.GONE
                 binding.content.rvDataPembayaranFromId.visibility = View.VISIBLE
-                paymentAdapter.setData(it as ArrayList<PaymentModel>)
+                paymentAdapter.setData(ArrayList(it))
             }else {
                 binding.content.rlTextNull.visibility = View.VISIBLE
                 binding.content.rvDataPembayaranFromId.visibility = View.GONE
