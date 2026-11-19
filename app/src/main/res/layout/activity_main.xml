@@ -1,548 +1,906 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/constraint"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hupisan_page_bg"
     tools:context=".view.main.MainActivity">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_170sdp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-        <com.rd.PageIndicatorView
-            android:id="@+id/indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:piv_animationType="scale"
-            app:piv_dynamicCount="true"
-            app:piv_interactiveAnimation="true"
-            app:piv_padding="@dimen/_6sdp"
-            app:piv_radius="@dimen/_4sdp"
-            app:piv_selectedColor="@color/purple_500"
-            android:translationZ="@dimen/_4sdp"
-            app:piv_unselectedColor="@color/white"
-            app:piv_viewPager="@id/view_pager"
-            android:layout_margin="@dimen/_15sdp"
-            app:layout_constraintTop_toTopOf="@id/view_pager"
-            app:layout_constraintStart_toStartOf="@id/view_pager"
-            />
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="88dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:translationZ="@dimen/_4sdp"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/_150sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_hutang"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clickable="true"
-                android:padding="@dimen/_4sdp"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_2sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-                android:focusable="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_4sdp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_hutang" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:layout_gravity="center"
-                        android:text="@string/hutang"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_piutang"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_4sdp"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_piutang" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/piutang"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_chart"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_margin="@dimen/_4sdp"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4sdp"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_statistic" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/statistic"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_about"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clickable="true"
-                android:focusable="true"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_4sdp"
-                android:layout_margin="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4sdp"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_info" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:layout_gravity="center"
-                        android:text="@string/about"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linear3"
-            android:layout_width="match_parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/linear2"
             android:orientation="vertical">
-            <RelativeLayout
+
+            <!-- TOP HEADER -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/transparantBlack15"
-                android:paddingTop="@dimen/_4sdp"
-                android:paddingBottom="@dimen/_4sdp"
-                android:id="@+id/header_log">
+                android:background="@drawable/bg_header_curved"
+                android:paddingStart="20dp"
+                android:paddingTop="26dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="44dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:padding="@dimen/_4sdp"
-                    android:text="@string/log_aktivitas"
-                    android:textColor="@color/transparantBlack75"
-                    android:textSize="@dimen/_14sdp"
-                    android:textStyle="bold" />
-
-            </RelativeLayout>
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/linear1"
-                app:layout_constraintVertical_bias="0.5"
-                app:shimmer_duration="1700"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <include
-                        layout="@layout/shimmer_row_new"
-                        />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_new"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_text_null"
-                android:layout_width="match_parent"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_3sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_3sdp"
-                android:visibility="gone"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true"
-                android:layout_margin="@dimen/_4sdp"
-                android:padding="@dimen/_12sdp"
-                android:layout_height="@dimen/_70sdp">
-                <TextView
-                    android:text="@string/belum_ada_aktivitas"
-                    android:textSize="@dimen/_22sdp"
-                    android:textStyle="bold"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"/>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/linear4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_4sdp"
-            app:layout_constraintTop_toBottomOf="@id/linear3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_arisan"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_margin="@dimen/_4sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/_4sdp"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_2sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_4sdp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    >
+                <!-- Left Icon Container -->
+                <FrameLayout
+                    android:id="@+id/box_header_icon"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/bg_header_icon_box"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_arisan" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
                         android:layout_gravity="center"
-                        android:text="@string/arisan"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_hupisan_note" />
+                </FrameLayout>
 
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_lunas"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_4sdp"
-                android:clipChildren="false"
-                android:clickable="true"
-                android:focusable="true"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_2sdp"
-                android:padding="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
+                <!-- Title & Badge Row -->
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:id="@+id/layout_title_badge"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="@dimen/_4sdp"
-                    >
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/layout_header_actions"
+                    app:layout_constraintStart_toEndOf="@id/box_header_icon"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_lunas" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/lunas"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_grosir"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:layout_margin="@dimen/_4sdp"
-                android:elevation="@dimen/_2sdp"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4sdp"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_grosir" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/grosir"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardView_tentang"
-                android:layout_width="@dimen/_62sdp"
-                android:layout_height="wrap_content"
-                android:clipChildren="false"
-                android:clipToPadding="false"
-                android:elevation="@dimen/_3sdp"
-                android:padding="@dimen/_4sdp"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_margin="@dimen/_4sdp"
-                app:cardCornerRadius="@dimen/_5sdp"
-                app:cardElevation="@dimen/_2sdp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="@dimen/_4sdp"
-                    android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:src="@drawable/new_ux_pembayaran" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/suku_bunga"
-                        android:maxLines="1"
-                        android:ellipsize="end"
-                        android:textSize="@dimen/_14sdp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView_cara_menggunakan"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_65sdp"
-            android:clipChildren="false"
-            android:clipToPadding="false"
-            android:layout_marginStart="@dimen/_12sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:backgroundTint="@color/purple_500"
-            android:elevation="@dimen/_1sdp"
-            android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="@dimen/_7sdp"
-            app:cardElevation="@dimen/_1sdp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/linear4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_width="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-                    <View
-                        android:layout_width="@dimen/_3sdp"
-                        android:background="@drawable/bg_anchor"
-                        android:layout_height="@dimen/_20sdp"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_8sdp"
-                        android:orientation="vertical">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:text="@string/cara_menggunakan"
-                            android:textStyle="bold"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_16sdp"
+                            android:id="@+id/tv_header_title"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:text="Make Notes"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
                         <TextView
-                            android:text="@string/bagaimana_aku_bisa_menggunakan_applikasi_ini_sebagaimana_mestinya"
-                            android:textStyle="italic"
-                            android:textSize="@dimen/_10sdp"
-                            android:textColor="@color/white"
+                            android:id="@+id/tv_header_badge"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_pill_badge_hupisan"
+                            android:paddingStart="8dp"
+                            android:paddingTop="2dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="2dp"
+                            android:text="Hupisan"
+                            android:textColor="#E3D8CE"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_header_subtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:text="Catatan keuangan &amp; hutang piutang"
+                        android:textColor="#BDB2A9"
+                        android:textSize="11.5sp" />
                 </LinearLayout>
-                <View
-                    android:background="@drawable/ic_baseline_keyboard_arrow_right_24"
-                    android:layout_width="@dimen/_30sdp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="@dimen/_8sdp"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="@dimen/_30sdp"/>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+
+                <!-- Right Action Buttons -->
+                <LinearLayout
+                    android:id="@+id/layout_header_actions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <!-- Help Button -->
+                    <FrameLayout
+                        android:id="@+id/btn_header_help"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_header_icon_box"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/bantuan"
+                            android:src="@drawable/ic_hupisan_help" />
+                    </FrameLayout>
+
+                    <!-- Info/Settings Button -->
+                    <FrameLayout
+                        android:id="@+id/btn_header_settings"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_header_icon_box"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/about"
+                            android:src="@drawable/ic_hupisan_info" />
+                    </FrameLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- FLOATING SUMMARY CARD -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_summary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="-24dp"
+                android:layout_marginEnd="16dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="3dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="16dp">
+
+                    <!-- Left: Total Hutang (Debt) -->
+                    <LinearLayout
+                        android:id="@+id/col_summary_debt"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:background="@drawable/dot_debt" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="Total Hutang\n(Debt)"
+                                android:textColor="@color/hupisan_debt_red"
+                                android:textSize="11.5sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_total_debt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Rp 0"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="17.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_count_debt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="0 catatan aktif"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <!-- Divider -->
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:background="@color/hupisan_card_stroke" />
+
+                    <!-- Right: Total Piutang (Receivable) -->
+                    <LinearLayout
+                        android:id="@+id/col_summary_receivable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="7dp"
+                                android:layout_height="7dp"
+                                android:background="@drawable/dot_receivable" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:text="Total Piutang\n(Receivable)"
+                                android:textColor="@color/hupisan_receivable_green"
+                                android:textSize="11.5sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_total_receivable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="Rp 0"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="17.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_count_receivable"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="0 catatan aktif"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <!-- SECTION: MENU UTAMA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.05"
+                    android:text="MENU UTAMA"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Pilih kategori pencatatan"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <!-- 4 Main Action Cards -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <!-- 1. Debt Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_menu_debt"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1.5dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="4dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="12dp">
+
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_menu_debt_box">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/hutang"
+                                android:src="@drawable/ic_hupisan_debt_arrow" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Debt"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Hutang"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 2. Receivable Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_menu_receivable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1.5dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="4dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="12dp">
+
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_menu_receivable_box">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/piutang"
+                                android:src="@drawable/ic_hupisan_receivable_arrow" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Receivable"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Piutang"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 3. Paid Off Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_menu_paid_off"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1.5dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="4dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="12dp">
+
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_menu_paid_box">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/lunas"
+                                android:src="@drawable/ic_hupisan_check_circle" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Paid Off"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Lunas"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 4. Statistics Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_menu_statistics"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="1.5dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingStart="4dp"
+                        android:paddingTop="12dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="12dp">
+
+                        <FrameLayout
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:background="@drawable/bg_menu_stats_box">
+
+                            <ImageView
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="center"
+                                android:contentDescription="@string/statistic"
+                                android:src="@drawable/ic_hupisan_chart" />
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="Statistics"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Ringkasan"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="10.5sp" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <!-- SECTION: LAINNYA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:text="Lainnya:"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="12sp" />
+
+                <!-- Lottery / Arisan Pill -->
+                <LinearLayout
+                    android:id="@+id/btn_menu_lottery"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_hupisan_sub_action"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:contentDescription="@string/arisan"
+                        android:src="@drawable/ic_hupisan_sync" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Lottery (Arisan)"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textSize="11.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Reseller Pill -->
+                <LinearLayout
+                    android:id="@+id/btn_menu_reseller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_hupisan_sub_action"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="7dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="7dp">
+
+                    <ImageView
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:contentDescription="@string/grosir"
+                        android:src="@drawable/ic_hupisan_store" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="Reseller"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textSize="11.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- SECTION: ACTIVITY LOG -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Activity Log"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_activity_log_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_pill_badge_counter"
+                    android:paddingStart="8dp"
+                    android:paddingTop="2dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="0"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Activity Log Filter Tabs -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Filter: Semua -->
+                    <TextView
+                        android:id="@+id/chip_filter_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_pill_dark"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingStart="16dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="6dp"
+                        android:text="Semua"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <!-- Filter: Debt -->
+                    <TextView
+                        android:id="@+id/chip_filter_debt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingStart="14dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="6dp"
+                        android:text="Debt"
+                        android:textColor="@color/hupisan_chip_inactive_text"
+                        android:textSize="12sp" />
+
+                    <!-- Filter: Receivable -->
+                    <TextView
+                        android:id="@+id/chip_filter_receivable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingStart="14dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="6dp"
+                        android:text="Receivable"
+                        android:textColor="@color/hupisan_chip_inactive_text"
+                        android:textSize="12sp" />
+
+                    <!-- Filter: Paid Off -->
+                    <TextView
+                        android:id="@+id/chip_filter_paid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/bg_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:paddingStart="14dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="6dp"
+                        android:text="Paid Off"
+                        android:textColor="@color/hupisan_chip_inactive_text"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Activity Log Content: Shimmer / Empty State / List -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp">
+
+                <!-- Shimmer Loading -->
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:shimmer_duration="1500">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/shimmer_row_new" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <!-- Empty State Card -->
+                <LinearLayout
+                    android:id="@+id/container_empty_state"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_empty_state_card"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingStart="24dp"
+                    android:paddingTop="28dp"
+                    android:paddingEnd="24dp"
+                    android:paddingBottom="28dp"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_empty_doc_box">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/aktivitas"
+                            android:src="@drawable/ic_hupisan_document" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:text="No Activity yet"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="2dp"
+                        android:text="Belum ada catatan pada kategori ini. Ketuk tombol + Catat Baru di bawah untuk mulai mencatat."
+                        android:textColor="@color/hupisan_text_secondary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- RecyclerView for Activities -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_activity_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- FLOATING ACTION BUTTON: + Catat Baru -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btn_catat_baru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/hupisan_primary_dark"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="5dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="18dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:text="+"
+                android:textColor="@color/hupisan_accent_amber"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Catat Baru"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

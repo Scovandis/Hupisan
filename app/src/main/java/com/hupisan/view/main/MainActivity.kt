@@ -1,1 +1,340 @@
-package com.hupisan.view.main  import android.content.Intent import android.graphics.Color import android.graphics.drawable.ColorDrawable import android.os.Build import android.os.Bundle import android.os.Handler import android.os.Looper import android.util.Log import android.view.Menu import android.view.MenuItem import android.view.View import androidx.appcompat.app.AppCompatActivity import androidx.lifecycle.Observer import org.koin.androidx.viewmodel.ext.android.viewModel import com.hupisan.viewmodel.DataViewModel import com.hupisan.viewmodel.ArisanGroupViewModel import androidx.recyclerview.widget.LinearLayoutManager import androidx.viewpager.widget.ViewPager import com.google.android.material.snackbar.Snackbar import com.rd.animation.type.AnimationType import java.text.SimpleDateFormat import java.util.* import android.app.AlarmManager import android.app.Notification  import android.os.SystemClock  import android.app.PendingIntent import android.content.res.Configuration import android.net.Uri import androidx.core.app.NotificationCompat import android.text.format.DateUtils import com.hupisan.R import com.hupisan.database.entity.DataModel import com.hupisan.databinding.ActivityMainBinding import com.hupisan.notification.service.NotificationService import com.hupisan.util.AppsConfig import com.hupisan.view.analistic.StatisticActivity import com.hupisan.view.arisan.FitureArisanActivity import com.hupisan.view.bantuan.BantuanActivity import com.hupisan.view.hutang.HutangActivity import com.hupisan.view.lunas.LunasActivity import com.hupisan.view.main.adapter.AutoSliderAdapter import com.hupisan.view.main.adapter.NewAdapter import com.hupisan.view.pengaturan.SettingsActivity   class MainActivity : AppCompatActivity() {     private val TAG = MainActivity::class.simpleName      private lateinit var binding: ActivityMainBinding     private val viewModel: DataViewModel by viewModel()     lateinit var newAdapter: NewAdapter     private val groupVM: ArisanGroupViewModel by viewModel()      lateinit var appsConfig: AppsConfig       override fun onCreate(savedInstanceState: Bundle?) {         super.onCreate(savedInstanceState)         binding = ActivityMainBinding.inflate(layoutInflater)         setContentView(binding.root)         appsConfig = AppsConfig()         appsConfig.AppsConfig(this)         loadLanguage()         val HUTANG: String = getString(R.string.hutang)         val PIUTAG: String = getString(R.string.piutang)          autoSlider()         onPageChange()         binding.viewPager.background = getRandomDrawbleColor()          binding.cardViewAbout.setOnClickListener {             Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()         }         binding.cardViewChart.setOnClickListener {             startActivity(Intent(this, StatisticActivity::class.java))         }         binding.cardViewHutang.setOnClickListener {             viewModel.getAllDataWhereStatusData(false,                 false).observe(this, Observer {                 ISNULL = if (it.isEmpty()){ 0 }else{ 1 }             })             val intent = Intent(this, HutangActivity::class.java)             intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, HUTANG)             startActivity(intent)         }          binding.cardViewPiutang.setOnClickListener {             viewModel.getAllDataWhereStatusData(false,                 true).observe(this, Observer {                 ISNULL = if (it.isEmpty()){ 0 }else{ 1 }             })             val intent = Intent(this, HutangActivity::class.java)             intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, PIUTAG)             startActivity(intent)         }          binding.cardViewArisan.setOnClickListener {             startActivity(Intent(this, FitureArisanActivity::class.java))         }         binding.cardViewLunas.setOnClickListener {             startActivity(Intent(this, LunasActivity::class.java))         }         binding.cardViewGrosir.setOnClickListener {             Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()         }         binding.cardViewTentang.setOnClickListener {             Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()         }         binding.cardViewCaraMenggunakan.setOnClickListener {             startActivity(Intent(this, BantuanActivity::class.java))         }         newAdapter = NewAdapter(this@MainActivity)         binding.rvNew.visibility = View.GONE          Handler(Looper.getMainLooper()).postDelayed({             setData()         }, 700)         bindRecycler()     }     private fun loadLanguage(){         var lang = appsConfig.getRegionLanguage()          if(lang.equals(getString(R.string.english))){             lang ="en"         }else if (lang.equals(getString(R.string.indonesia))){             lang = "in"         }else if(lang.equals(getString(R.string.thailand))){             lang = "tpi"         }else if(lang.equals(getString(R.string.vietnamese))){             lang = "vun"         }else if(lang.equals(getString(R.string.india))){             lang = "kok"         }          val locale = Locale(lang)         Locale.setDefault(locale)         val configuration = Configuration()          configuration.locale = locale         baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)     }      private fun intentViewPlayStore(){         val intent = Intent(Intent.ACTION_VIEW).apply {             data = Uri.parse("https://play.google.com/store/apps/details?id=com.hupisan")                 setPackage("com.android.vending")         }         startActivity(intent)     }     private fun loadTheme(){         val themeId = appsConfig.getThemePreferences()         Log.d(TAG, "THEMEID $themeId")         when(themeId.toInt()){             1 -> {                 setTheme(R.style.LightTheme)             }             2 -> {                 setTheme(R.style.DarkTheme)             }         }     }      private fun onPageChange() {         binding.viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{             override fun onPageScrolled(                 position: Int,                 positionOffset: Float,                 positionOffsetPixels: Int             ) {              }              override fun onPageSelected(position: Int) {                 when(position){                     0 -> {                         binding.viewPager.background = getRandomDrawbleColor()                     }                     1 -> {                         binding.viewPager.background = getRandomDrawbleColor()                     }                     2 -> {                         binding.viewPager.background = getRandomDrawbleColor()                     }                 }             }              override fun onPageScrollStateChanged(state: Int) {              }         })     }      override fun onCreateOptionsMenu(menu: Menu?): Boolean {         menuInflater.inflate(R.menu.item_menu, menu)         return super.onCreateOptionsMenu(menu)     }      override fun onOptionsItemSelected(item: MenuItem): Boolean {         return when(item.itemId){             R.id.menu_setting -> { //                Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()                 startActivity(Intent(this, SettingsActivity::class.java))                 return true             }             R.id.menu_rate_up -> {                 intentViewPlayStore()                 return true             }             R.id.menu_export -> {                 Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()                 return true             }             else -> {                 super.onOptionsItemSelected(item)             }         }      }      private val vibrantLightColorList = arrayOf(         ColorDrawable(Color.parseColor("#808080")), ColorDrawable(Color.parseColor("#839e2e")),         ColorDrawable(Color.parseColor("#601561")), ColorDrawable(Color.parseColor("#601561")),         ColorDrawable(Color.parseColor("#a96232")), ColorDrawable(Color.parseColor("#a96232")),         ColorDrawable(Color.parseColor("#4d1a7f")), ColorDrawable(Color.parseColor("#4c2882")),         ColorDrawable(Color.parseColor("#004040")), ColorDrawable(Color.parseColor("#004242")),         ColorDrawable(Color.parseColor("#008000")), ColorDrawable(Color.parseColor("#38862a"))     )      fun getRandomDrawbleColor(): ColorDrawable? {         val idx = Random().nextInt(vibrantLightColorList.size)         return vibrantLightColorList[idx]     }      var currentPage = 0     var timer: Timer? = null     val DELAY_MS: Long = 500      val PERIOD_MS: Long = 3000      private fun getItem(i: Int): Int = binding.viewPager.currentItem + i     private fun autoSlider(){         binding.viewPager.adapter = AutoSliderAdapter(supportFragmentManager, this)         binding.indicator.setAnimationType(AnimationType.WORM)     }      private fun setData() {         viewModel.loadDataLimit(false).observe(this, Observer {             binding.shimmer1.stopShimmer()             binding.shimmer1.visibility = View.GONE             if (it.isEmpty()) {                 binding.rvNew.visibility = View.GONE                 binding.cardViewTextNull.visibility = View.VISIBLE             } else {                 binding.cardViewTextNull.visibility = View.GONE                 binding.rvNew.visibility = View.VISIBLE                 newAdapter.setData(it as ArrayList<DataModel>)             }         })     }      private fun bindRecycler() {         binding.rvNew.apply {             layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)             adapter = newAdapter         }     }      private fun scheduleNotification(notification: Notification, delay: Int) {         val notificationIntent = Intent(this, NotificationService::class.java)         notificationIntent.putExtra(NotificationService.NOTIFICATION_ID, 1)         notificationIntent.putExtra(NotificationService.NOTIFICATION, notification)         val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE         } else {             PendingIntent.FLAG_UPDATE_CURRENT         }         val pendingIntent = PendingIntent.getBroadcast(             this,             0,             notificationIntent,             flags         )         val futureInMillis = SystemClock.elapsedRealtime() + delay         val alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)         alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent     }      private fun getNotification(content: String): Notification? {         val builder: NotificationCompat.Builder =             NotificationCompat.Builder(this, default_notification_channel_id)         builder.setContentTitle(getString(R.string.jatuh_tempo))         builder.setContentText(content)         builder.setSmallIcon(R.drawable.ic_launcher_foreground)         builder.setAutoCancel(true)         builder.setChannelId(NOTIFICATION_CHANNEL_ID)         return builder.build()     }      companion object{         var ISNULL = 0         val NOTIFICATION_CHANNEL_ID = "10001"         private val default_notification_channel_id = "default"     } }
+package com.hupisan.view.main
+
+import android.content.Intent
+import android.content.res.Configuration
+import android.net.Uri
+import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
+import com.hupisan.R
+import com.hupisan.database.entity.DataModel
+import com.hupisan.databinding.ActivityMainBinding
+import com.hupisan.util.AppsConfig
+import com.hupisan.view.analistic.StatisticActivity
+import com.hupisan.view.arisan.FitureArisanActivity
+import com.hupisan.view.bantuan.BantuanActivity
+import com.hupisan.view.hutang.AddHutangActivity
+import com.hupisan.view.hutang.HutangActivity
+import com.hupisan.view.lunas.LunasActivity
+import com.hupisan.view.main.adapter.NewAdapter
+import com.hupisan.view.pengaturan.SettingsActivity
+import com.hupisan.viewmodel.DataViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DecimalFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
+class MainActivity : AppCompatActivity() {
+    private val TAG = MainActivity::class.simpleName
+
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: DataViewModel by viewModel()
+    lateinit var newAdapter: NewAdapter
+    lateinit var appsConfig: AppsConfig
+
+    private var allRecords = ArrayList<DataModel>()
+    private var currentFilter = FILTER_ALL
+
+    companion object {
+        var ISNULL = 0
+        const val NOTIFICATION_CHANNEL_ID = "10001"
+        private const val default_notification_channel_id = "default"
+
+        const val FILTER_ALL = 0
+        const val FILTER_DEBT = 1
+        const val FILTER_RECEIVABLE = 2
+        const val FILTER_PAID = 3
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        appsConfig = AppsConfig()
+        appsConfig.AppsConfig(this)
+        loadLanguage()
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        }
+
+        val hutangText = getString(R.string.hutang)
+        val piutangText = getString(R.string.piutang)
+
+        setupHeader()
+        setupSummaryClickListeners(hutangText, piutangText)
+        setupMenuClickListeners(hutangText, piutangText)
+        setupSecondaryActions()
+        setupFilterTabs()
+        setupRecyclerView()
+        setupFab(hutangText, piutangText)
+
+        // Delayed initial data fetch to allow smooth transitions
+        Handler(Looper.getMainLooper()).postDelayed({
+            observeData()
+        }, 300)
+    }
+
+    private fun setupHeader() {
+        binding.btnHeaderHelp.setOnClickListener {
+            startActivity(Intent(this, BantuanActivity::class.java))
+        }
+
+        binding.btnHeaderSettings.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+    }
+
+    private fun setupSummaryClickListeners(hutangText: String, piutangText: String) {
+        binding.colSummaryDebt.setOnClickListener {
+            val intent = Intent(this, HutangActivity::class.java)
+            intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, hutangText)
+            startActivity(intent)
+        }
+
+        binding.colSummaryReceivable.setOnClickListener {
+            val intent = Intent(this, HutangActivity::class.java)
+            intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, piutangText)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupMenuClickListeners(hutangText: String, piutangText: String) {
+        binding.cardMenuDebt.setOnClickListener {
+            val intent = Intent(this, HutangActivity::class.java)
+            intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, hutangText)
+            startActivity(intent)
+        }
+
+        binding.cardMenuReceivable.setOnClickListener {
+            val intent = Intent(this, HutangActivity::class.java)
+            intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, piutangText)
+            startActivity(intent)
+        }
+
+        binding.cardMenuPaidOff.setOnClickListener {
+            startActivity(Intent(this, LunasActivity::class.java))
+        }
+
+        binding.cardMenuStatistics.setOnClickListener {
+            startActivity(Intent(this, StatisticActivity::class.java))
+        }
+    }
+
+    private fun setupSecondaryActions() {
+        binding.btnMenuLottery.setOnClickListener {
+            startActivity(Intent(this, FitureArisanActivity::class.java))
+        }
+
+        binding.btnMenuReseller.setOnClickListener {
+            Snackbar.make(binding.constraint, "Fitur Reseller segera hadir", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupFilterTabs() {
+        binding.chipFilterAll.setOnClickListener {
+            setFilter(FILTER_ALL)
+        }
+        binding.chipFilterDebt.setOnClickListener {
+            setFilter(FILTER_DEBT)
+        }
+        binding.chipFilterReceivable.setOnClickListener {
+            setFilter(FILTER_RECEIVABLE)
+        }
+        binding.chipFilterPaid.setOnClickListener {
+            setFilter(FILTER_PAID)
+        }
+    }
+
+    private fun setFilter(filter: Int) {
+        currentFilter = filter
+        updateFilterTabsUI()
+        applyFilter()
+    }
+
+    private fun updateFilterTabsUI() {
+        val darkBg = ContextCompat.getDrawable(this, R.drawable.bg_pill_dark)
+        val inactiveBg = ContextCompat.getDrawable(this, R.drawable.bg_pill_inactive)
+        val whiteColor = ContextCompat.getColor(this, R.color.white)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_chip_inactive_text)
+
+        val chips = listOf(
+            Pair(binding.chipFilterAll, FILTER_ALL),
+            Pair(binding.chipFilterDebt, FILTER_DEBT),
+            Pair(binding.chipFilterReceivable, FILTER_RECEIVABLE),
+            Pair(binding.chipFilterPaid, FILTER_PAID)
+        )
+
+        for ((chip, filterType) in chips) {
+            if (filterType == currentFilter) {
+                chip.background = darkBg
+                chip.setTextColor(whiteColor)
+            } else {
+                chip.background = inactiveBg
+                chip.setTextColor(inactiveTextColor)
+            }
+        }
+    }
+
+    private fun applyFilter() {
+        val filteredList = when (currentFilter) {
+            FILTER_DEBT -> allRecords.filter { !it.jenisPinjaman && !it.statusDataSelesai }
+            FILTER_RECEIVABLE -> allRecords.filter { it.jenisPinjaman && !it.statusDataSelesai }
+            FILTER_PAID -> allRecords.filter { it.statusDataSelesai }
+            else -> allRecords
+        }
+
+        binding.tvActivityLogBadge.text = filteredList.size.toString()
+
+        if (filteredList.isEmpty()) {
+            binding.rvActivityLog.visibility = View.GONE
+            binding.containerEmptyState.visibility = View.VISIBLE
+        } else {
+            binding.containerEmptyState.visibility = View.GONE
+            binding.rvActivityLog.visibility = View.VISIBLE
+            newAdapter.setData(ArrayList(filteredList))
+        }
+    }
+
+    private fun setupRecyclerView() {
+        newAdapter = NewAdapter(this@MainActivity)
+        binding.rvActivityLog.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = newAdapter
+            isNestedScrollingEnabled = false
+        }
+    }
+
+    private fun setupFab(hutangText: String, piutangText: String) {
+        binding.btnCatatBaru.setOnClickListener {
+            showAddChooserDialog(hutangText, piutangText)
+        }
+    }
+
+    private fun showAddChooserDialog(hutangText: String, piutangText: String) {
+        val options = arrayOf(
+            "Catat Hutang (Debt)",
+            "Catat Piutang (Receivable)"
+        )
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Tambah Catatan Baru")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> {
+                        val intent = Intent(this, AddHutangActivity::class.java)
+                        intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, hutangText)
+                        startActivity(intent)
+                    }
+                    1 -> {
+                        val intent = Intent(this, AddHutangActivity::class.java)
+                        intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, piutangText)
+                        startActivity(intent)
+                    }
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun observeData() {
+        viewModel.allData.observe(this, Observer { list ->
+            binding.shimmer1.stopShimmer()
+            binding.shimmer1.visibility = View.GONE
+
+            allRecords = ArrayList(list ?: emptyList())
+            calculateSummary(allRecords)
+            applyFilter()
+        })
+    }
+
+    private fun calculateSummary(records: List<DataModel>) {
+        var totalDebt = 0L
+        var countDebt = 0
+        var totalReceivable = 0L
+        var countReceivable = 0
+
+        for (item in records) {
+            if (!item.statusDataSelesai) {
+                if (!item.jenisPinjaman) {
+                    // Hutang (Debt)
+                    totalDebt += item.jumlah
+                    countDebt++
+                } else {
+                    // Piutang (Receivable)
+                    totalReceivable += item.jumlah
+                    countReceivable++
+                }
+            }
+        }
+
+        val decimalFormat = DecimalFormat("##,###,###")
+
+        val debtFormatted = if (totalDebt > 0) {
+            "Rp " + decimalFormat.format(totalDebt)
+        } else {
+            "Rp 0"
+        }
+
+        val receivableFormatted = if (totalReceivable > 0) {
+            "Rp " + decimalFormat.format(totalReceivable)
+        } else {
+            "Rp 0"
+        }
+
+        binding.tvTotalDebt.text = debtFormatted
+        binding.tvCountDebt.text = "$countDebt catatan aktif"
+
+        binding.tvTotalReceivable.text = receivableFormatted
+        binding.tvCountReceivable.text = "$countReceivable catatan aktif"
+    }
+
+    private fun loadLanguage() {
+        var lang = appsConfig.getRegionLanguage()
+
+        if (lang.equals(getString(R.string.english))) {
+            lang = "en"
+        } else if (lang.equals(getString(R.string.indonesia))) {
+            lang = "in"
+        } else if (lang.equals(getString(R.string.thailand))) {
+            lang = "tpi"
+        } else if (lang.equals(getString(R.string.vietnamese))) {
+            lang = "vun"
+        } else if (lang.equals(getString(R.string.india))) {
+            lang = "kok"
+        }
+
+        val locale = Locale(lang)
+        Locale.setDefault(locale)
+        val configuration = Configuration()
+
+        configuration.locale = locale
+        baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
+    }
+
+    private fun intentViewPlayStore() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("https://play.google.com/store/apps/details?id=com.hupisan")
+            setPackage("com.android.vending")
+        }
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh filter and summary on return
+        applyFilter()
+    }
+}

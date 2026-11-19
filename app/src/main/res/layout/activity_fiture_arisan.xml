@@ -29,11 +29,7 @@
             app:cardCornerRadius="@dimen/_7sdp"
             app:cardElevation="@dimen/_1sdp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/linear4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            app:cardUseCompatPadding="true">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -105,11 +101,7 @@
             app:cardCornerRadius="@dimen/_7sdp"
             app:cardElevation="@dimen/_1sdp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            app:layout_constraintTop_toBottomOf="@id/linear4"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            >
+            app:cardUseCompatPadding="true">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -46,5 +46,27 @@
     <color name="Bulan_dipinjam">#EF5350</color>
     <color name="Tahun_dipinjam">#29B6F6</color>
 
+    <!-- Hupisan Theme Colors -->
+    <color name="hupisan_primary_dark">#2C1E17</color>
+    <color name="hupisan_primary_surface">#3B2B22</color>
+    <color name="hupisan_primary_border">#4D3C32</color>
+    <color name="hupisan_accent_amber">#E5A86A</color>
+    <color name="hupisan_page_bg">#FAF7F2</color>
+    <color name="hupisan_card_bg">#FFFFFF</color>
+    <color name="hupisan_card_stroke">#EAE4DC</color>
+    <color name="hupisan_text_primary">#251C17</color>
+    <color name="hupisan_text_secondary">#8E847C</color>
+    <color name="hupisan_text_muted">#B5ADA6</color>
+
+    <color name="hupisan_debt_red">#C85337</color>
+    <color name="hupisan_debt_bg">#FDF2EE</color>
+    <color name="hupisan_receivable_green">#2D7D58</color>
+    <color name="hupisan_receivable_bg">#EDF7F1</color>
+    <color name="hupisan_paid_orange">#A56F21</color>
+    <color name="hupisan_paid_bg">#FFF7EA</color>
+    <color name="hupisan_stats_brown">#5C4A3E</color>
+    <color name="hupisan_stats_bg">#F3EFEA</color>
+    <color name="hupisan_chip_bg">#EFEAE3</color>
+    <color name="hupisan_chip_inactive_text">#6E645D</color>
 
 </resources>
