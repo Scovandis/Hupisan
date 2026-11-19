@@ -1,10 +1,7 @@
 package com.hupisan.view.hutang
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -15,71 +12,41 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
-import android.view.animation.AnticipateOvershootInterpolator
-import android.widget.*
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.hupisan.viewmodel.DataViewModel
 import com.hupisan.viewmodel.PaymentViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.hupisan.R
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import com.hupisan.database.entity.DataModel
 import com.hupisan.database.entity.PaymentModel
 import com.hupisan.databinding.ActivityDetailHutangBinding
 import com.hupisan.databinding.AlertDicicilBinding
 import com.hupisan.view.hutang.adapter.PaymentAdapter
-import com.hupisan.view.lunas.LunasActivity
-import com.hupisan.view.lunas.WindowFragmentLunas
-import com.hupisan.view.main.MainActivity
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class DetailHutangActivity : AppCompatActivity() {
     private val TAG = DetailHutangActivity::class.java.simpleName
     private lateinit var binding: ActivityDetailHutangBinding
 
-    private var typeJenis: Boolean? = null
-
     private val viewModel: DataViewModel by viewModel()
     private val paymentViewModel: PaymentViewModel by viewModel()
+
+    private var typeJenis: Boolean? = null
     private var jenis: String? = null
     private lateinit var paymentAdapter: PaymentAdapter
-
-    private lateinit var ivAvatar: ImageView
-    private lateinit var ivAvatarGender: ImageView
-
-    private var EXPAND_AVATAR_SIZE: Float = 0F
-    private var COLLAPSE_IMAGE_SIZE: Float = 0F
-    private var cashCollapseState: Pair<Int, Int>? = null
-    private var margin: Float = 0F
-    private lateinit var toolbar: Toolbar
-    private lateinit var appBarLayout: AppBarLayout
-
-    private lateinit var titleToolbarText: AppCompatTextView
-    private lateinit var titleToolbarTextSingle: AppCompatTextView
-    private lateinit var collapsingAvatarContainer: FrameLayout
-    private lateinit var background: FrameLayout
+    private var currentDataModel: DataModel? = null
 
     private var activityJumlah = 0
     private var activityDibayar = 0
-
-    private val rotateOpen : Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim) }
-    private val rotateClose : Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim) }
-    private val fromBottom : Animation by lazy{ AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim)}
-    private val toBottom : Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim)}
-    private var closed = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,13 +113,6 @@ class DetailHutangActivity : AppCompatActivity() {
                 binding.rvDataPembayaranFromId.visibility = View.GONE
             }
         })
-    }
-
-    private fun bindRv() {
-        binding.content.rvDataPembayaranFromId.apply {
-            layoutManager = LinearLayoutManager(this@DetailHutangActivity, LinearLayoutManager.VERTICAL, false)
-            adapter = paymentAdapter
-        }
     }
 
     private fun setAlert(statusOption: Int){
@@ -387,208 +347,6 @@ class DetailHutangActivity : AppCompatActivity() {
         })
     }
 
-    private fun onActionListener(){
-        // Handled in onCreate
-    }
-
-    private var startAvatarAnimatePointY: Float = 0F
-    private var animateWeigt: Float = 0F
-    private var isCalculated = false
-
-    private fun updateViews(percentOffset: Float) {
-        /* Collapsing avatar transparent*/
-        when {
-            percentOffset > mUpperLimitTransparently -> {
-                titleToolbarText.alpha = 0.0F
-            }
-
-            percentOffset < mUpperLimitTransparently -> {
-                titleToolbarText.alpha = 1f
-            }
-        }
-
-        /*Collapsed/expended sizes for views*/
-        val result: Pair<Int, Int> = when {
-            percentOffset < ABROAD -> {
-                Pair(
-                    TO_EXPANDED_STATE, cashCollapseState?.second
-                        ?: WAIT_FOR_SWITCH
-                )
-            }
-            else -> {
-                Pair(TO_COLLAPSED_STATE, cashCollapseState?.second ?: WAIT_FOR_SWITCH)
-            }
-        }
-        result.apply {
-            var translationY = 0f
-            var headContainerHeight = 0f
-            val translationX: Float
-            var currentImageSize = 0
-            when {
-                cashCollapseState != null && cashCollapseState != this -> {
-                    when (first) {
-                        TO_EXPANDED_STATE -> {
-                            translationY = toolbar.height.toFloat()
-                            headContainerHeight = appBarLayout.totalScrollRange.toFloat()
-                            currentImageSize = EXPAND_AVATAR_SIZE.toInt()
-                            /**/
-                            titleToolbarText.visibility = View.VISIBLE
-                            titleToolbarTextSingle.visibility = View.INVISIBLE
-                            background.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    this@DetailHutangActivity,
-                                    R.color.color_transparent
-                                )
-                            )
-                            /**/
-                            ivAvatar.translationX = 0f
-                            ivAvatarGender.translationX = 0f
-                        }
-
-                        TO_COLLAPSED_STATE -> {
-                            background.setBackgroundColor(
-                                ContextCompat.getColor(
-                                    this@DetailHutangActivity,
-                                    R.color.hupisan_primary_dark
-                                )
-                            )
-                            currentImageSize = COLLAPSE_IMAGE_SIZE.toInt()
-                            translationY =
-                                appBarLayout.totalScrollRange.toFloat() - (toolbar.height - COLLAPSE_IMAGE_SIZE) / 2
-                            headContainerHeight = toolbar.height.toFloat()
-                            translationX =
-                                appBarLayout.width / 2f - COLLAPSE_IMAGE_SIZE / 2 - margin * 2
-                            /**/
-                            ValueAnimator.ofFloat(ivAvatar.translationX, translationX).apply {
-                                addUpdateListener {
-                                    if (cashCollapseState!!.first == TO_COLLAPSED_STATE) {
-                                        ivAvatar.translationX = it.animatedValue as Float
-                                    }
-                                }
-                                interpolator = AnticipateOvershootInterpolator()
-                                startDelay = 69
-                                duration = 350
-                                start()
-                            }
-                            ValueAnimator.ofFloat(ivAvatarGender.translationX, translationX).apply {
-                                addUpdateListener {
-                                    if (cashCollapseState!!.first == TO_COLLAPSED_STATE){
-                                        ivAvatarGender.translationX = it.animatedValue as Float
-                                    }
-                                }
-                                interpolator = AnticipateOvershootInterpolator()
-                                startDelay = 69
-                                duration = 350
-                                start()
-                            }
-
-                            titleToolbarText.visibility = View.INVISIBLE
-                            titleToolbarTextSingle.apply {
-                                visibility = View.VISIBLE
-                                alpha = 0.2f
-                                this.translationX = width.toFloat() / 2
-                                animate().translationX(0f)
-                                    .setInterpolator(AnticipateOvershootInterpolator())
-                                    .alpha(1.0f)
-                                    .setStartDelay(69)
-                                    .setDuration(450)
-                                    .setListener(null)
-                            }
-                        }
-                    }
-
-                    ivAvatar.apply {
-                        layoutParams.height = currentImageSize
-                        layoutParams.width = currentImageSize
-                    }
-                    ivAvatarGender.apply {
-                        layoutParams.height = currentImageSize
-                        layoutParams.width = currentImageSize
-                    }
-
-                    collapsingAvatarContainer.apply {
-                        layoutParams.height = headContainerHeight.toInt()
-                        this.translationY = translationY
-                        requestLayout()
-                    }
-                    /**/
-                    cashCollapseState = Pair(first, SWITCHED)
-                }
-                else -> {
-                    /* Collapse avatar img*/
-                    ivAvatar.apply {
-                        if (percentOffset > startAvatarAnimatePointY) {
-
-                            val animateOffset =
-                                (percentOffset - startAvatarAnimatePointY) * animateWeigt
-                            val avatarSize =
-                                EXPAND_AVATAR_SIZE - (EXPAND_AVATAR_SIZE - COLLAPSE_IMAGE_SIZE) * animateOffset
-
-                            this.layoutParams.also {
-                                if (it.height != Math.round(avatarSize)) {
-                                    it.height = Math.round(avatarSize)
-                                    it.width = Math.round(avatarSize)
-                                    this.requestLayout()
-                                }
-                            }
-
-                            this.translationY = (COLLAPSE_IMAGE_SIZE - avatarSize) * animateOffset
-
-                        } else {
-                            this.layoutParams.also {
-                                if (it.height != EXPAND_AVATAR_SIZE.toInt()) {
-                                    it.height = EXPAND_AVATAR_SIZE.toInt()
-                                    it.width = EXPAND_AVATAR_SIZE.toInt()
-                                    this.layoutParams = it
-                                }
-                            }
-                        }
-                    }
-                    ivAvatarGender.apply {
-                        if (percentOffset > startAvatarAnimatePointY) {
-
-                            val animateOffset =
-                                (percentOffset - startAvatarAnimatePointY) * animateWeigt
-                            val avatarSize =
-                                EXPAND_AVATAR_SIZE - (EXPAND_AVATAR_SIZE - COLLAPSE_IMAGE_SIZE) * animateOffset
-
-                            this.layoutParams.also {
-                                if (it.height != Math.round(avatarSize)) {
-                                    it.height = Math.round(avatarSize)
-                                    it.width = Math.round(avatarSize)
-                                    this.requestLayout()
-                                }
-                            }
-
-                            this.translationY = (COLLAPSE_IMAGE_SIZE - avatarSize) * animateOffset
-
-                        } else {
-                            this.layoutParams.also {
-                                if (it.height != EXPAND_AVATAR_SIZE.toInt()) {
-                                    it.height = EXPAND_AVATAR_SIZE.toInt()
-                                    it.width = EXPAND_AVATAR_SIZE.toInt()
-                                    this.layoutParams = it
-                                }
-                            }
-                        }
-                    }
-                    cashCollapseState = Pair(first, WAIT_FOR_SWITCH)
-                }
-            }
-        }
-    }
-
-    private val vibrantLightColorList = arrayOf(
-        ColorDrawable(Color.parseColor("#EFEAE3")), ColorDrawable(Color.parseColor("#E5D7CA")),
-        ColorDrawable(Color.parseColor("#EBDCCB")), ColorDrawable(Color.parseColor("#DFD3C3")),
-        ColorDrawable(Color.parseColor("#D9C3B0")), ColorDrawable(Color.parseColor("#CDB59F")),
-        ColorDrawable(Color.parseColor("#DFCCB7")), ColorDrawable(Color.parseColor("#E8DDD1"))
-    )
-
-    fun getRandomDrawbleColor(): ColorDrawable? {
-        val idx = Random().nextInt(vibrantLightColorList.size)
-        return vibrantLightColorList[idx]
-    }
     private fun setData(
         uid: String
     ) {
@@ -688,8 +446,6 @@ class DetailHutangActivity : AppCompatActivity() {
             .show()
     }
 
-    private var currentDataModel: com.hupisan.database.entity.DataModel? = null
-
     private fun alertDelete() {
         val uid = intent.extras?.get(EXTRA_UID)?.toString()?.toIntOrNull() ?: return
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
@@ -710,17 +466,7 @@ class DetailHutangActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_UID = "extra_uid"
-        var EXTRA_TYPE_JENIS = "extra_type_jenis"
-
-        const val ABROAD = 0.99f
-        const val TO_EXPANDED_STATE = 0
-        const val TO_COLLAPSED_STATE = 1
-        const val WAIT_FOR_SWITCH = 0
-        const val SWITCHED = 1
-
-        private val mLowerLimitTransparently = ABROAD * 0.45
-        private val mUpperLimitTransparently = ABROAD * 0.65
-        var STAY_MAIN_MENU = 100
+        const val EXTRA_TYPE_JENIS = "extra_type_jenis"
 
         val decimalFormat = DecimalFormat("##,###,###")
     }

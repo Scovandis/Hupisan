@@ -86,7 +86,6 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
         }
 
         private fun openDetail(dataModel: DataModel) {
-            DetailHutangActivity.STAY_MAIN_MENU = 101
             val intent = Intent(context, DetailHutangActivity::class.java).apply {
                 putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, dataModel.jenisPinjaman)
                 putExtra(DetailHutangActivity.EXTRA_UID, dataModel.id)
@@ -103,7 +102,6 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
-            DetailHutangActivity.STAY_MAIN_MENU = 101
             val intent = Intent(context, DetailHutangActivity::class.java).apply {
                 putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
                 putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
