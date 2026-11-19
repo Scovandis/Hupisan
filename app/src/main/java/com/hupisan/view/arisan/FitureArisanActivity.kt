@@ -15,30 +15,24 @@ import com.hupisan.view.main.MainActivity
 
 class FitureArisanActivity : AppCompatActivity() {
     lateinit var binding: ActivityFitureArisanBinding
-    val groupVM: ArisanGroupViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFitureArisanBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = getString(R.string.arisan)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.arisan)
         setOnActionView()
     }
+
     private fun setOnActionView(){
         binding.cardViewBuatAcara.setOnClickListener {
             statusDimulai = false
-            groupVM.getAllGroupWhereStatus(statusDimulai).observe(this, Observer {
-                DATA_ISNULL = if (it.isEmpty()){ 0 }else{ 1 }
-            })
-            val intent = Intent(this, ArisanActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, ArisanActivity::class.java))
         }
         binding.cardViewAcaraYangDimulai.setOnClickListener {
             statusDimulai = true
-            groupVM.getAllGroupWhereStatus(statusDimulai).observe(this, Observer {
-                DATA_ISNULL = if (it.isEmpty()){0} else {1}
-            })
             startActivity(Intent(this, ArisanActivity::class.java))
         }
     }

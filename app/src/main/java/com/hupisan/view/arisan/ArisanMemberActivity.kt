@@ -116,13 +116,6 @@ class ArisanMemberActivity : AppCompatActivity() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
     private fun setActionView(){
         binding.optionF.setOnClickListener {
             onAddButtonClick()
@@ -236,12 +229,12 @@ class ArisanMemberActivity : AppCompatActivity() {
         binding.rvMemberArisan.visibility = View.GONE
     }
     companion object{
-        val EXTRA_GROUP_ID = "extra_group_id"
-        val EXTRA_GROUP_NAME = "extra_group_name"
-        val EXTRA_GROUP_ANGGARAN = "extra_group_anggaran"
-        val EXTRA_GROUP_PRIZE_POLL = "extra_prize_poll"
-        val EXTRA_TANGGAL_DIBUAT = "extra_tanggal_dibuat"
-        val EXTRA_TANGGAL_DIUPDATE = "extra_tanggal_diupdate"
-        val EXTRA_GROUP_TERKUMPUL = "extra_group_terkumpul"
+        const val EXTRA_GROUP_ID = "extra_group_id"
+        const val EXTRA_GROUP_NAME = "extra_group_name"
+        const val EXTRA_GROUP_ANGGARAN = "extra_group_anggaran"
+        const val EXTRA_GROUP_PRIZE_POLL = "extra_prize_poll"
+        const val EXTRA_TANGGAL_DIBUAT = "extra_tanggal_dibuat"
+        const val EXTRA_TANGGAL_DIUPDATE = "extra_tanggal_diupdate"
+        const val EXTRA_GROUP_TERKUMPUL = "extra_group_terkumpul"
     }
 }

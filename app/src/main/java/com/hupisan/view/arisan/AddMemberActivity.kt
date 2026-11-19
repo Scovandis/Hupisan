@@ -46,6 +46,7 @@ class AddMemberActivity : AppCompatActivity() {
     var timeNow: String? = null
     var isBayar1: SwitchMaterial? = null
     var gender: Int = 1
+    var count: Int = 0
 
     lateinit var listUsername: ArrayList<String>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,10 +87,7 @@ class AddMemberActivity : AppCompatActivity() {
     private fun setHide(){
         isBayar1 = binding.switchOnPay
         binding.btnSimpanMember.visibility = View.GONE
-        binding.rvUsername.visibility = View.GONE
-        if (userAdapter != null){
-            binding.rvUsername.visibility = View.VISIBLE
-        }
+        binding.rvUsername.visibility = View.VISIBLE
     }
     private fun deleteData(){
         memberVM.getAllMemberFromGroupId(groupId!!).observe(this, androidx.lifecycle.Observer {
@@ -153,7 +151,7 @@ class AddMemberActivity : AppCompatActivity() {
             adapter = userAdapter
         }
     }
-    var count : Int = 0
+
     private fun setView(){
         binding.radioGroup1.setOnCheckedChangeListener { radioGroup, checkedId ->
             val radio: RadioButton = findViewById(checkedId)
@@ -281,11 +279,11 @@ class AddMemberActivity : AppCompatActivity() {
     }
 
     companion object{
-        var EXTRA_GROUP_NAME = "extra_group_name"
-        var EXTRA_GROUP_ID = "extra_group_id"
-        var EXTRA_NOMINAL_PEMBAYARAN = "extra_nominal_pembayaran"
-        val EXTRA_GROUP_PRIZE_POLL = "extra_prize_poll"
-        val EXTRA_TANGGAL_DIBUAT = "extra_tanggal_dibuat"
-        val EXTRA_TANGGAL_DIUPDATE = "extra_tanggal_diupdate"
+        const val EXTRA_GROUP_NAME = "extra_group_name"
+        const val EXTRA_GROUP_ID = "extra_group_id"
+        const val EXTRA_NOMINAL_PEMBAYARAN = "extra_nominal_pembayaran"
+        const val EXTRA_GROUP_PRIZE_POLL = "extra_prize_poll"
+        const val EXTRA_TANGGAL_DIBUAT = "extra_tanggal_dibuat"
+        const val EXTRA_TANGGAL_DIUPDATE = "extra_tanggal_diupdate"
     }
 }

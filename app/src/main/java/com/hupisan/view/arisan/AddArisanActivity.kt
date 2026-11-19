@@ -46,10 +46,10 @@ class AddArisanActivity : AppCompatActivity() {
         setContentView(binding.root)
         dateTimeNow = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
 
-        binding.progressbar.progressDrawable = resources.getDrawable(R.drawable.custom_progressbar)
+        binding.progressbar.progressDrawable = androidx.core.content.ContextCompat.getDrawable(this, R.drawable.custom_progressbar)
 
         setSwitch()
         setOnActionAddView()
@@ -253,20 +253,20 @@ class AddArisanActivity : AppCompatActivity() {
         val groupName = binding.etNamaGroup.editText!!.text.toString()
         val dibuat = dateTimeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
         val diupdate = dibuat
-        val anggaran_kesepakatan_peruser = binding.etNominalPembayaran.editText!!.text
-        val anggaran_terkumpul = 0
-        val prize_poll = binding.etPrizePoll.editText!!.text
+        val anggaranKesepakatanPerUser = binding.etNominalPembayaran.editText!!.text
+        val anggaranTerkumpul = 0
+        val prizePool = binding.etPrizePoll.editText!!.text
 
         if (groupName.length <=2){
             binding.etNamaGroup.error = getString(R.string.nama_tidak_boleh_kurang_dari_2_huruf)
         }else {
-            if (binding.etNominalPembayaran.editText!!.text.isNullOrEmpty() || anggaran_kesepakatan_peruser.isEmpty() || anggaran_kesepakatan_peruser.toString().toInt() == 0){
+            if (binding.etNominalPembayaran.editText!!.text.isNullOrEmpty() || anggaranKesepakatanPerUser.isEmpty() || anggaranKesepakatanPerUser.toString().toIntOrNull() == 0){
                 binding.etNominalPembayaran.error = getString(R.string.nominal_tidak_boleh_kosong)
             }else {
-                if (binding.etPrizePoll.editText!!.text.isNullOrEmpty() || prize_poll.isEmpty() || prize_poll.toString().toInt() == 0){
+                if (binding.etPrizePoll.editText!!.text.isNullOrEmpty() || prizePool.isEmpty() || prizePool.toString().toIntOrNull() == 0){
                     binding.etPrizePoll.error = getString(R.string.nominal_tidak_boleh_kosong)
                 }else {
-                    val dataGroup = GrupArisanModel(0, groupName, dibuat, diupdate, anggaran_kesepakatan_peruser.toString().toInt(), anggaran_terkumpul, prize_poll.toString().toInt(), 0, false)
+                    val dataGroup = GrupArisanModel(0, groupName, dibuat, diupdate, anggaranKesepakatanPerUser.toString().toInt(), anggaranTerkumpul, prizePool.toString().toInt(), 0, false)
                     groupArisanVM.insertGroup(dataGroup)
 
                     groupArisanVM.getDataWhereGroupName(groupName.toString()).observe(this, androidx.lifecycle.Observer {
@@ -361,6 +361,6 @@ class AddArisanActivity : AppCompatActivity() {
         }
     }
     companion object{
-        var EXTRA_VALUE = "extra_value" //1 maka ganti tambahkan member 0 maka ganti tambahkan group
+        const val EXTRA_VALUE = "extra_value" // 1 maka ganti tambahkan member 0 maka ganti tambahkan group
     }
 }
