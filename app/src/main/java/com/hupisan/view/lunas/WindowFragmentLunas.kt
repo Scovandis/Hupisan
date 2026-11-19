@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import com.hupisan.viewmodel.DataViewModel
@@ -36,7 +37,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
     ): View {
         _binding = FragmentWindowLunasBinding.inflate(inflater, container, false)
         (activity as? LunasActivity)?.setOnBottomSheetCallbacks(this)
-        binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
+        binding.filterImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.hupisan_primary_dark))
         lunasAdapter = LunasAdapter(requireContext())
         binding.rvLunas.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE
@@ -158,13 +159,13 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
                 filterData()
                 binding.textResult.text = jumlah.toString() +" "+ getString(R.string.hasil)
                 binding.filterImage.setImageResource(R.drawable.ic_baseline_filter_list_white_24)
-                binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
+                binding.filterImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.hupisan_primary_dark))
             }
             BottomSheetBehavior.STATE_COLLAPSED -> {
                 jumlah = 0
                 binding.textResult.text = getString(R.string.lihat_hasilnya)
                 binding.filterImage.setImageResource(R.drawable.ic_baseline_keyboard_arrow_up_24)
-                binding.filterImage.setColorFilter(Color.parseColor("#FF6200EE"))
+                binding.filterImage.setColorFilter(ContextCompat.getColor(requireContext(), R.color.hupisan_primary_dark))
             }
         }
     }

@@ -25,6 +25,8 @@ class LunasActivity : AppCompatActivity() {
         binding = ActivityLunasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.lunas)
         supportActionBar!!.elevation = 0f
@@ -63,8 +65,8 @@ class LunasActivity : AppCompatActivity() {
     }
     private fun toggleButton(button: MaterialButton){
         if (button.textColors.defaultColor == ContextCompat.getColor(this, R.color.white)) {
-            button.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.purple_200))
-            button.setTextColor(ContextCompat.getColor(this, R.color.purple_200))
+            button.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.hupisan_accent_amber))
+            button.setTextColor(ContextCompat.getColor(this, R.color.hupisan_accent_amber))
         } else {
             button.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
             button.setTextColor(ContextCompat.getColor(this, R.color.white))

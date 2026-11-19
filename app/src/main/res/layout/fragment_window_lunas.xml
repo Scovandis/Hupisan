@@ -28,7 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/hupisan_primary_dark"
+            android:textStyle="bold"
             android:textSize="20sp" />
 
         <ImageButton
