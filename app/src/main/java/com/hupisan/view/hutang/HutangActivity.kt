@@ -69,13 +69,29 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             ContextCompat.getColor(this, R.color.hupisan_accent_amber)
         )
 
-        Log.d(TAG, "INTENT.GETSTRINGEXTRA $typeJenis")
+        supportActionBar?.hide()
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = typeJenis
+        typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS) ?: getString(R.string.hutang)
 
-        binding.fabAddAction.setColorFilter(Color.WHITE)
-        binding.fabAddAction.setOnClickListener{
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        }
+
+        binding.tvToolbarTitle.text = typeJenis
+        binding.tvSummaryLabel.text = "Total $typeJenis"
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+
+        binding.btnFilterAction.setOnClickListener {
+            alertDeleteAll()
+        }
+
+        setupFilterTabs()
+        setupSearch()
+
+        binding.fabAddAction.setOnClickListener {
             val intent = Intent(this, AddHutangActivity::class.java)
             intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, typeJenis)
             startActivity(intent)
@@ -90,6 +106,74 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         }
     }
 
+    private var activeFilter = 0 // 0: Semua, 1: Belum Lunas, 2: Sebagian, 3: Lunas
+    private var searchQuery = ""
+
+    private fun setupFilterTabs() {
+        binding.tabFilterAll.setOnClickListener { updateFilter(0) }
+        binding.tabFilterUnpaid.setOnClickListener { updateFilter(1) }
+        binding.tabFilterPartial.setOnClickListener { updateFilter(2) }
+        binding.tabFilterPaid.setOnClickListener { updateFilter(3) }
+    }
+
+    private fun updateFilter(filterIndex: Int) {
+        activeFilter = filterIndex
+        val tabs = listOf(
+            binding.tabFilterAll,
+            binding.tabFilterUnpaid,
+            binding.tabFilterPartial,
+            binding.tabFilterPaid
+        )
+        tabs.forEachIndexed { index, textView ->
+            if (index == activeFilter) {
+                textView.setBackgroundResource(R.drawable.bg_filter_pill_active)
+                textView.setTextColor(Color.WHITE)
+            } else {
+                textView.setBackgroundResource(R.drawable.bg_filter_pill_inactive)
+                textView.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
+            }
+        }
+        applyFilterAndSearch()
+    }
+
+    private fun setupSearch() {
+        binding.etSearchDebt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchQuery = s?.toString()?.trim() ?: ""
+                applyFilterAndSearch()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun applyFilterAndSearch() {
+        val originalList = listData ?: return
+        var filtered = originalList.filter { item ->
+            if (searchQuery.isNotEmpty()) {
+                item.username.contains(searchQuery, ignoreCase = true)
+            } else true
+        }
+
+        filtered = when (activeFilter) {
+            1 -> filtered.filter { !it.statusDataSelesai }
+            2 -> filtered.filter { !it.statusDataSelesai } // Sebagian / ongoing
+            3 -> filtered.filter { it.statusDataSelesai }
+            else -> filtered
+        }
+
+        if (filtered.isEmpty()) {
+            binding.rvHutang.visibility = View.GONE
+            binding.lottieAnimation.visibility = View.VISIBLE
+            binding.tvIsEmpty.visibility = View.VISIBLE
+        } else {
+            binding.lottieAnimation.visibility = View.GONE
+            binding.tvIsEmpty.visibility = View.GONE
+            binding.rvHutang.visibility = View.VISIBLE
+        }
+        hAdapter.setData(ArrayList(filtered))
+    }
+
     private fun observeData() {
         binding.shimmer1.startShimmer()
         binding.shimmer1.visibility = View.VISIBLE
@@ -102,6 +186,10 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             binding.shimmer1.stopShimmer()
             binding.shimmer1.visibility = View.GONE
             binding.swipeRefreshLayout.isRefreshing = false
+
+            val decimalFormat = java.text.DecimalFormat("##,###,###")
+            val totalSum = it.sumOf { item -> item.jumlah }
+            binding.tvTotalSummaryAmount.text = if (totalSum > 0) "Rp " + decimalFormat.format(totalSum) else "Rp 0"
 
             if (it.isEmpty()) {
                 binding.rvHutang.visibility = View.GONE

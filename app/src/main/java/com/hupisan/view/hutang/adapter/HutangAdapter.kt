@@ -80,43 +80,34 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
             val decimalFormat = DecimalFormat("##,###,###")
             with(binding) {
                 tvUsername.text = data.username
-                tvDeskription.text = data.deskripsi
-                tvDibuatPada.text = data.diBuat
-                tvJumlah.text = context.getString(R.string.dolar)+" " + decimalFormat.format(data.jumlah)
+                
+                // Avatar initial letter
+                val initial = if (data.username.isNotEmpty()) data.username.first().uppercaseChar().toString() else "U"
+                tvAvatarLetter.text = initial
 
-                imvRandomColor.background = getRandomDrawbleColor()
-
-                imgSrcBgGender.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                when(data.genderUser){
-                    1 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
-                    }
-                    2 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_female))
-                    }
-                    3 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_kosong))
-                    }else -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_alert))
-                    }
+                // Due date
+                if (!data.jatuhTempo.isNullOrEmpty()) {
+                    tvDibuatPada.text = "Jatuh Tempo: ${data.jatuhTempo} >"
+                } else {
+                    tvDibuatPada.text = "Dibuat: ${data.diBuat} >"
                 }
-                btnNotif.setOnClickListener {
-                    val alertDialog: AlertDialog = AlertDialog.Builder(binding.root.context).create()
-                    alertDialog.setTitle(context.getString(R.string.jatuh_tempo))
-                    if (!data.notif){
-                        alertDialog.setMessage(context.getString(R.string.tanggal_tidak_di_atur))
-                    }else{
-                        alertDialog.setMessage(data.jatuhTempo + " " + data.jam_jatuh_tempo)
-                    }
-                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, context.getString(R.string.iya)) { dialog, which -> dialog.dismiss() }
-                    alertDialog.show()
-                }
-                isNotif = data.notif
 
-                if (isNotif){
-                    btnNotif.icon = context.resources.getDrawable(R.drawable.ic_notifications_active_black_24dp)
-                }else {
-                    btnNotif.icon = context.resources.getDrawable(R.drawable.ic_notifications_off_black_24dp)
+                // Amount
+                tvJumlah.text = "Rp " + decimalFormat.format(data.jumlah)
+
+                // Status Badge & Avatar Circle colors
+                if (data.statusDataSelesai) {
+                    tvStatusBadge.text = "Lunas"
+                    tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_lunas)
+                    tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_text))
+                    layoutAvatarCircle.setBackgroundResource(R.drawable.bg_badge_lunas)
+                    tvAvatarLetter.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_text))
+                } else {
+                    tvStatusBadge.text = "Belum Lunas"
+                    tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
+                    tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_text))
+                    layoutAvatarCircle.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
+                    tvAvatarLetter.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_text))
                 }
             }
         }
