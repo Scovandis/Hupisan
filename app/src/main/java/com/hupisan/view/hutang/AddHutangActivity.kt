@@ -64,22 +64,31 @@ class AddHutangActivity : AppCompatActivity(){
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
-        binding.tvDibuatPada.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
+        try {
+            binding.tvDibuatPada.text = SimpleDateFormat("EEEE, d MMM yyyy", Locale("id", "ID")).format(Date())
+        } catch (e: Exception) {
+            binding.tvDibuatPada.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
+        }
         binding.tvDateTime.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
-
         binding.tvTime.text = SimpleDateFormat("HH:mm").format(Date())
-
-        binding.ivDate.setColorFilter(ContextCompat.getColor(this, R.color.hupisan_primary_dark))
-        binding.ivDate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_today_black_24dp))
-        binding.ivTime.setColorFilter(ContextCompat.getColor(this, R.color.hupisan_primary_dark))
-        binding.ivTime.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_more_time_24))
 
         nNotif = binding.switchOnNotif
 
         nJenis = intent.getStringExtra(EXTRA_STRING_JENIS)
+        val isPiutang = nJenis.equals(getString(R.string.piutang), ignoreCase = true)
+        if (isPiutang) {
+            binding.tvLabelNama.text = "Nama Kreditur"
+            binding.etNama.editText?.hint = "Masukkan nama kreditur"
+            binding.tvLabelJumlah.text = "Jumlah Piutang"
+        } else {
+            binding.tvLabelNama.text = "Nama Debitur"
+            binding.etNama.editText?.hint = "Masukkan nama debitur"
+            binding.tvLabelJumlah.text = "Jumlah Hutang"
+        }
 
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = nJenis
+        val screenTitle = if (nJenis?.contains("Catat", ignoreCase = true) == true) nJenis else "Catat ${nJenis ?: getString(R.string.hutang)}"
+        supportActionBar!!.title = screenTitle
 
         Log.d(TAG, "GET STRINGEXTRA $nJenis")
         onActionView()
@@ -101,7 +110,6 @@ class AddHutangActivity : AppCompatActivity(){
     private fun onSavedData(){
         val uid = UUID.randomUUID()
         nDiBuat = SimpleDateFormat("dd/MM/yyyy").format(Date())
-        binding.tvDibuatPada.text = nDiBuat
         nUname = binding.etNama.editText?.text.toString()
         nDeskripsi = binding.etKeterangan.editText?.text.toString()
         var jumlah = binding.etJumlah.editText?.text.toString().replace(" ", "").replace(".", "").trim()

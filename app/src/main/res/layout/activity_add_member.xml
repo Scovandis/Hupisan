@@ -199,10 +199,7 @@
                                         android:switchMinWidth="56dp"
                                         android:layout_marginStart="@dimen/_8sdp"
                                         android:textOff="@string/off"
-                                        android:textOn="@string/on"
-                                        app:layout_constraintBottom_toBottomOf="@id/linearDate"
-                                        app:layout_constraintEnd_toEndOf="parent"
-                                        app:layout_constraintTop_toTopOf="@id/linearDate" />
+                                        android:textOn="@string/on" />
                                 </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
