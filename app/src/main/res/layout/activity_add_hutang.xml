@@ -122,40 +122,48 @@
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="14sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/et_jumlah"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:boxBackgroundColor="@color/hupisan_card_bg"
-                        app:boxCornerRadiusBottomEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxStrokeColor="@color/hupisan_card_stroke"
-                        app:boxStrokeWidth="1dp"
-                        app:boxStrokeWidthFocused="1.5dp"
-                        app:counterEnabled="false"
-                        app:errorEnabled="true"
-                        app:hintEnabled="false"
-                        app:prefixText="Rp "
-                        app:prefixTextColor="@color/hupisan_text_primary"
-                        app:placeholderText="0"
-                        app:placeholderTextColor="@color/hupisan_text_primary">
+                        android:background="@drawable/bg_input_box"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp">
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
+                        <TextView
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:inputType="number"
-                            android:maxLength="9"
-                            android:maxLines="1"
-                            android:paddingHorizontal="14dp"
-                            android:paddingVertical="12dp"
+                            android:text="Rp "
                             android:textColor="@color/hupisan_text_primary"
-                            android:textColorHint="@color/hupisan_text_primary"
-                            android:textSize="18sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/et_jumlah"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundMode="none"
+                            app:counterEnabled="false"
+                            app:errorEnabled="false"
+                            app:hintEnabled="false">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@null"
+                                android:fontFamily="sans-serif-medium"
+                                android:hint="0"
+                                android:inputType="number"
+                                android:maxLength="9"
+                                android:maxLines="1"
+                                android:paddingVertical="12dp"
+                                android:textColor="@color/hupisan_text_primary"
+                                android:textColorHint="@color/hupisan_text_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 

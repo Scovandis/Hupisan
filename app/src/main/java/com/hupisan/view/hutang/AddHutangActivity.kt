@@ -72,10 +72,6 @@ class AddHutangActivity : AppCompatActivity(){
         binding.tvDateTime.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
         binding.tvTime.text = SimpleDateFormat("HH:mm").format(Date())
 
-        binding.etJumlah.post {
-            binding.etJumlah.findViewById<android.widget.TextView>(com.google.android.material.R.id.textinput_prefix_text)?.visibility = View.VISIBLE
-        }
-
         nNotif = binding.switchOnNotif
 
         nJenis = intent.getStringExtra(EXTRA_STRING_JENIS)
