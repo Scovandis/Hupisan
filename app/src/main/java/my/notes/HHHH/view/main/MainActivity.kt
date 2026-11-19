@@ -35,7 +35,6 @@ import android.text.format.DateUtils
 import my.notes.HHHH.R
 import my.notes.HHHH.database.entity.DataModel
 import my.notes.HHHH.databinding.ActivityMainBinding
-import my.notes.HHHH.notification.service.MyService
 import my.notes.HHHH.notification.service.NotificationService
 import my.notes.HHHH.util.AppsConfig
 import my.notes.HHHH.view.analistic.StatisticActivity
@@ -73,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.background = getRandomDrawbleColor()
 
         binding.cardViewAbout.setOnClickListener {
-            startService(Intent(this, MyService::class.java))
             Snackbar.make(binding.constraint, getString(R.string.fitur_belum_di_tambahkan), Snackbar.LENGTH_SHORT).show()
         }
         binding.cardViewChart.setOnClickListener {
