@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace 'my.notes.HHHH'
+    namespace 'com.hupisan'
     compileSdk 34
 
     defaultConfig {
-        applicationId "my.notes.HHHH"
+        applicationId "com.hupisan"
         minSdk 23
         targetSdk 34
         versionCode 1
