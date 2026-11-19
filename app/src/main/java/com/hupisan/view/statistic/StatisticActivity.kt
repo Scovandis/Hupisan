@@ -1,4 +1,4 @@
-package com.hupisan.view.analistic
+package com.hupisan.view.statistic
 
 import android.graphics.Color
 import android.os.Bundle

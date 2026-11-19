@@ -18,7 +18,7 @@ import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityMainBinding
 import com.hupisan.util.AppsConfig
-import com.hupisan.view.analistic.StatisticActivity
+import com.hupisan.view.statistic.StatisticActivity
 import com.hupisan.view.arisan.FitureArisanActivity
 import com.hupisan.view.bantuan.BantuanActivity
 import com.hupisan.view.hutang.AddHutangActivity

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/hupisan_page_bg"
     android:orientation="vertical"
-    tools:context=".view.analistic.StatisticActivity">
+    tools:context=".view.statistic.StatisticActivity">
 
     <!-- TOP TOOLBAR -->
     <androidx.constraintlayout.widget.ConstraintLayout

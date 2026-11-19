@@ -1,4 +1,4 @@
-package com.hupisan.view.spalshscreen
+package com.hupisan.view.splashscreen
 
 import android.Manifest
 import android.app.AlertDialog
@@ -25,7 +25,6 @@ import com.hupisan.util.AppsConfig
 import com.hupisan.view.main.MainActivity
 import com.hupisan.view.onboarding.IntroActivity
 import java.util.*
-
 
 class SplashScreenActivity : AppCompatActivity() {
     private val TAG = SplashScreenActivity::class.java.simpleName
