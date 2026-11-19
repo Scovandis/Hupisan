@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import androidx.core.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
@@ -60,6 +61,13 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
 
         typeJenis = intent.getStringExtra(EXTRA_TYPE_JENIS)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        }
+        binding.swipeRefreshLayout.setColorSchemeColors(
+            ContextCompat.getColor(this, R.color.hupisan_primary_dark),
+            ContextCompat.getColor(this, R.color.hupisan_accent_amber)
+        )
 
         Log.d(TAG, "INTENT.GETSTRINGEXTRA $typeJenis")
 

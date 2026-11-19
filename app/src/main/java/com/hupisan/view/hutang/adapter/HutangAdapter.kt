@@ -43,10 +43,10 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
 
 
     private val vibrantLightColorList = arrayOf(
-        ColorDrawable(Color.parseColor("#9ACCCD")), ColorDrawable(Color.parseColor("#8FD8A0")),
-        ColorDrawable(Color.parseColor("#CBD890")), ColorDrawable(Color.parseColor("#DACC8F")),
-        ColorDrawable(Color.parseColor("#D9A790")), ColorDrawable(Color.parseColor("#D18FD9")),
-        ColorDrawable(Color.parseColor("#FF6772")), ColorDrawable(Color.parseColor("#DDFB5C"))
+        ColorDrawable(Color.parseColor("#EFEAE3")), ColorDrawable(Color.parseColor("#E5D7CA")),
+        ColorDrawable(Color.parseColor("#EBDCCB")), ColorDrawable(Color.parseColor("#DFD3C3")),
+        ColorDrawable(Color.parseColor("#F5EBE1")), ColorDrawable(Color.parseColor("#DEC8B5")),
+        ColorDrawable(Color.parseColor("#E8D5C4")), ColorDrawable(Color.parseColor("#EADBC8"))
     )
 
     fun getRandomDrawbleColor(): ColorDrawable? {
