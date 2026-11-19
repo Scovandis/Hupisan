@@ -163,9 +163,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateFilterTabsUI() {
         val darkBg = ContextCompat.getDrawable(this, R.drawable.bg_pill_dark)
-        val inactiveBg = ContextCompat.getDrawable(this, R.drawable.bg_pill_inactive)
         val whiteColor = ContextCompat.getColor(this, R.color.white)
-        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_chip_inactive_text)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_text_primary)
 
         val chips = listOf(
             Pair(binding.chipFilterAll, FILTER_ALL),
@@ -179,7 +178,7 @@ class MainActivity : AppCompatActivity() {
                 chip.background = darkBg
                 chip.setTextColor(whiteColor)
             } else {
-                chip.background = inactiveBg
+                chip.background = null
                 chip.setTextColor(inactiveTextColor)
             }
         }

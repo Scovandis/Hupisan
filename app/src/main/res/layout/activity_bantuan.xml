@@ -5,210 +5,477 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hupisan_page_bg"
+    android:clipToPadding="false"
+    android:paddingBottom="32dp"
     tools:context=".view.bantuan.BantuanActivity">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:elevation="@dimen/_3sdp"
-        app:cardCornerRadius="@dimen/_5sdp"
-        app:cardElevation="@dimen/_2sdp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:padding="@dimen/_8sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-        <LinearLayout
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp">
+
+        <!-- Hero Header Banner -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_4sdp"
-            android:orientation="vertical"
-            >
+            app:cardBackgroundColor="@color/hupisan_primary_surface"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="0dp">
 
-            <TextView
-                android:text="@string/pengertian_hutang"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="@color/transparantBlack15"
-                />
-            <TextView
-                android:text="@string/apa_itu_hutang"
-                android:layout_margin="@dimen/_2sdp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/pengertian_piutang"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/apa_itu_piutang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
 
+                <FrameLayout
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_rounded_box_8dp"
+                    android:backgroundTint="#4DFFFFFF">
 
-            <TextView
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_hupisan_help"
+                        app:tint="@color/white" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Pusat Bantuan &amp; Panduan"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Temukan jawaban dan panduan lengkap penggunaan aplikasi Hupisan"
+                        android:textColor="#CCFFFFFF"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 1: Konsep Dasar -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"
+            android:text="KONSEP DASAR"
+            android:textColor="@color/hupisan_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- FAQ 1: Pengertian Hutang -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_menghapus_data_hutang_atau_piutang"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/geser_kekiri_pada_bagaian_data_hutang_atau_piutang_yang_ingin_anda_hapus_setelah_itu_ketikkan_nama_dari_data_tersebut_sesuai_dengan_nama_data_yang_ingin_di_hapus_setelah_itu_klik_hapus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_menghapus_data_keseluruhan_hutang_atau_piutang"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/pada_bagian_pojok_kanan_atas_terdapat_menu_untuk_menghapus_keseluruhan_data_dari_hutang_atau_piutang_tekan_menu_tersebuat_dan_masukkan_kata_sesuai_dengan_alert_yang_di_minta_untuk_menghapus_keseluruhan_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pengertian_hutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_melihat_daftar_hutang_atau_piutang_yang_telah_selesai_di_bayar"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/pada_bagian_menu_awal_terdapat_fitur_dengan_nama_lunas_klik_pada_menu_tersebut_dan_lihat_data_data_yang_telah_kamu_selesaikan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/apa_itu_hutang"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_menambahkan_data_hutang_atau_piutang"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/pada_aktivitas_hutang_atau_piutang_terdapat_tombol_tambahkan_dibagian_pojok_kiri_bawah_untuk_menambahkan_data_klik_dan_isi_from_data_tersebut_untuk_menambahkan_sebuah_data_baru"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <!-- FAQ 2: Pengertian Piutang -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_membayar_data_pada_bagian_hutang_atau_piutang"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/klik_pada_item_yang_ingin_kamu_bayar_atau_tambah_kemudia_pada_bagian_pojok_kanan_bawah_terdapat_menu_untuk_menambahkan_melunasi_atau_mengurangi_data_yang_ingin_kamu_rubah"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_mendukung_pengembang_applikasi_ini"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/masuk_menu_pengaturan_dan_klik_donasi_untuk_mendukung_pengembang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pengertian_piutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_cara_merubah_bahasa_applikasi_ini"
-                />
-            <View
-                android:background="@color/transparantBlack15"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/pada_pengaturan_terdapat_menu_bahasa_untuk_merubah_bahasa_yang_kamu_inginkan_klik_menu_tersebuat_dan_rubah_bahasa_sesuai_keinginmu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/apa_itu_piutang"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <TextView
+        <!-- Section 2: Pencatatan & Transaksi -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="PENCATATAN &amp; TRANSAKSI"
+            android:textColor="@color/hupisan_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- FAQ 3: Tambah Data -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="@dimen/_16sdp"
-                android:text="@string/bagaimana_aku_melaporkan_bug_pada_applikasi_ini"
-                />
-            <View
-                android:background="@color/transparantBlack15"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_menambahkan_data_hutang_atau_piutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/pada_aktivitas_hutang_atau_piutang_terdapat_tombol_tambahkan_dibagian_pojok_kiri_bawah_untuk_menambahkan_data_klik_dan_isi_from_data_tersebut_untuk_menambahkan_sebuah_data_baru"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- FAQ 4: Membayar / Mencicil -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"/>
-            <TextView
-                android:layout_margin="@dimen/_2sdp"
-                android:text="@string/klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_membayar_data_pada_bagian_hutang_atau_piutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/klik_pada_item_yang_ingin_kamu_bayar_atau_tambah_kemudia_pada_bagian_pojok_kanan_bawah_terdapat_menu_untuk_menambahkan_melunasi_atau_mengurangi_data_yang_ingin_kamu_rubah"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- FAQ 5: Melihat Lunas -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_melihat_daftar_hutang_atau_piutang_yang_telah_selesai_di_bayar"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/pada_bagian_menu_awal_terdapat_fitur_dengan_nama_lunas_klik_pada_menu_tersebut_dan_lihat_data_data_yang_telah_kamu_selesaikan"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 3: Pengelolaan Data -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="PENGELOLAAN DATA"
+            android:textColor="@color/hupisan_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- FAQ 6: Hapus Satu Data -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_menghapus_data_hutang_atau_piutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/geser_kekiri_pada_bagaian_data_hutang_atau_piutang_yang_ingin_anda_hapus_setelah_itu_ketikkan_nama_dari_data_tersebut_sesuai_dengan_nama_data_yang_ingin_di_hapus_setelah_itu_klik_hapus"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- FAQ 7: Hapus Keseluruhan -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_menghapus_data_keseluruhan_hutang_atau_piutang"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/pada_bagian_pojok_kanan_atas_terdapat_menu_untuk_menghapus_keseluruhan_data_dari_hutang_atau_piutang_tekan_menu_tersebuat_dan_masukkan_kata_sesuai_dengan_alert_yang_di_minta_untuk_menghapus_keseluruhan_data"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section 4: Pengaturan & Lainnya -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="PENGATURAN &amp; DUKUNGAN"
+            android:textColor="@color/hupisan_text_muted"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- FAQ 8: Ganti Bahasa -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_merubah_bahasa_applikasi_ini"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/pada_pengaturan_terdapat_menu_bahasa_untuk_merubah_bahasa_yang_kamu_inginkan_klik_menu_tersebuat_dan_rubah_bahasa_sesuai_keinginmu"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- FAQ 9: Donasi / Dukung -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_cara_mendukung_pengembang_applikasi_ini"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/masuk_menu_pengaturan_dan_klik_donasi_untuk_mendukung_pengembang"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- FAQ 10: Lapor Bug -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardBackgroundColor="@color/hupisan_card_bg"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hupisan_card_stroke"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagaimana_aku_melaporkan_bug_pada_applikasi_ini"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingMultiplier="1.2"
+                    android:text="@string/klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

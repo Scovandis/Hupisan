@@ -2,12 +2,9 @@ package com.hupisan.view.main.adapter
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
@@ -18,55 +15,62 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-
-class NewAdapter(val context: Context): RecyclerView.Adapter<NewAdapter.ViewHolder>() {
+class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHolder>() {
     var list = ArrayList<DataModel>()
 
-    fun setData(lists: ArrayList<DataModel>){
+    fun setData(lists: ArrayList<DataModel>) {
         this.list = lists
         notifyDataSetChanged()
     }
 
-    private val vibrantLightColorList = arrayOf(
-        ColorDrawable(Color.parseColor("#9ACCCD")), ColorDrawable(Color.parseColor("#8FD8A0")),
-        ColorDrawable(Color.parseColor("#CBD890")), ColorDrawable(Color.parseColor("#DACC8F")),
-        ColorDrawable(Color.parseColor("#D9A790")), ColorDrawable(Color.parseColor("#D18FD9")),
-        ColorDrawable(Color.parseColor("#FF6772")), ColorDrawable(Color.parseColor("#DDFB5C"))
-    )
-
-    fun getRandomDrawbleColor(): ColorDrawable? {
-        val idx = Random().nextInt(vibrantLightColorList.size)
-        return vibrantLightColorList[idx]
-    }
-
-    inner class ViewHolder(val binding: RowNewDataBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(dataModel: DataModel){
+    inner class ViewHolder(val binding: RowNewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(dataModel: DataModel) {
             val decimalFormat = DecimalFormat("##,###,###")
             val todayString = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
 
-            with(binding){
-                if (dataModel.diBuat == todayString){
-                    tvLabelNew.visibility = View.VISIBLE
-                } else {
-                    tvLabelNew.visibility = View.GONE
-                }
-
-                imvRandomColor.background = getRandomDrawbleColor()
-                tvJumlahNominal.text = context.getString(R.string.dolar) + " " + decimalFormat.format(dataModel.jumlah)
+            with(binding) {
                 tvUsername.text = dataModel.username
-                tvCreateAt.text = dataModel.diBuat
+                tvJumlahNominal.text = "Rp " + decimalFormat.format(dataModel.jumlah)
+
+                val timeLabel = if (dataModel.diBuat == todayString) "Baru saja" else dataModel.diBuat
 
                 if (dataModel.statusDataSelesai) {
-                    tvStatusType.text = context.getString(R.string.lunas)
-                    tvStatusType.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.hupisan_paid_orange))
+                    val settleDate = if (!dataModel.tanggal_lunas.isNullOrBlank()) dataModel.tanggal_lunas else timeLabel
+                    tvStatusSubtitle.text = "Paid Off • $settleDate"
+                    tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
+                    boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_paid)
+                    ivStatusIcon.setImageResource(R.drawable.ic_hupisan_check_circle)
+                    ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
+                    ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                 } else if (dataModel.jenisPinjaman) {
-                    tvStatusType.text = context.getString(R.string.piutang)
-                    tvStatusType.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.hupisan_receivable_green))
+                    tvStatusSubtitle.text = "Receivable • $timeLabel"
+                    tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
+                    boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_receivable)
+                    ivStatusIcon.setImageResource(R.drawable.ic_hupisan_receivable_arrow)
+                    ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
+                    ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 } else {
-                    tvStatusType.text = context.getString(R.string.hutang)
-                    tvStatusType.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.hupisan_debt_red))
+                    tvStatusSubtitle.text = "Debt • $timeLabel"
+                    tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_red))
+                    boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_debt)
+                    ivStatusIcon.setImageResource(R.drawable.ic_hupisan_debt_arrow)
+                    ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_debt_red))
+                    ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
+                }
+
+                btnActionCheck.setOnClickListener {
+                    openDetail(dataModel)
                 }
             }
+        }
+
+        private fun openDetail(dataModel: DataModel) {
+            DetailHutangActivity.STAY_MAIN_MENU = 101
+            val intent = Intent(context, DetailHutangActivity::class.java).apply {
+                putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, dataModel.jenisPinjaman)
+                putExtra(DetailHutangActivity.EXTRA_UID, dataModel.id)
+            }
+            context.startActivity(intent)
         }
     }
 
@@ -79,14 +83,13 @@ class NewAdapter(val context: Context): RecyclerView.Adapter<NewAdapter.ViewHold
         holder.bind(list[position])
         holder.itemView.setOnClickListener {
             DetailHutangActivity.STAY_MAIN_MENU = 101
-            val intent = Intent(context, DetailHutangActivity::class.java)
-            intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
-            intent.putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
+            val intent = Intent(context, DetailHutangActivity::class.java).apply {
+                putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
+                putExtra(DetailHutangActivity.EXTRA_UID, list[position].id)
+            }
             context.startActivity(intent)
         }
     }
 
-    override fun getItemCount()= list.size
+    override fun getItemCount() = list.size
 }
-
-

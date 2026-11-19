@@ -697,8 +697,11 @@
                 android:scrollbars="none">
 
                 <LinearLayout
+                    android:id="@+id/layout_filter_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_pill_container"
+                    android:padding="3dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
