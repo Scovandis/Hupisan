@@ -82,16 +82,21 @@ class SettingsActivity : AppCompatActivity() {
             showAlertDialog()
         }
 
-        binding.tvTrems.setOnClickListener {
+        val openTerms = View.OnClickListener {
             IS_TRIMES = 0
             supportFragmentManager.beginTransaction().add(R.id.constraint, PrivacyFragment())
                 .commit()
         }
-        binding.tvPrivacy.setOnClickListener {
+        binding.tvTrems.setOnClickListener(openTerms)
+        binding.relative3.setOnClickListener(openTerms)
+
+        val openPrivacy = View.OnClickListener {
             IS_TRIMES = 1
             supportFragmentManager.beginTransaction().add(R.id.constraint, PrivacyFragment())
                 .commit()
         }
+        binding.tvPrivacy.setOnClickListener(openPrivacy)
+        binding.relative4.setOnClickListener(openPrivacy)
     }
 
     var dLocaleLanguage: String? = null
