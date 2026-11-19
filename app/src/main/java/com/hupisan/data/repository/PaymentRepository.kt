@@ -16,7 +16,7 @@ class PaymentRepository(private val paymentDB: PaymentDB) {
         return paymentDB.getDataWhereUid(uid)
     }
 
-    fun deleteDataFromUid(uid: Int) {
+    suspend fun deleteDataFromUid(uid: Int) {
         paymentDB.deleteDataFromUid(uid)
     }
 }

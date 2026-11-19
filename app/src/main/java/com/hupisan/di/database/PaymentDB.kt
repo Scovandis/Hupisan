@@ -47,8 +47,8 @@ class PaymentDB(private val realm: Realm) {
         }
     }
 
-    fun deleteDataFromUid(fromID: Int) {
-        realm.writeBlocking {
+    suspend fun deleteDataFromUid(fromID: Int) {
+        realm.write {
             val items = query<PaymentModel>("from_uid == $0", fromID).find()
             delete(items)
         }
