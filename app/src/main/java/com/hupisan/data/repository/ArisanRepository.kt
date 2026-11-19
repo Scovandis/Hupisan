@@ -1,30 +1,30 @@
 package com.hupisan.data.repository
 
 import androidx.lifecycle.LiveData
-import com.hupisan.database.dao.ArisanDataDao
 import com.hupisan.database.entity.ArisanModel
+import com.hupisan.di.database.ArisanDB
 
-class ArisanRepository(private val arisanDataDao: ArisanDataDao) {
+class ArisanRepository(private val arisanDB: ArisanDB) {
 
-    val allData: LiveData<List<ArisanModel>> = arisanDataDao.allUserArisan()
+    val allData: LiveData<List<ArisanModel>> = arisanDB.allUserArisan()
 
     suspend fun insertUser(data: ArisanModel) {
-        arisanDataDao.insertData(data)
+        arisanDB.insert(data)
     }
 
     fun getUserArisan(): LiveData<List<ArisanModel>> {
-        return arisanDataDao.allUserArisan()
+        return arisanDB.allUserArisan()
     }
 
     fun getMemberWhereGroupId(groupId: Int): LiveData<List<ArisanModel>> {
-        return arisanDataDao.getUserArisanWhere(groupId)
+        return arisanDB.getUserArisanWhere(groupId)
     }
 
     fun deleteMemberWhereGroupId(groupId: Int) {
-        arisanDataDao.deleteMemberWhereIdGroup(groupId)
+        arisanDB.deleteMemberWhereIdGroup(groupId)
     }
 
     fun deleteMemberWhereUID(uid: Int) {
-        arisanDataDao.deleteMemberWhereUid(uid)
+        arisanDB.deleteMemberWhereUid(uid)
     }
 }
