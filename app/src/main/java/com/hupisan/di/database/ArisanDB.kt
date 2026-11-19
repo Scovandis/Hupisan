@@ -74,8 +74,8 @@ class ArisanDB(private val realm: Realm) {
         }
     }
 
-    fun deleteMemberWhereIdGroup(groupId: Int) {
-        realm.writeBlocking {
+    suspend fun deleteMemberWhereIdGroup(groupId: Int) {
+        realm.write {
             val items = query<ArisanModel>("grup_id == $0", groupId).find()
             delete(items)
         }

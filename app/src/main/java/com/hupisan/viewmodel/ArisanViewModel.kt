@@ -24,7 +24,7 @@ class ArisanViewModel(val repository: ArisanRepository) : ViewModel() {
         return repository.getUserArisan()
     }
 
-    fun deleteMemberWhereGroupId(groupId: Int) {
+    fun deleteMemberWhereGroupId(groupId: Int) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteMemberWhereGroupId(groupId)
     }
 

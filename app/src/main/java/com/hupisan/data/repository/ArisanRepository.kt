@@ -20,7 +20,7 @@ class ArisanRepository(private val arisanDB: ArisanDB) {
         return arisanDB.getUserArisanWhere(groupId)
     }
 
-    fun deleteMemberWhereGroupId(groupId: Int) {
+    suspend fun deleteMemberWhereGroupId(groupId: Int) {
         arisanDB.deleteMemberWhereIdGroup(groupId)
     }
 
