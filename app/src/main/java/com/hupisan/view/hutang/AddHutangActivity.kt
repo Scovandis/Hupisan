@@ -62,15 +62,17 @@ class AddHutangActivity : AppCompatActivity(){
         binding = ActivityAddHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+
         binding.tvDibuatPada.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
         binding.tvDateTime.text = SimpleDateFormat("dd/MM/yyyy").format(Date())
 
         binding.tvTime.text = SimpleDateFormat("HH:mm").format(Date())
 
-        binding.ivDate.setColorFilter(ContextCompat.getColor(this, R.color.purple_500))
-        binding.ivDate.setImageDrawable(resources.getDrawable(R.drawable.ic_today_black_24dp))
-        binding.ivTime.setColorFilter(ContextCompat.getColor(this, R.color.purple_500))
-        binding.ivTime.setImageDrawable(resources.getDrawable(R.drawable.ic_baseline_more_time_24))
+        binding.ivDate.setColorFilter(ContextCompat.getColor(this, R.color.hupisan_primary_dark))
+        binding.ivDate.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_today_black_24dp))
+        binding.ivTime.setColorFilter(ContextCompat.getColor(this, R.color.hupisan_primary_dark))
+        binding.ivTime.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_more_time_24))
 
         nNotif = binding.switchOnNotif
 
@@ -202,8 +204,9 @@ class AddHutangActivity : AppCompatActivity(){
             datePicker.datePicker.minDate = now
 
             datePicker.setOnShowListener {
-                datePicker.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#FF6200EE"))
-                datePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF6200EE"))
+                val primaryColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+                datePicker.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor)
+                datePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor)
             }
             datePicker.show()
         }
@@ -332,8 +335,9 @@ class AddHutangActivity : AppCompatActivity(){
             true
         ) //Yes 24 hour time
         mTimePicker.setOnShowListener {
-            mTimePicker.getButton(AlertDialog.BUTTON_POSITIVE ).setTextColor(Color.parseColor("#FF6200EE"))
-            mTimePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.parseColor("#FF6200EE"))
+            val primaryColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+            mTimePicker.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor)
+            mTimePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor)
         }
         mTimePicker.show()
 
