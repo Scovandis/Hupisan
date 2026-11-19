@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -25,6 +26,8 @@ class StatisticActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityStatisticBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
         val viewPager = binding.viewPager
         setUpViewPager(viewPager)
