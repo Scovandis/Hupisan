@@ -38,6 +38,7 @@ import my.notes.HHHH.databinding.ActivityMainBinding
 import my.notes.HHHH.notification.service.NotificationService
 import my.notes.HHHH.util.AppsConfig
 import my.notes.HHHH.view.analistic.StatisticActivity
+import my.notes.HHHH.view.arisan.FitureArisanActivity
 import my.notes.HHHH.view.bantuan.BantuanActivity
 import my.notes.HHHH.view.hutang.HutangActivity
 import my.notes.HHHH.view.lunas.LunasActivity
@@ -98,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.cardViewArisan.setOnClickListener {
-            Snackbar.make(binding.constraint, getString(R.string.fitur_sedang_dikembangkan), Snackbar.LENGTH_SHORT).show()
+            startActivity(Intent(this, FitureArisanActivity::class.java))
         }
         binding.cardViewLunas.setOnClickListener {
             startActivity(Intent(this, LunasActivity::class.java))
