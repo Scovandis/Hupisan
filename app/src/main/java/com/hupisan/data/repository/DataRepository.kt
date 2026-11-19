@@ -1,23 +1,23 @@
 package com.hupisan.data.repository
 
 import androidx.lifecycle.LiveData
-import com.hupisan.database.dao.DataDao
 import com.hupisan.database.entity.DataModel
+import com.hupisan.di.database.DataDB
 
-class DataRepository(private val dataDao: DataDao) {
+class DataRepository(private val dataDB: DataDB) {
 
-    val allData: LiveData<List<DataModel>> = dataDao.getAllData()
+    val allData: LiveData<List<DataModel>> = dataDB.getAllData()
 
     suspend fun insert(data: DataModel) {
-        dataDao.insertData(data)
+        dataDB.insert(data)
     }
 
     suspend fun delete(data: DataModel) {
-        dataDao.deleteData(data)
+        dataDB.delete(data)
     }
 
     suspend fun update(data: DataModel) {
-        dataDao.updateData(data)
+        dataDB.update(data)
     }
 
     suspend fun updateJumlah(
@@ -27,34 +27,34 @@ class DataRepository(private val dataDao: DataDao) {
         tanggal_lunas: String,
         dibayar: Int
     ) {
-        dataDao.updateDataJumlah(jumlah, idFrom, statusData, tanggal_lunas, dibayar)
+        dataDB.updateJumlah(jumlah, idFrom, statusData, tanggal_lunas, dibayar)
     }
 
     fun getDataWhereUid(uid: Int): LiveData<DataModel> {
-        return dataDao.getDataWhereUid(uid)
+        return dataDB.getDataWhereUid(uid)
     }
 
     fun getAllDataWhereStatusData(statusData: Boolean, jenis: Boolean): LiveData<List<DataModel>> {
-        return dataDao.getAllDataWhereStatusData(statusData, jenis)
+        return dataDB.getAllDataWhereStatusData(statusData, jenis)
     }
 
     fun getAllDataFromDate(tanggalDibuat: String): LiveData<List<DataModel>> {
-        return dataDao.getAllDataNewFromDate(tanggalDibuat)
+        return dataDB.getAllDataNewFromDate(tanggalDibuat)
     }
 
     fun loadDataLimit(statusData: Boolean): LiveData<List<DataModel>> {
-        return dataDao.loadDataWhereLimit(statusData, 12)
+        return dataDB.loadDataWhereLimit(statusData, 12)
     }
 
     fun deleteAllDataWhere(jenis: Boolean, statusData: Boolean) {
-        dataDao.deleteAllData(jenis, statusData)
+        dataDB.deleteAllData(jenis, statusData)
     }
 
     fun getAllDataWhereStatusLunas(status: Boolean): LiveData<List<DataModel>> {
-        return dataDao.getAllDataWhereStatusLunas(status)
+        return dataDB.getAllDataWhereStatusLunas(status)
     }
 
     fun getAllDataWhereJenis(jenis: Boolean): LiveData<List<DataModel>> {
-        return dataDao.getAllDataWhereJenis(jenis)
+        return dataDB.getAllDataWhereJenis(jenis)
     }
 }

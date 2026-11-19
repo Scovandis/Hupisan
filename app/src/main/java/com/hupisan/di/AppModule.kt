@@ -12,6 +12,7 @@ import com.hupisan.database.db.GroupArisanModelDB
 import com.hupisan.database.db.ModelDB
 import com.hupisan.database.db.PaymentDatabase
 import com.hupisan.database.db.RealmDatabase
+import com.hupisan.di.database.DataDB
 import com.hupisan.viewmodel.ArisanGroupViewModel
 import com.hupisan.viewmodel.ArisanViewModel
 import com.hupisan.viewmodel.DataViewModel
@@ -19,8 +20,7 @@ import com.hupisan.viewmodel.PaymentViewModel
 
 val databaseModule = module {
     single { RealmDatabase.getRealm() }
-    single { ModelDB(get()) }
-    single { get<ModelDB>().dataDAO() }
+    single { DataDB(get()) }
 
     single { PaymentDatabase(get()) }
     single { get<PaymentDatabase>().paymentDao() }
