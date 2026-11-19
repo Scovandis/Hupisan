@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -85,74 +86,42 @@ class DetailHutangActivity : AppCompatActivity() {
         binding = ActivityDetailHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        supportActionBar?.hide()
 
-        //bindview
-        EXPAND_AVATAR_SIZE = resources.getDimension(R.dimen.default_expanded_image_size)
-        COLLAPSE_IMAGE_SIZE = resources.getDimension(R.dimen.default_collapsed_image_size)
-        margin = resources.getDimension(R.dimen.avatar_margin)
-        collapsingAvatarContainer = binding.stuffContainer
-        appBarLayout = binding.appBarLayout
-        toolbar = binding.animToolbar
-        toolbar.visibility = View.INVISIBLE
-        ivAvatar = binding.imgbAvatarWrap
-        ivAvatarGender = binding.imgbAvatarGender
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        }
 
-        //color verivication
-        val option = RequestOptions()
-            .centerCrop()
-            .placeholder(ColorDrawable(Color.BLUE))
-        Glide.with(this).load("").apply(option).into(binding.content.ivVerification)
-        binding.content.ivVerificationIcon.setColorFilter(Color.WHITE)
-        //verification visible GONE
-        binding.content.ivVerification.visibility = View.GONE
-        binding.content.ivVerificationIcon.visibility = View.GONE
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
-        //Fab action setting color
-        titleToolbarText = binding.tvProfileName
-        titleToolbarTextSingle = binding.tvProfileNameSingle
-        background = binding.flBackground
-        binding.fabTambahkan.setColorFilter(Color.WHITE)
-        binding.fabLunas.setColorFilter(Color.WHITE)
-        binding.fabCicil.setColorFilter(Color.WHITE)
-        binding.optionF.setColorFilter(Color.WHITE)
+        binding.btnMenuMore.setOnClickListener {
+            alertDelete()
+        }
 
         //get id && typejenis data
         val uid = intent.extras?.get(EXTRA_UID)
         this.jenis = intent.extras?.get(EXTRA_TYPE_JENIS)?.toString()
         typeJenis = this.jenis?.toBoolean() ?: false
-        val jenisLabel = if (typeJenis == true) getString(R.string.piutang) else getString(R.string.hutang)
-        binding.content.tvJumlahStatus.text = "${getString(R.string.jumlah)} $jenisLabel"
         setData(uid.toString())
 
+        binding.btnActionEdit.setOnClickListener {
+            alertEditNama()
+        }
 
-        //appbar animation
-        appBarLayout.addOnOffsetChangedListener(
-            AppBarLayout.OnOffsetChangedListener { appBarLayout, i ->
-                if (isCalculated.not()) {
-                    startAvatarAnimatePointY =
-                        Math.abs((appBarLayout.height - EXPAND_AVATAR_SIZE - toolbar.height / 2) / appBarLayout.totalScrollRange)
-                    animateWeigt = 1 / (1 - startAvatarAnimatePointY)
-                    isCalculated = true
-                }
+        binding.btnActionAddPayment.setOnClickListener {
+            showPaymentOptionsDialog()
+        }
 
-                val offset = Math.abs(i / appBarLayout.totalScrollRange.toFloat())
-                updateViews(offset)
-            })
-
-        onActionListener()
         paymentAdapter = PaymentAdapter(this)
-        binding.content.rvDataPembayaranFromId.visibility = View.INVISIBLE
-        binding.content.rlTextNull.visibility = View.INVISIBLE
-        Handler(Looper.getMainLooper()).postDelayed(
-            {
-                binding.content.shimmer1.stopShimmer()
-                binding.content.shimmer1.visibility = View.GONE
+        binding.rvDataPembayaranFromId.apply {
+            layoutManager = LinearLayoutManager(this@DetailHutangActivity)
+            adapter = paymentAdapter
+        }
 
-                setListPembayaran(uid.toString().toInt())
-                bindRv()
-            }, 900
-        )
+        val uidInt = uid.toString().toIntOrNull() ?: 0
+        setListPembayaran(uidInt)
 
     }
 
@@ -168,13 +137,13 @@ class DetailHutangActivity : AppCompatActivity() {
 
     private fun setListPembayaran(uid: Int) {
         paymentViewModel.getDataPembayaranFromUid(uid).observe(this, Observer {
-            if (it != null){
-                binding.content.rlTextNull.visibility = View.GONE
-                binding.content.rvDataPembayaranFromId.visibility = View.VISIBLE
+            if (it != null && it.isNotEmpty()) {
+                binding.layoutPaymentEmpty.visibility = View.GONE
+                binding.rvDataPembayaranFromId.visibility = View.VISIBLE
                 paymentAdapter.setData(ArrayList(it))
-            }else {
-                binding.content.rlTextNull.visibility = View.VISIBLE
-                binding.content.rvDataPembayaranFromId.visibility = View.GONE
+            } else {
+                binding.layoutPaymentEmpty.visibility = View.VISIBLE
+                binding.rvDataPembayaranFromId.visibility = View.GONE
             }
         })
     }
@@ -419,80 +388,7 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private fun onActionListener(){
-        binding.tvBackToHome.setOnClickListener {
-            if (WindowFragmentLunas.STAY_LUNAS == 1){
-                WindowFragmentLunas.STAY_LUNAS = 0
-                startActivity(Intent(this, LunasActivity::class.java))
-            }else if(STAY_MAIN_MENU == 101){
-                STAY_MAIN_MENU = 100
-                startActivity(Intent(this, MainActivity::class.java))
-            } else{
-                val intent = Intent(this, HutangActivity::class.java)
-                intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, jenis)
-                startActivity(intent)
-            }
-        }
-        binding.optionF.setOnClickListener {
-            onAddButtonClick()
-        }
-
-        binding.fabCicil.setOnClickListener {
-            val dikurangi: Int = 1
-            setAlert(dikurangi)
-        }
-
-        binding.fabLunas.setOnClickListener {
-            val lunas: Int = 0
-            setAlert(lunas)
-        }
-
-        binding.fabTambahkan.setOnClickListener {
-            val ditambah: Int = 2
-            setAlert(ditambah)
-        }
-    }
-    private fun onAddButtonClick(){
-        setVisibility(closed)
-        setAnimation(closed)
-        closed = !closed
-    }
-
-    private fun setVisibility(closed: Boolean){
-        if (!closed){
-            binding.fabTambahkan.visibility = View.VISIBLE
-            binding.fabLunas.visibility = View.VISIBLE
-            binding.fabCicil.visibility = View.VISIBLE
-            binding.tvLunas.visibility = View.VISIBLE
-            binding.tvCicil.visibility = View.VISIBLE
-            binding.tvTabmahkan.visibility = View.VISIBLE
-        }else{
-            binding.fabTambahkan.visibility = View.INVISIBLE
-            binding.fabLunas.visibility = View.INVISIBLE
-            binding.fabCicil.visibility = View.INVISIBLE
-            binding.tvLunas.visibility = View.INVISIBLE
-            binding.tvCicil.visibility = View.INVISIBLE
-            binding.tvTabmahkan.visibility = View.INVISIBLE
-        }
-    }
-
-    private fun setAnimation(closed: Boolean){
-        if (!closed){
-            binding.optionF.startAnimation(rotateOpen)
-            binding.fabTambahkan.startAnimation(fromBottom)
-            binding.fabCicil.startAnimation(fromBottom)
-            binding.fabLunas.startAnimation(fromBottom)
-            binding.tvTabmahkan.startAnimation(fromBottom)
-            binding.tvCicil.startAnimation(fromBottom)
-            binding.tvLunas.startAnimation(fromBottom)
-        }else{
-            binding.optionF.startAnimation(rotateClose)
-            binding.fabCicil.startAnimation(toBottom)
-            binding.fabLunas.startAnimation(toBottom)
-            binding.fabTambahkan.startAnimation(toBottom)
-            binding.tvTabmahkan.startAnimation(toBottom)
-            binding.tvCicil.startAnimation(toBottom)
-            binding.tvLunas.startAnimation(toBottom)
-        }
+        // Handled in onCreate
     }
 
     private var startAvatarAnimatePointY: Float = 0F
@@ -695,63 +591,123 @@ class DetailHutangActivity : AppCompatActivity() {
     }
     private fun setData(
         uid: String
-        ) {
+    ) {
         Log.d(TAG, "UID FROM ADAPTER $uid")
-        val id = uid.toInt()
-        viewModel.getDataWhereId(id).observe(this, Observer{
-            with(binding){
-                if (it != null){
+        val id = uid.toIntOrNull() ?: return
+        viewModel.getDataWhereId(id).observe(this, Observer {
+            with(binding) {
+                if (it != null) {
+                    currentDataModel = it
                     val jenisPinjaman = if (!it.jenisPinjaman) getString(R.string.hutang) else getString(R.string.piutang)
                     jenis = jenisPinjaman
                     activityJumlah = it.jumlah
                     activityDibayar = it.jumlah_dibayar
-                    ivAvatar.background = getRandomDrawbleColor()
-
-                    titleToolbarText.text = it.username
-                    titleToolbarTextSingle.text = it.username
 
                     val decimalFormat = DecimalFormat("##,###,###")
+
+                    // Top Toolbar & Profile
+                    tvToolbarTitle.text = "Detail $jenisPinjaman"
+                    tvProfileName.text = it.username
+                    val initial = if (it.username.isNotEmpty()) it.username.first().uppercaseChar().toString() else "U"
+                    tvAvatarLetter.text = initial
+                    tvProfileRole.text = if (it.jenisPinjaman) "Kreditur" else "Debitur"
+
+                    // Big Summary Card
+                    val totalOriginal = it.jumlah + it.jumlah_dibayar
+                    tvMainTotalLabel.text = "Total $jenisPinjaman"
+                    tvMainTotalAmount.text = "Rp " + decimalFormat.format(totalOriginal)
+                    tvAmountPaid.text = "Rp " + decimalFormat.format(it.jumlah_dibayar)
+                    tvAmountRemaining.text = "Rp " + decimalFormat.format(it.jumlah)
+
+                    if (it.statusDataSelesai || it.jumlah == 0) {
+                        tvStatusBadgeCard.text = "Lunas"
+                        tvStatusBadgeCard.setBackgroundResource(R.drawable.bg_badge_lunas)
+                        tvStatusBadgeCard.setTextColor(ContextCompat.getColor(this@DetailHutangActivity, R.color.hupisan_paid_text))
+                        btnActionAddPayment.visibility = View.GONE
+                    } else {
+                        tvStatusBadgeCard.text = "Belum Lunas"
+                        tvStatusBadgeCard.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
+                        tvStatusBadgeCard.setTextColor(ContextCompat.getColor(this@DetailHutangActivity, R.color.hupisan_debt_text))
+                        btnActionAddPayment.visibility = View.VISIBLE
+                    }
+
+                    // Info Rows
+                    val jatuhTempoStr = if (it.jatuhTempo.isNotEmpty()) {
+                        if (it.jam_jatuh_tempo.isNotEmpty() && it.jam_jatuh_tempo != "-") {
+                            "${it.jatuhTempo} - ${it.jam_jatuh_tempo}"
+                        } else it.jatuhTempo
+                    } else it.diBuat
+                    tvInfoJatuhTempo.text = jatuhTempoStr
+                    tvInfoCatatan.text = if (it.deskripsi.isNotEmpty()) it.deskripsi else "Pinjaman untuk keperluan"
+
+                    // Legacy content binding
                     content.tvNama.text = it.username
                     content.tvTanggalDibuat.text = it.diBuat
                     content.tvDescription.text = it.deskripsi
-                    content.tvJumlah.text = getString(R.string.dolar)+ ". " + decimalFormat.format(it.jumlah)
-                    content.tvJumlahStatus.text = getString(R.string.jumlah) + " " +jenisPinjaman
-
-                    imgbAvatarGender.setColorFilter(ContextCompat.getColor(this@DetailHutangActivity, R.color.white))
-                    when(it.genderUser){
-                        1 -> {
-                            content.tvGender.text = getString(R.string.laki_laki)
-                            imgbAvatarGender.setImageDrawable(resources.getDrawable(R.drawable.ic_user_male))
-                        }
-                        2 -> {
-                            content.tvGender.text = getString(R.string.perempuan)
-                            imgbAvatarGender.setImageDrawable(resources.getDrawable(R.drawable.ic_user_female))
-                        }
-                        3 -> {
-                            content.tvGender.text = getString(R.string.lainnya)
-                            imgbAvatarGender.setImageDrawable(resources.getDrawable(R.drawable.ic_user_kosong))
-                        }
-                        else -> {
-                            content.tvGender.text = "-"
-                            imgbAvatarGender.setImageDrawable(resources.getDrawable(R.drawable.ic_user_alert))
-                        }
-                    }
-                    if (it.jumlah.toInt() == 0){
-                        binding.content.ivVerification.visibility = View.VISIBLE
-                        binding.content.ivVerificationIcon.visibility = View.VISIBLE
-                        binding.optionF.visibility = View.GONE
-                        binding.fabTambahkan.visibility = View.GONE
-                        binding.fabLunas.visibility = View.GONE
-                        binding.fabCicil.visibility = View.GONE
-
-                    }else {
-                        binding.content.ivVerificationIcon.visibility = View.GONE
-                        binding.content.ivVerification.visibility = View.GONE
-                    }
+                    content.tvJumlah.text = "Rp " + decimalFormat.format(it.jumlah)
+                    content.tvJumlahStatus.text = "Jumlah $jenisPinjaman"
                 }
             }
         })
     }
+    private fun showPaymentOptionsDialog() {
+        val options = arrayOf(
+            "Bayar Sebagian (Cicil)",
+            "Lunasi Pembayaran",
+            "Tambah Pinjaman"
+        )
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Pilih Aksi Pembayaran")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> setAlert(1) // cicil
+                    1 -> setAlert(0) // lunas
+                    2 -> setAlert(2) // tambah
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    private fun alertEditNama() {
+        val input = EditText(this)
+        input.setText(binding.tvInfoCatatan.text)
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Edit Catatan")
+            .setView(input)
+            .setPositiveButton("Simpan") { dialog, _ ->
+                val newDesc = input.text.toString().trim()
+                if (newDesc.isNotEmpty()) {
+                    binding.tvInfoCatatan.text = newDesc
+                    Snackbar.make(binding.clRootContent, "Catatan berhasil diperbarui", Snackbar.LENGTH_SHORT).show()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    private var currentDataModel: com.hupisan.database.entity.DataModel? = null
+
+    private fun alertDelete() {
+        val uid = intent.extras?.get(EXTRA_UID)?.toString()?.toIntOrNull() ?: return
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Hapus Catatan")
+            .setMessage("Apakah Anda yakin ingin menghapus catatan ${binding.tvProfileName.text}?")
+            .setPositiveButton("Hapus") { dialog, _ ->
+                currentDataModel?.let { model -> viewModel.deleteData(model) }
+                paymentViewModel.deleteDataFormUid(uid)
+                Snackbar.make(binding.clRootContent, "Catatan berhasil dihapus", Snackbar.LENGTH_SHORT).show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    finish()
+                }, 600)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
     companion object {
         const val EXTRA_UID = "extra_uid"
         var EXTRA_TYPE_JENIS = "extra_type_jenis"
