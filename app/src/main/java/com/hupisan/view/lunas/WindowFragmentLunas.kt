@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.activityViewModel
 import com.hupisan.viewmodel.DataViewModel
@@ -71,24 +72,37 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         binding.shimmer1.stopShimmer()
         super.onPause()
     }
+    private var currentLiveData: LiveData<List<DataModel>>? = null
+    private val dataObserver = Observer<List<DataModel>> { list ->
+        binding.shimmer1.stopShimmer()
+        binding.shimmer1.visibility = View.GONE
+        if (list.isNullOrEmpty()){
+            binding.lottieAnimation.visibility = View.VISIBLE
+            binding.tvIsEmpty.visibility = View.VISIBLE
+            binding.rvLunas.visibility = View.GONE
+            jumlah = 0
+            binding.textResult.text = "0 ${getString(R.string.hasil)}"
+            listData = ArrayList()
+            lunasAdapter.setData(listData)
+        }else{
+            binding.lottieAnimation.visibility = View.GONE
+            binding.tvIsEmpty.visibility = View.GONE
+            binding.rvLunas.visibility = View.VISIBLE
+            jumlah = list.size
+            binding.textResult.text = "$jumlah ${getString(R.string.hasil)}"
+            listData = ArrayList(list)
+            lunasAdapter.setData(listData)
+        }
+    }
+
+    private fun switchDataQuery(newLiveData: LiveData<List<DataModel>>) {
+        currentLiveData?.removeObserver(dataObserver)
+        currentLiveData = newLiveData
+        currentLiveData?.observe(viewLifecycleOwner, dataObserver)
+    }
+
     private fun setDataFirstOpen(){
-        viewModel.getAllDataWhereStatusLunas(true).observe(viewLifecycleOwner, Observer {
-            binding.shimmer1.stopShimmer()
-            binding.shimmer1.visibility = View.GONE
-            if (it.isEmpty()){
-                binding.lottieAnimation.visibility = View.VISIBLE
-                binding.tvIsEmpty.visibility = View.VISIBLE
-                binding.rvLunas.visibility = View.GONE
-            }else{
-                binding.lottieAnimation.visibility = View.GONE
-                binding.tvIsEmpty.visibility = View.GONE
-                binding.rvLunas.visibility = View.VISIBLE
-                jumlah = it.size
-                binding.textResult.text = "$jumlah ${getString(R.string.hasil)}"
-                listData = ArrayList(it)
-                lunasAdapter.setData(listData)
-            }
-        })
+        switchDataQuery(viewModel.getAllDataWhereStatusLunas(true))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,27 +126,7 @@ class WindowFragmentLunas : BottomSheetDialogFragment(), OnBottomSheetCallback {
         binding.shimmer1.visibility = View.VISIBLE
         binding.shimmer1.startShimmer()
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            viewModel.getAllDataWhereStatusData(true, typeJenis).observe(viewLifecycleOwner, Observer {
-                binding.shimmer1.stopShimmer()
-                binding.shimmer1.visibility = View.GONE
-                if (it.isEmpty()){
-                    binding.lottieAnimation.visibility = View.VISIBLE
-                    binding.tvIsEmpty.visibility = View.VISIBLE
-                    binding.rvLunas.visibility = View.GONE
-                }else{
-                    binding.lottieAnimation.visibility =View.GONE
-                    binding.tvIsEmpty.visibility = View.GONE
-                    binding.rvLunas.visibility = View.VISIBLE
-
-                    jumlah = it.size
-                    binding.textResult.text = "$jumlah ${getString(R.string.hasil)}"
-                    listData = ArrayList(it)
-                    lunasAdapter.setData(listData)
-                }
-            })
-        },800)
-        initRecyclerview()
+        switchDataQuery(viewModel.getAllDataWhereStatusData(true, typeJenis))
     }
     private fun filterData(){
         if (LunasActivity.STATUS_TYPE == null){
