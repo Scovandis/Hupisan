@@ -94,7 +94,7 @@
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_app_bar"
             android:layout_width="match_parent"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/hupisan_primary_dark"
             android:layout_gravity="bottom"
             app:fabAlignmentMode="end"
             android:foregroundTint="@color/white"

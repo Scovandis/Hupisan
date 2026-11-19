@@ -15,6 +15,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.hupisan.BuildConfig
 import com.hupisan.R
@@ -36,6 +37,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
         appsConfig = AppsConfig()
         appsConfig.AppsConfig(this)

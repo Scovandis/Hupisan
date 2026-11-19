@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import com.hupisan.R
 import com.hupisan.databinding.ActivityBantuanBinding
 import com.hupisan.view.main.MainActivity
@@ -14,6 +15,8 @@ class BantuanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBantuanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
         supportActionBar!!.title = getString(R.string.bantuan)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)

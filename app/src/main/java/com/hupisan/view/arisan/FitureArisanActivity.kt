@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.hupisan.viewmodel.ArisanGroupViewModel
@@ -19,6 +20,7 @@ class FitureArisanActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFitureArisanBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.title = getString(R.string.arisan)
         setOnActionView()

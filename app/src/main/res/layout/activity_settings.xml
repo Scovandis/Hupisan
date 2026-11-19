@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/constraint"
-    android:background="@color/transparantBlack5"
+    android:background="@color/hupisan_page_bg"
     tools:context=".view.pengaturan.SettingsActivity"
     >
     <LinearLayout
