@@ -6,6 +6,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.hupisan.R
@@ -65,8 +66,27 @@ class ArisanMemberAdapter(val context: Context): RecyclerView.Adapter<ArisanMemb
     }
 
     fun setData(lists: ArrayList<ArisanModel>){
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = list.size
+            override fun getNewListSize() = lists.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition].uid == lists[newItemPosition].uid
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                val old = list[oldItemPosition]
+                val new = lists[newItemPosition]
+                return old.username == new.username &&
+                        old.jumlah_bayar == new.jumlah_bayar &&
+                        old.status_bayar == new.status_bayar &&
+                        old.status_menang == new.status_menang &&
+                        old.gender == new.gender
+            }
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list = lists
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun getRandomDrawbleColor(): ColorDrawable? {

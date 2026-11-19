@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.GrupArisanModel
@@ -51,8 +52,27 @@ class ArisanGroupAdapter(val context: Context): RecyclerView.Adapter<ArisanGroup
     }
 
     fun setData(lists: ArrayList<GrupArisanModel>){
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = list.size
+            override fun getNewListSize() = lists.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition].uid == lists[newItemPosition].uid
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                val old = list[oldItemPosition]
+                val new = lists[newItemPosition]
+                return old.grup_name == new.grup_name &&
+                        old.anggaran_kesepakatan_peruser == new.anggaran_kesepakatan_peruser &&
+                        old.anggaran_terkumpul == new.anggaran_terkumpul &&
+                        old.jumlah_member == new.jumlah_member &&
+                        old.status_dimulai == new.status_dimulai
+            }
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list = lists
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun getData(): ArrayList<GrupArisanModel>{
