@@ -1,4 +1,4 @@
-package com.hupisan.database.db
+package com.hupisan.di.database
 
 import com.hupisan.database.entity.ArisanModel
 import com.hupisan.database.entity.DataModel
