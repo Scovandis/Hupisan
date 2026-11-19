@@ -81,8 +81,8 @@ class ArisanDB(private val realm: Realm) {
         }
     }
 
-    fun deleteMemberWhereUid(uid: Int) {
-        realm.writeBlocking {
+    suspend fun deleteMemberWhereUid(uid: Int) {
+        realm.write {
             val live = query<ArisanModel>("uid == $0", uid).first().find()
             if (live != null) {
                 delete(live)

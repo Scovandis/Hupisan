@@ -24,7 +24,7 @@ class ArisanRepository(private val arisanDB: ArisanDB) {
         arisanDB.deleteMemberWhereIdGroup(groupId)
     }
 
-    fun deleteMemberWhereUID(uid: Int) {
+    suspend fun deleteMemberWhereUID(uid: Int) {
         arisanDB.deleteMemberWhereUid(uid)
     }
 }
