@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:padding="@dimen/_12sdp"
-        android:background="@color/purple_500"
+        android:background="@color/hupisan_primary_dark"
         android:id="@+id/linear1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -103,22 +103,29 @@
             android:hint="@string/jumlah_bayar"
             android:inputType="number"
             android:maxLines="1"
+            android:textColorHint="@color/hupisan_text_muted"
             app:boxBackgroundColor="@android:color/transparent"
+            app:boxStrokeColor="@color/hupisan_primary_dark"
             app:counterEnabled="true"
             app:counterMaxLength="9"
+            app:counterTextColor="@color/hupisan_text_muted"
             app:errorEnabled="true"
             app:helperText="@string/masukkan_jumlah_nominal"
             app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/hupisan_text_muted"
+            app:hintTextColor="@color/hupisan_primary_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_nama"
-            app:prefixText="@string/dolar">
+            app:prefixText="@string/dolar"
+            app:prefixTextColor="@color/hupisan_primary_dark">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLength="9"
+                android:textColor="@color/hupisan_text_primary"
                 android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,11 +135,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/deskripsi"
+            android:textColorHint="@color/hupisan_text_muted"
+            app:boxBackgroundColor="@android:color/transparent"
+            app:boxStrokeColor="@color/hupisan_primary_dark"
             app:counterEnabled="true"
             app:counterMaxLength="210"
+            app:counterTextColor="@color/hupisan_text_muted"
             app:errorEnabled="true"
             app:helperText="@string/bila_ada_keterangan_yang_di_hutang"
             app:helperTextEnabled="true"
+            app:helperTextTextColor="@color/hupisan_text_muted"
+            app:hintTextColor="@color/hupisan_primary_dark"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/et_jumlah">
@@ -141,6 +154,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="210"
+                android:textColor="@color/hupisan_text_primary"
                 android:maxLines="5" />
         </com.google.android.material.textfield.TextInputLayout>
 

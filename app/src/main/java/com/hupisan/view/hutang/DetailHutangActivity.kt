@@ -85,6 +85,8 @@ class DetailHutangActivity : AppCompatActivity() {
         binding = ActivityDetailHutangBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+
         //bindview
         EXPAND_AVATAR_SIZE = resources.getDimension(R.dimen.default_expanded_image_size)
         COLLAPSE_IMAGE_SIZE = resources.getDimension(R.dimen.default_collapsed_image_size)
@@ -113,7 +115,7 @@ class DetailHutangActivity : AppCompatActivity() {
         binding.fabTambahkan.setColorFilter(Color.WHITE)
         binding.fabLunas.setColorFilter(Color.WHITE)
         binding.fabCicil.setColorFilter(Color.WHITE)
-        binding.optionF.setColorFilter(Color.parseColor("#FF6200EE"))
+        binding.optionF.setColorFilter(Color.WHITE)
 
         //get id && typejenis data
         val uid = intent.extras?.get(EXTRA_UID)
@@ -551,7 +553,7 @@ class DetailHutangActivity : AppCompatActivity() {
                             background.setBackgroundColor(
                                 ContextCompat.getColor(
                                     this@DetailHutangActivity,
-                                    R.color.purple_500
+                                    R.color.hupisan_primary_dark
                                 )
                             )
                             currentImageSize = COLLAPSE_IMAGE_SIZE.toInt()
@@ -681,10 +683,10 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private val vibrantLightColorList = arrayOf(
-        ColorDrawable(Color.parseColor("#9ACCCD")), ColorDrawable(Color.parseColor("#8FD8A0")),
-        ColorDrawable(Color.parseColor("#CBD890")), ColorDrawable(Color.parseColor("#DACC8F")),
-        ColorDrawable(Color.parseColor("#D9A790")), ColorDrawable(Color.parseColor("#D18FD9")),
-        ColorDrawable(Color.parseColor("#FF6772")), ColorDrawable(Color.parseColor("#DDFB5C"))
+        ColorDrawable(Color.parseColor("#EFEAE3")), ColorDrawable(Color.parseColor("#E5D7CA")),
+        ColorDrawable(Color.parseColor("#EBDCCB")), ColorDrawable(Color.parseColor("#DFD3C3")),
+        ColorDrawable(Color.parseColor("#D9C3B0")), ColorDrawable(Color.parseColor("#CDB59F")),
+        ColorDrawable(Color.parseColor("#DFCCB7")), ColorDrawable(Color.parseColor("#E8DDD1"))
     )
 
     fun getRandomDrawbleColor(): ColorDrawable? {

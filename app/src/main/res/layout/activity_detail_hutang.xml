@@ -18,8 +18,8 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/top_head_height"
-            android:background="@color/white"
-            app:contentScrim="@color/color_gray_green"
+            android:background="@color/hupisan_primary_dark"
+            app:contentScrim="@color/hupisan_primary_dark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <FrameLayout
@@ -37,7 +37,7 @@
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/background_green_image_tint" />
+                    android:background="@color/hupisan_primary_dark" />
             </FrameLayout>
 
             <FrameLayout
@@ -133,7 +133,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/hupisan_page_bg"
         android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -155,8 +155,10 @@
                     android:layout_marginTop="@dimen/_35sdp"
                     android:layout_marginEnd="@dimen/activity_margin"
                     android:layout_marginBottom="8dp"
-                    app:cardElevation="3dp"
-                    app:contentPadding="10dp">
+                    app:cardBackgroundColor="@color/hupisan_card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:contentPadding="12dp">
 
                     <include
                         android:id="@+id/content"
@@ -202,8 +204,10 @@
             android:focusable="true"
             app:elevation="@dimen/_4sdp"
             app:borderWidth="0dp"
-            app:backgroundTint="@color/white"
-            app:maxImageSize="45dp"
+            app:backgroundTint="@color/hupisan_primary_dark"
+            app:tint="@color/white"
+            app:rippleColor="@color/hupisan_accent_amber"
+            app:maxImageSize="32dp"
             app:srcCompat="@drawable/ic_baseline_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -216,10 +220,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="30dp"
             android:clickable="true"
-            app:backgroundTint="@color/purple_500"
+            app:backgroundTint="@color/hupisan_primary_dark"
+            app:rippleColor="@color/hupisan_accent_amber"
             android:visibility="invisible"
             android:focusable="true"
-            android:tint="@color/white"
+            app:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/option_f"
             app:layout_constraintEnd_toEndOf="@+id/option_f"
             app:srcCompat="@drawable/ic_tambahkan_jumlah_24dp" />
@@ -229,7 +234,8 @@
             app:layout_constraintEnd_toEndOf="@id/fab_tambahkan"
             app:layout_constraintStart_toStartOf="@id/fab_tambahkan"
             android:layout_width="wrap_content"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/hupisan_primary_dark"
+            android:textStyle="bold"
             android:text="@string/tambahkan"
             android:visibility="invisible"
             android:layout_height="wrap_content"/>
@@ -242,8 +248,9 @@
             android:clickable="true"
             android:focusable="true"
             android:visibility="invisible"
-            android:tint="@color/white"
-            app:backgroundTint="@color/purple_500"
+            app:tint="@color/white"
+            app:backgroundTint="@color/hupisan_accent_amber"
+            app:rippleColor="@color/hupisan_primary_dark"
             app:layout_constraintBottom_toTopOf="@+id/fab_tambahkan"
             app:layout_constraintEnd_toEndOf="@+id/fab_tambahkan"
             app:srcCompat="@drawable/ic_cicil_24dp" />
@@ -255,7 +262,8 @@
             app:layout_constraintStart_toStartOf="@id/fab_cicil"
             android:layout_width="wrap_content"
             android:visibility="invisible"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/hupisan_primary_dark"
+            android:textStyle="bold"
             android:text="@string/cicil"
             android:layout_height="wrap_content"/>
 
@@ -267,8 +275,9 @@
             android:clickable="true"
             android:focusable="true"
             android:visibility="invisible"
-            android:tint="@color/white"
-            app:backgroundTint="@color/purple_500"
+            app:tint="@color/white"
+            app:backgroundTint="@color/hupisan_receivable_green"
+            app:rippleColor="@color/hupisan_primary_dark"
             app:layout_constraintBottom_toTopOf="@+id/fab_cicil"
             app:layout_constraintEnd_toEndOf="@+id/fab_cicil"
             app:srcCompat="@drawable/ic_lunas_24dp" />
@@ -276,7 +285,8 @@
         <TextView
             android:id="@+id/tv_lunas"
             app:layout_constraintTop_toBottomOf="@id/fab_lunas"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/hupisan_primary_dark"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@id/fab_lunas"
             app:layout_constraintStart_toStartOf="@id/fab_lunas"
             android:layout_width="wrap_content"
