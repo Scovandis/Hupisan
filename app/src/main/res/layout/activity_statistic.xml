@@ -1,66 +1,575 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/hupisan_page_bg"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".view.analistic.StatisticActivity">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card_viewmaterial"
-        android:translationZ="@dimen/_4sdp"
+    <!-- TOP TOOLBAR -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/toolbarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_12sdp"
-        android:layout_marginEnd="@dimen/_12sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="@dimen/_16sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardBackgroundColor="@color/hupisan_card_bg"
-        app:strokeWidth="1dp"
-        app:strokeColor="@color/hupisan_card_stroke"
-        app:cardCornerRadius="20dp">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/hupisan_card_bg"
+        android:elevation="1dp"
+        android:paddingHorizontal="16dp">
 
-        <com.google.android.material.tabs.TabLayout
-            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            android:id="@+id/tabLayout"
-            android:background="@color/hupisan_card_bg"
-            app:tabIndicatorGravity="stretch"
-            app:tabMaxWidth="0dp"
-            app:tabGravity="fill"
-            app:tabIconTint="@drawable/tab_icon_selector"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="@color/hupisan_primary_dark"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_34sdp">
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Kembali"
+            android:padding="6dp"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/hupisan_text_primary" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                />
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Statistik"
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                />
+        <ImageView
+            android:id="@+id/btnCalendar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Kalender"
+            android:padding="6dp"
+            android:src="@drawable/ic_hupisan_calendar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/hupisan_text_primary" />
 
-        </com.google.android.material.tabs.TabLayout>
-    </com.google.android.material.card.MaterialCardView>
-    <ScrollView
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:fillViewport="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="0sp">
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+        android:overScrollMode="never">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-    </ScrollView>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- FILTER PILLS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnFilterMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_filter_pill_active"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:text="Bulan Ini"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnFilter5Month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_filter_pill_inactive"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:text="5 Bulan"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/btnFilter6Month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_filter_pill_inactive"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="7dp"
+                    android:text="6 Bulan"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <!-- 2 SUMMARY CARDS SIDE BY SIDE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <!-- TOTAL HUTANG CARD -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTotalHutang"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/hupisan_card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/hupisan_card_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_summary_wallet_circle"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_hupisan_wallet"
+                            app:tint="@color/hupisan_primary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Hutang"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvStatTotalHutang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Rp 0"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- TOTAL PIUTANG CARD -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardTotalPiutang"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    app:cardBackgroundColor="@color/hupisan_card_bg"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="@color/hupisan_card_stroke"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_summary_wallet_circle"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_hupisan_receive_coin"
+                            app:tint="@color/hupisan_primary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Piutang"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/tvStatTotalPiutang"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Rp 0"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- DONUT CHART CARD -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/hupisan_card_bg"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/hupisan_card_stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp"
+                    android:weightSum="10">
+
+                    <!-- DONUT CHART CONTAINER WITH CENTER PERCENTAGE -->
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="170dp"
+                        android:layout_weight="6">
+
+                        <org.eazegraph.lib.charts.PieChart
+                            android:id="@+id/piechart"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="6dp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvDonutPercentage"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0%"
+                                android:textColor="@color/hupisan_text_primary"
+                                android:textSize="20sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvDonutLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hutang"
+                                android:textColor="@color/hupisan_text_secondary"
+                                android:textSize="11sp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <!-- LEGEND -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="4"
+                        android:orientation="vertical">
+
+                        <!-- HUTANG LEGEND -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="12dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:background="@drawable/ic_circle_indicator_primary" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hutang"
+                                    android:textColor="@color/hupisan_text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvLegendHutangPercent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textColor="@color/hupisan_text_secondary"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <!-- PIUTANG LEGEND -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:background="@drawable/ic_circle_indicator_mint" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Piutang"
+                                    android:textColor="@color/hupisan_text_primary"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvLegendPiutangPercent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0%"
+                                    android:textColor="@color/hupisan_text_secondary"
+                                    android:textSize="11sp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- TREND TRANSAKSI CARD -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="@color/hupisan_card_bg"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp"
+                app:strokeColor="@color/hupisan_card_stroke"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="Trend Transaksi"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <!-- BARS FOR 3 MONTHS -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <!-- MONTH 1 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="bottom|center_horizontal"
+                                    android:gravity="bottom"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/barHutangM1"
+                                        android:layout_width="18dp"
+                                        android:layout_height="50dp"
+                                        android:background="@drawable/bg_bar_primary" />
+
+                                    <View
+                                        android:id="@+id/barPiutangM1"
+                                        android:layout_width="18dp"
+                                        android:layout_height="80dp"
+                                        android:layout_marginStart="6dp"
+                                        android:background="@drawable/bg_bar_mint" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvLabelM1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Okt"
+                                android:textColor="@color/hupisan_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <!-- MONTH 2 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="bottom|center_horizontal"
+                                    android:gravity="bottom"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/barHutangM2"
+                                        android:layout_width="18dp"
+                                        android:layout_height="75dp"
+                                        android:background="@drawable/bg_bar_primary" />
+
+                                    <View
+                                        android:id="@+id/barPiutangM2"
+                                        android:layout_width="18dp"
+                                        android:layout_height="40dp"
+                                        android:layout_marginStart="6dp"
+                                        android:background="@drawable/bg_bar_mint" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvLabelM2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Nov"
+                                android:textColor="@color/hupisan_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <!-- MONTH 3 -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="110dp">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="bottom|center_horizontal"
+                                    android:gravity="bottom"
+                                    android:orientation="horizontal">
+
+                                    <View
+                                        android:id="@+id/barHutangM3"
+                                        android:layout_width="18dp"
+                                        android:layout_height="95dp"
+                                        android:background="@drawable/bg_bar_primary" />
+
+                                    <View
+                                        android:id="@+id/barPiutangM3"
+                                        android:layout_width="18dp"
+                                        android:layout_height="60dp"
+                                        android:layout_marginStart="6dp"
+                                        android:background="@drawable/bg_bar_mint" />
+
+                                </LinearLayout>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tvLabelM3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:text="Des"
+                                android:textColor="@color/hupisan_text_secondary"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- HIDDEN COMPATIBILITY STUBS -->
+            <View
+                android:id="@+id/tabLayout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+            <View
+                android:id="@+id/view_pager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
