@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">H.H.H.H</string>
+    <string name="app_name">Hupisan</string>
 
     <string name="hutang">Hutang</string>
     <string name="piutang">Piutang</string>

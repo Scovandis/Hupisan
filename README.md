@@ -1,2 +1,2 @@
-# H.H.H.H
-https://play.google.com/store/apps/details?id=my.notes.HHHH
+# Hupisan
+https://play.google.com/store/apps/details?id=com.hupisan

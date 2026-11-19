@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<!--    <string name="app_neme">H.H.H.H</string>-->
-    <string name="app_name">บันทึกทางการเงิน</string>
+    <string name="app_name">Hupisan</string>
 <!--    บันทึกทางการเงิน-->
 
     <string name="hutang">หนี้</string>

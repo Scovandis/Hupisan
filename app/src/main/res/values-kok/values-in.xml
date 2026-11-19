@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">आर्थिक अभिलेख</string>
+    <string name="app_name">Hupisan</string>
 
     //data awal
     <string name="hutang">कर्ज</string>
