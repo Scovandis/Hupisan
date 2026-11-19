@@ -140,8 +140,8 @@ class DataDB(private val realm: Realm) {
             .asLiveData(Dispatchers.IO)
     }
 
-    fun deleteAllData(jenis: Boolean, statusData: Boolean) {
-        realm.writeBlocking {
+    suspend fun deleteAllData(jenis: Boolean, statusData: Boolean) {
+        realm.write {
             val items = query<DataModel>("jenisPinjaman == $0 AND statusDataSelesai == $1", jenis, statusData).find()
             delete(items)
         }

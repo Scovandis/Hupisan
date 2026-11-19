@@ -46,7 +46,7 @@ class DataRepository(private val dataDB: DataDB) {
         return dataDB.loadDataWhereLimit(statusData, 12)
     }
 
-    fun deleteAllDataWhere(jenis: Boolean, statusData: Boolean) {
+    suspend fun deleteAllDataWhere(jenis: Boolean, statusData: Boolean) {
         dataDB.deleteAllData(jenis, statusData)
     }
 
