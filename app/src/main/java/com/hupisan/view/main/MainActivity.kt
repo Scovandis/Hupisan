@@ -59,8 +59,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        appsConfig = AppsConfig()
-        appsConfig.AppsConfig(this)
+        appsConfig = AppsConfig(this)
         loadLanguage()
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

@@ -40,8 +40,7 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        appsConfig = AppsConfig()
-        appsConfig.AppsConfig(this)
+        appsConfig = AppsConfig(this)
         val nLanguage = appsConfig.getRegionLanguage()
         Log.d(TAG, "N LANGUAGE $nLanguage")
         if (nLanguage != null){

@@ -40,8 +40,7 @@ class SettingsActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
-        appsConfig = AppsConfig()
-        appsConfig.AppsConfig(this)
+        appsConfig = AppsConfig(this)
         binding.tvAppVersion.text = getString(R.string.app_version) +" " +  versionName
         setActionView()
 

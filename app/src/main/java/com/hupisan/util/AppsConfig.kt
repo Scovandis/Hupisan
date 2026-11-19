@@ -11,9 +11,14 @@ class AppsConfig(private var context: Context? = null) {
         context?.let { initPrefs(it) }
     }
 
-    fun AppsConfig(context: Context) {
+    fun init(context: Context) {
         this.context = context
         initPrefs(context)
+    }
+
+    @Deprecated("Use constructor AppsConfig(context) or init(context)", ReplaceWith("init(context)"))
+    fun AppsConfig(context: Context) {
+        init(context)
     }
 
     private fun initPrefs(ctx: Context) {
