@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         setupSummaryClickListeners(hutangText, piutangText)
         setupMenuClickListeners(hutangText, piutangText)
         setupSecondaryActions()
+        setupBottomNav()
         setupFilterTabs()
         setupRecyclerView()
         setupFab(hutangText, piutangText)
@@ -85,6 +86,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupHeader() {
+        binding.btnHeaderNotifications.setOnClickListener {
+            startActivity(Intent(this, BantuanActivity::class.java))
+        }
+
         binding.btnHeaderHelp.setOnClickListener {
             startActivity(Intent(this, BantuanActivity::class.java))
         }
@@ -131,12 +136,34 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSecondaryActions() {
+        binding.cardMenuArisan.setOnClickListener {
+            startActivity(Intent(this, FitureArisanActivity::class.java))
+        }
+
         binding.btnMenuLottery.setOnClickListener {
             startActivity(Intent(this, FitureArisanActivity::class.java))
         }
 
         binding.btnMenuReseller.setOnClickListener {
             Snackbar.make(binding.constraint, "Fitur Reseller segera hadir", Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupBottomNav() {
+        binding.navHome.setOnClickListener {
+            // Already at home
+        }
+
+        binding.navHistory.setOnClickListener {
+            startActivity(Intent(this, LunasActivity::class.java))
+        }
+
+        binding.navReminder.setOnClickListener {
+            startActivity(Intent(this, BantuanActivity::class.java))
+        }
+
+        binding.navMore.setOnClickListener {
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
     }
 
