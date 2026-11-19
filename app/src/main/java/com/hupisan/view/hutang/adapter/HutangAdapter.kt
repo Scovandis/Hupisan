@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import java.text.DecimalFormat
 import java.util.*
@@ -28,8 +29,28 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
     var isNotif: Boolean = true
 
     fun setData(lists: ArrayList<DataModel>) {
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun getOldListSize() = list.size
+            override fun getNewListSize() = lists.size
+
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                return list[oldItemPosition].id == lists[newItemPosition].id
+            }
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+                val old = list[oldItemPosition]
+                val new = lists[newItemPosition]
+                return old.username == new.username &&
+                        old.jumlah == new.jumlah &&
+                        old.deskripsi == new.deskripsi &&
+                        old.notif == new.notif &&
+                        old.statusDataSelesai == new.statusDataSelesai &&
+                        old.jumlah_dibayar == new.jumlah_dibayar
+            }
+        }
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.list = lists
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     fun getData(): ArrayList<DataModel> {
@@ -127,11 +148,14 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
             intent.putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, list[position].jenisPinjaman)
             context.startActivity(intent)
         }
-        val animation = AnimationUtils.loadAnimation(
-            holder.itemView.context,
-            android.R.anim.slide_in_left
-        )
-        holder.itemView.startAnimation(animation)
+        if (position > lastPosition) {
+            val animation = AnimationUtils.loadAnimation(
+                holder.itemView.context,
+                android.R.anim.slide_in_left
+            )
+            holder.itemView.startAnimation(animation)
+            lastPosition = position
+        }
     }
 
     override fun getItemCount() = list.size
