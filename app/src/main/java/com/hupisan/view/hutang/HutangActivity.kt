@@ -80,67 +80,44 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, typeJenis)
             startActivity(intent)
         }
-        Log.d(TAG, "DATAA ARRAY $listData")
-        setData(true)
-        Log.d(TAG, "DATAA ARRAY2 $listData")
+        
+        hAdapter = HutangAdapter(this@HutangActivity, this)
+        bindview()
+        observeData()
+
         binding.swipeRefreshLayout.setOnRefreshListener {
-            setData(isRefresh)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
-    private fun setData(isRefresh: Boolean){
+
+    private fun observeData() {
+        binding.shimmer1.startShimmer()
+        binding.shimmer1.visibility = View.VISIBLE
+        binding.rvHutang.visibility = View.GONE
         binding.lottieAnimation.visibility = View.GONE
         binding.tvIsEmpty.visibility = View.GONE
-        binding.rvHutang.visibility = View.GONE
-        if (isRefresh) {
-            binding.shimmer1.startShimmer()
-            binding.shimmer1.visibility = View.VISIBLE
-            Handler(Looper.getMainLooper()).postDelayed({
-                binding.shimmer1.stopShimmer()
-                binding.shimmer1.visibility = View.GONE
-                binding.rvHutang.visibility = View.VISIBLE
 
-                hAdapter = HutangAdapter(this@HutangActivity, this)
-                when (typeJenis) {
-                    getString(R.string.hutang) -> { viewModel.getAllDataWhereStatusData(
-                        statusData = false, // false ini bernilai belum lunas, sementara true bernilai lunas
-                        jenis = false// false ini bernilai hutang, sementara true bernilai piutang
-                        ).observe(this, Observer {
-                            if (it.isEmpty()) {
-                                binding.rvHutang.visibility = View.GONE
-                                binding.lottieAnimation.visibility = View.VISIBLE
-                                binding.tvIsEmpty.visibility = View.VISIBLE
-                                binding.tvIsEmpty.text =
-                                    getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
-                            } else {
-                                Log.d(TAG, "DATAAA $it")
-                                listData = ArrayList(it)
-                                hAdapter.setData(listData!!)
-                            }
-                        })
-                    }
-                    getString(R.string.piutang) -> {
-                        viewModel.getAllDataWhereStatusData(
-                            statusData = false,
-                            jenis = true
-                        ).observe(this, Observer {
-                            if (it.isEmpty()) {
-                                binding.rvHutang.visibility = View.GONE
-                                binding.lottieAnimation.visibility = View.VISIBLE
-                                binding.tvIsEmpty.visibility = View.VISIBLE
-                                binding.tvIsEmpty.text =
-                                    getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
-                            } else {
-                                listData = ArrayList(it)
-                                hAdapter.setData(listData!!)
-                                Log.d(TAG, "DATAAA $it")
-                            }
-                        })
-                    }
-                }
-                binding.swipeRefreshLayout.isRefreshing = false
-                bindview()
-            }, 900)
-        }
+        val isPiutang = typeJenis == getString(R.string.piutang)
+        viewModel.getAllDataWhereStatusData(statusData = false, jenis = isPiutang).observe(this, Observer {
+            binding.shimmer1.stopShimmer()
+            binding.shimmer1.visibility = View.GONE
+            binding.swipeRefreshLayout.isRefreshing = false
+
+            if (it.isEmpty()) {
+                binding.rvHutang.visibility = View.GONE
+                binding.lottieAnimation.visibility = View.VISIBLE
+                binding.tvIsEmpty.visibility = View.VISIBLE
+                binding.tvIsEmpty.text = getString(R.string.oops_sepertinya_anda_belum_memiliki_rekap_data)
+                listData = ArrayList()
+                hAdapter.setData(listData!!)
+            } else {
+                binding.lottieAnimation.visibility = View.GONE
+                binding.tvIsEmpty.visibility = View.GONE
+                binding.rvHutang.visibility = View.VISIBLE
+                listData = ArrayList(it)
+                hAdapter.setData(listData!!)
+            }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
