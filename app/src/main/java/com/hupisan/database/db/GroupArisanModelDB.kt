@@ -1,39 +1,20 @@
 package com.hupisan.database.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hupisan.database.dao.ArisanGroupDataDao
-import com.hupisan.database.entity.GrupArisanModel
+import com.hupisan.database.dao.RealmArisanGroupDataDao
+import io.github.xilinjia.krdb.Realm
 
-@Database(entities = [GrupArisanModel::class], version = 2, exportSchema = false)
-abstract class GroupArisanModelDB : RoomDatabase(){
-    abstract fun GroupArisanDao(): ArisanGroupDataDao
+open class GroupArisanModelDB(private val realm: Realm = RealmDatabase.getRealm()) {
+    fun GroupArisanDao(): ArisanGroupDataDao = RealmArisanGroupDataDao(realm)
 
-    companion object{
-        private val migration_1_2: Migration = object : Migration(1,2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE userinfo ADD COLUMN phone ''")
-            }
-        }
-
+    companion object {
         @Volatile
         private var INSTANCE: GroupArisanModelDB? = null
-        //        Environment.getExternalStorageDirectory().absolutePath
-        fun getDataBase(context: Context): GroupArisanModelDB{
-            return INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    GroupArisanModelDB::class.java,
-                    "grup_arisan"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+
+        fun getDataBase(context: Context? = null): GroupArisanModelDB {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: GroupArisanModelDB(RealmDatabase.getRealm()).also { INSTANCE = it }
             }
         }
     }

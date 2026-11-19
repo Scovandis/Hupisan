@@ -1,24 +1,33 @@
 package com.hupisan.database.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.xilinjia.krdb.types.RealmObject
+import io.github.xilinjia.krdb.types.annotations.PrimaryKey
 
-@Entity(tableName = "data_pembayaran_model")
-data class PaymentModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "uid")
-    var uid: Int,
-    @ColumnInfo(name = "from_uid")
-    var from_uid: Int,
-    @ColumnInfo(name = "diUpdate")
-    var diUpdate: String,
-    @ColumnInfo(name = "jumlah_pembayaran")
-    var jumlahPembayaran: Int,
-    @ColumnInfo(name = "keterangan")
-    var keterangan: String,
-    @ColumnInfo(name = "ditambah_atau_dikurangi")
-    var diTambahAtaudiKurangiAtauLunas: Int,
-    @ColumnInfo(name = "type_jenis")
-    var typeJenis: Boolean
-)
+open class PaymentModel() : RealmObject {
+    @PrimaryKey
+    var uid: Int = 0
+    var from_uid: Int = 0
+    var diUpdate: String = ""
+    var jumlahPembayaran: Int = 0
+    var keterangan: String = ""
+    var diTambahAtaudiKurangiAtauLunas: Int = 0
+    var typeJenis: Boolean = false
+
+    constructor(
+        uid: Int,
+        from_uid: Int,
+        diUpdate: String,
+        jumlahPembayaran: Int,
+        keterangan: String,
+        diTambahAtaudiKurangiAtauLunas: Int,
+        typeJenis: Boolean
+    ) : this() {
+        this.uid = uid
+        this.from_uid = from_uid
+        this.diUpdate = diUpdate
+        this.jumlahPembayaran = jumlahPembayaran
+        this.keterangan = keterangan
+        this.diTambahAtaudiKurangiAtauLunas = diTambahAtaudiKurangiAtauLunas
+        this.typeJenis = typeJenis
+    }
+}

@@ -1,26 +1,36 @@
 package com.hupisan.database.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.xilinjia.krdb.types.RealmObject
+import io.github.xilinjia.krdb.types.annotations.PrimaryKey
 
-@Entity(tableName = "arisan_user_model")
-data class ArisanModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "uid")
-    var uid: Int,
-    @ColumnInfo(name = "from_uid_group")
-    var grup_id: Int,
-    @ColumnInfo(name = "name_user")
-    var username: String,
-    @ColumnInfo(name = "jumlah_bayar")//ini dia bayar uang arisan dengan sejumlah berapa ya
-    var jumlah_bayar: Int,
-    @ColumnInfo(name = "tanggal_menang")//ini ketika bulan ini di kocok trus si user mendapatkan prize pollnya
-    var tanggal_menang: String,
-    @ColumnInfo(name = "status_bayar")//ini dia suadah bayar atau belum, jika sudah bayar maka status akan di ganti menjadi ready jika belum maka false
-    var status_bayar: Boolean,
-    @ColumnInfo(name = "status_menang")//ini usernya udah meanng atau belum
-    var status_menang: Boolean,
-    @ColumnInfo(name = "gender")
-    var gender: Int //ini gender pake integer biar tiap ganti bahasa datanya tetap sama jadi statusnya kalo 0 kosong, 1 laki-laki, 2 perempuan, 3 lainnya
-)
+open class ArisanModel() : RealmObject {
+    @PrimaryKey
+    var uid: Int = 0
+    var grup_id: Int = 0
+    var username: String = ""
+    var jumlah_bayar: Int = 0
+    var tanggal_menang: String = ""
+    var status_bayar: Boolean = false
+    var status_menang: Boolean = false
+    var gender: Int = 0
+
+    constructor(
+        uid: Int,
+        grup_id: Int,
+        username: String,
+        jumlah_bayar: Int,
+        tanggal_menang: String,
+        status_bayar: Boolean,
+        status_menang: Boolean,
+        gender: Int
+    ) : this() {
+        this.uid = uid
+        this.grup_id = grup_id
+        this.username = username
+        this.jumlah_bayar = jumlah_bayar
+        this.tanggal_menang = tanggal_menang
+        this.status_bayar = status_bayar
+        this.status_menang = status_menang
+        this.gender = gender
+    }
+}

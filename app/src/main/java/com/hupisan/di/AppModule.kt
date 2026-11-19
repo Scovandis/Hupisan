@@ -11,22 +11,24 @@ import com.hupisan.database.db.ArisanModelDB
 import com.hupisan.database.db.GroupArisanModelDB
 import com.hupisan.database.db.ModelDB
 import com.hupisan.database.db.PaymentDatabase
+import com.hupisan.database.db.RealmDatabase
 import com.hupisan.viewmodel.ArisanGroupViewModel
 import com.hupisan.viewmodel.ArisanViewModel
 import com.hupisan.viewmodel.DataViewModel
 import com.hupisan.viewmodel.PaymentViewModel
 
 val databaseModule = module {
-    single { ModelDB.getDataBase(androidContext()) }
+    single { RealmDatabase.getRealm() }
+    single { ModelDB(get()) }
     single { get<ModelDB>().dataDAO() }
 
-    single { PaymentDatabase.getDataBase(androidContext()) }
+    single { PaymentDatabase(get()) }
     single { get<PaymentDatabase>().paymentDao() }
 
-    single { ArisanModelDB.getDataBase(androidContext()) }
+    single { ArisanModelDB(get()) }
     single { get<ArisanModelDB>().arisanDao() }
 
-    single { GroupArisanModelDB.getDataBase(androidContext()) }
+    single { GroupArisanModelDB(get()) }
     single { get<GroupArisanModelDB>().GroupArisanDao() }
 }
 

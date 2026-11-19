@@ -1,37 +1,51 @@
 package com.hupisan.database.entity
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import io.github.xilinjia.krdb.types.RealmObject
+import io.github.xilinjia.krdb.types.annotations.PrimaryKey
 
+open class DataModel() : RealmObject {
+    @PrimaryKey
+    var id: Int = 0
+    var username: String = ""
+    var deskripsi: String = ""
+    var jumlah: Int = 0
+    var diBuat: String = ""
+    var jatuhTempo: String = ""
+    var notif: Boolean = false
+    var genderUser: Int = 0
+    var jenisPinjaman: Boolean = false
+    var statusDataSelesai: Boolean = false
+    var jam_jatuh_tempo: String = ""
+    var tanggal_lunas: String = ""
+    var jumlah_dibayar: Int = 0
 
-@Entity(tableName = "data_model")
-data class DataModel(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "model_id")
-    var id: Int = 0,
-    @ColumnInfo(name = "username")
-    var username: String,
-    @ColumnInfo(name = "deskripsi")
-    var deskripsi: String,
-    @ColumnInfo(name = "jumlah")// nominal data yang di masukkan
-    var jumlah: Int,
-    @ColumnInfo(name = "diBuat")// tanggal di buat sebuah data
-    var diBuat: String,
-    @ColumnInfo(name = "jatuhTempo")
-    var jatuhTempo: String,
-    @ColumnInfo(name = "notif")//ini di buat ketika true maka notif muncul
-    var notif: Boolean,
-    @ColumnInfo(name = "gender")//ini untuk perubahan data bagian foto ketika gender lelaki ataupun perempuan
-    var genderUser: Int,//gender user hutang / piutang
-    @ColumnInfo(name = "jenis")
-    var jenisPinjaman: Boolean,//hutang bernilai false / piutang bernilai true
-    @ColumnInfo(name = "statusData")
-    var statusDataSelesai: Boolean, //ini datanya antara lunas atau belum lunas jika jumlah belum false jika lunas true
-    @ColumnInfo(name = "jam_jatuh_tempo")// tanggal untuk notifiki
-    var jam_jatuh_tempo: String,
-    @ColumnInfo(name = "tanggal_lunas")//tanggal selesai sebuah data
-    var tanggal_lunas: String,
-    @ColumnInfo(name = "dibayar")//ini data untuk statistic buat nampilin dibayar
-    var jumlah_dibayar: Int
-)
+    constructor(
+        id: Int,
+        username: String,
+        deskripsi: String,
+        jumlah: Int,
+        diBuat: String,
+        jatuhTempo: String,
+        notif: Boolean,
+        genderUser: Int,
+        jenisPinjaman: Boolean,
+        statusDataSelesai: Boolean,
+        jam_jatuh_tempo: String,
+        tanggal_lunas: String,
+        jumlah_dibayar: Int
+    ) : this() {
+        this.id = id
+        this.username = username
+        this.deskripsi = deskripsi
+        this.jumlah = jumlah
+        this.diBuat = diBuat
+        this.jatuhTempo = jatuhTempo
+        this.notif = notif
+        this.genderUser = genderUser
+        this.jenisPinjaman = jenisPinjaman
+        this.statusDataSelesai = statusDataSelesai
+        this.jam_jatuh_tempo = jam_jatuh_tempo
+        this.tanggal_lunas = tanggal_lunas
+        this.jumlah_dibayar = jumlah_dibayar
+    }
+}

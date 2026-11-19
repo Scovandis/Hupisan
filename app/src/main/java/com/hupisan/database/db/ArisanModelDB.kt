@@ -1,40 +1,21 @@
 package com.hupisan.database.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hupisan.database.dao.ArisanDataDao
-import com.hupisan.database.entity.ArisanModel
+import com.hupisan.database.dao.RealmArisanDataDao
+import io.github.xilinjia.krdb.Realm
 
-@Database(entities = [ArisanModel::class], version = 2, exportSchema = false)
-abstract class ArisanModelDB :RoomDatabase(){
-    abstract fun arisanDao(): ArisanDataDao
+open class ArisanModelDB(private val realm: Realm = RealmDatabase.getRealm()) {
+    fun arisanDao(): ArisanDataDao = RealmArisanDataDao(realm)
 
-    companion object{
-        private val migration_1_2: Migration = object : Migration(1,2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE userinfo ADD COLUMN phone ''")
-            }
-        }
-
+    companion object {
         @Volatile
-        private var INSTANCE: com.hupisan.database.db.ArisanModelDB? = null
-        fun getDataBase(context: Context): com.hupisan.database.db.ArisanModelDB {
-            return com.hupisan.database.db.ArisanModelDB.Companion.INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    com.hupisan.database.db.ArisanModelDB::class.java,
-                    "arisan"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                com.hupisan.database.db.ArisanModelDB.Companion.INSTANCE = instance
-                instance
+        private var INSTANCE: ArisanModelDB? = null
+
+        fun getDataBase(context: Context? = null): ArisanModelDB {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: ArisanModelDB(RealmDatabase.getRealm()).also { INSTANCE = it }
             }
         }
     }
-
 }

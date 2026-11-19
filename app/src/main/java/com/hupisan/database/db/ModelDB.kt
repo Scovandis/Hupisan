@@ -1,42 +1,21 @@
 package com.hupisan.database.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.hupisan.database.dao.DataDao
-import com.hupisan.database.entity.DataModel
+import com.hupisan.database.dao.RealmDataDao
+import io.github.xilinjia.krdb.Realm
 
-@Database(entities = [DataModel::class], version = 2, exportSchema = false)
-abstract class ModelDB : RoomDatabase(){
-    abstract fun dataDAO(): DataDao
+open class ModelDB(private val realm: Realm = RealmDatabase.getRealm()) {
+    fun dataDAO(): DataDao = RealmDataDao(realm)
 
-    companion object{
-
-        private val migration_1_2: Migration = object : Migration(1,2){
-            override fun migrate(database: SupportSQLiteDatabase) {
-                database.execSQL("ALTER TABLE userinfo ADD COLUMN phone ''")
-            }
-        }
-
+    companion object {
         @Volatile
         private var INSTANCE: ModelDB? = null
 
-        fun getDataBase(context: Context): ModelDB{
-            return INSTANCE ?: synchronized(this){
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    ModelDB::class.java,
-                    "HHHH"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                INSTANCE = instance
-                instance
+        fun getDataBase(context: Context? = null): ModelDB {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: ModelDB(RealmDatabase.getRealm()).also { INSTANCE = it }
             }
         }
-
     }
 }
