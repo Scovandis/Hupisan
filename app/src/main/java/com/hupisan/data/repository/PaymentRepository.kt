@@ -1,22 +1,22 @@
 package com.hupisan.data.repository
 
 import androidx.lifecycle.LiveData
-import com.hupisan.database.dao.PaymentDao
 import com.hupisan.database.entity.PaymentModel
+import com.hupisan.di.database.PaymentDB
 
-class PaymentRepository(private val paymentDao: PaymentDao) {
+class PaymentRepository(private val paymentDB: PaymentDB) {
 
-    val dataFromUid: LiveData<List<PaymentModel>> = paymentDao.getDataPembayaran()
+    val dataFromUid: LiveData<List<PaymentModel>> = paymentDB.getDataPembayaran()
 
     suspend fun insertData(data: PaymentModel) {
-        paymentDao.insertData(data)
+        paymentDB.insert(data)
     }
 
     fun getDataPembayaran(uid: Int): LiveData<List<PaymentModel>> {
-        return paymentDao.getDataWhereUid(uid)
+        return paymentDB.getDataWhereUid(uid)
     }
 
     fun deleteDataFromUid(uid: Int) {
-        paymentDao.deleteDataFromUid(uid)
+        paymentDB.deleteDataFromUid(uid)
     }
 }
