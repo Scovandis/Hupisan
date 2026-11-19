@@ -53,6 +53,7 @@ class ArisanActivity : AppCompatActivity() {
 
         firstView()
         setSupportActionBar(binding.bottomAppBar)
+        bindRecycler()
         if (FitureArisanActivity.statusDimulai){
             binding.bottomAppBar.title=getString(R.string.dimulai)
             binding.fabAddGroup.visibility = View.GONE
@@ -60,7 +61,7 @@ class ArisanActivity : AppCompatActivity() {
             binding.bottomAppBar.title=getString(R.string.belum_dimulai)
             swipeToDelete()
         }
-        setData(true)
+        observeData()
         setActionView()
     }
     private fun bindRecycler(){
@@ -149,31 +150,18 @@ class ArisanActivity : AppCompatActivity() {
         val alertDialog = dialogBuilder.create()
         alertDialog.show()
     }
-    private fun setData(isRefresh: Boolean){
-        binding.lottieAnimation.visibility = View.GONE
-        binding.rvGroupArisan.visibility = View.GONE
-        binding.tvIsEmpty.visibility = View.GONE
-
-        if (isRefresh){
-            binding.shimmer1.startShimmer()
-            binding.shimmer1.visibility = View.VISIBLE
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                dataGroup()
-            },1000)
-        }
-    }
-
-    private fun dataGroup(){
-        binding.shimmer1.stopShimmer()
-        binding.shimmer1.visibility = View.GONE
-        Log.d(TAG, "FITUR ARISAN DIMULAI ${FitureArisanActivity.statusDimulai}")
+    private fun observeData() {
+        firstView()
         groupArisanVM.getAllGroupWhereStatus(FitureArisanActivity.statusDimulai).observe(this, Observer {
-            Log.d(TAG, "DATA WHERE STATUS FROM GROUP ID $it")
+            binding.shimmer1.stopShimmer()
+            binding.shimmer1.visibility = View.GONE
+            binding.swipeRefreshLayout.isRefreshing = false
+
             if (it.isNullOrEmpty()){
                 binding.lottieAnimation.visibility = View.VISIBLE
                 binding.rvGroupArisan.visibility = View.GONE
                 binding.tvIsEmpty.visibility = View.VISIBLE
+                groupAdapter.setData(ArrayList())
             }else {
                 binding.lottieAnimation.visibility = View.GONE
                 binding.rvGroupArisan.visibility = View.VISIBLE
@@ -181,8 +169,6 @@ class ArisanActivity : AppCompatActivity() {
                 groupAdapter.setData(ArrayList(it))
             }
         })
-        binding.swipeRefreshLayout.isRefreshing = false
-        bindRecycler()
     }
     private fun firstView(){
         //visible & start shimmer
@@ -208,7 +194,7 @@ class ArisanActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
-            setData(isRefresh = true)
+            binding.swipeRefreshLayout.isRefreshing = false
         }
     }
 
