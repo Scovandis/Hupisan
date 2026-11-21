@@ -6,12 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:elevation="@dimen/_3sdp"
     app:cardCornerRadius="@dimen/_5sdp"
     app:cardElevation="@dimen/_4sdp"
     app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true"
-    >
+    app:cardUseCompatPadding="false">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

@@ -69,13 +69,12 @@
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:backgroundTint="@color/transparantBlack15"
-            android:elevation="@dimen/_1sdp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="@dimen/_7sdp"
             app:cardElevation="@dimen/_1sdp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="false">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -141,13 +140,12 @@
             android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:backgroundTint="@color/hupisan_primary_surface"
-            android:elevation="@dimen/_1sdp"
             android:clickable="true"
             android:focusable="true"
             app:cardCornerRadius="@dimen/_7sdp"
             app:cardElevation="@dimen/_1sdp"
             app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="false">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

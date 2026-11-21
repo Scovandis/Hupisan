@@ -67,11 +67,10 @@
                     android:paddingBottom="@dimen/_65sdp"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    android:elevation="@dimen/_3sdp"
                     app:cardCornerRadius="@dimen/_5sdp"
                     app:cardElevation="@dimen/_2sdp"
                     app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="true">
+                    app:cardUseCompatPadding="false">
 
                     <include
                         android:id="@+id/content"

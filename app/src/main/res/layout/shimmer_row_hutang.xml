@@ -10,12 +10,7 @@
     android:layout_marginBottom="@dimen/_4sdp"
     android:clipChildren="false"
     android:clipToPadding="false"
-    android:elevation="@dimen/_3sdp"
-    android:padding="@dimen/_4sdp"
-    app:cardCornerRadius="@dimen/_5sdp"
-    app:cardElevation="@dimen/_2sdp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="true">
+    android:padding="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
