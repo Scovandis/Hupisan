@@ -13,13 +13,17 @@ class BantuanActivity : AppCompatActivity() {
     lateinit var binding: ActivityBantuanBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+
         binding = ActivityBantuanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        androidx.core.view.WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
-        supportActionBar?.title = getString(R.string.bantuan)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

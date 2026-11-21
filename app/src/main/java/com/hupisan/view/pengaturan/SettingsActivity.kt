@@ -35,18 +35,23 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        androidx.core.view.WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
         appsConfig = AppsConfig(this)
         binding.tvAppVersion.text = getString(R.string.app_version) +" " +  versionName
         setActionView()
 
         binding.progressbar.visibility = View.GONE
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.Pengaturan)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
