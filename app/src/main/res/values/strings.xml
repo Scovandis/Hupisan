@@ -457,7 +457,7 @@
     <string name="splash_fitur">Pencatatan Cepat &amp; Aman</string>
     <string name="label_jatuh_tempo_format">Jatuh Tempo: %1$s &gt;</string>
     <string name="label_dibuat_format">Dibuat: %1$s &gt;</string>
-    <string name="prefix_rp">Rp </string>
+    <string name="prefix_rp">"Rp "</string>
     <string name="status_lunas">Lunas</string>
     <string name="status_belum_lunas">Belum Lunas</string>
     <string name="status_sebagian">Sebagian</string>
