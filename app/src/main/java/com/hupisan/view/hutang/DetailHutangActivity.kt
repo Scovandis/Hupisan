@@ -68,8 +68,8 @@ class DetailHutangActivity : AppCompatActivity() {
         }
 
         //get id && typejenis data
-        val uid = intent.extras?.get(EXTRA_UID)
-        this.jenis = intent.extras?.get(EXTRA_TYPE_JENIS)?.toString()
+        val uid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
+        this.jenis = intent.getStringExtra(EXTRA_TYPE_JENIS)
         typeJenis = this.jenis?.toBoolean() ?: false
         setData(uid.toString())
 
@@ -147,7 +147,7 @@ class DetailHutangActivity : AppCompatActivity() {
             //dikurangi
             dialogBuilder.setPositiveButton(getString(R.string.bayar)
             ) { dialogInterface, p1 ->
-                roomDbSaved(alertBinding, statusOption)
+                savePaymentData(alertBinding, statusOption)
                 dialogInterface.dismiss()
             }
             dialogBuilder.setNegativeButton(getString(R.string.kembali)
@@ -157,7 +157,7 @@ class DetailHutangActivity : AppCompatActivity() {
 
             //lunas
             dialogBuilder.setPositiveButton(getString(R.string.lunas)){ dialogInterface, p1 ->
-                roomDbSaved(alertBinding, statusOption)
+                savePaymentData(alertBinding, statusOption)
                 dialogInterface.dismiss()
             }
             dialogBuilder.setNegativeButton(getString(R.string.kembali)){dialogInterface, p1 ->
@@ -169,7 +169,7 @@ class DetailHutangActivity : AppCompatActivity() {
             //ditambah
             dialogBuilder.setPositiveButton(getString(R.string.ditambah)){
                 dialogInterface, p1 ->
-                roomDbSaved(alertBinding, statusOption)
+                savePaymentData(alertBinding, statusOption)
                 dialogInterface.dismiss()
             }
             dialogBuilder.setNegativeButton(getString(R.string.kembali)){ dialogInterface, p1 ->
@@ -180,11 +180,9 @@ class DetailHutangActivity : AppCompatActivity() {
         alertDialog.show()
     }
 
-    private fun roomDbSaved(alertBinding: AlertDicicilBinding, statusOption: Int) {
-        val uid = intent.extras?.get(EXTRA_UID)
-        //alert
-        val fromUid = uid.toString().toInt()
-        Log.d(TAG, " roomDbSave uid : $fromUid")
+    private fun savePaymentData(alertBinding: AlertDicicilBinding, statusOption: Int) {
+        val fromUid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
+        Log.d(TAG, " savePaymentData uid : $fromUid")
         val dibuat = alertBinding.tvAlertDibuatPada.text.toString()
         val keterangan = alertBinding.etKeteranganAlert.editText!!.text.toString()
         val aJumlah = alertBinding.etJumlahAlert.editText?.text?.toString() ?: ""
@@ -447,7 +445,8 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private fun alertDelete() {
-        val uid = intent.extras?.get(EXTRA_UID)?.toString()?.toIntOrNull() ?: return
+        val uid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
+        if (uid == 0 && currentDataModel == null) return
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
             .setTitle("Hapus Catatan")
             .setMessage("Apakah Anda yakin ingin menghapus catatan ${binding.tvProfileName.text}?")

@@ -69,15 +69,15 @@ class LunasAdapter(val context: Context): RecyclerView.Adapter<LunasAdapter.View
                 imgSrcBgGender.setColorFilter(ContextCompat.getColor(context, R.color.white))
                     when(data.genderUser){
                         1 -> {
-                            imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
+                            imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_male))
                         }
                         2 -> {
-                            imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_female))
+                            imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_female))
                         }
                         3 -> {
-                            imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_kosong))
+                            imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_kosong))
                         }else -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_alert))
+                        imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_alert))
                     }
                 }
             }

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.PaymentModel
@@ -35,17 +36,13 @@ class PaymentAdapter(val context: Context) : RecyclerView.Adapter<PaymentAdapter
                         when (item.typeJenis) {
                             false -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.RED)
-                                ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrow_keluar))
+                                ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrow_keluar))
                                 ivStatus.setColorFilter(Color.RED)
                             }
                             true -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.GREEN)
-                                ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrouw_masuk))
+                                ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrouw_masuk))
                                 ivStatus.setColorFilter(Color.GREEN)
-                            }
-                            else -> {
-                                tvBankRiwayatPembayaran.setTextColor(Color.BLACK)
-                                ivStatus.setColorFilter(Color.BLACK)
                             }
                         }
                     }
@@ -53,27 +50,23 @@ class PaymentAdapter(val context: Context) : RecyclerView.Adapter<PaymentAdapter
                         when (item.typeJenis) {
                             false -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.GREEN)
-                                ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrouw_masuk))
+                                ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrouw_masuk))
                                 ivStatus.setColorFilter(Color.GREEN)
                             }
                             true -> {
                                 tvBankRiwayatPembayaran.setTextColor(Color.RED)
-                                ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_arrow_keluar))
+                                ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_arrow_keluar))
                                 ivStatus.setColorFilter(Color.RED)
-                            }
-                            else -> {
-                                tvBankRiwayatPembayaran.setTextColor(Color.BLACK)
-                                ivStatus.setColorFilter(Color.BLACK)
                             }
                         }
                     }
                     0 -> {
-                        ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_check_circle_outline_24))
+                        ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_outline_24))
                         tvBankRiwayatPembayaran.setTextColor(Color.BLACK)
                         ivStatus.setColorFilter(Color.BLACK)
                     }
                     else -> {
-                        ivStatus.setImageDrawable(context.getDrawable(R.drawable.ic_baseline_check_circle_outline_24))
+                        ivStatus.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_baseline_check_circle_outline_24))
                         tvBankRiwayatPembayaran.setTextColor(Color.BLACK)
                         ivStatus.setColorFilter(Color.BLACK)
                     }
