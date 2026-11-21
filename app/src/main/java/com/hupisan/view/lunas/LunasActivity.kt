@@ -27,9 +27,9 @@ class LunasActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = getString(R.string.lunas)
-        supportActionBar!!.elevation = 0f
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.lunas)
+        supportActionBar?.elevation = 0f
 
         configureBackdrop()
         setToggleMenuButtons()

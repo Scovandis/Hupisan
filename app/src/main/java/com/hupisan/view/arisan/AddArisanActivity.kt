@@ -213,7 +213,7 @@ class AddArisanActivity : AppCompatActivity() {
             }
         }
         binding.btnSimpanGroup.setOnClickListener {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
             binding.progressbar.visibility = View.VISIBLE
             savedGroupData()
         }

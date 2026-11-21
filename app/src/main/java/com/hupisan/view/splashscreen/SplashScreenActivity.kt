@@ -43,7 +43,7 @@ class SplashScreenActivity : AppCompatActivity() {
         appsConfig = AppsConfig(this)
         val nLanguage = appsConfig.getRegionLanguage()
         Log.d(TAG, "N LANGUAGE $nLanguage")
-        if (nLanguage != null){
+        if (nLanguage.isNotEmpty()){
             loadLanguage(false)
         }
 

@@ -45,8 +45,8 @@ class SettingsActivity : AppCompatActivity() {
         setActionView()
 
         binding.progressbar.visibility = View.GONE
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = getString(R.string.Pengaturan)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.Pengaturan)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){

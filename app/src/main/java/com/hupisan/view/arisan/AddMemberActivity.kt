@@ -190,7 +190,7 @@ class AddMemberActivity : AppCompatActivity() {
                 binding.etMemeberName1.prefixText = "${prefixText}"
                 groupId?.let { itId -> saveMemberRules(itId) }
                 if (count in 1..7) {
-                    supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+                    supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     binding.btnSimpanMember.visibility = View.VISIBLE
                     binding.tvAlert.text = getString(R.string.kamu_bisa_menambahkan_maksimal_9_anggota)
                 }else if(count == 9){

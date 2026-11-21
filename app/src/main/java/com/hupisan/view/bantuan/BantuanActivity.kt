@@ -18,8 +18,8 @@ class BantuanActivity : AppCompatActivity() {
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
 
-        supportActionBar!!.title = getString(R.string.bantuan)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = getString(R.string.bantuan)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
