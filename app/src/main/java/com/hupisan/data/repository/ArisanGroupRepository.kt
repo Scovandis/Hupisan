@@ -20,7 +20,7 @@ class ArisanGroupRepository(private val arisanGroupDB: ArisanGroupDB) {
         return arisanGroupDB.allGroupArisan()
     }
 
-    fun getDataWhereName(group_name: String): LiveData<GrupArisanModel> {
+    fun getDataWhereName(group_name: String): LiveData<GrupArisanModel?> {
         return arisanGroupDB.getDataWhereName(group_name)
     }
 

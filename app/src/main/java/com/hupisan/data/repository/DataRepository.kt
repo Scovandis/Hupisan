@@ -30,7 +30,7 @@ class DataRepository(private val dataDB: DataDB) {
         dataDB.updateJumlah(jumlah, idFrom, statusData, tanggal_lunas, dibayar)
     }
 
-    fun getDataWhereUid(uid: Int): LiveData<DataModel> {
+    fun getDataWhereUid(uid: Int): LiveData<DataModel?> {
         return dataDB.getDataWhereUid(uid)
     }
 

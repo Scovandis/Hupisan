@@ -24,7 +24,7 @@ class ArisanGroupViewModel(val repository: ArisanGroupRepository) : ViewModel() 
         return repository.getAllGroupArisan()
     }
 
-    fun getDataWhereGroupName(group_name: String): LiveData<GrupArisanModel> {
+    fun getDataWhereGroupName(group_name: String): LiveData<GrupArisanModel?> {
         return repository.getDataWhereName(group_name)
     }
 

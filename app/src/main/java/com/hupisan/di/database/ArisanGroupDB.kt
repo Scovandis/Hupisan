@@ -70,11 +70,10 @@ class ArisanGroupDB(private val realm: Realm) {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    fun getDataWhereName(group_name: String): LiveData<GrupArisanModel> {
+    fun getDataWhereName(group_name: String): LiveData<GrupArisanModel?> {
         return realm.query<GrupArisanModel>("grup_name == $0", group_name).first().asFlow()
             .map { it.obj }
-            .asLiveData(Dispatchers.IO) as LiveData<GrupArisanModel>
+            .asLiveData(Dispatchers.IO)
     }
 
     suspend fun updateGroupWhereNeeded(

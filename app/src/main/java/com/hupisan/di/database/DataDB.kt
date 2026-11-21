@@ -96,11 +96,10 @@ class DataDB(private val realm: Realm) {
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
-    fun getDataWhereUid(id: Int): LiveData<DataModel> {
+    fun getDataWhereUid(id: Int): LiveData<DataModel?> {
         return realm.query<DataModel>("id == $0", id).first().asFlow()
             .map { it.obj }
-            .asLiveData(Dispatchers.IO) as LiveData<DataModel>
+            .asLiveData(Dispatchers.IO)
     }
 
     fun getAllDataWhereStatusLunas(statusData: Boolean): LiveData<List<DataModel>> {

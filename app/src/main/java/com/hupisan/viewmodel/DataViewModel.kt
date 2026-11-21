@@ -27,7 +27,7 @@ open class DataViewModel(val repository: DataRepository) : ViewModel() {
         repository.updateJumlah(jumlah, uidFrom, statusData, tanggal_lunas, dibayar)
     }
 
-    fun getDataWhereId(uid: Int): LiveData<DataModel> {
+    fun getDataWhereId(uid: Int): LiveData<DataModel?> {
         return repository.getDataWhereUid(uid)
     }
 
