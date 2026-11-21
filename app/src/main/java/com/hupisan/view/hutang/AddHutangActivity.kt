@@ -1,7 +1,9 @@
 package com.hupisan.view.hutang
 
+import android.Manifest
 import android.app.*
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.*
 import android.text.Editable
@@ -13,6 +15,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -31,6 +34,14 @@ import java.util.*
 
 class AddHutangActivity : AppCompatActivity(){
     private val TAG = AddHutangActivity::class.java.simpleName
+
+    private val requestNotificationPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (!isGranted) {
+                binding.switchReminder.isChecked = false
+                Snackbar.make(binding.constraint, "Izin notifikasi diperlukan untuk menyetel pengingat", Snackbar.LENGTH_LONG).show()
+            }
+        }
 
     var day : Int= 0
     var month : Int = 0
@@ -109,6 +120,16 @@ class AddHutangActivity : AppCompatActivity(){
         binding.cardJatuhTempo.setOnClickListener { openDatePicker() }
         binding.btnPickDate.setOnClickListener { openDatePicker() }
 
+        binding.switchReminder.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                        requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+                    }
+                }
+            }
+        }
+
         binding.btnSimpan.setOnClickListener {
             onSavedData()
         }
@@ -185,6 +206,9 @@ class AddHutangActivity : AppCompatActivity(){
         val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", false, 1, jenis, false, nTime ?: "", "-", nDibayar)
         Log.d(TAG, "dataInsert $data")
         dbViewModel.insertData(data)
+        if (binding.switchReminder.isChecked) {
+            isNotification()
+        }
         Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
         
         Handler(Looper.getMainLooper()).postDelayed({
@@ -192,17 +216,18 @@ class AddHutangActivity : AppCompatActivity(){
         }, 800)
     }
     private fun isNotification(){
-        if (nNotif!!.isChecked){
-            val myDate = "$nJatuhTempo $nTime"
-            val sdf1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        val myDate = "$nJatuhTempo ${nTime ?: "09:00"}"
+        val sdf1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
+        try {
             val jtem = sdf1.parse(myDate)
             val mil = jtem?.time ?: System.currentTimeMillis()
             val millis = System.currentTimeMillis()
-            Log.d(TAG, "MILLLISEEECOND $millis")
-            Log.d(TAG, "TOTAL ${mil - millis}")
             val postDelay = mil - millis
-
-            getNotification("${getString(R.string.ada)} $nJenis ${getString(R.string.yang_harus_dibayar)} ${getString(R.string.dari)} $nUname")?.let { scheduleNotification(it, postDelay.toInt()) }
+            if (postDelay > 0) {
+                getNotification("${getString(R.string.ada)} $nJenis ${getString(R.string.yang_harus_dibayar)} ${getString(R.string.dari)} $nUname")?.let { scheduleNotification(it, postDelay.toInt()) }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error scheduling notification: $e")
         }
     }
 

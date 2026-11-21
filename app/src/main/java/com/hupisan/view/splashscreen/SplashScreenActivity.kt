@@ -1,8 +1,6 @@
 package com.hupisan.view.splashscreen
 
-import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
@@ -10,8 +8,6 @@ import android.os.Looper
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import android.os.Build
-import androidx.activity.result.contract.ActivityResultContracts
 import com.hupisan.R
 import com.hupisan.databinding.ActivitySplashScreenBinding
 import com.hupisan.util.AppsConfig
@@ -24,10 +20,6 @@ class SplashScreenActivity : AppCompatActivity() {
     lateinit var appsConfig: AppsConfig
 
     private lateinit var binding: ActivitySplashScreenBinding
-    private val requestNotificationLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { _ ->
-            moveTo()
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +31,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         appsConfig = AppsConfig(this)
         setupLanguage()
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                moveTo()
-            } else {
-                requestNotificationLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            }
-        } else {
-            moveTo()
-        }
+        moveTo()
     }
 
     private fun moveTo() {
