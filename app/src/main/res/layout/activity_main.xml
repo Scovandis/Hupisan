@@ -734,12 +734,16 @@
                         android:layout_marginTop="18dp"
                         android:backgroundTint="@color/hupisan_primary"
                         android:fontFamily="sans-serif-medium"
-                        android:text="+ Buat Catatan Pertama"
+                        android:text="@string/action_buat_catatan_pertama"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="13sp"
                         app:cornerRadius="22dp"
-                        app:elevation="0dp" />
+                        app:elevation="0dp"
+                        app:icon="@drawable/ic_hupisan_plus"
+                        app:iconGravity="textStart"
+                        app:iconPadding="6dp"
+                        app:iconTint="@color/white" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -842,13 +846,14 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/hupisan_primary"
         android:fontFamily="sans-serif-bold"
-        android:text="+ Catat Baru"
+        android:text="@string/action_catat_baru"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold"
         app:cornerRadius="26dp"
         app:elevation="6dp"
         app:icon="@drawable/ic_hupisan_plus"
+        app:iconPadding="8dp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
         app:layout_constraintEnd_toEndOf="parent"
