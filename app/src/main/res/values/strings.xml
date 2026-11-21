@@ -12,8 +12,8 @@
     <string name="tanggal_dibuat">Create at</string>
     <string name="cicil">installment</string>
     <string name="tambahkan">added</string>
-    <string name="lunas">paid off</string>
-    <string name="belum_lunas">not yet paid off</string>
+    <string name="lunas">Paid Off</string>
+    <string name="belum_lunas">Unpaid</string>
     <string name="dikurangi">reduced</string>
     <string name="ditambah">add</string>
     <string name="log_aktivitas">activity log</string>
@@ -76,12 +76,12 @@
     <string name="izin_diperlukan">permission required</string>
     <string name="izin_ini_di_beperlukan_karena_menggukanan_untuk_membaca_data_dalam_ponsel_anda">This permission is needed because it uses to read data in your phone</string>
     <string name="izin_ditolak">permission danied</string>
-    <string name="statistic">statistics</string>
+    <string name="statistic">Statistics</string>
 
 
     <string name="apakah_anda_ingin_menghapus_catatan_ini">do you want to delete this record?</string>
     <string name="tuliskan_judul_catatan">write the title of the note</string>
-    <string name="catatan">note</string>
+    <string name="catatan">Note</string>
     <string name="untuk_menghapus_catatan">to delete records!</string>
     <string name="hapus">delete</string>
     <string name="tuliskan_nama_dari">write the name of</string>
@@ -163,7 +163,7 @@
     <string name="lihat_hasilnya">see result</string>
     <string name="hasil">result</string>
     <string name="jenis">type</string>
-    <string name="semua">all</string>
+    <string name="semua">All</string>
     <string name="jumlah_dibayar_dalam_rupiah">Amount Paid (In $):</string>
     <string name="jumlah_dipinjam_dalam_rupiah">Amount Borrowed (In $):</string>
     <string name="dibayar">paid</string>
@@ -301,12 +301,12 @@
     <string name="catatan_aktif_single">0 catatan aktif</string>
     <string name="hutang_saya">Hutang Saya</string>
     <string name="posisi_kas_seimbang">Posisi Kas Seimbang</string>
-    <string name="status_kas_seimbang">⚪ Posisi Kas Seimbang</string>
-    <string name="status_surplus">🟢 Surplus (Kas Aman)</string>
-    <string name="status_defisit">🔴 Defisit (Kewajiban Tinggi)</string>
+    <string name="status_kas_seimbang">Selisih Bersih (Seimbang)</string>
+    <string name="status_surplus">Selisih Bersih (Surplus)</string>
+    <string name="status_defisit">Selisih Bersih</string>
     <string name="perlu_perhatian_title">⚠️ PERLU PERHATIAN</string>
     <string name="jatuh_tempo_kurang_7_hari">Jatuh tempo &lt; 7 hari</string>
-    <string name="dibayarkan">Dibayarkan</string>
+    <string name="dibayarkan">Riwayat Lunas</string>
     <string name="daftar_catatan">DAFTAR CATATAN</string>
     <string name="selesai_lunas">Selesai/Lunas</string>
     <string name="empty_main_title">Halo! Belum ada catatan keuangan nih.</string>
@@ -420,9 +420,9 @@
     <string name="sisa_tagihan_badge_format">Sisa Tagihan: %1$s</string>
     <string name="pilih_jenis_catatan_title">Catat Transaksi Baru</string>
     <string name="pilih_jenis_catatan_subtitle">Pilih jenis transaksi yang ingin Anda catat:</string>
-    <string name="catat_hutang_title">Hutang Baru (Debt)</string>
+    <string name="catat_hutang_title">Hutang Baru</string>
     <string name="catat_hutang_desc">Uang yang Anda pinjam dari pihak lain</string>
-    <string name="catat_piutang_title">Piutang Baru (Receivable)</string>
+    <string name="catat_piutang_title">Piutang Baru</string>
     <string name="catat_piutang_desc">Uang Anda yang dipinjam oleh pihak lain</string>
     <string name="pilih_bahasa_title">Pilih Bahasa</string>
     <string name="pilih_bahasa_subtitle">Pilih bahasa tampilan aplikasi Hupisan</string>

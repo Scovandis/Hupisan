@@ -354,7 +354,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             app:thumbTint="@color/white"
-                            app:trackTint="@color/hupisan_primary" />
+                            app:trackTint="@color/switch_track_selector" />
                     </LinearLayout>
 
                     <!-- Reminder Time Selector Row (Shown when switch is checked) -->

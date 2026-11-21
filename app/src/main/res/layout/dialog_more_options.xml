@@ -24,7 +24,7 @@
             android:layout_height="26dp"
             android:layout_gravity="center"
             android:contentDescription="@string/opsi_catatan"
-            android:src="@drawable/ic_baseline_menu_24"
+            android:src="@drawable/ic_baseline_more_vert_24"
             app:tint="@color/hupisan_text_primary" />
     </FrameLayout>
 

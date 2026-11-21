@@ -1,6 +1,7 @@
 package com.hupisan
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import com.hupisan.di.appModules
 import com.hupisan.notification.ReminderScheduler
 import org.koin.android.ext.koin.androidContext
@@ -11,6 +12,7 @@ import org.koin.core.logger.Level
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(this@MyApplication)

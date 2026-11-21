@@ -8,8 +8,8 @@
     <string name="tanggal_dibuat">tanggal dibuat</string>
     <string name="cicil">cicil</string>
     <string name="tambahkan">tambahkan</string>
-    <string name="lunas">lunas</string>
-    <string name="belum_lunas">belum lunas</string>
+    <string name="lunas">Lunas</string>
+    <string name="belum_lunas">Belum Lunas</string>
     <string name="dikurangi">dikurangi</string>
     <string name="ditambah">ditambah</string>
 
@@ -17,7 +17,7 @@
     <string name="aktivitas">Aktivitas</string>
     <string name="about">bantuan</string>
     <string name="nama">Nama</string>
-    <string name="jumlah_utang">Jumlah Utang</string>
+    <string name="jumlah_utang">Jumlah Hutang</string>
     <string name="deskripsi">Deskripsi</string>
     <string name="tanggal_jatuh_tempo">Tanggal Jatuh Tempo</string>
     <string name="_12_22_2021">12/22/2021</string>
@@ -75,10 +75,10 @@
     <string name="izin_diperlukan">izin diperlukan</string>
     <string name="izin_ini_di_beperlukan_karena_menggukanan_untuk_membaca_data_dalam_ponsel_anda">izin ini di perlukan karena menggunakan untuk membaca data dalam ponsel anda</string>
     <string name="izin_ditolak">izin ditolak</string>
-    <string name="statistic">statistic</string>
+    <string name="statistic">Statistik</string>
     <string name="apakah_anda_ingin_menghapus_catatan_ini">apakah anda ingin menghapus catatan ini?</string>
     <string name="tuliskan_judul_catatan">tuliskan judul catatan</string>
-    <string name="catatan">catatan</string>
+    <string name="catatan">Catatan</string>
     <string name="untuk_menghapus_catatan">untuk menghapus catatan!</string>
     <string name="hapus">hapus</string>
     <string name="tuliskan_nama_dari">tuliskan nama dari</string>
@@ -159,7 +159,7 @@
     <string name="lihat_hasilnya">lihat hasilnya</string>
     <string name="hasil">hasil</string>
     <string name="jenis">jenis</string>
-    <string name="semua">semua</string>
+    <string name="semua">Semua</string>
     <string name="jumlah_dibayar_dalam_rupiah">Jumlah Dibayar (Dalam Rupiah):</string>
     <string name="jumlah_dipinjam_dalam_rupiah">Jumlah Dipinjam (Dalam Rupiah):</string>
     <string name="dibayar">dibayar</string>
@@ -294,12 +294,12 @@
     <string name="catatan_aktif_single">0 catatan aktif</string>
     <string name="hutang_saya">Hutang Saya</string>
     <string name="posisi_kas_seimbang">Posisi Kas Seimbang</string>
-    <string name="status_kas_seimbang">⚪ Posisi Kas Seimbang</string>
-    <string name="status_surplus">🟢 Surplus (Kas Aman)</string>
-    <string name="status_defisit">🔴 Defisit (Kewajiban Tinggi)</string>
+    <string name="status_kas_seimbang">Selisih Bersih (Seimbang)</string>
+    <string name="status_surplus">Selisih Bersih (Surplus)</string>
+    <string name="status_defisit">Selisih Bersih</string>
     <string name="perlu_perhatian_title">⚠️ PERLU PERHATIAN</string>
     <string name="jatuh_tempo_kurang_7_hari">Jatuh tempo &lt; 7 hari</string>
-    <string name="dibayarkan">Dibayarkan</string>
+    <string name="dibayarkan">Riwayat Lunas</string>
     <string name="daftar_catatan">DAFTAR CATATAN</string>
     <string name="selesai_lunas">Selesai/Lunas</string>
     <string name="empty_main_title">Halo! Belum ada catatan keuangan nih.</string>
@@ -413,9 +413,9 @@
     <string name="sisa_tagihan_badge_format">Sisa Tagihan: %1$s</string>
     <string name="pilih_jenis_catatan_title">Catat Transaksi Baru</string>
     <string name="pilih_jenis_catatan_subtitle">Pilih jenis transaksi yang ingin Anda catat:</string>
-    <string name="catat_hutang_title">Hutang Baru (Debt)</string>
+    <string name="catat_hutang_title">Hutang Baru</string>
     <string name="catat_hutang_desc">Uang yang Anda pinjam dari pihak lain</string>
-    <string name="catat_piutang_title">Piutang Baru (Receivable)</string>
+    <string name="catat_piutang_title">Piutang Baru</string>
     <string name="catat_piutang_desc">Uang Anda yang dipinjam oleh pihak lain</string>
     <string name="pilih_bahasa_title">Pilih Bahasa</string>
     <string name="pilih_bahasa_subtitle">Pilih bahasa tampilan aplikasi Hupisan</string>

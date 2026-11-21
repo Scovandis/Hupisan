@@ -67,7 +67,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_menu_24"
+                android:src="@drawable/ic_baseline_more_vert_24"
                 app:tint="@color/hupisan_text_primary" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
