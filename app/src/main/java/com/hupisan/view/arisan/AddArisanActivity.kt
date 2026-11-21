@@ -90,7 +90,7 @@ class AddArisanActivity : AppCompatActivity() {
     }
 
     private fun deleteData(){
-        groupArisanVM.deleteGroupWhereUid(groupId!!.toInt())
+        groupId?.let { groupArisanVM.deleteGroupWhereUid(it) }
     }
 
     private fun setOnActionAddView(){
@@ -217,28 +217,28 @@ class AddArisanActivity : AppCompatActivity() {
             binding.progressbar.visibility = View.VISIBLE
             savedGroupData()
         }
-        var member1 = binding.etMemeberName1.editText!!.text
-        var count=0
+        var count = 0
         var prefixText = 1
         binding.btnTambahkanAnggota.setOnClickListener {
-            if(member1.isNotEmpty()){
-                count+=1
-                prefixText+=1
-                binding.etMemeberName1.prefixText = "${prefixText}"
+            val member1 = binding.etMemeberName1.editText?.text?.toString()?.trim() ?: ""
+            if (member1.isNotEmpty()) {
+                count += 1
+                prefixText += 1
+                binding.etMemeberName1.prefixText = "$prefixText"
                 groupId?.let { itId -> saveMemberRules(itId) }
                 if (count in 3..4) {
                     binding.btnTambahkanAnggota.visibility = View.VISIBLE
                     binding.btnSimpanData.visibility = View.VISIBLE
                     binding.tvMemberIsFull.text = getString(R.string.kamu_sudah_bisa_memulainya)
                     binding.tvMemberIsFull.visibility = View.VISIBLE
-                }else if(count == 5){
+                } else if (count == 5) {
                     binding.btnTambahkanAnggota.visibility = View.GONE
                     binding.btnSimpanData.visibility = View.VISIBLE
                     binding.tvMemberIsFull.text = getString(R.string.kamu_suadah_memasukkan_banyak_user_silahkan_simpan_terlebih_dahulu)
                     binding.tvMemberIsFull.visibility = View.VISIBLE
                 }
                 Log.d(TAG, "COUNT $count")
-            }else{
+            } else {
                 binding.etMemeberName1.error = getString(R.string.nama_tidak_boleh_kosong)
             }
         }
@@ -249,70 +249,78 @@ class AddArisanActivity : AppCompatActivity() {
 
 
     }
-    private fun savedGroupData(){
-        val groupName = binding.etNamaGroup.editText!!.text.toString()
+    private fun savedGroupData() {
+        val groupName = binding.etNamaGroup.editText?.text?.toString()?.trim() ?: ""
         val dibuat = dateTimeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
         val diupdate = dibuat
-        val anggaranKesepakatanPerUser = binding.etNominalPembayaran.editText!!.text
+        val anggaranKesepakatanPerUser = binding.etNominalPembayaran.editText?.text?.toString()?.toIntOrNull() ?: 0
         val anggaranTerkumpul = 0
-        val prizePool = binding.etPrizePoll.editText!!.text
+        val prizePool = binding.etPrizePoll.editText?.text?.toString()?.toIntOrNull() ?: 0
 
-        if (groupName.length <=2){
+        if (groupName.length <= 2) {
             binding.etNamaGroup.error = getString(R.string.nama_tidak_boleh_kurang_dari_2_huruf)
-        }else {
-            if (binding.etNominalPembayaran.editText!!.text.isNullOrEmpty() || anggaranKesepakatanPerUser.isEmpty() || anggaranKesepakatanPerUser.toString().toIntOrNull() == 0){
-                binding.etNominalPembayaran.error = getString(R.string.nominal_tidak_boleh_kosong)
-            }else {
-                if (binding.etPrizePoll.editText!!.text.isNullOrEmpty() || prizePool.isEmpty() || prizePool.toString().toIntOrNull() == 0){
-                    binding.etPrizePoll.error = getString(R.string.nominal_tidak_boleh_kosong)
-                }else {
-                    val dataGroup = GrupArisanModel(0, groupName, dibuat, diupdate, anggaranKesepakatanPerUser.toString().toInt(), anggaranTerkumpul, prizePool.toString().toInt(), 0, false)
-                    groupArisanVM.insertGroup(dataGroup)
+            binding.progressbar.visibility = View.GONE
+        } else if (anggaranKesepakatanPerUser <= 0) {
+            binding.etNominalPembayaran.error = getString(R.string.nominal_tidak_boleh_kosong)
+            binding.progressbar.visibility = View.GONE
+        } else if (prizePool <= 0) {
+            binding.etPrizePoll.error = getString(R.string.nominal_tidak_boleh_kosong)
+            binding.progressbar.visibility = View.GONE
+        } else {
+            val dataGroup = GrupArisanModel(
+                0,
+                groupName,
+                dibuat,
+                diupdate,
+                anggaranKesepakatanPerUser,
+                anggaranTerkumpul,
+                prizePool,
+                0,
+                false
+            )
+            groupArisanVM.insertGroup(dataGroup)
 
-                    groupArisanVM.getDataWhereGroupName(groupName.toString()).observe(this, androidx.lifecycle.Observer {
-                        if(it != null){
-                            groupId = it.uid
-                        }
-                    })
-
-                    binding.btnSimpanGroup.visibility = View.GONE
-                    binding.btnTambahkanAnggota.visibility = View.VISIBLE
-                    binding.etNamaGroup.editText!!.isEnabled = false
-                    binding.etPrizePoll.editText!!.isEnabled = false
-                    binding.etNominalPembayaran.editText!!.isEnabled = false
-
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        binding.progressbar.visibility = View.GONE
-                    },700)
-
-                    Snackbar.make(binding.constraint, getString(R.string.group_berhasil_dibuat), Snackbar.LENGTH_SHORT).show()
+            groupArisanVM.getDataWhereGroupName(groupName).observe(this, androidx.lifecycle.Observer {
+                if (it != null) {
+                    groupId = it.uid
                 }
-            }
+            })
+
+            binding.btnSimpanGroup.visibility = View.GONE
+            binding.btnTambahkanAnggota.visibility = View.VISIBLE
+            binding.etNamaGroup.editText?.isEnabled = false
+            binding.etPrizePoll.editText?.isEnabled = false
+            binding.etNominalPembayaran.editText?.isEnabled = false
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                binding.progressbar.visibility = View.GONE
+            }, 700)
+
+            Snackbar.make(binding.constraint, getString(R.string.group_berhasil_dibuat), Snackbar.LENGTH_SHORT).show()
         }
     }
 
-    private fun saveMemberRules(groupId: Int){
-        val member1 = binding.etMemeberName1.editText!!.text
-        val statusB1 = if (isBayar1!!.isChecked) binding.etNominalPembayaran.editText!!.text.toString().toInt() else 0
+    private fun saveMemberRules(groupId: Int) {
+        val member1 = binding.etMemeberName1.editText?.text?.toString()?.trim() ?: ""
+        val nominalPerUser = binding.etNominalPembayaran.editText?.text?.toString()?.toIntOrNull() ?: 0
+        val statusB1 = if (isBayar1?.isChecked == true) nominalPerUser else 0
 
-        if (member1!!.isEmpty()){
+        if (member1.isEmpty()) {
             binding.etMemeberName1.error = getString(R.string.masukkan_nama_memeber)
-        }
-        else {
-            if (member1.isNotEmpty()){
-                val data = ArisanModel(
-                    0,
-                    groupId,
-                    member1.toString(),
-                    statusB1,
-                    "",
-                    isBayar1!!.isChecked,
-                    status_menang = false,
-                    gender
-                )
-                userArisanVM.insertUser(data)
-            }
-            binding.etMemeberName1.editText!!.text.clear()
+        } else {
+            val data = ArisanModel(
+                0,
+                groupId,
+                member1,
+                statusB1,
+                "",
+                isBayar1?.isChecked ?: false,
+                status_menang = false,
+                gender
+            )
+            userArisanVM.insertUser(data)
+
+            binding.etMemeberName1.editText?.text?.clear()
             binding.switchOnPay1.isChecked = false
             Log.d(TAG, "MEMBER $member1")
             binding.progressbar.visibility = View.VISIBLE

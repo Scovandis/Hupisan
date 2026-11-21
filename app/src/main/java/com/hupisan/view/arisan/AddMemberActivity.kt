@@ -82,10 +82,11 @@ class AddMemberActivity : AppCompatActivity() {
         binding.btnSimpanMember.visibility = View.GONE
         binding.rvUsername.visibility = View.VISIBLE
     }
-    private fun deleteData(){
-        memberVM.getAllMemberFromGroupId(groupId!!).observe(this, androidx.lifecycle.Observer {
-            for(i in it){
-                if (listUsername.contains(i.username)){
+    private fun deleteData() {
+        val id = groupId ?: return
+        memberVM.getAllMemberFromGroupId(id).observe(this, androidx.lifecycle.Observer {
+            for (i in it) {
+                if (listUsername.contains(i.username)) {
                     memberVM.deleteMemberWhereUID(i.uid)
                 }
             }
@@ -180,47 +181,48 @@ class AddMemberActivity : AppCompatActivity() {
                 }
             }
         })
-        val member1 = binding.etMemeberName1.editText!!.text
-        count=0
+        count = 0
         var prefixText = 1
         binding.btnAddMember.setOnClickListener {
-            if(member1.isNotEmpty()){
-                count+=1
-                prefixText+=1
-                binding.etMemeberName1.prefixText = "${prefixText}"
+            val memberText = binding.etMemeberName1.editText?.text?.toString()?.trim() ?: ""
+            if (memberText.isNotEmpty()) {
+                count += 1
+                prefixText += 1
+                binding.etMemeberName1.prefixText = "$prefixText"
                 groupId?.let { itId -> saveMemberRules(itId) }
                 if (count in 1..7) {
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
                     binding.btnSimpanMember.visibility = View.VISIBLE
                     binding.tvAlert.text = getString(R.string.kamu_bisa_menambahkan_maksimal_9_anggota)
-                }else if(count == 9){
+                } else if (count == 9) {
                     binding.btnAddMember.visibility = View.GONE
                     binding.btnSimpanMember.visibility = View.VISIBLE
                 }
                 Log.d(TAG, "COUNT $count")
-            }else {
-              binding.etMemeberName1.error = getString(R.string.nama_tidak_boleh_kosong)
+            } else {
+                binding.etMemeberName1.error = getString(R.string.nama_tidak_boleh_kosong)
             }
         }
         binding.btnSimpanMember.setOnClickListener {
             groupId?.let { itId -> updateGroupData(itId) }
         }
     }
-    private fun updateGroupData(groupId: Int){
+
+    private fun updateGroupData(groupId: Int) {
         var totalMember = 0
         var anggaranTerkumpul = 0
         memberVM.getAllMemberFromGroupId(groupId).observe(this, androidx.lifecycle.Observer {
             Log.d(TAG, "GROUP ID $groupId")
-            if (it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 Log.d(TAG, "OPPPSSS DATA KOSONG!! $it")
-            }else {
-                it.forEach {
-                    totalMember+=1
-                    if (it.status_bayar){
-                        anggaranTerkumpul += it.jumlah_bayar
+            } else {
+                it.forEach { member ->
+                    totalMember += 1
+                    if (member.status_bayar) {
+                        anggaranTerkumpul += member.jumlah_bayar
                     }
                 }
-                groupArisanVM.updateDataWhereGroupNeeded(timeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()), anggaranTerkumpul, totalMember, groupId ?: 0)
+                groupArisanVM.updateDataWhereGroupNeeded(timeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date()), anggaranTerkumpul, totalMember, groupId)
             }
         })
         Log.d(TAG, "TOTAL MEMEBER $totalMember")
@@ -229,38 +231,36 @@ class AddMemberActivity : AppCompatActivity() {
         binding.progressbar.visibility = View.VISIBLE
         Handler(Looper.getMainLooper()).postDelayed({
             Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
-            binding.progressbar.visibility =View.GONE
-        },1000)
+            binding.progressbar.visibility = View.GONE
+        }, 1000)
         startActivity(Intent(this, ArisanActivity::class.java))
     }
 
-    private fun saveMemberRules(groupId: Int){
-        val member1 = binding.etMemeberName1.editText!!.text
-        val statusB1 = if (isBayar1!!.isChecked) groupPembayaran else 0
+    private fun saveMemberRules(groupId: Int) {
+        val member1 = binding.etMemeberName1.editText?.text?.toString()?.trim() ?: ""
+        val nominal = groupPembayaran ?: 0
+        val statusB1 = if (isBayar1?.isChecked == true) nominal else 0
 
-        if (member1!!.isEmpty()){
+        if (member1.isEmpty()) {
             binding.etMemeberName1.error = getString(R.string.masukkan_nama_memeber)
-        }
-        else {
-            if (member1.isNotEmpty()){
-                val data = ArisanModel(
-                    0,
-                    groupId,
-                    member1.toString(),
-                    statusB1!!,
-                    "",
-                    isBayar1!!.isChecked,
-                    status_menang = false,
-                    gender
-                )
+        } else {
+            val data = ArisanModel(
+                0,
+                groupId,
+                member1,
+                statusB1,
+                "",
+                isBayar1?.isChecked ?: false,
+                status_menang = false,
+                gender
+            )
 
-                val listUser = ListUserModels(member1.toString(), count)
-                memberVM.insertUser(data)
-                userAdapter.addUser(listUser)
-                listUsername.add(member1.toString())
-            }
+            val listUser = ListUserModels(member1, count)
+            memberVM.insertUser(data)
+            userAdapter.addUser(listUser)
+            listUsername.add(member1)
 
-            binding.etMemeberName1.editText!!.text.clear()
+            binding.etMemeberName1.editText?.text?.clear()
             binding.switchOnPay.isChecked = false
             Log.d(TAG, "MEMBER $member1")
             binding.progressbar.visibility = View.VISIBLE
