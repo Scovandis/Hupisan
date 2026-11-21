@@ -833,24 +833,26 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- FLOATING CATAT BARU FAB -->
+    <!-- FLOATING CATAT BARU FAB (Ergonomic Thumb Placement) -->
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btn_catat_baru"
         android:layout_width="wrap_content"
-        android:layout_height="48dp"
+        android:layout_height="52dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/hupisan_primary"
+        android:fontFamily="sans-serif-bold"
         android:text="+ Catat Baru"
         android:textColor="@color/white"
         android:textSize="13sp"
         android:textStyle="bold"
-        app:cornerRadius="24dp"
-        app:elevation="4dp"
+        app:cornerRadius="26dp"
+        app:elevation="6dp"
         app:icon="@drawable/ic_hupisan_plus"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@id/bottom_nav_bar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:pressedTranslationZ="10dp" />
 
     <!-- BOTTOM NAVIGATION BAR (Fixed at bottom) -->
     <LinearLayout
