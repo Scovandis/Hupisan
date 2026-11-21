@@ -356,6 +356,40 @@
                             app:thumbTint="@color/white"
                             app:trackTint="@color/hupisan_primary" />
                     </LinearLayout>
+
+                    <!-- Reminder Time Selector Row (Shown when switch is checked) -->
+                    <LinearLayout
+                        android:id="@+id/layout_reminder_time"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp"
+                        android:paddingBottom="12dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Jam Pengingat (Pagi)"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="12.5sp" />
+
+                        <TextView
+                            android:id="@+id/tv_reminder_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_multiline"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:fontFamily="sans-serif-bold"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:text="09:00"
+                            android:textColor="@color/hupisan_primary"
+                            android:textSize="13sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

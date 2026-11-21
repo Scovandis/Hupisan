@@ -13,6 +13,7 @@ import android.text.Spanned
 import android.text.TextWatcher
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -121,13 +122,22 @@ class AddHutangActivity : AppCompatActivity(){
         binding.btnPickDate.setOnClickListener { openDatePicker() }
 
         binding.switchReminder.setOnCheckedChangeListener { _, isChecked ->
+            binding.layoutReminderTime.visibility = if (isChecked) View.VISIBLE else View.GONE
             if (isChecked) {
+                if (nTime == null) {
+                    nTime = "09:00"
+                    binding.tvReminderTime.text = "09:00"
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
                         requestNotificationPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
                     }
                 }
             }
+        }
+
+        binding.tvReminderTime.setOnClickListener {
+            showTimePickerDialog()
         }
 
         binding.btnSimpan.setOnClickListener {
@@ -252,12 +262,28 @@ class AddHutangActivity : AppCompatActivity(){
     }
 
     private fun getNotification(content: String): Notification? {
+        val decimalFormat = java.text.DecimalFormat("##,###,###")
+        val message = "Halo $nUname, sekadar mengingatkan catatan $nJenis sebesar Rp ${decimalFormat.format(nJumlah)} jatuh tempo pada $nJatuhTempo. Terima kasih banyak ya 🙏"
+        val waUrl = "https://api.whatsapp.com/send?text=" + java.net.URLEncoder.encode(message, "UTF-8")
+        val waIntent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(waUrl))
+        val waFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+        val waPendingIntent = PendingIntent.getActivity(this, 101, waIntent, waFlags)
+
+        val openAppIntent = Intent(this, MainActivity::class.java)
+        val openAppPendingIntent = PendingIntent.getActivity(this, 102, openAppIntent, waFlags)
+
         val builder: NotificationCompat.Builder =
             NotificationCompat.Builder(this, AddHutangActivity.default_notification_channel_id)
         builder.setContentTitle(getString(R.string.jatuh_tempo))
         builder.setContentText(content)
         builder.setSmallIcon(R.drawable.ic_foreground_apps)
         builder.setAutoCancel(true)
+        builder.setContentIntent(openAppPendingIntent)
+        builder.addAction(R.drawable.ic_baseline_check_24, "Ingatkan via WA", waPendingIntent)
         builder.setChannelId(MainActivity.NOTIFICATION_CHANNEL_ID)
         return builder.build()
     }
@@ -273,27 +299,22 @@ class AddHutangActivity : AppCompatActivity(){
         val mcurrentTime = Calendar.getInstance()
         val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
         val minute = mcurrentTime[Calendar.MINUTE]
-        var am_pm: String
-        val mTimePicker: TimePickerDialog = TimePickerDialog(this,R.style.DialogTheme,
-            { timePicker, selectedHour, selectedMinute ->
-            if (selectedHour < 12){
-                am_pm = "AM"
-            }else{
-                am_pm = "PM"
-            }
-                binding.tvTime.text = "" + checkDigit(selectedHour) + ":" +checkDigit(selectedMinute)
+        val mTimePicker = TimePickerDialog(this, R.style.DialogTheme,
+            { _, selectedHour, selectedMinute ->
+                val formattedTime = "${checkDigit(selectedHour)}:${checkDigit(selectedMinute)}"
+                binding.tvReminderTime.text = formattedTime
+                nTime = formattedTime
             },
-            hour,
-            minute,
+            9,
+            0,
             true
-        ) //Yes 24 hour time
+        )
         mTimePicker.setOnShowListener {
             val primaryColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
             mTimePicker.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(primaryColor)
             mTimePicker.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(primaryColor)
         }
         mTimePicker.show()
-
     }
 
     companion object{
