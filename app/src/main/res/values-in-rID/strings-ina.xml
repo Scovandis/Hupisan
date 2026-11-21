@@ -406,4 +406,21 @@
     <string name="filter_piutang_lunas">Piutang Lunas</string>
     <string name="filter_hutang_lunas">Hutang Lunas</string>
 
+    <!-- Standardized Dialog Strings -->
+    <string name="ketik_nama_di_bawah_untuk_konfirmasi">Ketik nama di bawah untuk konfirmasi penghapusan:</string>
+    <string name="bayar_cicilan_title">Tambah Pembayaran</string>
+    <string name="kelola_tagihan_title">Kelola Tagihan</string>
+    <string name="sisa_tagihan_badge_format">Sisa Tagihan: %1$s</string>
+    <string name="pilih_jenis_catatan_title">Catat Transaksi Baru</string>
+    <string name="pilih_jenis_catatan_subtitle">Pilih jenis transaksi yang ingin Anda catat:</string>
+    <string name="catat_hutang_title">Hutang Baru (Debt)</string>
+    <string name="catat_hutang_desc">Uang yang Anda pinjam dari pihak lain</string>
+    <string name="catat_piutang_title">Piutang Baru (Receivable)</string>
+    <string name="catat_piutang_desc">Uang Anda yang dipinjam oleh pihak lain</string>
+    <string name="pilih_bahasa_title">Pilih Bahasa</string>
+    <string name="pilih_bahasa_subtitle">Pilih bahasa tampilan aplikasi Hupisan</string>
+    <string name="btn_dialog_simpan">Simpan</string>
+    <string name="edit_catatan_subtitle">Perbarui catatan keterangan untuk transaksi ini:</string>
+    <string name="catat_baru">Catat Baru</string>
+
 </resources>

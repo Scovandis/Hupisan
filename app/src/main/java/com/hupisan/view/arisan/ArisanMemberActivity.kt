@@ -140,12 +140,21 @@ class ArisanMemberActivity : AppCompatActivity() {
     }
 
     private fun alertMulai(){
-        val alert = AlertDialog.Builder(this)
-        alert.setTitle(getString(R.string.peringatan))
-        alert.setMessage(getString(R.string.dengan_memulai_sebuah_acara_kamu_tidak_akan_bisa_menambahkan_anggota_atau_menghapus_anggota))
-        alert.setPositiveButton(getString(R.string.yakin_mulai)){
-                dialog, witch ->
-            dialog.dismiss()
+        val dialogBinding = com.hupisan.databinding.DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        dialogBinding.tvTitle.text = getString(R.string.peringatan)
+        dialogBinding.tvMessage.text = getString(R.string.dengan_memulai_sebuah_acara_kamu_tidak_akan_bisa_menambahkan_anggota_atau_menghapus_anggota)
+        dialogBinding.btnHapus.text = getString(R.string.yakin_mulai)
+        dialogBinding.btnHapus.backgroundTintList = androidx.core.content.ContextCompat.getColorStateList(this, R.color.hupisan_primary)
+        dialogBinding.btnBatal.text = getString(R.string.kembali)
+
+        dialogBinding.btnHapus.setOnClickListener {
+            alertDialog.dismiss()
             val updateTime = timeNow ?: SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
             groupVM.updateDataWhereStatus(updateTime, true, groupId ?: 0)
             Toast.makeText(this, getString(R.string.berhasil_memulai_acara), Toast.LENGTH_SHORT).show()
@@ -155,11 +164,10 @@ class ArisanMemberActivity : AppCompatActivity() {
                 startActivity(Intent(this, ArisanActivity::class.java))
             }, 800)
         }
-        alert.setNegativeButton(getString(R.string.kembali)){
-                dialog, witch ->
-            dialog.dismiss()
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
         }
-        alert.show()
+        alertDialog.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

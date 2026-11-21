@@ -2,6 +2,8 @@ package com.hupisan.view.main
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -20,6 +23,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityMainBinding
+import com.hupisan.databinding.DialogAddChooserBinding
 import com.hupisan.util.AppsConfig
 import com.hupisan.view.statistic.StatisticActivity
 import com.hupisan.view.arisan.FitureArisanActivity
@@ -139,14 +143,28 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupSecondaryActions() {
         binding.cardBannerArisan.setOnClickListener {
-            MaterialAlertDialogBuilder(this)
-                .setTitle(getString(R.string.dialog_arisan_title))
-                .setMessage(getString(R.string.dialog_arisan_message))
-                .setPositiveButton(getString(R.string.dialog_arisan_positive)) { dialog, _ -> dialog.dismiss() }
-                .setNeutralButton(getString(R.string.dialog_arisan_neutral)) { _, _ ->
-                    startActivity(Intent(this, FitureArisanActivity::class.java))
-                }
-                .show()
+            val dialogBinding = com.hupisan.databinding.DialogConfirmDeleteBinding.inflate(layoutInflater)
+            val alertDialog = AlertDialog.Builder(this)
+                .setView(dialogBinding.root)
+                .create()
+
+            alertDialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+            dialogBinding.boxTrashIcon.setBackgroundResource(R.drawable.bg_summary_wallet_circle)
+            dialogBinding.ivTrashIcon.setImageResource(R.drawable.ic_hupisan_wallet)
+            dialogBinding.ivTrashIcon.setColorFilter(androidx.core.content.ContextCompat.getColor(this, R.color.hupisan_primary))
+            dialogBinding.tvTitle.text = getString(R.string.dialog_arisan_title)
+            dialogBinding.tvMessage.text = getString(R.string.dialog_arisan_message)
+            dialogBinding.btnBatal.text = getString(R.string.dialog_arisan_positive)
+            dialogBinding.btnHapus.text = getString(R.string.dialog_arisan_neutral)
+            dialogBinding.btnHapus.backgroundTintList = androidx.core.content.ContextCompat.getColorStateList(this, R.color.hupisan_primary)
+
+            dialogBinding.btnBatal.setOnClickListener { alertDialog.dismiss() }
+            dialogBinding.btnHapus.setOnClickListener {
+                alertDialog.dismiss()
+                startActivity(Intent(this, FitureArisanActivity::class.java))
+            }
+            alertDialog.show()
         }
 
         binding.cardMenuArisan.setOnClickListener {
@@ -263,32 +281,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showAddChooserDialog(hutangText: String, piutangText: String) {
-        val options = arrayOf(
-            getString(R.string.dialog_add_option_debt),
-            getString(R.string.dialog_add_option_receivable)
-        )
+        val dialogBinding = DialogAddChooserBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
 
-        MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.dialog_add_title))
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> {
-                        val intent = Intent(this, AddHutangActivity::class.java)
-                        intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, hutangText)
-                        startActivity(intent)
-                    }
-                    1 -> {
-                        val intent = Intent(this, AddHutangActivity::class.java)
-                        intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, piutangText)
-                        startActivity(intent)
-                    }
-                }
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .show()
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.btnOptionDebt.setOnClickListener {
+            val intent = Intent(this, AddHutangActivity::class.java)
+            intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, hutangText)
+            startActivity(intent)
+            alertDialog.dismiss()
+        }
+
+        dialogBinding.btnOptionReceivable.setOnClickListener {
+            val intent = Intent(this, AddHutangActivity::class.java)
+            intent.putExtra(AddHutangActivity.EXTRA_STRING_JENIS, piutangText)
+            startActivity(intent)
+            alertDialog.dismiss()
+        }
+
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 
     private fun observeData() {

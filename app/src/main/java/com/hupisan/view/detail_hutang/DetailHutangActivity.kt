@@ -2,6 +2,8 @@ package com.hupisan.view.detail_hutang
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -118,67 +120,55 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private fun setAlert(statusOption: Int){
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val alertBinding : AlertDicicilBinding = AlertDicicilBinding.inflate(inflater)
-        dialogBuilder.setView(alertBinding.root)
+        val alertBinding = AlertDicicilBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(alertBinding.root)
+            .create()
 
-        alertBinding.tvTotalHutang.text = getString(R.string.dolar) +"." + decimalFormat.format(activityJumlah)
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val decimalFormat = DecimalFormat("##,###,###")
+        alertBinding.tvTotalHutang.text = "Rp " + decimalFormat.format(activityJumlah)
         alertBinding.tvUsername.text = binding.tvProfileName.text
 
-
         val dibuatPada = alertBinding.tvAlertDibuatPada
-        dibuatPada.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
+        dibuatPada.text = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
 
         when(statusOption){
             0 -> {
+                alertBinding.tvDialogTitle.text = getString(R.string.lunasi_pembayaran)
+                alertBinding.btnSimpan.text = getString(R.string.lunas)
                 alertBinding.etJumlahAlert.editText!!.isEnabled = false
                 alertBinding.etJumlahAlert.editText!!.setText(activityJumlah.toString())
             }
             1 -> {
-
+                alertBinding.tvDialogTitle.text = getString(R.string.bayar_cicilan_title)
+                alertBinding.btnSimpan.text = getString(R.string.bayar)
             }
             2 -> {
-
+                alertBinding.tvDialogTitle.text = getString(R.string.tambah_pinjaman)
+                alertBinding.btnSimpan.text = getString(R.string.ditambah)
             }
         }
         val type = if (!typeJenis!!) getString(R.string.hutang) else getString(R.string.piutang)
         onRules(alertBinding, statusOption)
         if (statusOption == 1){
-            alertBinding.tvStatusType.text = getString(R.string.mengurangi) + " " +type
-            //dikurangi
-            dialogBuilder.setPositiveButton(getString(R.string.bayar)
-            ) { dialogInterface, p1 ->
-                savePaymentData(alertBinding, statusOption)
-                dialogInterface.dismiss()
-            }
-            dialogBuilder.setNegativeButton(getString(R.string.kembali)
-            ) { dialogInterface, p1 -> dialogInterface!!.dismiss() }
-        }else if(statusOption == 0){
-            alertBinding.tvStatusType.text = getString(R.string.melunasi) + " "+type
+            alertBinding.tvStatusType.text = getString(R.string.mengurangi) + " " + type
+        } else if(statusOption == 0){
+            alertBinding.tvStatusType.text = getString(R.string.melunasi) + " " + type
+        } else if(statusOption == 2){
+            alertBinding.tvStatusType.text = getString(R.string.menambah) + " " + type
+        }
 
-            //lunas
-            dialogBuilder.setPositiveButton(getString(R.string.lunas)){ dialogInterface, p1 ->
-                savePaymentData(alertBinding, statusOption)
-                dialogInterface.dismiss()
-            }
-            dialogBuilder.setNegativeButton(getString(R.string.kembali)){dialogInterface, p1 ->
-                dialogInterface.dismiss()
-            }
+        alertBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
         }
-        else if(statusOption == 2){
-            alertBinding.tvStatusType.text = getString(R.string.menambah) + " "+type
-            //ditambah
-            dialogBuilder.setPositiveButton(getString(R.string.ditambah)){
-                dialogInterface, p1 ->
-                savePaymentData(alertBinding, statusOption)
-                dialogInterface.dismiss()
-            }
-            dialogBuilder.setNegativeButton(getString(R.string.kembali)){ dialogInterface, p1 ->
-                dialogInterface.dismiss()
-            }
+
+        alertBinding.btnSimpan.setOnClickListener {
+            savePaymentData(alertBinding, statusOption)
+            alertDialog.dismiss()
         }
-        val alertDialog = dialogBuilder.create()
+
         alertDialog.show()
     }
 
@@ -410,59 +400,80 @@ class DetailHutangActivity : AppCompatActivity() {
         })
     }
     private fun showPaymentOptionsDialog() {
-        val options = arrayOf(
-            getString(R.string.bayar_sebagian_cicil),
-            getString(R.string.lunasi_pembayaran),
-            getString(R.string.tambah_pinjaman)
-        )
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.pilih_aksi_pembayaran))
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> setAlert(1) // cicil
-                    1 -> setAlert(0) // lunas
-                    2 -> setAlert(2) // tambah
-                }
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
-            .show()
+        val dialogBinding = com.hupisan.databinding.DialogPaymentOptionsBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.btnOptionCicil.setOnClickListener {
+            alertDialog.dismiss()
+            setAlert(1) // cicil
+        }
+        dialogBinding.btnOptionLunas.setOnClickListener {
+            alertDialog.dismiss()
+            setAlert(0) // lunas
+        }
+        dialogBinding.btnOptionTambah.setOnClickListener {
+            alertDialog.dismiss()
+            setAlert(2) // tambah
+        }
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 
     private fun alertEditNama() {
-        val input = EditText(this)
-        input.setText(binding.tvInfoCatatan.text)
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.edit_catatan))
-            .setView(input)
-            .setPositiveButton(getString(R.string.simpan)) { dialog, _ ->
-                val newDesc = input.text.toString().trim()
-                if (newDesc.isNotEmpty()) {
-                    binding.tvInfoCatatan.text = newDesc
-                    Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_diperbarui), Snackbar.LENGTH_SHORT).show()
-                }
-                dialog.dismiss()
+        val dialogBinding = com.hupisan.databinding.DialogEditNoteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.etCatatan.setText(binding.tvInfoCatatan.text)
+        dialogBinding.etCatatan.setSelection(dialogBinding.etCatatan.text?.length ?: 0)
+
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        dialogBinding.btnSimpan.setOnClickListener {
+            val newDesc = dialogBinding.etCatatan.text.toString().trim()
+            if (newDesc.isNotEmpty()) {
+                binding.tvInfoCatatan.text = newDesc
+                Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_diperbarui), Snackbar.LENGTH_SHORT).show()
             }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
-            .show()
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 
     private fun showMoreOptionsDialog() {
-        val options = arrayOf(
-            getString(R.string.kirim_pengingat_wa),
-            getString(R.string.hapus_catatan_ini)
-        )
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.opsi_catatan))
-            .setItems(options) { dialog, which ->
-                when (which) {
-                    0 -> sendWhatsAppReminder()
-                    1 -> alertDelete()
-                }
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
-            .show()
+        val dialogBinding = com.hupisan.databinding.DialogMoreOptionsBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.btnOptionWa.setOnClickListener {
+            alertDialog.dismiss()
+            sendWhatsAppReminder()
+        }
+        dialogBinding.btnOptionDelete.setOnClickListener {
+            alertDialog.dismiss()
+            alertDelete()
+        }
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 
     private fun sendWhatsAppReminder() {
@@ -486,20 +497,30 @@ class DetailHutangActivity : AppCompatActivity() {
     private fun alertDelete() {
         val uid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
         if (uid == 0 && currentDataModel == null) return
-        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.hapus_catatan_title))
-            .setMessage(getString(R.string.konfirmasi_hapus_catatan_format, binding.tvProfileName.text))
-            .setPositiveButton(getString(R.string.hapus)) { dialog, _ ->
-                currentDataModel?.let { model -> viewModel.deleteData(model) }
-                paymentViewModel.deleteDataFormUid(uid)
-                Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
-                Handler(Looper.getMainLooper()).postDelayed({
-                    finish()
-                }, 600)
-                dialog.dismiss()
-            }
-            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
-            .show()
+        val dialogBinding = com.hupisan.databinding.DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        dialogBinding.tvMessage.text = getString(R.string.konfirmasi_hapus_catatan_format, binding.tvProfileName.text)
+
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        dialogBinding.btnHapus.setOnClickListener {
+            currentDataModel?.let { model -> viewModel.deleteData(model) }
+            paymentViewModel.deleteDataFormUid(uid)
+            Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed({
+                finish()
+            }, 600)
+            alertDialog.dismiss()
+        }
+
+        alertDialog.show()
     }
 
     companion object {

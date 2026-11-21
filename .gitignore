@@ -2,6 +2,8 @@
 .gradle
 /local.properties
 .kotlin/
+*.fig
+*.figcraft
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
@@ -15,3 +17,5 @@
 .cxx
 local.properties
 .kotlin/
+*.fig
+*.figcraft

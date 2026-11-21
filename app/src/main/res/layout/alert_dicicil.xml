@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_delete_card"
+    android:paddingStart="24dp"
+    android:paddingTop="26dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="24dp">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -22,163 +26,234 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- HEADER BANNER -->
-            <LinearLayout
-                android:id="@+id/linear1"
-                android:layout_width="match_parent"
+            <!-- Top Circular Action Icon Badge -->
+            <FrameLayout
+                android:id="@+id/box_action_icon"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/bg_summary_wallet_circle">
+
+                <ImageView
+                    android:id="@+id/iv_action_icon"
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/bayar"
+                    android:src="@drawable/ic_hupisan_wallet"
+                    app:tint="@color/hupisan_primary" />
+            </FrameLayout>
+
+            <!-- Dialog Title -->
+            <TextView
+                android:id="@+id/tv_dialog_title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/hupisan_primary_dark"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="14dp"
+                android:text="@string/bayar_cicilan_title"
+                android:textColor="@color/hupisan_text_primary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <!-- Subtitle (Status Type & Username) -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="14dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_prompt_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/apakah_anda_ingin"
-                    android:textColor="@color/transparentwhite"
-                    android:textSize="13sp" />
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="12.5sp" />
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/tv_status_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="sans-serif-bold"
+                    android:text="@string/menambahkan_hutang"
+                    android:textColor="@color/hupisan_primary"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tv_status_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/menambahkan_hutang"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/dari"
-                        android:textColor="@color/transparentwhite"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textSize="15sp"
-                        android:textStyle="bold"
-                        tools:text="Budi Santoso" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-bold"
+                    android:maxLines="1"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    tools:text="Budi Santoso" />
             </LinearLayout>
 
-            <!-- DATE & TOTAL ROW -->
-            <RelativeLayout
-                android:id="@+id/relative1"
+            <!-- Target Summary Pill (Remaining Debt & Date) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="12dp"
-                android:gravity="center_vertical">
+                android:background="@drawable/bg_badge_attention"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="8dp">
 
                 <TextView
                     android:id="@+id/tv_alert_dibuat_pada"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:textColor="@color/hupisan_text_secondary"
-                    android:textSize="12sp"
-                    android:textStyle="italic"
+                    android:textSize="11.5sp"
                     tools:text="21/11/2026 19:30" />
 
                 <TextView
                     android:id="@+id/tv_total_hutang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:ellipsize="end"
+                    android:fontFamily="sans-serif-black"
                     android:maxLines="1"
                     android:textColor="@color/hupisan_text_primary"
-                    android:textSize="14sp"
+                    android:textSize="13.5sp"
                     android:textStyle="bold"
                     tools:text="Rp 250.000" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <!-- INPUT FIELDS -->
-            <LinearLayout
+            <!-- Input 1: Nominal Bayar / Cicil -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_jumlah_alert"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+                android:layout_marginTop="14dp"
+                android:hint="@string/jumlah_bayar"
+                android:textColorHint="@color/hupisan_text_muted"
+                app:boxBackgroundColor="#F9FAFB"
+                app:boxCornerRadiusBottomEnd="14dp"
+                app:boxCornerRadiusBottomStart="14dp"
+                app:boxCornerRadiusTopEnd="14dp"
+                app:boxCornerRadiusTopStart="14dp"
+                app:boxStrokeColor="@color/hupisan_primary"
+                app:boxStrokeWidth="1.2dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="12"
+                app:counterTextColor="@color/hupisan_text_muted"
+                app:errorEnabled="true"
+                app:helperText="@string/masukkan_jumlah_nominal"
+                app:helperTextEnabled="true"
+                app:helperTextTextColor="@color/hupisan_text_muted"
+                app:hintTextColor="@color/hupisan_primary"
+                app:prefixText="Rp "
+                app:prefixTextColor="@color/hupisan_primary">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/et_jumlah_alert"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/jumlah_bayar"
-                    android:textColorHint="@color/hupisan_text_muted"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:boxStrokeColor="@color/hupisan_primary"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="12"
-                    app:counterTextColor="@color/hupisan_text_muted"
-                    app:errorEnabled="true"
-                    app:helperText="@string/masukkan_jumlah_nominal"
-                    app:helperTextEnabled="true"
-                    app:helperTextTextColor="@color/hupisan_text_muted"
-                    app:hintTextColor="@color/hupisan_primary"
-                    app:prefixText="@string/dolar"
-                    app:prefixTextColor="@color/hupisan_primary">
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="12"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:maxLength="12"
-                        android:maxLines="1"
-                        android:textColor="@color/hupisan_text_primary" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <!-- Input 2: Keterangan / Deskripsi -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/et_keterangan_alert"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:hint="@string/deskripsi"
+                android:textColorHint="@color/hupisan_text_muted"
+                app:boxBackgroundColor="#F9FAFB"
+                app:boxCornerRadiusBottomEnd="14dp"
+                app:boxCornerRadiusBottomStart="14dp"
+                app:boxCornerRadiusTopEnd="14dp"
+                app:boxCornerRadiusTopStart="14dp"
+                app:boxStrokeColor="@color/hupisan_primary"
+                app:boxStrokeWidth="1.2dp"
+                app:counterEnabled="true"
+                app:counterMaxLength="210"
+                app:counterTextColor="@color/hupisan_text_muted"
+                app:errorEnabled="true"
+                app:helperText="@string/bila_ada_keterangan_yang_di_hutang"
+                app:helperTextEnabled="true"
+                app:helperTextTextColor="@color/hupisan_text_muted"
+                app:hintTextColor="@color/hupisan_primary">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/et_keterangan_alert"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:hint="@string/deskripsi"
-                    android:textColorHint="@color/hupisan_text_muted"
-                    app:boxBackgroundColor="@android:color/transparent"
-                    app:boxStrokeColor="@color/hupisan_primary"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="210"
-                    app:counterTextColor="@color/hupisan_text_muted"
-                    app:errorEnabled="true"
-                    app:helperText="@string/bila_ada_keterangan_yang_di_hutang"
-                    app:helperTextEnabled="true"
-                    app:helperTextTextColor="@color/hupisan_text_muted"
-                    app:hintTextColor="@color/hupisan_primary">
+                    android:importantForAutofill="no"
+                    android:maxLength="210"
+                    android:maxLines="3"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="14sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:maxLength="210"
-                        android:maxLines="4"
-                        android:textColor="@color/hupisan_text_primary" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <!-- Action Buttons Row -->
+            <LinearLayout
+                android:id="@+id/layout_buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
 
+                <!-- Batal Button (Outlined Pill) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_batal"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/btn_dialog_batal"
+                    android:textAllCaps="false"
+                    android:textColor="#4B5563"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/white"
+                    app:cornerRadius="23dp"
+                    app:elevation="0dp"
+                    app:strokeColor="#D1D5DB"
+                    app:strokeWidth="1.2dp" />
+
+                <!-- Simpan / Bayar Button (Solid Primary Pill) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_simpan"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/bayar"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/hupisan_primary"
+                    app:cornerRadius="23dp"
+                    app:elevation="0dp" />
             </LinearLayout>
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

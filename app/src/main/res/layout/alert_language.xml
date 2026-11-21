@@ -1,113 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:id="@+id/linear_view1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    android:background="@drawable/bg_dialog_delete_card"
+    android:paddingStart="24dp"
+    android:paddingTop="26dp"
+    android:paddingEnd="24dp"
+    android:paddingBottom="24dp">
+
+    <!-- Top Circle Icon -->
+    <FrameLayout
+        android:id="@+id/box_top_icon"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_circle_icon_green"
         app:layout_constraintEnd_toEndOf="parent"
-        android:padding="@dimen/_14sdp"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_height="wrap_content"
-        android:background="@color/hupisan_primary_dark"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:textColor="@color/white"
-            android:text="@string/bahasa"
-            android:textSize="@dimen/_14sdp"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/bahasa"
+            android:src="@drawable/ic_nav_more"
+            app:tint="@color/hupisan_primary" />
+    </FrameLayout>
 
-    </LinearLayout>
-    <RadioGroup
-        android:layout_marginTop="@dimen/_4sdp"
-        android:id="@+id/radio_group"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:layout_width="match_parent"
+    <!-- Dialog Title -->
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/linear_view1"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/pilih_bahasa_title"
+        android:textColor="@color/hupisan_text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/box_top_icon" />
+
+    <!-- Dialog Subtitle -->
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="@string/pilih_bahasa_subtitle"
+        android:textColor="@color/hupisan_text_secondary"
+        android:textSize="12.5sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+    <!-- RadioGroup in Rounded Container -->
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_subtitle">
 
         <RadioButton
             android:id="@+id/rb_language_indonesia"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_flat_selector"
-            android:button="@android:color/transparent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_activity_log_card"
+            android:button="@null"
+            android:drawableStart="@drawable/radio_flat_selector"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:paddingHorizontal="14dp"
             android:text="@string/indonesia"
-            android:textColor="@color/color_flat_text_selector" />
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/rb_language_english"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_flat_selector"
-            android:button="@android:color/transparent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_activity_log_card"
+            android:button="@null"
+            android:drawableStart="@drawable/radio_flat_selector"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:paddingHorizontal="14dp"
             android:text="@string/english"
-            android:textColor="@color/color_flat_text_selector" />
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/rb_language_thailand"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_flat_selector"
-            android:button="@android:color/transparent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_activity_log_card"
+            android:button="@null"
+            android:drawableStart="@drawable/radio_flat_selector"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:paddingHorizontal="14dp"
             android:text="@string/thailand"
-            android:textColor="@color/color_flat_text_selector" />
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="14sp" />
+
         <RadioButton
             android:id="@+id/rb_language_vietnamese"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_flat_selector"
-            android:button="@android:color/transparent"
+            android:layout_height="44dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/bg_activity_log_card"
+            android:button="@null"
+            android:drawableStart="@drawable/radio_flat_selector"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:paddingHorizontal="14dp"
             android:text="@string/vietnamese"
-            android:textColor="@color/color_flat_text_selector" />
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="14sp" />
+
         <RadioButton
             android:id="@+id/rb_language_india"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/radio_flat_selector"
-            android:button="@android:color/transparent"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_activity_log_card"
+            android:button="@null"
+            android:drawableStart="@drawable/radio_flat_selector"
+            android:drawablePadding="12dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingTop="@dimen/_3sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:paddingBottom="@dimen/_3sdp"
+            android:paddingHorizontal="14dp"
             android:text="@string/india"
-            android:textColor="@color/color_flat_text_selector" />
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="14sp" />
     </RadioGroup>
 
+    <!-- Action Buttons Row -->
+    <LinearLayout
+        android:id="@+id/layout_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/radio_group">
+
+        <!-- Batal Button (Outlined Pill) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_batal"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/btn_dialog_batal"
+            android:textAllCaps="false"
+            android:textColor="#4B5563"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="23dp"
+            app:elevation="0dp"
+            app:strokeColor="#D1D5DB"
+            app:strokeWidth="1.2dp" />
+
+        <!-- Simpan Button (Solid Primary Pill) -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_simpan"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/btn_dialog_simpan"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/hupisan_primary"
+            app:cornerRadius="23dp"
+            app:elevation="0dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

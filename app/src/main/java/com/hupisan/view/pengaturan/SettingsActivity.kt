@@ -3,6 +3,8 @@ package com.hupisan.view.pengaturan
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -103,48 +105,45 @@ class SettingsActivity : AppCompatActivity() {
 
     var dLocaleLanguage: String? = null
     private fun showAlertDialog(){
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val alertBinding = AlertLanguageBinding.inflate(inflater)
-        dialogBuilder.setView(alertBinding.root)
+        val alertBinding = AlertLanguageBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(alertBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val currentLang = appsConfig.getRegionLanguage()
+        when (currentLang) {
+            "English" -> alertBinding.rbLanguageEnglish.isChecked = true
+            "Thailand" -> alertBinding.rbLanguageThailand.isChecked = true
+            "Vietnamese" -> alertBinding.rbLanguageVietnamese.isChecked = true
+            "Hindi" -> alertBinding.rbLanguageIndia.isChecked = true
+            else -> alertBinding.rbLanguageIndonesia.isChecked = true
+        }
 
         alertBinding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
             val radiobtn: RadioButton = alertBinding.radioGroup.findViewById(checkedId)
             when (radiobtn.id) {
-                R.id.rb_language_english -> {
-                    dLocaleLanguage = radiobtn.text.toString()
-                }
-                R.id.rb_language_indonesia -> {
-                    dLocaleLanguage = radiobtn.text.toString()
-
-                }
-                R.id.rb_language_thailand -> {
-                    dLocaleLanguage = radiobtn.text.toString()
-                }
-                R.id.rb_language_vietnamese -> {
-                    dLocaleLanguage = radiobtn.text.toString()
-                }
-                R.id.rb_language_india -> {
-                    dLocaleLanguage = radiobtn.text.toString()
-                }
-                else -> {
-                    Toast.makeText(this, R.string.pilih_salah_satu, Toast.LENGTH_SHORT).show()
-                }
+                R.id.rb_language_english -> dLocaleLanguage = "English"
+                R.id.rb_language_indonesia -> dLocaleLanguage = "Indonesia"
+                R.id.rb_language_thailand -> dLocaleLanguage = "Thailand"
+                R.id.rb_language_vietnamese -> dLocaleLanguage = "Vietnamese"
+                R.id.rb_language_india -> dLocaleLanguage = "Hindi"
             }
         }
 
-        dialogBuilder.setPositiveButton(getString(R.string.iya)){
-            dialogInterface, p0 ->
+        alertBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertBinding.btnSimpan.setOnClickListener {
             val lang = dLocaleLanguage ?: appsConfig.getRegionLanguage()
             if (lang.isNotEmpty()) {
                 setLanguage(lang)
             }
-            dialogInterface.cancel()
+            alertDialog.dismiss()
         }
-        dialogBuilder.setNegativeButton(getString(R.string.kembali)){
-            dialogInterface, p0 -> dialogInterface.dismiss()
-        }
-        val alertDialog = dialogBuilder.create()
+
         alertDialog.show()
     }
     private fun setLanguage(dLanguage: String){

@@ -113,42 +113,48 @@ class ArisanActivity : AppCompatActivity() {
         })
     }
     private fun alertDelete(position: Int, item: GrupArisanModel) {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val alertBinding : AlertDeleteBinding = AlertDeleteBinding.inflate(inflater)
-        dialogBuilder.setView(alertBinding.root)
+        val alertBinding = AlertDeleteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(alertBinding.root)
+            .create()
 
-        alertBinding.tvJudulCatatanAlert.text = item.grup_name
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val userJudul = item.grup_name
+        alertBinding.tvStatusType.text = "${getString(R.string.nama_group)}:"
+        alertBinding.tvJudulCatatanAlert.text = userJudul
         rulers(alertBinding, item)
-        dialogBuilder.setPositiveButton(getString(R.string.hapus)){ dialogInterface, int ->
-            val userJudul = item.grup_name
-            val etDelete = alertBinding.etHapusAlert.editText!!.text
 
-            if (etDelete.toString() != userJudul){
+        alertBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertBinding.btnHapus.setOnClickListener {
+            val etDelete = alertBinding.etHapusAlert.editText?.text?.toString() ?: ""
+
+            if (etDelete != userJudul) {
                 Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
-            }else{
+            } else {
                 alertBinding.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
                 groupArisanVM.deleteGroup(item)
-                val snackbar = Snackbar
-                    .make(
-                        binding.swipeRefreshLayout,
-                        getString(R.string.item_telah_di_hapus_dari_daftar),
-                        Snackbar.LENGTH_LONG
-                    )
+                val snackbar = Snackbar.make(
+                    binding.swipeRefreshLayout,
+                    getString(R.string.item_telah_di_hapus_dari_daftar),
+                    Snackbar.LENGTH_LONG
+                )
                 Log.d(TAG, "data $item ")
 
                 userArisanVM.deleteMemberWhereGroupId(item.uid)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     snackbar.setActionTextColor(getColor(R.color.purple_500))
-                }else{
+                } else {
                     snackbar.setActionTextColor(Color.YELLOW)
                 }
                 snackbar.show()
+                alertDialog.dismiss()
             }
         }
-        dialogBuilder.setNegativeButton(getString(R.string.kembali)){ dialogInterface, int -> dialogInterface.dismiss()}
 
-        val alertDialog = dialogBuilder.create()
         alertDialog.show()
     }
     private fun observeData() {

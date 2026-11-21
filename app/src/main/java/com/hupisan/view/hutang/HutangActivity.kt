@@ -297,40 +297,47 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         super.onPause()
     }
     private fun alertDelete(position: Int, item: DataModel) {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val alertBinding : AlertDeleteBinding = AlertDeleteBinding.inflate(inflater)
-        dialogBuilder.setView(alertBinding.root)
+        val alertBinding = AlertDeleteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(alertBinding.root)
+            .create()
 
-        alertBinding.tvJudulCatatanAlert.text = item.username
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val userJudul = item.username
+        val typeLabel = if (item.jenisPinjaman) getString(R.string.piutang) else getString(R.string.hutang)
+        alertBinding.tvStatusType.text = "$typeLabel:"
+        alertBinding.tvJudulCatatanAlert.text = userJudul
         rulers(alertBinding, item)
-        dialogBuilder.setPositiveButton(getString(R.string.hapus)){ dialogInterface, int ->
-            val userJudul = item.username
-            val etDelete = alertBinding.etHapusAlert.editText!!.text
 
-            if (etDelete.toString() != userJudul){
+        alertBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertBinding.btnHapus.setOnClickListener {
+            val etDelete = alertBinding.etHapusAlert.editText?.text?.toString() ?: ""
+
+            if (etDelete != userJudul) {
                 Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
-            }else{
+            } else {
                 alertBinding.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
                 viewModel.deleteData(item)
-                val snackbar = Snackbar
-                    .make(
-                        binding.swipeRefreshLayout,
-                        getString(R.string.item_telah_di_hapus_dari_daftar),
-                        Snackbar.LENGTH_LONG
-                    )
                 paymentViewModel.deleteDataFormUid(item.id)
+                val snackbar = Snackbar.make(
+                    binding.swipeRefreshLayout,
+                    getString(R.string.item_telah_di_hapus_dari_daftar),
+                    Snackbar.LENGTH_LONG
+                )
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     snackbar.setActionTextColor(getColor(R.color.purple_500))
-                }else{
+                } else {
                     snackbar.setActionTextColor(Color.YELLOW)
                 }
                 snackbar.show()
+                alertDialog.dismiss()
             }
         }
-        dialogBuilder.setNegativeButton(getString(R.string.kembali)){ dialogInterface, int -> dialogInterface.dismiss()}
 
-        val alertDialog = dialogBuilder.create()
         alertDialog.show()
     }
 

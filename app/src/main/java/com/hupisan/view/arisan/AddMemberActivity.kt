@@ -93,12 +93,20 @@ class AddMemberActivity : AppCompatActivity() {
         })
     }
     private fun alertDialogWhenOption(){
-        val alert = AlertDialog.Builder(this)
-        alert.setTitle(getString(R.string.peringatan))
-        alert.setMessage(getString(R.string.kembali_akan_menghapus_semua_data_yang_telah_kamu_buat_sebelumnya))
-        alert.setPositiveButton(getString(R.string.iya)){
-                dialog, witch ->
-            dialog.dismiss()
+        val dialogBinding = com.hupisan.databinding.DialogConfirmDeleteBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(dialogBinding.root)
+            .create()
+
+        alertDialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+
+        dialogBinding.tvTitle.text = getString(R.string.peringatan)
+        dialogBinding.tvMessage.text = getString(R.string.kembali_akan_menghapus_semua_data_yang_telah_kamu_buat_sebelumnya)
+        dialogBinding.btnHapus.text = getString(R.string.iya)
+        dialogBinding.btnBatal.text = getString(R.string.kembali)
+
+        dialogBinding.btnHapus.setOnClickListener {
+            alertDialog.dismiss()
             deleteData()
             binding.progressbar.visibility = View.VISIBLE
             Handler(Looper.getMainLooper()).postDelayed({
@@ -114,11 +122,10 @@ class AddMemberActivity : AppCompatActivity() {
                 startActivity(intent)
             },700)
         }
-        alert.setNegativeButton(getString(R.string.kembali)){
-                dialog, witch ->
-            dialog.dismiss()
+        dialogBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
         }
-        alert.show()
+        alertDialog.show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
