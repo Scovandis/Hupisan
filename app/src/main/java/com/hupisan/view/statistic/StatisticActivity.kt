@@ -1,19 +1,22 @@
 package com.hupisan.view.statistic
 
-import android.graphics.Color
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.view.MenuItem
+import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityStatisticBinding
+import com.hupisan.databinding.RowTopContactBinding
 import com.hupisan.viewmodel.DataViewModel
-import org.eazegraph.lib.models.PieModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.net.URLEncoder
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -25,7 +28,7 @@ class StatisticActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStatisticBinding
     private val viewModel: DataViewModel by viewModel()
 
-    private var currentFilterMode = 0 // 0: Bulan Ini, 1: 5 Bulan, 2: 6 Bulan
+    private var currentFilterMode = 0 // 0: Bulan Ini, 1: 3 Bulan, 2: Semua
     private var allDataList: List<DataModel> = emptyList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +41,7 @@ class StatisticActivity : AppCompatActivity() {
 
         setupToolbar()
         setupFilterPills()
+        setupShareButton()
         observeData()
     }
 
@@ -119,156 +123,156 @@ class StatisticActivity : AppCompatActivity() {
                     0 -> { // Bulan Ini
                         itemCal.get(Calendar.MONTH) == currentMonth && itemCal.get(Calendar.YEAR) == currentYear
                     }
-                    1 -> { // 5 Bulan
+                    1 -> { // 3 Bulan
                         val diffMonths = (currentYear - itemCal.get(Calendar.YEAR)) * 12 + (currentMonth - itemCal.get(Calendar.MONTH))
-                        diffMonths in 0..4
+                        diffMonths in 0..2
                     }
-                    2 -> { // 6 Bulan
-                        val diffMonths = (currentYear - itemCal.get(Calendar.YEAR)) * 12 + (currentMonth - itemCal.get(Calendar.MONTH))
-                        diffMonths in 0..5
-                    }
-                    else -> true
+                    else -> true // Semua
                 }
             }
         }
 
-        // 1. Summary Cards
-        val totalHutang = filteredList.filter { !it.jenisPinjaman }.sumOf { it.jumlah }
-        val totalPiutang = filteredList.filter { it.jenisPinjaman }.sumOf { it.jumlah }
+        binding.tvScorecardPeriod.text = when (currentFilterMode) {
+            0 -> "Periode: Bulan Ini"
+            1 -> "Periode: 3 Bulan Terakhir"
+            else -> "Periode: Seluruh Data Tercatat"
+        }
+
+        // 1. Rekap Performa Bulan Ini (Monthly Scorecard)
+        val totalDipinjamkan = filteredList.filter { it.jenisPinjaman }.sumOf { it.jumlah }
+        val totalDitagih = filteredList.filter { it.jenisPinjaman && it.statusDataSelesai }.sumOf { it.jumlah }
+        val totalTertunggak = filteredList.filter { it.jenisPinjaman && !it.statusDataSelesai }.sumOf { it.jumlah }
 
         val decimalFormat = DecimalFormat("##,###,###")
-        binding.tvStatTotalHutang.text = "Rp " + decimalFormat.format(totalHutang)
-        binding.tvStatTotalPiutang.text = "Rp " + decimalFormat.format(totalPiutang)
+        binding.tvTotalDipinjamkan.text = "Rp " + decimalFormat.format(totalDipinjamkan)
+        binding.tvTotalDitagih.text = "Rp " + decimalFormat.format(totalDitagih)
+        binding.tvTotalTertunggak.text = "Rp " + decimalFormat.format(totalTertunggak)
 
-        // 2. Donut Chart
-        val total = totalHutang + totalPiutang
-        val hutangPercent = if (total > 0) ((totalHutang.toDouble() / total) * 100).toInt() else 0
-        val piutangPercent = if (total > 0) (100 - hutangPercent) else 0
+        // Ratio Bar (Bar Chart sederhana perbandingan Hijau vs Merah)
+        val ratioPaid = if (totalDipinjamkan > 0) ((totalDitagih.toDouble() / totalDipinjamkan) * 100).toInt() else 0
+        val ratioUnpaid = (100 - ratioPaid).coerceAtLeast(0)
 
-        binding.tvDonutPercentage.text = "$hutangPercent%"
-        binding.tvDonutLabel.text = "Hutang"
-        binding.tvLegendHutangPercent.text = "$hutangPercent%"
-        binding.tvLegendPiutangPercent.text = "$piutangPercent%"
+        binding.tvRatioLabel.text = "$ratioPaid% Tertagih"
 
-        binding.piechart.clearChart()
-        if (totalHutang > 0 || totalPiutang > 0) {
-            if (totalHutang > 0) {
-                binding.piechart.addPieSlice(
-                    PieModel("Hutang", totalHutang.toFloat(), Color.parseColor("#22A872"))
-                )
+        val paramPaid = binding.barRatioPaid.layoutParams as LinearLayout.LayoutParams
+        paramPaid.weight = ratioPaid.toFloat()
+        binding.barRatioPaid.layoutParams = paramPaid
+
+        val paramUnpaid = binding.barRatioUnpaid.layoutParams as LinearLayout.LayoutParams
+        paramUnpaid.weight = ratioUnpaid.toFloat()
+        binding.barRatioUnpaid.layoutParams = paramUnpaid
+
+        // 2. Daftar "Orang Teratas" (Top Contact Summary: 3 Debitur Piutang Terbesar)
+        renderTopContacts()
+    }
+
+    private fun renderTopContacts() {
+        binding.containerTopContacts.removeAllViews()
+
+        val topContacts = allDataList
+            .filter { it.jenisPinjaman && !it.statusDataSelesai }
+            .sortedByDescending { it.jumlah }
+            .take(3)
+
+        if (topContacts.isEmpty()) {
+            val emptyTv = TextView(this).apply {
+                text = "🎉 Tidak ada piutang yang tertunggak. Semua catatan lunas!"
+                textSize = 13f
+                setTextColor(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
+                setPadding(8, 12, 8, 12)
             }
-            if (totalPiutang > 0) {
-                binding.piechart.addPieSlice(
-                    PieModel("Piutang", totalPiutang.toFloat(), Color.parseColor("#A3E8D0"))
-                )
-            }
+            binding.containerTopContacts.addView(emptyTv)
         } else {
-            binding.piechart.addPieSlice(
-                PieModel("Kosong", 1f, Color.parseColor("#E2E8F0"))
-            )
-        }
-        binding.piechart.startAnimation()
+            val decimalFormat = DecimalFormat("##,###,###")
+            val inflater = LayoutInflater.from(this)
 
-        // 3. Trend Transaksi (Bars for last 3 months)
-        renderTrendBars()
-    }
+            topContacts.forEachIndexed { index, item ->
+                val rowBinding = RowTopContactBinding.inflate(inflater, binding.containerTopContacts, false)
 
-    private fun renderTrendBars() {
-        val parser = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val monthLabelFormat = SimpleDateFormat("MMM", Locale("id", "ID"))
+                rowBinding.tvRankNumber.text = (index + 1).toString()
+                rowBinding.tvContactName.text = item.username
+                rowBinding.tvContactDue.text = if (!item.jatuhTempo.isNullOrBlank()) "Tempo: ${item.jatuhTempo}" else "Dibuat: ${item.diBuat}"
+                rowBinding.tvContactAmount.text = "Rp " + decimalFormat.format(item.jumlah)
 
-        val months = ArrayList<Calendar>()
-        for (i in 2 downTo 0) {
-            val c = Calendar.getInstance()
-            c.add(Calendar.MONTH, -i)
-            months.add(c)
-        }
+                val onWaClick = View.OnClickListener {
+                    val message = "Halo ${item.username}, sekadar mengingatkan catatan piutang sebesar Rp ${decimalFormat.format(item.jumlah)} jatuh tempo pada ${item.jatuhTempo ?: "-"}. Terima kasih banyak 🙏"
+                    try {
+                        val waUrl = "https://api.whatsapp.com/send?text=" + URLEncoder.encode(message, "UTF-8")
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(waUrl)))
+                    } catch (e: Exception) {
+                        Toast.makeText(this, "Tidak dapat membuka WhatsApp", Toast.LENGTH_SHORT).show()
+                    }
+                }
 
-        val m1 = months[0]
-        val m2 = months[1]
-        val m3 = months[2]
+                rowBinding.btnContactWa.setOnClickListener(onWaClick)
+                rowBinding.root.setOnClickListener(onWaClick)
 
-        binding.tvLabelM1.text = monthLabelFormat.format(m1.time)
-        binding.tvLabelM2.text = monthLabelFormat.format(m2.time)
-        binding.tvLabelM3.text = monthLabelFormat.format(m3.time)
+                binding.containerTopContacts.addView(rowBinding.root)
 
-        var hutangM1 = 0
-        var piutangM1 = 0
-        var hutangM2 = 0
-        var piutangM2 = 0
-        var hutangM3 = 0
-        var piutangM3 = 0
-
-        for (item in allDataList) {
-            val date = try {
-                parser.parse(item.diBuat)
-            } catch (e: Exception) {
-                null
-            } ?: continue
-
-            val c = Calendar.getInstance().apply { time = date }
-            val itemMonth = c.get(Calendar.MONTH)
-            val itemYear = c.get(Calendar.YEAR)
-
-            if (itemMonth == m1.get(Calendar.MONTH) && itemYear == m1.get(Calendar.YEAR)) {
-                if (item.jenisPinjaman) piutangM1 += item.jumlah else hutangM1 += item.jumlah
-            } else if (itemMonth == m2.get(Calendar.MONTH) && itemYear == m2.get(Calendar.YEAR)) {
-                if (item.jenisPinjaman) piutangM2 += item.jumlah else hutangM2 += item.jumlah
-            } else if (itemMonth == m3.get(Calendar.MONTH) && itemYear == m3.get(Calendar.YEAR)) {
-                if (item.jenisPinjaman) piutangM3 += item.jumlah else hutangM3 += item.jumlah
+                if (index < topContacts.size - 1) {
+                    val divider = View(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            1
+                        ).apply {
+                            setMargins(0, 4, 0, 4)
+                        }
+                        setBackgroundColor(ContextCompat.getColor(context, R.color.hupisan_card_stroke))
+                    }
+                    binding.containerTopContacts.addView(divider)
+                }
             }
         }
+    }
 
-        val hasData = (hutangM1 + piutangM1 + hutangM2 + piutangM2 + hutangM3 + piutangM3) > 0
-        if (!hasData) {
-            setBarHeightDp(binding.barHutangM1, 35)
-            setBarHeightDp(binding.barPiutangM1, 55)
-            setBarHeightDp(binding.barHutangM2, 50)
-            setBarHeightDp(binding.barPiutangM2, 30)
-            setBarHeightDp(binding.barHutangM3, 70)
-            setBarHeightDp(binding.barPiutangM3, 45)
-        } else {
-            val maxAmount = maxOf(hutangM1, piutangM1, hutangM2, piutangM2, hutangM3, piutangM3)
-            setBarHeight(binding.barHutangM1, hutangM1, maxAmount)
-            setBarHeight(binding.barPiutangM1, piutangM1, maxAmount)
-            setBarHeight(binding.barHutangM2, hutangM2, maxAmount)
-            setBarHeight(binding.barPiutangM2, piutangM2, maxAmount)
-            setBarHeight(binding.barHutangM3, hutangM3, maxAmount)
-            setBarHeight(binding.barPiutangM3, piutangM3, maxAmount)
+    private fun setupShareButton() {
+        binding.btnShareReport.setOnClickListener {
+            shareFinancialSummary()
         }
     }
 
-    private fun setBarHeightDp(barView: View, heightDp: Int) {
-        val density = resources.displayMetrics.density
-        val params = barView.layoutParams
-        params.height = (heightDp * density).toInt()
-        barView.layoutParams = params
-    }
+    private fun shareFinancialSummary() {
+        val decimalFormat = DecimalFormat("##,###,###")
+        val periodFormat = SimpleDateFormat("MMMM yyyy", Locale("id", "ID"))
+        val currentPeriod = periodFormat.format(Date())
 
-    private fun setBarHeight(barView: View, amount: Int, maxAmount: Int) {
-        val density = resources.displayMetrics.density
-        val minHeightPx = (14 * density).toInt()
-        val maxHeightPx = (95 * density).toInt()
+        val totalDipinjamkan = allDataList.filter { it.jenisPinjaman }.sumOf { it.jumlah }
+        val totalDitagih = allDataList.filter { it.jenisPinjaman && it.statusDataSelesai }.sumOf { it.jumlah }
+        val totalTertunggak = allDataList.filter { it.jenisPinjaman && !it.statusDataSelesai }.sumOf { it.jumlah }
 
-        val heightPx = if (maxAmount > 0 && amount > 0) {
-            val ratio = amount.toFloat() / maxAmount.toFloat()
-            (minHeightPx + (maxHeightPx - minHeightPx) * ratio).toInt()
-        } else {
-            minHeightPx
-        }
+        val ratioPaid = if (totalDipinjamkan > 0) ((totalDitagih.toDouble() / totalDipinjamkan) * 100).toInt() else 0
 
-        val params = barView.layoutParams
-        params.height = heightPx
-        barView.layoutParams = params
-    }
+        val topContacts = allDataList
+            .filter { it.jenisPinjaman && !it.statusDataSelesai }
+            .sortedByDescending { it.jumlah }
+            .take(3)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
+        val sb = StringBuilder()
+        sb.append("📊 *Laporan Keuangan Personal - Hupisan*\n")
+        sb.append("Periode: $currentPeriod\n\n")
+
+        sb.append("💰 *Rekap Piutang & Tagihan:*\n")
+        sb.append("• Total Uang Dipinjamkan : Rp ${decimalFormat.format(totalDipinjamkan)}\n")
+        sb.append("• Berhasil Ditagih (Lunas) : Rp ${decimalFormat.format(totalDitagih)} ($ratioPaid%)\n")
+        sb.append("• Masih Tertunggak        : Rp ${decimalFormat.format(totalTertunggak)}\n\n")
+
+        if (topContacts.isNotEmpty()) {
+            sb.append("👥 *Prioritas Piutang Tertinggi:*\n")
+            topContacts.forEachIndexed { idx, item ->
+                val tempoText = if (!item.jatuhTempo.isNullOrBlank()) " (Tempo: ${item.jatuhTempo})" else ""
+                sb.append("${idx + 1}. ${item.username}: Rp ${decimalFormat.format(item.jumlah)}$tempoText\n")
             }
-            else -> super.onOptionsItemSelected(item)
+            sb.append("\n")
         }
+
+        sb.append("Catatan keuangan dicatat rapi & aman menggunakan aplikasi Hupisan.")
+
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, sb.toString())
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, "Bagikan Laporan Keuangan")
+        startActivity(shareIntent)
     }
 }
