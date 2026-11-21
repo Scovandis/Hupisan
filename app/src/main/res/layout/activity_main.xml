@@ -64,7 +64,7 @@
                         android:id="@+id/tv_header_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="HutangKu"
+                        android:text="@string/app_name"
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -74,7 +74,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Kelola hutang, piutang &amp; arisan\nlebih mudah"
+                        android:text="@string/header_subtitle"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="12sp"
                         android:lineSpacingExtra="2dp" />
