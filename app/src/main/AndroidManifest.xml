@@ -60,7 +60,7 @@
             android:theme="@style/Theme.HHHH.noActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".view.hutang.AddHutangActivity"
+            android:name=".view.add_hutang.AddHutangActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity

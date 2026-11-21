@@ -1,4 +1,4 @@
-package com.hupisan.view.hutang
+package com.hupisan.view.add_hutang
 
 import android.Manifest
 import android.app.*

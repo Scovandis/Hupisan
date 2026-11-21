@@ -32,6 +32,7 @@ import com.hupisan.databinding.ActivityHutangBinding
 import com.hupisan.databinding.AlertDeleteAllBinding
 import com.hupisan.databinding.AlertDeleteBinding
 import com.hupisan.util.SwipeToDeleteCallback
+import com.hupisan.view.add_hutang.AddHutangActivity
 import com.hupisan.view.hutang.adapter.HutangAdapter
 import com.hupisan.view.hutang.adapter.onButtonClicked
 import com.hupisan.view.main.MainActivity
