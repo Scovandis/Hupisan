@@ -40,12 +40,12 @@ class ArisanGroupAdapter(val context: Context): RecyclerView.Adapter<ArisanGroup
                 imvRandomColor.background = getRandomDrawbleColor()
 
                 imgSrcBgGroup.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                if (data.jumlah_member <= 6){
-                    imgSrcBgGroup.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_female))
-                }else if(data.jumlah_member in 7..15){
-                    imgSrcBgGroup.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
-                }else {
-                    imgSrcBgGroup.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_kosong))
+                if (data.jumlah_member <= 6) {
+                    imgSrcBgGroup.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_female))
+                } else if (data.jumlah_member in 7..15) {
+                    imgSrcBgGroup.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_male))
+                } else {
+                    imgSrcBgGroup.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_kosong))
                 }
             }
         }

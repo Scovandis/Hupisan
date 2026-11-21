@@ -56,7 +56,7 @@ class AddMemberActivity : AppCompatActivity() {
         val toolbar = binding.animToolbar
         setSupportActionBar(toolbar)
         val collapsingToolbar = binding.collapsingToolbar
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         listUsername = ArrayList<String>()
         firstData()
         userAdapter = ListUser()
@@ -68,21 +68,14 @@ class AddMemberActivity : AppCompatActivity() {
         setRecyclerView()
     }
     private fun firstData(){
-        val time = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
-        val Gid = intent.extras!!.get(EXTRA_GROUP_ID)
-        val Gname = intent.extras!!.get(EXTRA_GROUP_NAME)
-        val Gpembayaran = intent.extras!!.get(EXTRA_NOMINAL_PEMBAYARAN)
-        val Gprize = intent.extras!!.get(EXTRA_GROUP_PRIZE_POLL)
-        val Gdibuat = intent.extras!!.get(EXTRA_TANGGAL_DIBUAT)
-        val Gdiupdate = intent.extras!!.get(EXTRA_TANGGAL_DIUPDATE)
-
-        groupDibuat = Gdibuat.toString()
-        groupDiupdate = Gdiupdate.toString()
-        groupPrizePoll = Gprize.toString().toInt()
-        groupId = Gid.toString().toInt()
-        groupName = Gname.toString()
-        groupPembayaran = Gpembayaran.toString().toIntOrNull()
-        timeNow = time.toString()
+        val time = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+        groupId = intent.getIntExtra(EXTRA_GROUP_ID, 0)
+        groupName = intent.getStringExtra(EXTRA_GROUP_NAME) ?: ""
+        groupPembayaran = intent.getIntExtra(EXTRA_NOMINAL_PEMBAYARAN, 0)
+        groupPrizePoll = intent.getIntExtra(EXTRA_GROUP_PRIZE_POLL, 0)
+        groupDibuat = intent.getStringExtra(EXTRA_TANGGAL_DIBUAT) ?: ""
+        groupDiupdate = intent.getStringExtra(EXTRA_TANGGAL_DIUPDATE) ?: groupDibuat
+        timeNow = time
     }
     private fun setHide(){
         isBayar1 = binding.switchOnPay

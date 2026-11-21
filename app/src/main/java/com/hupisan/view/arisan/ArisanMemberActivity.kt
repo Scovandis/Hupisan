@@ -52,7 +52,7 @@ class ArisanMemberActivity : AppCompatActivity() {
         val toolbar = binding.animToolbar
         setSupportActionBar(toolbar)
         val collapsingToolbar = binding.collapsingToolbar
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (FitureArisanActivity.statusDimulai){
             binding.optionF.visibility = View.GONE
@@ -64,20 +64,20 @@ class ArisanMemberActivity : AppCompatActivity() {
 
         memberAdapter = ArisanMemberAdapter(this)
 
-        groupId = intent.extras?.get(EXTRA_GROUP_ID)?.toString()?.toIntOrNull() ?: 0
-        groupName = intent.extras?.get(EXTRA_GROUP_NAME)?.toString() ?: ""
-        groupAnggaran = intent.extras?.get(EXTRA_GROUP_ANGGARAN)?.toString()?.toIntOrNull() ?: 0
-        groupPrizePool = intent.extras?.get(EXTRA_GROUP_PRIZE_POLL)?.toString()?.toIntOrNull() ?: 0
-        groupDiBuat = intent.extras?.get(EXTRA_TANGGAL_DIBUAT)?.toString() ?: ""
-        groupDiUpdate = intent.extras?.get(EXTRA_TANGGAL_DIUPDATE)?.toString() ?: groupDiBuat
-        groupTerkumpul = intent.extras?.get(EXTRA_GROUP_TERKUMPUL)?.toString()?.toIntOrNull() ?: 0
+        groupId = intent.getIntExtra(EXTRA_GROUP_ID, 0)
+        groupName = intent.getStringExtra(EXTRA_GROUP_NAME) ?: ""
+        groupAnggaran = intent.getIntExtra(EXTRA_GROUP_ANGGARAN, 0)
+        groupPrizePool = intent.getIntExtra(EXTRA_GROUP_PRIZE_POLL, 0)
+        groupDiBuat = intent.getStringExtra(EXTRA_TANGGAL_DIBUAT) ?: ""
+        groupDiUpdate = intent.getStringExtra(EXTRA_TANGGAL_DIUPDATE) ?: groupDiBuat
+        groupTerkumpul = intent.getIntExtra(EXTRA_GROUP_TERKUMPUL, 0)
 
         binding.fabTambahkanAnggota.setColorFilter(Color.WHITE)
         binding.fabMulai.setColorFilter(Color.WHITE)
         binding.optionF.setColorFilter(Color.parseColor("#FF6200EE"))
 
         Log.d(TAG, "EXTRASSS ::: $groupId")
-        timeNow = SimpleDateFormat("dd/MM/yyyy HH:mm").format(Date())
+        timeNow = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
         collapsingToolbar.title = groupName
 
 

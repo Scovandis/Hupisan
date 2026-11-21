@@ -35,30 +35,30 @@ class ArisanMemberAdapter(val context: Context): RecyclerView.Adapter<ArisanMemb
             with(binding){
                 tvUsername.text = item.username
 
-                if (item.status_bayar){
-                    tvBayar.text = context.getString(R.string.dolar)+ " " +decimalFormat.format(item.jumlah_bayar)
+                if (item.status_bayar) {
+                    tvBayar.text = context.getString(R.string.dolar) + " " + decimalFormat.format(item.jumlah_bayar)
                     option.placeholder(ColorDrawable(Color.parseColor("#42ff00")))
-                    ivStatus.background = context.resources.getDrawable(R.drawable.bg_custom_green)
-                }else {
-                    tvBayar.text = context.getString(R.string.dolar) + "  " +context.getString(R.string._0)
+                    ivStatus.background = ContextCompat.getDrawable(context, R.drawable.bg_custom_green)
+                } else {
+                    tvBayar.text = context.getString(R.string.dolar) + "  " + context.getString(R.string._0)
                     option.placeholder(ColorDrawable(Color.parseColor("#ff1106")))
-                    ivStatus.background = context.resources.getDrawable(R.drawable.bg_custom_red)
+                    ivStatus.background = ContextCompat.getDrawable(context, R.drawable.bg_custom_red)
                 }
 
                 imvRandomColor.background = getRandomDrawbleColor()
                 imgSrcBgGender.setColorFilter(ContextCompat.getColor(context, R.color.white))
-                when(item.gender){
+                when (item.gender) {
                     1 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_male))
+                        imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_male))
                     }
                     2 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_female))
+                        imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_female))
                     }
                     3 -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_kosong))
+                        imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_kosong))
                     }
                     else -> {
-                        imgSrcBgGender.setImageDrawable(context.resources.getDrawable(R.drawable.ic_user_alert))
+                        imgSrcBgGender.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_user_alert))
                     }
                 }
             }
