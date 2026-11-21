@@ -11,8 +11,8 @@
     app:cardBackgroundColor="@color/hupisan_card_bg"
     app:cardCornerRadius="16dp"
     app:cardElevation="0dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

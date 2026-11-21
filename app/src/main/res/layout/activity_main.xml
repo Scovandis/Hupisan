@@ -13,6 +13,7 @@
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipChildren="false"
         android:clipToPadding="false"
         android:fillViewport="true"
         android:paddingBottom="24dp"
@@ -24,6 +25,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingTop="20dp"
@@ -119,12 +122,12 @@
                 android:id="@+id/card_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="12dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="3dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="false">
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -340,8 +343,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:id="@+id/container_perlu_perhatian_items"
@@ -358,6 +361,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="horizontal">
 
                 <!-- Card 1: Hutang -->
@@ -365,7 +370,10 @@
                     android:id="@+id/card_menu_debt"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:layout_marginEnd="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
@@ -373,8 +381,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -406,6 +414,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
@@ -413,8 +424,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -445,8 +456,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="4dp"
                 android:baselineAligned="false"
+                android:clipChildren="false"
+                android:clipToPadding="false"
                 android:orientation="horizontal">
 
                 <!-- Card 3: Dibayarkan -->
@@ -454,7 +467,10 @@
                     android:id="@+id/card_menu_paid_off"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
                     android:layout_marginEnd="6dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
@@ -462,8 +478,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -495,6 +511,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
@@ -502,8 +521,8 @@
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="2dp"
-                    app:cardPreventCornerOverlap="false"
-                    app:cardUseCompatPadding="false">
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -681,8 +700,8 @@
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="2dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="false">
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -761,8 +780,8 @@
                 app:cardBackgroundColor="@color/hupisan_primary_surface"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="false">
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
