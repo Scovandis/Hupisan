@@ -8,8 +8,8 @@ class DataRepository(private val dataDB: DataDB) {
 
     val allData: LiveData<List<DataModel>> = dataDB.getAllData()
 
-    suspend fun insert(data: DataModel) {
-        dataDB.insert(data)
+    suspend fun insert(data: DataModel): Int {
+        return dataDB.insert(data)
     }
 
     suspend fun delete(data: DataModel) {

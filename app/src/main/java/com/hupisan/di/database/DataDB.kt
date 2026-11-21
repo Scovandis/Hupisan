@@ -18,8 +18,8 @@ class DataDB(private val realm: Realm) {
             .asLiveData(Dispatchers.IO)
     }
 
-    suspend fun insert(model: DataModel) {
-        realm.write {
+    suspend fun insert(model: DataModel): Int {
+        return realm.write {
             val nextId = if (model.id <= 0) {
                 val maxId = query<DataModel>().sort("id", Sort.DESCENDING).first().find()?.id ?: 0
                 maxId + 1
@@ -44,6 +44,7 @@ class DataDB(private val realm: Realm) {
                 ),
                 UpdatePolicy.ALL
             )
+            nextId
         }
     }
 

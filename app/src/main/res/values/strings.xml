@@ -471,4 +471,17 @@
     <string name="label_baru_saja">Baru saja</string>
     <string name="label_tempo_format">Tempo: %1$s</string>
 
+    <!-- Reminder & Alarm Notifications -->
+    <string name="notif_channel_name">Pengingat Jatuh Tempo</string>
+    <string name="notif_channel_desc">Alarm pengingat saat catatan hutang atau piutang jatuh tempo</string>
+    <string name="notif_title_format">Pengingat %1$s: %2$s</string>
+    <string name="notif_body_format">Nominal %1$s • Jatuh tempo %2$s</string>
+    <string name="notif_body_with_desc_format">Nominal %1$s • Jatuh tempo %2$s\nCatatan: %3$s</string>
+    <string name="notif_action_snooze_1h">Tunda 1 Jam</string>
+    <string name="notif_action_mark_lunas">Tandai Lunas</string>
+    <string name="wa_reminder_piutang_format">Halo %1$s, sekadar mengingatkan catatan piutang sebesar %2$s jatuh tempo pada %3$s%4$s. Terima kasih banyak ya.</string>
+    <string name="wa_reminder_hutang_format">Halo %1$s, saya ingin mengonfirmasi pembayaran hutang sebesar %2$s yang jatuh tempo pada %3$s%4$s. Terima kasih.</string>
+    <string name="notif_snoozed_toast">Pengingat ditunda 1 jam</string>
+    <string name="notif_marked_lunas_toast">Catatan ditandai lunas</string>
+
 </resources>

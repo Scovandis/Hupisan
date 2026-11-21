@@ -32,6 +32,7 @@ import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityHutangBinding
 import com.hupisan.databinding.AlertDeleteAllBinding
 import com.hupisan.databinding.AlertDeleteBinding
+import com.hupisan.notification.ReminderScheduler
 import com.hupisan.util.SwipeToDeleteCallback
 import com.hupisan.view.add_hutang.AddHutangActivity
 import com.hupisan.view.hutang.adapter.HutangAdapter
@@ -254,6 +255,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             }
 
             alertDialog.dismiss()
+            listData?.forEach { item -> ReminderScheduler.cancel(this, item.id) }
             val jenis: Boolean = !typeJenis.equals(getString(R.string.hutang))
             viewModel.deleteAllDataWhere(jenis, false)
             Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
@@ -321,6 +323,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
                 Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
             } else {
                 alertBinding.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
+                ReminderScheduler.cancel(this, item.id)
                 viewModel.deleteData(item)
                 paymentViewModel.deleteDataFormUid(item.id)
                 val snackbar = Snackbar.make(

@@ -31,6 +31,7 @@ import com.hupisan.database.entity.DataModel
 import com.hupisan.database.entity.PaymentModel
 import com.hupisan.databinding.ActivityDetailHutangBinding
 import com.hupisan.databinding.AlertDicicilBinding
+import com.hupisan.notification.ReminderScheduler
 import com.hupisan.view.detail_hutang.adapter.PaymentAdapter
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -223,6 +224,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     Log.d(TAG, "BAYAR $bayar")
                                     paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
+                                    ReminderScheduler.cancel(this, fromUid)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(binding.clRootContent, "${getString(R.string.berhasil_dilunasi)} Rp ${dateFormat.format(alertJumlah)}", Snackbar.LENGTH_SHORT).show()
                                     },700)
@@ -263,6 +265,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     var bayar = activityDibayar + alertJumlah
                                     paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
+                                    ReminderScheduler.cancel(this, fromUid)
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
                                             binding.clRootContent,
@@ -511,7 +514,11 @@ class DetailHutangActivity : AppCompatActivity() {
         }
 
         dialogBinding.btnHapus.setOnClickListener {
-            currentDataModel?.let { model -> viewModel.deleteData(model) }
+            currentDataModel?.let { model ->
+                ReminderScheduler.cancel(this, model.id)
+                viewModel.deleteData(model)
+            }
+            ReminderScheduler.cancel(this, uid)
             paymentViewModel.deleteDataFormUid(uid)
             Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
             Handler(Looper.getMainLooper()).postDelayed({

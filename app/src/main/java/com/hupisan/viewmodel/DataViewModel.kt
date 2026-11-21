@@ -19,8 +19,9 @@ open class DataViewModel(val repository: DataRepository) : ViewModel() {
         repository.update(data)
     }
 
-    fun insertData(data: DataModel) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(data)
+    fun insertData(data: DataModel, onInserted: ((Int) -> Unit)? = null) = viewModelScope.launch(Dispatchers.IO) {
+        val insertedId = repository.insert(data)
+        onInserted?.invoke(insertedId)
     }
 
     fun updateDataJumlah(jumlah: Int, uidFrom: Int, statusData: Boolean, tanggal_lunas: String, dibayar: Int) = viewModelScope.launch(Dispatchers.IO) {

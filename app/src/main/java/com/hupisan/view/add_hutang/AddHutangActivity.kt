@@ -29,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityAddHutangBinding
-import com.hupisan.notification.service.NotificationService
+import com.hupisan.notification.ReminderScheduler
 import com.hupisan.view.main.MainActivity
 import java.text.SimpleDateFormat
 import java.util.*
@@ -89,7 +89,8 @@ class AddHutangActivity : AppCompatActivity(){
         val todayDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
         binding.tvSelectedDate.text = todayDate
         nJatuhTempo = todayDate
-        nTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        nTime = "09:00"
+        binding.tvReminderTime.text = nTime
 
         nJenis = intent.getStringExtra(EXTRA_STRING_JENIS) ?: getString(R.string.hutang)
         val isPiutang = nJenis.equals(getString(R.string.piutang), ignoreCase = true)
@@ -190,7 +191,8 @@ class AddHutangActivity : AppCompatActivity(){
         nDeskripsi = binding.etCatatanInput.text?.toString()?.trim() ?: ""
         val rawJumlah = binding.etJumlahInput.text?.toString()?.replace(" ", "")?.replace(".", "")?.replace("Rp", "")?.trim() ?: ""
         nJatuhTempo = binding.tvSelectedDate.text?.toString() ?: nDiBuat
-        nTime = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+        val selectedTime = binding.tvReminderTime.text?.toString()?.trim()?.takeIf { it.isNotEmpty() } ?: nTime ?: "09:00"
+        nTime = selectedTime
 
         val jenis: Boolean = nJenis.equals(getString(R.string.piutang), ignoreCase = true)
         Log.d(TAG, "JENIS $jenis ($nJenis)")
@@ -214,89 +216,22 @@ class AddHutangActivity : AppCompatActivity(){
         }
 
         val hasNotification = binding.switchReminder.isChecked
-        val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", hasNotification, 1, jenis, false, nTime ?: "", "-", nDibayar)
+        val savedReminderTime = if (hasNotification) (nTime ?: "09:00") else "-"
+        val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", hasNotification, 1, jenis, false, savedReminderTime, "-", nDibayar)
         Log.d(TAG, "dataInsert $data")
-        dbViewModel.insertData(data)
-        if (hasNotification) {
-            isNotification()
+        val appContext = applicationContext
+        val dueDateForAlarm = nJatuhTempo ?: ""
+        val timeForAlarm = savedReminderTime
+        dbViewModel.insertData(data) { insertedId ->
+            if (hasNotification) {
+                ReminderScheduler.schedule(appContext, insertedId, dueDateForAlarm, timeForAlarm)
+            }
         }
         Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
         
         Handler(Looper.getMainLooper()).postDelayed({
             finish()
         }, 800)
-    }
-    private fun isNotification(){
-        val myDate = "$nJatuhTempo ${nTime ?: "09:00"}"
-        val sdf1 = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
-        try {
-            val jtem = sdf1.parse(myDate)
-            val mil = jtem?.time ?: System.currentTimeMillis()
-            val millis = System.currentTimeMillis()
-            if (mil > millis) {
-                getNotification("${getString(R.string.ada)} $nJenis ${getString(R.string.yang_harus_dibayar)} ${getString(R.string.dari)} $nUname")?.let { 
-                    scheduleNotification(it, mil) 
-                }
-            }
-        } catch (e: Exception) {
-            Log.e(TAG, "Error scheduling notification: $e")
-        }
-    }
-
-    private fun scheduleNotification(notification: Notification, targetTimeMillis: Long) {
-        val notifId = (System.currentTimeMillis() % 100000).toInt()
-        val notificationIntent = Intent(this, NotificationService::class.java).apply {
-            putExtra(NotificationService.NOTIFICATION_ID, notifId)
-            putExtra(NotificationService.NOTIFICATION, notification)
-        }
-        val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            notifId,
-            notificationIntent,
-            flags
-        )
-        val alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
-            } else {
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
-            }
-        } catch (e: SecurityException) {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
-        }
-    }
-
-    private fun getNotification(content: String): Notification? {
-        val decimalFormat = java.text.DecimalFormat("##,###,###")
-        val message = "Halo $nUname, sekadar mengingatkan catatan $nJenis sebesar Rp ${decimalFormat.format(nJumlah)} jatuh tempo pada $nJatuhTempo. Terima kasih banyak ya 🙏"
-        val waUrl = "https://api.whatsapp.com/send?text=" + java.net.URLEncoder.encode(message, "UTF-8")
-        val waIntent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(waUrl))
-        val waFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        } else {
-            PendingIntent.FLAG_UPDATE_CURRENT
-        }
-        val waPendingIntent = PendingIntent.getActivity(this, 101, waIntent, waFlags)
-
-        val openAppIntent = Intent(this, MainActivity::class.java)
-        val openAppPendingIntent = PendingIntent.getActivity(this, 102, openAppIntent, waFlags)
-
-        val builder: NotificationCompat.Builder =
-            NotificationCompat.Builder(this, AddHutangActivity.default_notification_channel_id)
-        builder.setContentTitle(getString(R.string.jatuh_tempo))
-        builder.setContentText(content)
-        builder.setSmallIcon(R.drawable.ic_foreground_apps)
-        builder.setAutoCancel(true)
-        builder.setContentIntent(openAppPendingIntent)
-        builder.addAction(R.drawable.ic_baseline_check_24, getString(R.string.ingatkan_via_wa), waPendingIntent)
-        builder.setChannelId(MainActivity.NOTIFICATION_CHANNEL_ID)
-        return builder.build()
     }
 
     private fun onActionView(){
@@ -307,17 +242,17 @@ class AddHutangActivity : AppCompatActivity(){
     }
 
     private fun showTimePickerDialog(){
-        val mcurrentTime = Calendar.getInstance()
-        val hour = mcurrentTime[Calendar.HOUR_OF_DAY]
-        val minute = mcurrentTime[Calendar.MINUTE]
+        val parts = (nTime ?: "09:00").split(":")
+        val initHour = parts.getOrNull(0)?.toIntOrNull() ?: 9
+        val initMinute = parts.getOrNull(1)?.toIntOrNull() ?: 0
         val mTimePicker = TimePickerDialog(this, R.style.DialogTheme,
             { _, selectedHour, selectedMinute ->
                 val formattedTime = "${checkDigit(selectedHour)}:${checkDigit(selectedMinute)}"
                 binding.tvReminderTime.text = formattedTime
                 nTime = formattedTime
             },
-            9,
-            0,
+            initHour,
+            initMinute,
             true
         )
         mTimePicker.setOnShowListener {

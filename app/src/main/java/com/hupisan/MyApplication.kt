@@ -2,6 +2,7 @@ package com.hupisan
 
 import android.app.Application
 import com.hupisan.di.appModules
+import com.hupisan.notification.ReminderScheduler
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,5 +16,6 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
             modules(appModules)
         }
+        ReminderScheduler.ensureNotificationChannel(this)
     }
 }
