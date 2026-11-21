@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import com.hupisan.viewmodel.DataViewModel
@@ -57,6 +58,7 @@ class DetailHutangActivity : AppCompatActivity() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
         }
 
         binding.btnBack.setOnClickListener {

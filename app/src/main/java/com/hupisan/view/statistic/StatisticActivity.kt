@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityStatisticBinding
@@ -38,6 +39,7 @@ class StatisticActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_card_bg)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
         setupToolbar()
         setupFilterPills()
