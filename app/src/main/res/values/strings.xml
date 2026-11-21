@@ -343,7 +343,7 @@
     <string name="masukkan_nama_debitur">Masukkan nama debitur</string>
     <string name="masukkan_nama_kreditur">Masukkan nama kreditur</string>
     <string name="ingatkan_saat_jatuh_tempo">Ingatkan saat jatuh tempo</string>
-    <string name="jam_pengingat">Jam Pengingat (Pagi)</string>
+    <string name="jam_pengingat">Jam Pengingat</string>
     <string name="catatan_opsional">Catatan (Opsional)</string>
     <string name="tambah_catatan_hint">Tambah catatan...</string>
     <string name="izin_notif_dibutuhkan">Izin notifikasi diperlukan untuk menyetel pengingat</string>
@@ -483,5 +483,23 @@
     <string name="wa_reminder_hutang_format">Halo %1$s, saya ingin mengonfirmasi pembayaran hutang sebesar %2$s yang jatuh tempo pada %3$s%4$s. Terima kasih.</string>
     <string name="notif_snoozed_toast">Pengingat ditunda 1 jam</string>
     <string name="notif_marked_lunas_toast">Catatan ditandai lunas</string>
+
+    <!-- Pengingat Screen -->
+    <string name="pengingat_title">Pengingat</string>
+    <string name="pengingat_subtitle">Kelola jadwal alarm jatuh tempo hutang &amp; piutang</string>
+    <string name="pengingat_summary_overdue">Lewat Tempo</string>
+    <string name="pengingat_summary_active">Alarm Aktif</string>
+    <string name="pengingat_filter_semua">Semua</string>
+    <string name="pengingat_filter_lewat">Lewat Tempo</string>
+    <string name="pengingat_filter_mendatang">Mendatang</string>
+    <string name="pengingat_filter_mati">Nonaktif</string>
+    <string name="pengingat_empty_title">Belum ada pengingat aktif</string>
+    <string name="pengingat_empty_desc">Semua catatan hutang &amp; piutang sudah selesai atau belum ada jadwal jatuh tempo.</string>
+    <string name="pengingat_tunda_1_jam">Tunda 1 Jam</string>
+    <string name="pengingat_reschedule_done">Semua pengingat aktif dijadwalkan ulang</string>
+    <string name="pengingat_status_aktif_format">Alarm • %1$s</string>
+    <string name="pengingat_status_nonaktif">Alarm nonaktif</string>
+    <string name="pengingat_due_format">Jatuh Tempo: %1$s</string>
+    <string name="subtitle_pusat_bantuan">Panduan penggunaan &amp; tanya jawab Hupisan</string>
 
 </resources>

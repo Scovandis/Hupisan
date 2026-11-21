@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HHHH">
         <activity
+            android:name=".view.pengingat.PengingatActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.bantuan.BantuanActivity"
             android:exported="false" />
         <activity

@@ -124,6 +124,9 @@ class AddHutangActivity : AppCompatActivity(){
         binding.cardJatuhTempo.setOnClickListener { openDatePicker() }
         binding.btnPickDate.setOnClickListener { openDatePicker() }
 
+        binding.switchReminder.isChecked = true
+        binding.layoutReminderTime.visibility = View.VISIBLE
+
         binding.switchReminder.setOnCheckedChangeListener { _, isChecked ->
             binding.layoutReminderTime.visibility = if (isChecked) View.VISIBLE else View.GONE
             if (isChecked) {

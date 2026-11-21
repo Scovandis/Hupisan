@@ -24,6 +24,7 @@ import com.hupisan.R
 import com.hupisan.databinding.ActivitySettingsBinding
 import com.hupisan.databinding.AlertLanguageBinding
 import com.hupisan.util.AppsConfig
+import com.hupisan.view.bantuan.BantuanActivity
 import com.hupisan.view.main.MainActivity
 import java.util.*
 
@@ -101,6 +102,10 @@ class SettingsActivity : AppCompatActivity() {
         }
         binding.tvPrivacy.setOnClickListener(openPrivacy)
         binding.relative4.setOnClickListener(openPrivacy)
+
+        binding.relativeBantuan.setOnClickListener {
+            startActivity(Intent(this, BantuanActivity::class.java))
+        }
     }
 
     var dLocaleLanguage: String? = null

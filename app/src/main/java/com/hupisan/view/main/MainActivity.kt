@@ -34,6 +34,7 @@ import com.hupisan.view.hutang.HutangActivity
 import com.hupisan.view.lunas.LunasActivity
 import com.hupisan.view.main.adapter.NewAdapter
 import com.hupisan.view.pengaturan.SettingsActivity
+import com.hupisan.view.pengingat.PengingatActivity
 import com.hupisan.viewmodel.DataViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.DecimalFormat
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupHeader() {
         binding.btnHeaderNotifications.setOnClickListener {
-            startActivity(Intent(this, BantuanActivity::class.java))
+            startActivity(Intent(this, PengingatActivity::class.java))
         }
 
         binding.btnHeaderHelp.setOnClickListener {
@@ -190,7 +191,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navReminder.setOnClickListener {
-            startActivity(Intent(this, BantuanActivity::class.java))
+            startActivity(Intent(this, PengingatActivity::class.java))
         }
 
         binding.navMore.setOnClickListener {
