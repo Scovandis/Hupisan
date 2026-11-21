@@ -43,7 +43,7 @@
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Detail Hutang"
+            android:text="@string/detail_hutang"
             android:textColor="@color/hupisan_text_primary"
             android:textSize="19sp"
             android:textStyle="bold"
@@ -136,7 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Debitur"
+                        android:text="@string/debitur"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -177,7 +177,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="Total Hutang"
+                        android:text="@string/total_hutang"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="12sp" />
 
@@ -210,7 +210,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Sudah Dibayar"
+                                android:text="@string/sudah_dibayar"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -242,7 +242,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Sisa Tagihan"
+                                android:text="@string/sisa_tagihan"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -259,7 +259,7 @@
                         android:paddingTop="4dp"
                         android:paddingEnd="14dp"
                         android:paddingBottom="4dp"
-                        android:text="Belum Lunas"
+                        android:text="@string/belum_lunas"
                         android:textColor="@color/hupisan_debt_text"
                         android:textSize="11.5sp"
                         android:textStyle="bold" />
@@ -310,7 +310,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jatuh Tempo"
+                            android:text="@string/jatuh_tempo"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="11.5sp" />
 
@@ -371,7 +371,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Catatan"
+                            android:text="@string/catatan"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="11.5sp" />
 
@@ -400,7 +400,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Riwayat Pembayaran"
+                    android:text="@string/riwayat_pembayaran"
                     android:textColor="@color/hupisan_text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -435,7 +435,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Belum ada pembayaran"
+                    android:text="@string/belum_ada_pembayaran"
                     android:textColor="@color/hupisan_text_muted"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -537,7 +537,7 @@
             android:layout_height="50dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="0.8"
-            android:text="Edit"
+            android:text="@string/edit"
             android:textColor="@color/hupisan_primary"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -557,7 +557,7 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1.2"
             android:backgroundTint="@color/hupisan_primary"
-            android:text="Tambah Pembayaran"
+            android:text="@string/tambah_pembayaran"
             android:textColor="@color/white"
             android:textSize="13.5sp"
             android:textStyle="bold"

@@ -54,7 +54,7 @@ class StatisticActivity : AppCompatActivity() {
 
         binding.btnCalendar.setOnClickListener {
             val dateFormat = SimpleDateFormat("MMMM yyyy", Locale("id", "ID"))
-            Toast.makeText(this, "Periode aktif: ${dateFormat.format(Date())}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.periode_aktif_format, dateFormat.format(Date())), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -135,9 +135,9 @@ class StatisticActivity : AppCompatActivity() {
         }
 
         binding.tvScorecardPeriod.text = when (currentFilterMode) {
-            0 -> "Periode: Bulan Ini"
-            1 -> "Periode: 3 Bulan Terakhir"
-            else -> "Periode: Seluruh Data Tercatat"
+            0 -> getString(R.string.periode_bulan_ini)
+            1 -> getString(R.string.periode_tiga_bulan)
+            else -> getString(R.string.periode_semua)
         }
 
         // 1. Rekap Performa Bulan Ini (Monthly Scorecard)
@@ -154,7 +154,7 @@ class StatisticActivity : AppCompatActivity() {
         val ratioPaid = if (totalDipinjamkan > 0) ((totalDitagih.toDouble() / totalDipinjamkan) * 100).toInt() else 0
         val ratioUnpaid = (100 - ratioPaid).coerceAtLeast(0)
 
-        binding.tvRatioLabel.text = "$ratioPaid% Tertagih"
+        binding.tvRatioLabel.text = getString(R.string.rasio_tertagih_format, ratioPaid)
 
         val paramPaid = binding.barRatioPaid.layoutParams as LinearLayout.LayoutParams
         paramPaid.weight = ratioPaid.toFloat()
@@ -178,7 +178,7 @@ class StatisticActivity : AppCompatActivity() {
 
         if (topContacts.isEmpty()) {
             val emptyTv = TextView(this).apply {
-                text = "🎉 Tidak ada piutang yang tertunggak. Semua catatan lunas!"
+                text = getString(R.string.semua_catatan_lunas)
                 textSize = 13f
                 setTextColor(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 setPadding(8, 12, 8, 12)
@@ -202,7 +202,7 @@ class StatisticActivity : AppCompatActivity() {
                         val waUrl = "https://api.whatsapp.com/send?text=" + URLEncoder.encode(message, "UTF-8")
                         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(waUrl)))
                     } catch (e: Exception) {
-                        Toast.makeText(this, "Tidak dapat membuka WhatsApp", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, getString(R.string.tidak_dapat_membuka_wa), Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -274,7 +274,7 @@ class StatisticActivity : AppCompatActivity() {
             putExtra(Intent.EXTRA_TEXT, sb.toString())
             type = "text/plain"
         }
-        val shareIntent = Intent.createChooser(sendIntent, "Bagikan Laporan Keuangan")
+        val shareIntent = Intent.createChooser(sendIntent, getString(R.string.bagikan_laporan_keuangan))
         startActivity(shareIntent)
     }
 }

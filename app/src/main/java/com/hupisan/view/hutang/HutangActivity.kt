@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.core.content.ContextCompat
 import android.text.Editable
@@ -215,68 +216,50 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
             else -> super.onOptionsItemSelected(item)
         }
     }
-    private fun alertDeleteAll(){
-        val dialogBuilder = AlertDialog.Builder(this)
-        val inflater = this.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val alertBindingDeleteAll : AlertDeleteAllBinding = AlertDeleteAllBinding.inflate(inflater)
-        dialogBuilder.setView(alertBindingDeleteAll.root)
+    private fun alertDeleteAll() {
+        val alertBinding = AlertDeleteAllBinding.inflate(layoutInflater)
+        val alertDialog = AlertDialog.Builder(this)
+            .setView(alertBinding.root)
+            .create()
 
-        alertBindingDeleteAll.tvTypeCatatan.text = getString(R.string.semua_data)+ " " + typeJenis
-        alertBindingDeleteAll.tvJudulCatatanAlert.text = getString(R.string.hapus_semua_data)
-        alertBindingDeleteAll.tvView1.text = getString(R.string.semua_data)+ " " + typeJenis
+        alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        rulersDeleteAll(alertBindingDeleteAll)
+        val confirmKeyword = getString(R.string.hapus_semua_data)
+        alertBinding.tvSubtitle.text = getString(R.string.ketik_konfirmasi_hapus_semua_format, confirmKeyword)
+        alertBinding.tvCounter.text = "0/${confirmKeyword.length}"
 
-        val judul = getString(R.string.hapus_semua_data)
-        val etEdit = alertBindingDeleteAll.etHapusAlert.editText!!.text
-
-        dialogBuilder.setPositiveButton(getString(R.string.hapus)){dialog, i ->
-            Handler(Looper.getMainLooper()).postDelayed({
-                if (etEdit.toString() != judul){
-                    Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
-                }else {
-                    val jenis: Boolean = !typeJenis.equals(getString(R.string.hutang))
-                    viewModel.deleteAllDataWhere(jenis, false)
-                    Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
-                }
-            },700)
-            dialog.cancel()
-        }
-        dialogBuilder.setNegativeButton(getString(R.string.kembali)){dialog, i->
-            dialog.dismiss()
-
-        }
-        val alertDialog = dialogBuilder.create()
-        alertDialog.show()
-    }
-    private fun rulersDeleteAll(alertBindingDeleteAll: AlertDeleteAllBinding){
-        alertBindingDeleteAll.etHapusAlert.editText!!.addTextChangedListener(object: TextWatcher{
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
-            }
-
-            override fun afterTextChanged(p0: Editable?) {
-                val etDelete = alertBindingDeleteAll.etHapusAlert.editText!!.text
-
-                if (p0!!.length >= 20){
-                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.nama_tidak_boleh_lebih_dari_20_huruf)
-                }else if(p0.length > 2 && etDelete.toString() != getString(R.string.hapus_semua_data)){
-                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.sepertinya_nama_yang_anda_masukkan_berbeda_dari_daftar_item_ini)
-                }else if(etDelete.toString() == getString(R.string.hapus_semua_data)){
-                    alertBindingDeleteAll.etHapusAlert.helperText = getString(R.string.benar)
-                }
-                else if(p0.isBlank() or p0.isEmpty()){
-                    alertBindingDeleteAll.etHapusAlert.error = getString(R.string.nama_tidak_boleh_kosong)
-                }
-                else {
-                    alertBindingDeleteAll.etHapusAlert.helperText = getString(R.string.masukkan_nama_yang_sesuai_untuk_menghapus)
+        alertBinding.etConfirmDelete.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val input = s?.toString() ?: ""
+                alertBinding.tvCounter.text = "${input.length}/${confirmKeyword.length}"
+                if (input.equals(confirmKeyword, ignoreCase = true)) {
+                    alertBinding.tvErrorHelper.visibility = View.GONE
                 }
             }
+            override fun afterTextChanged(s: Editable?) {}
         })
+
+        alertBinding.btnBatal.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        alertBinding.btnHapus.setOnClickListener {
+            val input = alertBinding.etConfirmDelete.text?.toString()?.trim() ?: ""
+            if (!input.equals(confirmKeyword, ignoreCase = true)) {
+                alertBinding.tvErrorHelper.visibility = View.VISIBLE
+                alertBinding.tvErrorHelper.text = getString(R.string.sepertinya_nama_yang_anda_masukkan_berbeda_dari_daftar_item_ini)
+                Snackbar.make(binding.swipeRefreshLayout, getString(R.string.item_tidak_terhapus), Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            alertDialog.dismiss()
+            val jenis: Boolean = !typeJenis.equals(getString(R.string.hutang))
+            viewModel.deleteAllDataWhere(jenis, false)
+            Snackbar.make(binding.swipeRefreshLayout, getString(R.string.data_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
+        }
+
+        alertDialog.show()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.item_delete, menu)

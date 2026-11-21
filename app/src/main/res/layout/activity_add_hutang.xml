@@ -43,7 +43,7 @@
             android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tambah Hutang"
+            android:text="@string/tambah_hutang"
             android:textColor="@color/hupisan_text_primary"
             android:textSize="19sp"
             android:textStyle="bold"
@@ -91,7 +91,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="Hutang"
+                    android:text="@string/hutang"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -105,7 +105,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:gravity="center"
-                    android:text="Piutang"
+                    android:text="@string/piutang"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -156,7 +156,7 @@
                             android:id="@+id/tv_label_nama"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nama Debitur"
+                            android:text="@string/nama_debitur"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -167,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:background="@null"
-                            android:hint="Masukkan nama"
+                            android:hint="@string/masukkan_nama"
                             android:inputType="textPersonName"
                             android:textColor="@color/hupisan_text_primary"
                             android:textColorHint="@color/hupisan_text_muted"
@@ -220,7 +220,7 @@
                             android:id="@+id/tv_label_jumlah"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Jumlah Hutang"
+                            android:text="@string/jumlah_utang"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -293,7 +293,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Jatuh Tempo"
+                                android:text="@string/jatuh_tempo"
                                 android:textColor="@color/hupisan_text_primary"
                                 android:textSize="13sp"
                                 android:textStyle="bold" />
@@ -345,7 +345,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Ingatkan saat jatuh tempo"
+                            android:text="@string/ingatkan_saat_jatuh_tempo"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="13sp" />
 
@@ -372,7 +372,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Jam Pengingat (Pagi)"
+                            android:text="@string/jam_pengingat"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12.5sp" />
 
@@ -436,7 +436,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="14dp"
-                            android:text="Catatan (Opsional)"
+                            android:text="@string/catatan_opsional"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -450,7 +450,7 @@
                         android:layout_marginTop="12dp"
                         android:background="@drawable/bg_input_multiline"
                         android:gravity="top|start"
-                        android:hint="Tambah catatan..."
+                        android:hint="@string/tambah_catatan_hint"
                         android:inputType="textMultiLine"
                         android:minLines="3"
                         android:padding="12dp"
@@ -552,7 +552,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:backgroundTint="@color/hupisan_primary"
-            android:text="Simpan"
+            android:text="@string/simpan"
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"

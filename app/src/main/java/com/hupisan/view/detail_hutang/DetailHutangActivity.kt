@@ -365,26 +365,26 @@ class DetailHutangActivity : AppCompatActivity() {
                     val decimalFormat = DecimalFormat("##,###,###")
 
                     // Top Toolbar & Profile
-                    tvToolbarTitle.text = "Detail $jenisPinjaman"
+                    tvToolbarTitle.text = getString(R.string.detail_format, jenisPinjaman)
                     tvProfileName.text = it.username
                     val initial = if (it.username.isNotEmpty()) it.username.first().uppercaseChar().toString() else "U"
                     tvAvatarLetter.text = initial
-                    tvProfileRole.text = if (it.jenisPinjaman) "Kreditur" else "Debitur"
+                    tvProfileRole.text = if (it.jenisPinjaman) getString(R.string.kreditur) else getString(R.string.debitur)
 
                     // Big Summary Card
                     val totalOriginal = it.jumlah + it.jumlah_dibayar
-                    tvMainTotalLabel.text = "Total $jenisPinjaman"
+                    tvMainTotalLabel.text = getString(R.string.total_format, jenisPinjaman)
                     tvMainTotalAmount.text = "Rp " + decimalFormat.format(totalOriginal)
                     tvAmountPaid.text = "Rp " + decimalFormat.format(it.jumlah_dibayar)
                     tvAmountRemaining.text = "Rp " + decimalFormat.format(it.jumlah)
 
                     if (it.statusDataSelesai || it.jumlah == 0) {
-                        tvStatusBadgeCard.text = "Lunas"
+                        tvStatusBadgeCard.text = getString(R.string.lunas)
                         tvStatusBadgeCard.setBackgroundResource(R.drawable.bg_badge_lunas)
                         tvStatusBadgeCard.setTextColor(ContextCompat.getColor(this@DetailHutangActivity, R.color.hupisan_paid_text))
                         btnActionAddPayment.visibility = View.GONE
                     } else {
-                        tvStatusBadgeCard.text = "Belum Lunas"
+                        tvStatusBadgeCard.text = getString(R.string.belum_lunas)
                         tvStatusBadgeCard.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
                         tvStatusBadgeCard.setTextColor(ContextCompat.getColor(this@DetailHutangActivity, R.color.hupisan_debt_text))
                         btnActionAddPayment.visibility = View.VISIBLE
@@ -397,7 +397,7 @@ class DetailHutangActivity : AppCompatActivity() {
                         } else it.jatuhTempo
                     } else it.diBuat
                     tvInfoJatuhTempo.text = jatuhTempoStr
-                    tvInfoCatatan.text = if (it.deskripsi.isNotEmpty()) it.deskripsi else "Pinjaman untuk keperluan"
+                    tvInfoCatatan.text = if (it.deskripsi.isNotEmpty()) it.deskripsi else getString(R.string.pinjaman_untuk_keperluan)
 
                     // Legacy content binding
                     content.tvNama.text = it.username
@@ -411,12 +411,12 @@ class DetailHutangActivity : AppCompatActivity() {
     }
     private fun showPaymentOptionsDialog() {
         val options = arrayOf(
-            "Bayar Sebagian (Cicil)",
-            "Lunasi Pembayaran",
-            "Tambah Pinjaman"
+            getString(R.string.bayar_sebagian_cicil),
+            getString(R.string.lunasi_pembayaran),
+            getString(R.string.tambah_pinjaman)
         )
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle("Pilih Aksi Pembayaran")
+            .setTitle(getString(R.string.pilih_aksi_pembayaran))
             .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> setAlert(1) // cicil
@@ -425,7 +425,7 @@ class DetailHutangActivity : AppCompatActivity() {
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
@@ -433,27 +433,27 @@ class DetailHutangActivity : AppCompatActivity() {
         val input = EditText(this)
         input.setText(binding.tvInfoCatatan.text)
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle("Edit Catatan")
+            .setTitle(getString(R.string.edit_catatan))
             .setView(input)
-            .setPositiveButton("Simpan") { dialog, _ ->
+            .setPositiveButton(getString(R.string.simpan)) { dialog, _ ->
                 val newDesc = input.text.toString().trim()
                 if (newDesc.isNotEmpty()) {
                     binding.tvInfoCatatan.text = newDesc
-                    Snackbar.make(binding.clRootContent, "Catatan berhasil diperbarui", Snackbar.LENGTH_SHORT).show()
+                    Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_diperbarui), Snackbar.LENGTH_SHORT).show()
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
     private fun showMoreOptionsDialog() {
         val options = arrayOf(
-            "Kirim Pengingat (WhatsApp)",
-            "Hapus Catatan Ini"
+            getString(R.string.kirim_pengingat_wa),
+            getString(R.string.hapus_catatan_ini)
         )
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle("Opsi Catatan")
+            .setTitle(getString(R.string.opsi_catatan))
             .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> sendWhatsAppReminder()
@@ -461,7 +461,7 @@ class DetailHutangActivity : AppCompatActivity() {
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 
@@ -479,7 +479,7 @@ class DetailHutangActivity : AppCompatActivity() {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_TEXT, message)
             }
-            startActivity(Intent.createChooser(shareIntent, "Bagikan Catatan via"))
+            startActivity(Intent.createChooser(shareIntent, getString(R.string.bagikan_catatan_via)))
         }
     }
 
@@ -487,18 +487,18 @@ class DetailHutangActivity : AppCompatActivity() {
         val uid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
         if (uid == 0 && currentDataModel == null) return
         com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
-            .setTitle("Hapus Catatan")
-            .setMessage("Apakah Anda yakin ingin menghapus catatan ${binding.tvProfileName.text}?")
-            .setPositiveButton("Hapus") { dialog, _ ->
+            .setTitle(getString(R.string.hapus_catatan_title))
+            .setMessage(getString(R.string.konfirmasi_hapus_catatan_format, binding.tvProfileName.text))
+            .setPositiveButton(getString(R.string.hapus)) { dialog, _ ->
                 currentDataModel?.let { model -> viewModel.deleteData(model) }
                 paymentViewModel.deleteDataFormUid(uid)
-                Snackbar.make(binding.clRootContent, "Catatan berhasil dihapus", Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_dihapus), Snackbar.LENGTH_SHORT).show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     finish()
                 }, 600)
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(getString(R.string.batal)) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 

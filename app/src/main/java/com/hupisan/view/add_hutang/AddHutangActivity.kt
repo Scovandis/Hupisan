@@ -41,7 +41,7 @@ class AddHutangActivity : AppCompatActivity(){
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (!isGranted) {
                 binding.switchReminder.isChecked = false
-                Snackbar.make(binding.constraint, "Izin notifikasi diperlukan untuk menyetel pengingat", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.constraint, getString(R.string.izin_notif_dibutuhkan), Snackbar.LENGTH_LONG).show()
             }
         }
 
@@ -155,10 +155,10 @@ class AddHutangActivity : AppCompatActivity(){
             binding.tabToggleHutang.background = null
             binding.tabToggleHutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
 
-            binding.tvToolbarTitle.text = "Tambah Piutang"
-            binding.tvLabelNama.text = "Nama Kreditur"
-            binding.etNamaInput.hint = "Masukkan nama kreditur"
-            binding.tvLabelJumlah.text = "Jumlah Piutang"
+            binding.tvToolbarTitle.text = getString(R.string.tambah_piutang)
+            binding.tvLabelNama.text = getString(R.string.nama_kreditur)
+            binding.etNamaInput.hint = getString(R.string.masukkan_nama_kreditur)
+            binding.tvLabelJumlah.text = getString(R.string.total_piutang)
         } else {
             nJenis = getString(R.string.hutang)
             binding.tabToggleHutang.setBackgroundResource(R.drawable.bg_green_pill)
@@ -166,10 +166,10 @@ class AddHutangActivity : AppCompatActivity(){
             binding.tabTogglePiutang.background = null
             binding.tabTogglePiutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
 
-            binding.tvToolbarTitle.text = "Tambah Hutang"
-            binding.tvLabelNama.text = "Nama Debitur"
-            binding.etNamaInput.hint = "Masukkan nama debitur"
-            binding.tvLabelJumlah.text = "Jumlah Hutang"
+            binding.tvToolbarTitle.text = getString(R.string.tambah_hutang)
+            binding.tvLabelNama.text = getString(R.string.nama_debitur)
+            binding.etNamaInput.hint = getString(R.string.masukkan_nama_debitur)
+            binding.tvLabelJumlah.text = getString(R.string.jumlah_utang)
         }
     }
 
@@ -294,7 +294,7 @@ class AddHutangActivity : AppCompatActivity(){
         builder.setSmallIcon(R.drawable.ic_foreground_apps)
         builder.setAutoCancel(true)
         builder.setContentIntent(openAppPendingIntent)
-        builder.addAction(R.drawable.ic_baseline_check_24, "Ingatkan via WA", waPendingIntent)
+        builder.addAction(R.drawable.ic_baseline_check_24, getString(R.string.ingatkan_via_wa), waPendingIntent)
         builder.setChannelId(MainActivity.NOTIFICATION_CHANNEL_ID)
         return builder.build()
     }

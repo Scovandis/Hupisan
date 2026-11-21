@@ -140,10 +140,10 @@ class MainActivity : AppCompatActivity() {
     private fun setupSecondaryActions() {
         binding.cardBannerArisan.setOnClickListener {
             MaterialAlertDialogBuilder(this)
-                .setTitle("🎁 Manajemen Arisan Digital")
-                .setMessage("Fitur Arisan sedang kami siapkan untuk memudahkan Anda mengelola kelompok arisan keluarga, iuran bulanan, serta pengundian otomatis yang adil & transparan.\n\nNantikan pada pembaruan mendatang!")
-                .setPositiveButton("Mengerti") { dialog, _ -> dialog.dismiss() }
-                .setNeutralButton("Coba Versi Beta") { _, _ ->
+                .setTitle(getString(R.string.dialog_arisan_title))
+                .setMessage(getString(R.string.dialog_arisan_message))
+                .setPositiveButton(getString(R.string.dialog_arisan_positive)) { dialog, _ -> dialog.dismiss() }
+                .setNeutralButton(getString(R.string.dialog_arisan_neutral)) { _, _ ->
                     startActivity(Intent(this, FitureArisanActivity::class.java))
                 }
                 .show()
@@ -158,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnMenuReseller.setOnClickListener {
-            Snackbar.make(binding.constraint, "Fitur Reseller segera hadir", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.constraint, getString(R.string.fitur_reseller_segera_hadir), Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -264,12 +264,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun showAddChooserDialog(hutangText: String, piutangText: String) {
         val options = arrayOf(
-            "Catat Hutang (Debt)",
-            "Catat Piutang (Receivable)"
+            getString(R.string.dialog_add_option_debt),
+            getString(R.string.dialog_add_option_receivable)
         )
 
         MaterialAlertDialogBuilder(this)
-            .setTitle("Tambah Catatan Baru")
+            .setTitle(getString(R.string.dialog_add_title))
             .setItems(options) { dialog, which ->
                 when (which) {
                     0 -> {
@@ -285,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 dialog.dismiss()
             }
-            .setNegativeButton("Batal") { dialog, _ ->
+            .setNegativeButton(getString(R.string.batal)) { dialog, _ ->
                 dialog.dismiss()
             }
             .show()
@@ -338,31 +338,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.tvTotalDebt.text = debtFormatted
-        binding.tvCountDebt.text = "$countDebt catatan aktif"
+        binding.tvCountDebt.text = getString(R.string.catatan_aktif_format, countDebt)
 
         binding.tvTotalReceivable.text = receivableFormatted
-        binding.tvCountReceivable.text = "$countReceivable catatan aktif"
+        binding.tvCountReceivable.text = getString(R.string.catatan_aktif_format, countReceivable)
 
         // Calculate Net Balance (Selisih Bersih) with Financial Health Badge
         val netBalance = totalReceivable - totalDebt
         when {
             netBalance > 0 -> {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_lunas)
-                binding.tvNetBalanceStatus.text = "🟢 Surplus (Kas Aman)"
+                binding.tvNetBalanceStatus.text = getString(R.string.status_surplus)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
                 binding.tvNetBalance.text = "+ Rp " + decimalFormat.format(netBalance)
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
             }
             netBalance < 0 -> {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
-                binding.tvNetBalanceStatus.text = "🔴 Defisit (Kewajiban Tinggi)"
+                binding.tvNetBalanceStatus.text = getString(R.string.status_defisit)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
                 binding.tvNetBalance.text = "- Rp " + decimalFormat.format(-netBalance)
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
             }
             else -> {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_neutral)
-                binding.tvNetBalanceStatus.text = "⚪ Posisi Kas Seimbang"
+                binding.tvNetBalanceStatus.text = getString(R.string.status_kas_seimbang)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
                 binding.tvNetBalance.text = "Rp 0"
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_primary))
@@ -402,11 +402,11 @@ class MainActivity : AppCompatActivity() {
             .filter { !it.statusDataSelesai && getDaysRemaining(it.jatuhTempo) != null && (getDaysRemaining(it.jatuhTempo) ?: 99L) <= 7L }
             .sortedBy { getDaysRemaining(it.jatuhTempo) ?: 99L }
 
-        binding.tvTempoBadge.text = "${attentionList.size} catatan mendekati tempo"
+        binding.tvTempoBadge.text = getString(R.string.attention_count_format, attentionList.size)
 
         if (attentionList.isEmpty()) {
             val emptyTv = TextView(this).apply {
-                text = "🎉 Semua tagihan aman! Tidak ada jatuh tempo dalam 7 hari ke depan."
+                text = getString(R.string.attention_all_safe)
                 textSize = 13f
                 setTextColor(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 setPadding(8, 8, 8, 8)
@@ -421,13 +421,13 @@ class MainActivity : AppCompatActivity() {
 
                 val days = getDaysRemaining(item.jatuhTempo) ?: 0L
                 val (tagText, tagColor) = when {
-                    days < 0 -> Pair("(Lewat tempo!)", ContextCompat.getColor(this, R.color.hupisan_debt_red))
-                    days == 0L -> Pair("(Hari ini!)", ContextCompat.getColor(this, R.color.hupisan_debt_red))
-                    days == 1L -> Pair("(Besok!)", ContextCompat.getColor(this, R.color.hupisan_partial_text))
-                    else -> Pair("($days Hari lagi)", ContextCompat.getColor(this, R.color.hupisan_partial_text))
+                    days < 0 -> Pair(getString(R.string.tag_lewat_tempo), ContextCompat.getColor(this, R.color.hupisan_debt_red))
+                    days == 0L -> Pair(getString(R.string.tag_hari_ini), ContextCompat.getColor(this, R.color.hupisan_debt_red))
+                    days == 1L -> Pair(getString(R.string.tag_besok), ContextCompat.getColor(this, R.color.hupisan_partial_text))
+                    else -> Pair(getString(R.string.tag_hari_lagi_format, days), ContextCompat.getColor(this, R.color.hupisan_partial_text))
                 }
 
-                val typeLabel = if (item.jenisPinjaman) "Piutang" else "Hutang"
+                val typeLabel = if (item.jenisPinjaman) getString(R.string.piutang) else getString(R.string.hutang)
                 itemBinding.tvAttentionTitle.text = "${item.username} ($typeLabel)"
                 itemBinding.tvAttentionAmount.text = "Rp " + decimalFormat.format(item.jumlah)
                 itemBinding.tvAttentionTag.text = tagText

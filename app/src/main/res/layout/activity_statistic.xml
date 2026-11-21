@@ -22,7 +22,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Kembali"
+            android:contentDescription="@string/kembali"
             android:padding="6dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-bold"
-            android:text="Laporan &amp; Statistik"
+            android:text="@string/title_laporan_statistik"
             android:textColor="@color/hupisan_text_primary"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -49,7 +49,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Kalender"
+            android:contentDescription="@string/kalender"
             android:padding="6dp"
             android:src="@drawable/ic_hupisan_calendar"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -88,7 +88,7 @@
                     android:fontFamily="sans-serif-bold"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="7dp"
-                    android:text="Bulan Ini"
+                    android:text="@string/filter_bulan_ini"
                     android:textColor="@color/white"
                     android:textSize="13sp" />
 
@@ -103,7 +103,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="7dp"
-                    android:text="3 Bulan"
+                    android:text="@string/filter_tiga_bulan"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="13sp" />
 
@@ -118,7 +118,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="7dp"
-                    android:text="Semua"
+                    android:text="@string/semua"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="13sp" />
 
@@ -146,7 +146,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
-                        android:text="Rekap Performa Keuangan"
+                        android:text="@string/rekap_performa_keuangan"
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -157,7 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:fontFamily="sans-serif"
-                        android:text="Bulan Ini"
+                        android:text="@string/filter_bulan_ini"
                         android:textColor="@color/hupisan_text_muted"
                         android:textSize="12sp" />
 
@@ -174,7 +174,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Total Uang Dipinjamkan"
+                            android:text="@string/total_uang_dipinjamkan"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="13sp" />
 
@@ -220,7 +220,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="Berhasil Ditagih (Lunas)"
+                                android:text="@string/berhasil_ditagih_lunas"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="13sp" />
                         </LinearLayout>
@@ -267,7 +267,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="Masih Tertunggak"
+                                android:text="@string/masih_tertunggak"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="13sp" />
                         </LinearLayout>
@@ -302,7 +302,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:fontFamily="sans-serif"
-                                android:text="Rasio Pelunasan"
+                                android:text="@string/rasio_pelunasan"
                                 android:textColor="@color/hupisan_text_muted"
                                 android:textSize="11.5sp" />
 
@@ -367,7 +367,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-black"
-                        android:text="👥 Prioritas Piutang Terbesar"
+                        android:text="@string/prioritas_piutang_terbesar"
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -377,7 +377,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:fontFamily="sans-serif"
-                        android:text="3 kontak dengan tunggakan piutang tertinggi ke Anda"
+                        android:text="@string/sub_prioritas_piutang"
                         android:textColor="@color/hupisan_text_muted"
                         android:textSize="12sp" />
 
@@ -401,7 +401,7 @@
                 android:layout_marginBottom="24dp"
                 android:backgroundTint="@color/hupisan_primary"
                 android:fontFamily="sans-serif-bold"
-                android:text="📲 Bagikan Ringkasan Laporan"
+                android:text="@string/bagikan_ringkasan_laporan"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="14sp"

@@ -99,7 +99,7 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:contentDescription="Notifikasi"
+                        android:contentDescription="@string/notif"
                         android:src="@drawable/ic_hupisan_bell" />
                 </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -169,7 +169,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
                                     android:fontFamily="sans-serif-medium"
-                                    android:text="Piutang (di Teman)"
+                                    android:text="@string/piutang_di_teman"
                                     android:textColor="@color/hupisan_text_secondary"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -190,7 +190,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="0 catatan aktif"
+                                android:text="@string/catatan_aktif_single"
                                 android:textColor="@color/hupisan_text_muted"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -229,7 +229,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
                                     android:fontFamily="sans-serif-medium"
-                                    android:text="Hutang Saya"
+                                    android:text="@string/hutang_saya"
                                     android:textColor="@color/hupisan_text_secondary"
                                     android:textSize="12sp" />
                             </LinearLayout>
@@ -250,7 +250,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="0 catatan aktif"
+                                android:text="@string/catatan_aktif_single"
                                 android:textColor="@color/hupisan_text_muted"
                                 android:textSize="11sp" />
                         </LinearLayout>
@@ -281,7 +281,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Posisi Kas Seimbang"
+                            android:text="@string/posisi_kas_seimbang"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12sp" />
 
@@ -319,7 +319,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-bold"
-                        android:text="⚠️ PERLU PERHATIAN"
+                        android:text="@string/perlu_perhatian_title"
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="13sp"
                         android:textStyle="bold" />
@@ -332,7 +332,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:paddingHorizontal="8dp"
                         android:paddingVertical="3dp"
-                        android:text="Jatuh tempo &lt; 7 hari"
+                        android:text="@string/jatuh_tempo_kurang_7_hari"
                         android:textColor="@color/hupisan_partial_text"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -401,7 +401,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Hutang"
+                            android:text="@string/hutang"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -444,7 +444,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Piutang"
+                            android:text="@string/piutang"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -498,7 +498,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Dibayarkan"
+                            android:text="@string/dibayarkan"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -541,7 +541,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="Statistik"
+                            android:text="@string/statistic"
                             android:textColor="@color/hupisan_text_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -591,7 +591,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="sans-serif-black"
-                    android:text="DAFTAR CATATAN"
+                    android:text="@string/daftar_catatan"
                     android:textColor="@color/hupisan_text_primary"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -633,7 +633,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
-                        android:text="Semua"
+                        android:text="@string/semua"
                         android:textColor="@color/white"
                         android:textSize="13sp" />
 
@@ -648,7 +648,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
-                        android:text="Piutang"
+                        android:text="@string/piutang"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="13sp" />
 
@@ -663,7 +663,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
-                        android:text="Hutang"
+                        android:text="@string/hutang"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="13sp" />
 
@@ -677,7 +677,7 @@
                         android:fontFamily="sans-serif-medium"
                         android:gravity="center"
                         android:paddingHorizontal="16dp"
-                        android:text="Selesai/Lunas"
+                        android:text="@string/selesai_lunas"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -730,7 +730,7 @@
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-black"
                         android:gravity="center"
-                        android:text="Halo! Belum ada catatan keuangan nih."
+                        android:text="@string/empty_main_title"
                         android:textColor="@color/hupisan_text_primary"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -742,7 +742,7 @@
                         android:fontFamily="sans-serif"
                         android:gravity="center"
                         android:lineSpacingExtra="3dp"
-                        android:text="Catat hutang atau uang yang kamu pinjamkan ke teman dalam hitungan detik."
+                        android:text="@string/empty_main_subtitle"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="13sp" />
 
@@ -800,7 +800,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-bold"
-                            android:text="🎁 Fitur Mendatang: Manajemen Arisan"
+                            android:text="@string/banner_arisan_title"
                             android:textColor="@color/hupisan_primary"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -812,7 +812,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:paddingHorizontal="8dp"
                             android:paddingVertical="3dp"
-                            android:text="Segera Hadir"
+                            android:text="@string/segera_hadir"
                             android:textColor="@color/hupisan_primary"
                             android:textSize="10sp" />
                     </LinearLayout>
@@ -823,7 +823,7 @@
                         android:layout_marginTop="6dp"
                         android:fontFamily="sans-serif"
                         android:lineSpacingExtra="2dp"
-                        android:text="Kelola anggota, iuran bulanan, dan undi pemenang arisan keluarga secara otomatis. Segera hadir!"
+                        android:text="@string/banner_arisan_desc"
                         android:textColor="@color/hupisan_text_secondary"
                         android:textSize="12sp" />
 
@@ -838,7 +838,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pelajari Roadmap Fitur"
+                            android:text="@string/banner_arisan_action"
                             android:textColor="@color/hupisan_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -917,7 +917,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="Beranda"
+                android:text="@string/nav_beranda"
                 android:textColor="@color/hupisan_primary"
                 android:textSize="12sp"
                 android:textStyle="bold" />
@@ -944,7 +944,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Riwayat"
+                android:text="@string/nav_riwayat"
                 android:textColor="@color/hupisan_text_secondary"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -970,7 +970,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Pengingat"
+                android:text="@string/nav_pengingat"
                 android:textColor="@color/hupisan_text_secondary"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -996,7 +996,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
-                android:text="Lainnya"
+                android:text="@string/nav_lainnya"
                 android:textColor="@color/hupisan_text_secondary"
                 android:textSize="11sp" />
         </LinearLayout>
