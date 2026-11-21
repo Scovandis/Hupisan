@@ -369,7 +369,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_menu_debt"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginTop="2dp"
@@ -387,6 +387,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:paddingTop="20dp"
@@ -412,7 +413,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_menu_receivable"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginTop="2dp"
@@ -430,6 +431,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:paddingTop="20dp"
@@ -466,7 +468,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_menu_paid_off"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="2dp"
                     android:layout_marginEnd="6dp"
                     android:layout_marginTop="2dp"
@@ -484,6 +486,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:paddingTop="20dp"
@@ -509,7 +512,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_menu_statistics"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="2dp"
                     android:layout_marginTop="2dp"
@@ -527,6 +530,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:minHeight="100dp"
                         android:gravity="center"
                         android:orientation="vertical"
                         android:paddingTop="20dp"

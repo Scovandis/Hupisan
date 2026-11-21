@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/hupisan_page_bg"
     android:clipToPadding="false"
+    android:fillViewport="true"
     android:paddingBottom="32dp"
     tools:context=".view.bantuan.BantuanActivity">
 

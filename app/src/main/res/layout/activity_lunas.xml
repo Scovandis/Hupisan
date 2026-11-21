@@ -171,10 +171,12 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="46dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="48dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="14dp">
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="6dp">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -185,7 +187,8 @@
                     <EditText
                         android:id="@+id/et_search_lunas"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:background="@null"
