@@ -12,7 +12,6 @@ import com.hupisan.R
 import com.hupisan.databinding.ActivitySplashScreenBinding
 import com.hupisan.util.AppsConfig
 import com.hupisan.view.main.MainActivity
-import com.hupisan.view.onboarding.IntroActivity
 import java.util.*
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -37,16 +36,11 @@ class SplashScreenActivity : AppCompatActivity() {
     private fun moveTo() {
         try {
             Handler(Looper.getMainLooper()).postDelayed({
-                val isFirstRun = getSharedPreferences("PREFERENCE", MODE_PRIVATE).getBoolean("isFirstRun", true)
                 appsConfig.saveThemePreferences("1")
-                if (isFirstRun) {
-                    getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
-                        .putBoolean("isFirstRun", false).apply()
-                    appsConfig.updateUserLoginStatus(true)
-                    startActivity(Intent(this, IntroActivity::class.java))
-                } else {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
+                appsConfig.updateUserLoginStatus(true)
+                getSharedPreferences("PREFERENCE", MODE_PRIVATE).edit()
+                    .putBoolean("isFirstRun", false).apply()
+                startActivity(Intent(this, MainActivity::class.java))
                 finish()
             }, 800)
         } catch (e: Exception) {

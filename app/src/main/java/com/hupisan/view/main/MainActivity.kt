@@ -240,9 +240,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupFab(hutangText: String, piutangText: String) {
-        binding.btnCatatBaru.setOnClickListener {
+        val onAddClick = View.OnClickListener {
             showAddChooserDialog(hutangText, piutangText)
         }
+        binding.btnCatatBaru.setOnClickListener(onAddClick)
+        binding.btnEmptyCreateFirst.setOnClickListener(onAddClick)
     }
 
     private fun showAddChooserDialog(hutangText: String, piutangText: String) {
