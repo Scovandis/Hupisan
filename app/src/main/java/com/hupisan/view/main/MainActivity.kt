@@ -138,8 +138,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSecondaryActions() {
+        binding.cardBannerArisan.setOnClickListener {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("🎁 Manajemen Arisan Digital")
+                .setMessage("Fitur Arisan sedang kami siapkan untuk memudahkan Anda mengelola kelompok arisan keluarga, iuran bulanan, serta pengundian otomatis yang adil & transparan.\n\nNantikan pada pembaruan mendatang!")
+                .setPositiveButton("Mengerti") { dialog, _ -> dialog.dismiss() }
+                .setNeutralButton("Coba Versi Beta") { _, _ ->
+                    startActivity(Intent(this, FitureArisanActivity::class.java))
+                }
+                .show()
+        }
+
         binding.cardMenuArisan.setOnClickListener {
-            startActivity(Intent(this, FitureArisanActivity::class.java))
+            binding.cardBannerArisan.performClick()
         }
 
         binding.btnMenuLottery.setOnClickListener {
