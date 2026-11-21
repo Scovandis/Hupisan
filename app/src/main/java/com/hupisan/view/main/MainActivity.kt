@@ -343,20 +343,30 @@ class MainActivity : AppCompatActivity() {
         binding.tvTotalReceivable.text = receivableFormatted
         binding.tvCountReceivable.text = "$countReceivable catatan aktif"
 
-        // Calculate Net Balance (Selisih Bersih)
+        // Calculate Net Balance (Selisih Bersih) with Financial Health Badge
         val netBalance = totalReceivable - totalDebt
-        val netFormatted = if (netBalance > 0) {
-            "+ Rp " + decimalFormat.format(netBalance)
-        } else if (netBalance < 0) {
-            "- Rp " + decimalFormat.format(-netBalance)
-        } else {
-            "Rp 0"
-        }
-        binding.tvNetBalance.text = netFormatted
-        if (netBalance >= 0) {
-            binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
-        } else {
-            binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
+        when {
+            netBalance > 0 -> {
+                binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_lunas)
+                binding.tvNetBalanceStatus.text = "🟢 Surplus (Kas Aman)"
+                binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
+                binding.tvNetBalance.text = "+ Rp " + decimalFormat.format(netBalance)
+                binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
+            }
+            netBalance < 0 -> {
+                binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
+                binding.tvNetBalanceStatus.text = "🔴 Defisit (Kewajiban Tinggi)"
+                binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
+                binding.tvNetBalance.text = "- Rp " + decimalFormat.format(-netBalance)
+                binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
+            }
+            else -> {
+                binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_neutral)
+                binding.tvNetBalanceStatus.text = "⚪ Posisi Kas Seimbang"
+                binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
+                binding.tvNetBalance.text = "Rp 0"
+                binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_primary))
+            }
         }
     }
 

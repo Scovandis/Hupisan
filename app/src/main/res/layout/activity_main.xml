@@ -261,30 +261,35 @@
                         android:layout_marginBottom="12dp"
                         android:background="@color/hupisan_card_stroke" />
 
-                    <!-- Bottom Row: Selisih Bersih -->
+                    <!-- Bottom Row: Selisih Bersih (Financial Health Badge Container) -->
                     <LinearLayout
+                        android:id="@+id/container_net_balance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge_neutral"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="9dp">
 
                         <TextView
+                            android:id="@+id/tv_net_balance_status"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Selisih Bersih"
+                            android:text="Posisi Kas Seimbang"
                             android:textColor="@color/hupisan_text_secondary"
-                            android:textSize="13sp" />
+                            android:textSize="12sp" />
 
                         <TextView
                             android:id="@+id/tv_net_balance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-bold"
-                            android:text="+ Rp 0"
-                            android:textColor="@color/hupisan_paid_text"
-                            android:textSize="15sp"
+                            android:text="Rp 0"
+                            android:textColor="@color/hupisan_text_primary"
+                            android:textSize="14sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
