@@ -173,11 +173,14 @@
                         <TextView
                             android:id="@+id/tab_filter_all"
                             android:layout_width="wrap_content"
-                            android:layout_height="34dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="36dp"
                             android:background="@drawable/bg_filter_pill_active"
                             android:gravity="center"
                             android:paddingStart="16dp"
+                            android:paddingTop="6dp"
                             android:paddingEnd="16dp"
+                            android:paddingBottom="6dp"
                             android:text="@string/tab_semua"
                             android:textColor="@color/white"
                             android:textSize="12.5sp"
@@ -186,12 +189,15 @@
                         <TextView
                             android:id="@+id/tab_filter_unpaid"
                             android:layout_width="wrap_content"
-                            android:layout_height="34dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="36dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/bg_filter_pill_inactive"
                             android:gravity="center"
                             android:paddingStart="14dp"
+                            android:paddingTop="6dp"
                             android:paddingEnd="14dp"
+                            android:paddingBottom="6dp"
                             android:text="@string/tab_belum_lunas"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12.5sp" />
@@ -199,12 +205,15 @@
                         <TextView
                             android:id="@+id/tab_filter_partial"
                             android:layout_width="wrap_content"
-                            android:layout_height="34dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="36dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/bg_filter_pill_inactive"
                             android:gravity="center"
                             android:paddingStart="14dp"
+                            android:paddingTop="6dp"
                             android:paddingEnd="14dp"
+                            android:paddingBottom="6dp"
                             android:text="@string/tab_sebagian"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12.5sp" />
@@ -212,12 +221,15 @@
                         <TextView
                             android:id="@+id/tab_filter_paid"
                             android:layout_width="wrap_content"
-                            android:layout_height="34dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="36dp"
                             android:layout_marginStart="8dp"
                             android:background="@drawable/bg_filter_pill_inactive"
                             android:gravity="center"
                             android:paddingStart="14dp"
+                            android:paddingTop="6dp"
                             android:paddingEnd="14dp"
+                            android:paddingBottom="6dp"
                             android:text="@string/tab_lunas"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12.5sp" />
@@ -227,7 +239,8 @@
                 <!-- SEARCH BAR -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
+                    android:layout_height="wrap_content"
+                    android:minHeight="44dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="12dp"
@@ -235,7 +248,9 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingStart="14dp"
-                    android:paddingEnd="14dp">
+                    android:paddingTop="6dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="6dp">
 
                     <ImageView
                         android:layout_width="18dp"
@@ -246,7 +261,8 @@
                     <EditText
                         android:id="@+id/et_search_debt"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="36dp"
                         android:layout_marginStart="10dp"
                         android:background="@null"
                         android:hint="@string/hint_cari_nama"

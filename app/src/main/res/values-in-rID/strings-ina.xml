@@ -68,7 +68,7 @@
     <string name="apakah_anda_ingin_mencicil_hutang_dari">Apakah anda ingin mencicil hutang dari</string>
     <string name="kembali">kembali</string>
     <string name="berhasil_dicicil">berhasil dicicil</string>
-    <string name="bayar">bayar</string>
+    <string name="bayar">Bayar</string>
     <string name="berhasil_dilunasi">berhasil di lunasi</string>
     <string name="berhasil_ditambah">berhasil di tambah</string>
     <string name="izin_diberikan">izin diberikan</string>
@@ -289,10 +289,10 @@
     <string name="bagaimana_aku_melaporkan_bug_pada_applikasi_ini">Bagaimana Aku melaporkan Bug pada Applikasi ini?</string>
     <string name="klik_pada_bagian_beri_nilai_dan_masukan_pada_bagian_menu_awal_untuk_menilai_apllikasi_ini_atau_kirimkan_langsung_kepada_email_andriyan354354_gmail_com_pengembang_untuk_melaporkan_bug">Klik pada bagian Beri nilai dan masukan pada bagian menu awal untuk menilai apllikasi ini, atau kirimkan langsung kepada Email andriyan354354@gmail.com pengembang untuk melaporkan Bug</string>
     <!-- Hupisan App Strings -->
-    <string name="piutang_di_teman">Piutang (di Teman)</string>
+    <string name="piutang_di_teman">Piutang</string>
     <string name="catatan_aktif_format">%1$d catatan aktif</string>
     <string name="catatan_aktif_single">0 catatan aktif</string>
-    <string name="hutang_saya">Hutang Saya</string>
+    <string name="hutang_saya">Hutang</string>
     <string name="posisi_kas_seimbang">Posisi Kas Seimbang</string>
     <string name="status_kas_seimbang">Selisih Bersih (Seimbang)</string>
     <string name="status_surplus">Selisih Bersih (Surplus)</string>

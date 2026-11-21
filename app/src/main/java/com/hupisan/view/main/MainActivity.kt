@@ -86,6 +86,16 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupFab(hutangText, piutangText)
 
+        binding.nestedScrollView.setOnScrollChangeListener(
+            androidx.core.widget.NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                if (scrollY > oldScrollY + 12 && binding.btnCatatBaru.isExtended) {
+                    binding.btnCatatBaru.shrink()
+                } else if (scrollY < oldScrollY - 12 && !binding.btnCatatBaru.isExtended) {
+                    binding.btnCatatBaru.extend()
+                }
+            }
+        )
+
         // Delayed initial data fetch to allow smooth transitions
         Handler(Looper.getMainLooper()).postDelayed({
             observeData()

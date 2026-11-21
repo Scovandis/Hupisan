@@ -69,7 +69,7 @@
     <string name="apakah_anda_ingin_mencicil_hutang_dari">do you want to pay off the debt of</string>
     <string name="kembali">back</string>
     <string name="berhasil_dicicil">paid off</string>
-    <string name="bayar">pay</string>
+    <string name="bayar">Pay</string>
     <string name="berhasil_dilunasi">successfully paid off</string>
     <string name="berhasil_ditambah">successfully added</string>
     <string name="izin_diberikan">permission granted</string>
@@ -296,10 +296,10 @@
     <string name="bantuan">Help</string>
 
     <!-- Hupisan App Strings -->
-    <string name="piutang_di_teman">Piutang (di Teman)</string>
+    <string name="piutang_di_teman">Piutang</string>
     <string name="catatan_aktif_format">%1$d catatan aktif</string>
     <string name="catatan_aktif_single">0 catatan aktif</string>
-    <string name="hutang_saya">Hutang Saya</string>
+    <string name="hutang_saya">Hutang</string>
     <string name="posisi_kas_seimbang">Posisi Kas Seimbang</string>
     <string name="status_kas_seimbang">Selisih Bersih (Seimbang)</string>
     <string name="status_surplus">Selisih Bersih (Surplus)</string>

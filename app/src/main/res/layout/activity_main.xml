@@ -168,7 +168,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
+                                    android:ellipsize="end"
                                     android:fontFamily="sans-serif-medium"
+                                    android:maxLines="1"
                                     android:text="@string/piutang_di_teman"
                                     android:textColor="@color/hupisan_text_secondary"
                                     android:textSize="12sp" />
@@ -228,7 +230,9 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="6dp"
+                                    android:ellipsize="end"
                                     android:fontFamily="sans-serif-medium"
+                                    android:maxLines="1"
                                     android:text="@string/hutang_saya"
                                     android:textColor="@color/hupisan_text_secondary"
                                     android:textSize="12sp" />
@@ -885,13 +889,16 @@
     <LinearLayout
         android:id="@+id/bottom_nav_bar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
         android:background="@color/white"
         android:elevation="8dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingStart="8dp"
+        android:paddingTop="6dp"
         android:paddingEnd="8dp"
+        android:paddingBottom="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

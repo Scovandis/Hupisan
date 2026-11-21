@@ -42,56 +42,56 @@
                 android:src="@drawable/ic_hupisan_debt_arrow" />
         </FrameLayout>
 
-        <!-- Username / Name -->
+        <!-- Username / Name (full width up to check button, up to 2 lines for large fonts) -->
         <TextView
             android:id="@+id/tv_username"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="10dp"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/hupisan_text_primary"
-            android:textSize="16sp"
+            android:textSize="15.5sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/tv_status_subtitle"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jumlah_nominal"
+            app:layout_constraintEnd_toStartOf="@+id/btn_action_check"
             app:layout_constraintStart_toEndOf="@+id/box_status_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Hh" />
+            tools:text="Budi Santoso" />
 
-        <!-- Subtitle (Debt • Baru saja) -->
+        <!-- Nominal Amount (stacked cleanly under username to prevent truncation on narrow/large-font screens) -->
+        <TextView
+            android:id="@+id/tv_jumlah_nominal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/hupisan_debt_red"
+            android:textSize="15.5sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/btn_action_check"
+            app:layout_constraintStart_toEndOf="@+id/box_status_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_username"
+            tools:text="Rp 500.000" />
+
+        <!-- Subtitle (Hutang • Tempo: 21/11/2026) -->
         <TextView
             android:id="@+id/tv_status_subtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="2dp"
-            android:layout_marginEnd="8dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textColor="@color/hupisan_text_secondary"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/tv_jumlah_nominal"
-            app:layout_constraintStart_toEndOf="@+id/box_status_icon"
-            app:layout_constraintTop_toBottomOf="@+id/tv_username"
-            tools:text="Debt • Baru saja" />
-
-        <!-- Nominal Amount -->
-        <TextView
-            android:id="@+id/tv_jumlah_nominal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:textColor="@color/hupisan_debt_red"
-            android:textSize="17sp"
-            android:textStyle="bold"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/hupisan_text_secondary"
+            android:textSize="12.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btn_action_check"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Rp 5.000" />
+            app:layout_constraintStart_toEndOf="@+id/box_status_icon"
+            app:layout_constraintTop_toBottomOf="@+id/tv_jumlah_nominal"
+            tools:text="Hutang • Baru saja" />
 
         <!-- Checkmark Box / Action -->
         <FrameLayout

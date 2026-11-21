@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:paddingVertical="8dp">
 
-    <!-- Dot indicator -->
-    <View
-        android:id="@+id/dot_indicator"
-        android:layout_width="8dp"
-        android:layout_height="8dp"
-        android:background="@drawable/bg_circle_green_badge" />
-
-    <!-- Name & Type -->
-    <TextView
-        android:id="@+id/tv_attention_title"
-        android:layout_width="0dp"
+    <!-- Row 1: Dot + Name (full priority) + Due Tag -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:fontFamily="sans-serif-medium"
-        android:maxLines="1"
-        android:textColor="@color/hupisan_text_primary"
-        android:textSize="13.5sp"
-        tools:text="Budi (Piutang)" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <!-- Nominal -->
+        <View
+            android:id="@+id/dot_indicator"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/bg_circle_green_badge" />
+
+        <TextView
+            android:id="@+id/tv_attention_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="@color/hupisan_text_primary"
+            android:textSize="13.5sp"
+            tools:text="Budi Santoso (Piutang)" />
+
+        <TextView
+            android:id="@+id/tv_attention_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="@color/hupisan_partial_text"
+            android:textSize="12sp"
+            tools:text="(Besok!)" />
+    </LinearLayout>
+
+    <!-- Row 2: Amount indented cleanly under Name -->
     <TextView
         android:id="@+id/tv_attention_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="6dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="2dp"
         android:fontFamily="sans-serif-bold"
         android:textColor="@color/hupisan_text_primary"
         android:textSize="13.5sp"
         android:textStyle="bold"
-        tools:text="Rp 200.000" />
-
-    <!-- Due Badge / Tag -->
-    <TextView
-        android:id="@+id/tv_attention_tag"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/hupisan_partial_text"
-        android:textSize="12sp"
-        tools:text="(Besok!)" />
+        tools:text="Rp 500.000" />
 
 </LinearLayout>
