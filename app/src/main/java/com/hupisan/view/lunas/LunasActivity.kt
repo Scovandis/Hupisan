@@ -1,108 +1,162 @@
 package com.hupisan.view.lunas
 
-import android.content.Intent
-import android.content.res.ColorStateList
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.button.MaterialButton
+import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hupisan.R
+import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.ActivityLunasBinding
-import com.hupisan.listener.OnBottomSheetCallback
-import com.hupisan.view.main.MainActivity
+import com.hupisan.view.lunas.adapter.LunasAdapter
+import com.hupisan.viewmodel.DataViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.DecimalFormat
 
 class LunasActivity : AppCompatActivity() {
-    private val TAG = LunasActivity::class.java.simpleName
-    lateinit var binding: ActivityLunasBinding
-    private var listener: OnBottomSheetCallback? = null
-    private var mBottomSheetBehavior: BottomSheetBehavior<View?>? = null
+
+    private lateinit var binding: ActivityLunasBinding
+    private val viewModel: DataViewModel by viewModel()
+    private lateinit var lunasAdapter: LunasAdapter
+
+    private var allLunasList = ArrayList<DataModel>()
+    private var activeFilter = FILTER_ALL
+    private var searchQuery = ""
+
+    companion object {
+        const val FILTER_ALL = 0
+        const val FILTER_RECEIVABLE = 1
+        const val FILTER_DEBT = 2
+
+        var STATUS_TYPE: String? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
+
         binding = ActivityLunasBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+            WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = getString(R.string.lunas)
-        supportActionBar?.elevation = 0f
-
-        configureBackdrop()
-        setToggleMenuButtons()
+        setupToolbar()
+        setupFilterTabs()
+        setupSearch()
+        setupRecyclerView()
+        observeData()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
+    private fun setupToolbar() {
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
+    }
+
+    private fun setupFilterTabs() {
+        binding.tabFilterAll.setOnClickListener { updateFilter(FILTER_ALL) }
+        binding.tabFilterReceivable.setOnClickListener { updateFilter(FILTER_RECEIVABLE) }
+        binding.tabFilterDebt.setOnClickListener { updateFilter(FILTER_DEBT) }
+    }
+
+    private fun updateFilter(filterIndex: Int) {
+        activeFilter = filterIndex
+        val tabs = listOf(
+            Pair(binding.tabFilterAll, FILTER_ALL),
+            Pair(binding.tabFilterReceivable, FILTER_RECEIVABLE),
+            Pair(binding.tabFilterDebt, FILTER_DEBT)
+        )
+
+        val activeBg = ContextCompat.getDrawable(this, R.drawable.bg_filter_pill_active)
+        val inactiveBg = ContextCompat.getDrawable(this, R.drawable.bg_filter_pill_inactive)
+        val whiteColor = ContextCompat.getColor(this, R.color.white)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_text_secondary)
+
+        for ((textView, filterType) in tabs) {
+            if (filterType == activeFilter) {
+                textView.background = activeBg
+                textView.setTextColor(whiteColor)
+            } else {
+                textView.background = inactiveBg
+                textView.setTextColor(inactiveTextColor)
             }
-            else -> super.onOptionsItemSelected(item)
+        }
+        applyFilterAndSearch()
+    }
+
+    private fun setupSearch() {
+        binding.etSearchLunas.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                searchQuery = s?.toString()?.trim() ?: ""
+                applyFilterAndSearch()
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+    }
+
+    private fun setupRecyclerView() {
+        lunasAdapter = LunasAdapter(this)
+        binding.rvLunas.apply {
+            layoutManager = LinearLayoutManager(this@LunasActivity)
+            adapter = lunasAdapter
+            isNestedScrollingEnabled = false
         }
     }
-    fun setOnBottomSheetCallbacks(onBottomSheetCallbacks: OnBottomSheetCallback) {
-        this.listener = onBottomSheetCallbacks
+
+    private fun observeData() {
+        binding.shimmerLunas.startShimmer()
+        binding.shimmerLunas.visibility = View.VISIBLE
+        binding.rvLunas.visibility = View.GONE
+        binding.layoutEmptyLunas.visibility = View.GONE
+
+        viewModel.getAllDataWhereStatusLunas(true).observe(this, Observer { list ->
+            binding.shimmerLunas.stopShimmer()
+            binding.shimmerLunas.visibility = View.GONE
+
+            allLunasList = ArrayList(list ?: emptyList())
+            calculateSummary(allLunasList)
+            applyFilterAndSearch()
+        })
     }
 
-    fun closeBottomSheet() {
-        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
-    }
-
-    fun openBottomSheet() {
-        mBottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-
-    private fun setToggleMenuButtons() {
-        binding.materialButtonToggleGroupDifficulty.addOnButtonCheckedListener { _, checkedId, _ ->
-            toggleButton(findViewById(checkedId))
-            handleCheckedButtonsInDifficulty()
+    private fun calculateSummary(list: List<DataModel>) {
+        val totalAmount = list.sumOf { 
+            if (it.jumlah_dibayar > 0) it.jumlah_dibayar.toLong() else it.jumlah.toLong()
         }
+        val decimalFormat = DecimalFormat("##,###,###")
+        binding.tvTotalLunasAmount.text = if (totalAmount > 0) "Rp " + decimalFormat.format(totalAmount) else "Rp 0"
+        binding.tvTotalLunasCount.text = getString(R.string.total_catatan_lunas_format, list.size)
     }
-    private fun toggleButton(button: MaterialButton){
-        if (button.textColors.defaultColor == ContextCompat.getColor(this, R.color.white)) {
-            button.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.hupisan_accent_amber))
-            button.setTextColor(ContextCompat.getColor(this, R.color.hupisan_accent_amber))
+
+    private fun applyFilterAndSearch() {
+        var filtered = allLunasList.filter { item ->
+            if (searchQuery.isNotEmpty()) {
+                item.username.contains(searchQuery, ignoreCase = true)
+            } else true
+        }
+
+        filtered = when (activeFilter) {
+            FILTER_RECEIVABLE -> filtered.filter { it.jenisPinjaman }
+            FILTER_DEBT -> filtered.filter { !it.jenisPinjaman }
+            else -> filtered
+        }
+
+        if (filtered.isEmpty()) {
+            binding.rvLunas.visibility = View.GONE
+            binding.layoutEmptyLunas.visibility = View.VISIBLE
         } else {
-            button.strokeColor = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
-            button.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.layoutEmptyLunas.visibility = View.GONE
+            binding.rvLunas.visibility = View.VISIBLE
         }
-    }
-
-    private fun handleCheckedButtonsInDifficulty() {
-        when (binding.materialButtonToggleGroupDifficulty.checkedButtonId){
-            R.id.type_hutang -> {
-                STATUS_TYPE = getString(R.string.hutang)
-            }
-            R.id.type_piutang -> {
-                STATUS_TYPE = getString(R.string.piutang)
-            }
-            else -> {
-            STATUS_TYPE = null
-        }
-        }
-    }
-
-    private fun configureBackdrop() {
-        val fragment = supportFragmentManager.findFragmentById(R.id.filter_fragment)
-        fragment?.view?.let {
-            BottomSheetBehavior.from(it).let { bs ->
-                bs.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-                    override fun onSlide(bottomSheet: View, slideOffset: Float) {}
-                    override fun onStateChanged(bottomSheet: View, newState: Int) {
-                        listener?.onStateChanged(bottomSheet, newState)
-                    }
-                })
-                bs.state = BottomSheetBehavior.STATE_EXPANDED
-                mBottomSheetBehavior = bs
-            }
-        }
-    }
-
-    companion object{
-        var STATUS_TYPE: String? = null
+        lunasAdapter.setData(ArrayList(filtered))
     }
 }

@@ -396,4 +396,14 @@
     <string name="ketik_konfirmasi_hapus_semua_format">Ketik \"%1$s\" untuk konfirmasi:</string>
     <string name="btn_dialog_hapus">Hapus</string>
     <string name="btn_dialog_batal">Batal</string>
+    <string name="riwayat_pelunasan">Riwayat Pelunasan</string>
+    <string name="sub_riwayat_pelunasan">Daftar catatan hutang &amp; piutang yang telah selesai</string>
+    <string name="cari_catatan_lunas">Cari catatan lunas...</string>
+    <string name="total_nominal_dilunasi">Total Nominal Dilunasi</string>
+    <string name="total_catatan_lunas_format">%1$d transaksi telah lunas</string>
+    <string name="empty_lunas_title">Belum ada catatan yang lunas</string>
+    <string name="empty_lunas_desc">Catatan hutang atau piutang yang telah dibayar lunas akan otomatis tercatat di sini sebagai riwayat keuangan Anda.</string>
+    <string name="filter_piutang_lunas">Piutang Lunas</string>
+    <string name="filter_hutang_lunas">Hutang Lunas</string>
+
 </resources>
