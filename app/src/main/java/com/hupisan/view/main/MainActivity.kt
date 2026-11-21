@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -65,9 +66,8 @@ class MainActivity : AppCompatActivity() {
         appsConfig = AppsConfig(this)
         loadLanguage()
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_primary_dark)
-        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
 
         val hutangText = getString(R.string.hutang)
         val piutangText = getString(R.string.piutang)
