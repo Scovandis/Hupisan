@@ -58,11 +58,11 @@
             android:name=".view.detail_hutang.DetailHutangActivity"
             android:exported="false"
             android:theme="@style/Theme.HHHH.noActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.add_hutang.AddHutangActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.hutang.HutangActivity"
             android:exported="false" />

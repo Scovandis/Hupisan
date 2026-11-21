@@ -1,162 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/container"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:padding="@dimen/_12sdp"
-        android:background="@color/hupisan_primary_dark"
-        android:id="@+id/linear1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-        <TextView
-            android:textColor="@color/transparentwhite"
-            android:text="@string/apakah_anda_ingin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:textColor="@color/white"
-            android:id="@+id/tv_status_type"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:text="@string/menambahkan_hutang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_marginStart="@dimen/_4sdp"
-            android:textColor="@color/transparentwhite"
-            android:text="@string/dari"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:maxLength="4"
-            android:maxLines="1"
-            android:text="@string/gondres"
-            android:ellipsize="end"
-            android:layout_marginStart="@dimen/_4sdp"
-            android:textSize="@dimen/_12sdp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:id="@+id/tv_username"
-            android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content">
 
-
-    </LinearLayout>
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/relative1"
-        app:layout_constraintStart_toStartOf="parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:gravity="center_vertical"
-        app:layout_constraintTop_toBottomOf="@id/linear1">
-
-        <TextView
-            android:id="@+id/tv_alert_dibuat_pada"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:text="@string/_12_22_2021"
-            android:maxLines="1"
-            android:textSize="@dimen/_12sdp"
-            android:textStyle="italic" />
-
-        <TextView
-            android:id="@+id/tv_total_hutang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:maxLines="1"
-            android:text="@string/_rp_3000_000"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        app:layout_constraintTop_toBottomOf="@id/relative1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_marginStart="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_8sdp"
-        android:layout_height="wrap_content">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_jumlah_alert"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/jumlah_bayar"
-            android:inputType="number"
-            android:maxLines="1"
-            android:textColorHint="@color/hupisan_text_muted"
-            app:boxBackgroundColor="@android:color/transparent"
-            app:boxStrokeColor="@color/hupisan_primary_dark"
-            app:counterEnabled="true"
-            app:counterMaxLength="9"
-            app:counterTextColor="@color/hupisan_text_muted"
-            app:errorEnabled="true"
-            app:helperText="@string/masukkan_jumlah_nominal"
-            app:helperTextEnabled="true"
-            app:helperTextTextColor="@color/hupisan_text_muted"
-            app:hintTextColor="@color/hupisan_primary_dark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_nama"
-            app:prefixText="@string/dolar"
-            app:prefixTextColor="@color/hupisan_primary_dark">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <!-- HEADER BANNER -->
+            <LinearLayout
+                android:id="@+id/linear1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLength="9"
-                android:textColor="@color/hupisan_text_primary"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:background="@color/hupisan_primary_dark"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="14dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/et_keterangan_alert"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/deskripsi"
-            android:textColorHint="@color/hupisan_text_muted"
-            app:boxBackgroundColor="@android:color/transparent"
-            app:boxStrokeColor="@color/hupisan_primary_dark"
-            app:counterEnabled="true"
-            app:counterMaxLength="210"
-            app:counterTextColor="@color/hupisan_text_muted"
-            app:errorEnabled="true"
-            app:helperText="@string/bila_ada_keterangan_yang_di_hutang"
-            app:helperTextEnabled="true"
-            app:helperTextTextColor="@color/hupisan_text_muted"
-            app:hintTextColor="@color/hupisan_primary_dark"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_jumlah">
+                <TextView
+                    android:id="@+id/tv_prompt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/apakah_anda_ingin"
+                    android:textColor="@color/transparentwhite"
+                    android:textSize="13sp" />
 
-            <com.google.android.material.textfield.TextInputEditText
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_status_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/menambahkan_hutang"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:text="@string/dari"
+                        android:textColor="@color/transparentwhite"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        tools:text="Budi Santoso" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- DATE & TOTAL ROW -->
+            <RelativeLayout
+                android:id="@+id/relative1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="210"
-                android:textColor="@color/hupisan_text_primary"
-                android:maxLines="5" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center_vertical">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_alert_dibuat_pada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:maxLines="1"
+                    android:textColor="@color/hupisan_text_secondary"
+                    android:textSize="12sp"
+                    android:textStyle="italic"
+                    tools:text="21/11/2026 19:30" />
+
+                <TextView
+                    android:id="@+id/tv_total_hutang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:maxLines="1"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="Rp 250.000" />
+            </RelativeLayout>
+
+            <!-- INPUT FIELDS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_jumlah_alert"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/jumlah_bayar"
+                    android:textColorHint="@color/hupisan_text_muted"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeColor="@color/hupisan_primary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="12"
+                    app:counterTextColor="@color/hupisan_text_muted"
+                    app:errorEnabled="true"
+                    app:helperText="@string/masukkan_jumlah_nominal"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextColor="@color/hupisan_text_muted"
+                    app:hintTextColor="@color/hupisan_primary"
+                    app:prefixText="@string/dolar"
+                    app:prefixTextColor="@color/hupisan_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="12"
+                        android:maxLines="1"
+                        android:textColor="@color/hupisan_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/et_keterangan_alert"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:hint="@string/deskripsi"
+                    android:textColorHint="@color/hupisan_text_muted"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:boxStrokeColor="@color/hupisan_primary"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="210"
+                    app:counterTextColor="@color/hupisan_text_muted"
+                    app:errorEnabled="true"
+                    app:helperText="@string/bila_ada_keterangan_yang_di_hutang"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextColor="@color/hupisan_text_muted"
+                    app:hintTextColor="@color/hupisan_primary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:maxLength="210"
+                        android:maxLines="4"
+                        android:textColor="@color/hupisan_text_primary" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
