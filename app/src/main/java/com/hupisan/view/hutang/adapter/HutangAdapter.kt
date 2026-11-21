@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.RowItemBinding
-import com.hupisan.view.hutang.DetailHutangActivity
+import com.hupisan.view.detail_hutang.DetailHutangActivity
 
 
 class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) : RecyclerView.Adapter<HutangAdapter.ViewHolder>(){

@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.RowLunasBinding
-import com.hupisan.view.hutang.DetailHutangActivity
+import com.hupisan.view.detail_hutang.DetailHutangActivity
 import com.hupisan.view.lunas.WindowFragmentLunas
 import java.util.*
 

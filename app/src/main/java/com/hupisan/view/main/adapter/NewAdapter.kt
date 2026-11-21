@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.DataModel
 import com.hupisan.databinding.RowNewDataBinding
-import com.hupisan.view.hutang.DetailHutangActivity
+import com.hupisan.view.detail_hutang.DetailHutangActivity
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*

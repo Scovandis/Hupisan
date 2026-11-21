@@ -1,4 +1,4 @@
-package com.hupisan.view.hutang
+package com.hupisan.view.detail_hutang
 
 import android.content.Context
 import android.content.Intent
@@ -29,7 +29,7 @@ import com.hupisan.database.entity.DataModel
 import com.hupisan.database.entity.PaymentModel
 import com.hupisan.databinding.ActivityDetailHutangBinding
 import com.hupisan.databinding.AlertDicicilBinding
-import com.hupisan.view.hutang.adapter.PaymentAdapter
+import com.hupisan.view.detail_hutang.adapter.PaymentAdapter
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*

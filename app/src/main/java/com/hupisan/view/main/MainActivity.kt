@@ -25,7 +25,7 @@ import com.hupisan.view.statistic.StatisticActivity
 import com.hupisan.view.arisan.FitureArisanActivity
 import com.hupisan.view.bantuan.BantuanActivity
 import com.hupisan.view.add_hutang.AddHutangActivity
-import com.hupisan.view.hutang.DetailHutangActivity
+import com.hupisan.view.detail_hutang.DetailHutangActivity
 import com.hupisan.view.hutang.HutangActivity
 import com.hupisan.view.lunas.LunasActivity
 import com.hupisan.view.main.adapter.NewAdapter

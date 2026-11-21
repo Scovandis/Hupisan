@@ -1,4 +1,4 @@
-package com.hupisan.view.hutang.adapter
+package com.hupisan.view.detail_hutang.adapter
 
 import android.content.Context
 import android.graphics.Color
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hupisan.R
 import com.hupisan.database.entity.PaymentModel
 import com.hupisan.databinding.RowPembayaranBinding
-import com.hupisan.view.hutang.DetailHutangActivity
+import com.hupisan.view.detail_hutang.DetailHutangActivity
 import java.util.Random
 import kotlin.collections.ArrayList
 
