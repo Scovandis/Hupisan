@@ -1,0 +1,15 @@
+appId: my.notes.HHHH
+---
+# UAT-03-04: Test Cicilan Melebihi Hutang (Verifikasi Defect "false")
+- tapOn:
+    id: "my.notes.HHHH:id/option_f"
+- takeScreenshot: screen_06_fab_menu_opened
+- tapOn:
+    id: "my.notes.HHHH:id/fab_cicil"
+- takeScreenshot: screen_07_dialog_cicil
+- tapOn:
+    id: "my.notes.HHHH:id/et_jumlah_alert"
+- inputText: "600000"
+- hideKeyboard
+- tapOn: "BAYAR"
+- takeScreenshot: screen_08_bug_boolean_false

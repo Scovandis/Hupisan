@@ -64,7 +64,7 @@ class DetailHutangActivity : AppCompatActivity() {
         }
 
         binding.btnMenuMore.setOnClickListener {
-            alertDelete()
+            showMoreOptionsDialog()
         }
 
         //get id && typejenis data
@@ -216,13 +216,14 @@ class DetailHutangActivity : AppCompatActivity() {
                             statusOption,
                             typeJenis!!
                         )
+                        val jenisLabel = if (typeJenis == true) getString(R.string.piutang) else getString(R.string.hutang)
                         when(statusOption){
                             1 -> {
                                 var total = activityJumlah - alertJumlah
                                 Log.d(TAG, "TOTAL DIKURANGI $total")
                                 if(total < 0){
                                     Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, getString(R.string.nominal_tidak_boleh_melebihi)+ " $typeJenis", Snackbar.LENGTH_SHORT).show()
+                                        Snackbar.make(binding.clRootContent, "${getString(R.string.nominal_tidak_boleh_melebihi)} sisa $jenisLabel", Snackbar.LENGTH_SHORT).show()
                                     },700)
                                 }
                                 else if (total == 0){
@@ -231,12 +232,12 @@ class DetailHutangActivity : AppCompatActivity() {
                                     paymentViewModel.insertData(dataBayar)
                                     viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
                                     Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, getString(R.string.berhasil_dilunasi)+" "+ getString(R.string.dolar) +" "+ dateFormat.format(alertJumlah), Snackbar.LENGTH_SHORT).show()
+                                        Snackbar.make(binding.clRootContent, "${getString(R.string.berhasil_dilunasi)} Rp ${dateFormat.format(alertJumlah)}", Snackbar.LENGTH_SHORT).show()
                                     },700)
                                 }else if(alertJumlah > activityJumlah){
                                     Toast.makeText(this, getString(R.string.cek_kembali_jumlah_yang_anda_masukkan), Toast.LENGTH_SHORT).show()
                                     Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, getString(R.string.nominal_tidak_boleh_melebihi)+ " $typeJenis", Snackbar.LENGTH_SHORT).show()
+                                        Snackbar.make(binding.clRootContent, "${getString(R.string.nominal_tidak_boleh_melebihi)} sisa $jenisLabel", Snackbar.LENGTH_SHORT).show()
                                     },700)
                                 }else {
                                     var bayar = activityDibayar + alertJumlah
@@ -245,7 +246,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
                                             binding.clRootContent,
-                                            getString(R.string.berhasil_dicicil)+" "+ getString(R.string.dolar) +" "+ dateFormat.format(alertJumlah),
+                                            "${getString(R.string.berhasil_dicicil)} Rp ${dateFormat.format(alertJumlah)}",
                                             Snackbar.LENGTH_SHORT
                                         ).show() },700)
                                 }
@@ -258,7 +259,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                 Handler(Looper.getMainLooper()).postDelayed({
                                     Snackbar.make(
                                         binding.clRootContent,
-                                        getString(R.string.berhasil_ditambah) +" "+ getString(R.string.dolar) +" "+ dateFormat.format(alertJumlah),
+                                        "${getString(R.string.berhasil_ditambah)} Rp ${dateFormat.format(alertJumlah)}",
                                         Snackbar.LENGTH_SHORT
                                     ).show()
                                 },700)
@@ -273,7 +274,7 @@ class DetailHutangActivity : AppCompatActivity() {
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         Snackbar.make(
                                             binding.clRootContent,
-                                            getString(R.string.berhasil_dilunasi)+" "+ getString(R.string.dolar) +" "+ dateFormat.format(total),
+                                            "${getString(R.string.berhasil_dilunasi)} Rp ${dateFormat.format(alertJumlah)}",
                                             Snackbar.LENGTH_SHORT
                                         ).show()
                                     },900)
@@ -442,6 +443,42 @@ class DetailHutangActivity : AppCompatActivity() {
             }
             .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
             .show()
+    }
+
+    private fun showMoreOptionsDialog() {
+        val options = arrayOf(
+            "Kirim Pengingat (WhatsApp)",
+            "Hapus Catatan Ini"
+        )
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Opsi Catatan")
+            .setItems(options) { dialog, which ->
+                when (which) {
+                    0 -> sendWhatsAppReminder()
+                    1 -> alertDelete()
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton("Batal") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    private fun sendWhatsAppReminder() {
+        val model = currentDataModel ?: return
+        val jenisLabel = if (model.jenisPinjaman) "piutang" else "hutang"
+        val tempoText = if (model.jatuhTempo.isNotEmpty()) "jatuh tempo pada ${model.jatuhTempo}" else ""
+        val message = "Halo ${model.username}, sekadar mengingatkan catatan $jenisLabel sebesar Rp ${decimalFormat.format(model.jumlah)} $tempoText. Catatan ini dicatat melalui aplikasi Hupisan. Terima kasih banyak ya 🙏"
+        val waUrl = "https://api.whatsapp.com/send?text=" + java.net.URLEncoder.encode(message, "UTF-8")
+        try {
+            val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(waUrl))
+            startActivity(intent)
+        } catch (e: Exception) {
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TEXT, message)
+            }
+            startActivity(Intent.createChooser(shareIntent, "Bagikan Catatan via"))
+        }
     }
 
     private fun alertDelete() {

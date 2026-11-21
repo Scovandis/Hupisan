@@ -1,0 +1,19 @@
+appId: my.notes.HHHH
+---
+- tapOn:
+    id: "my.notes.HHHH:id/et_nama"
+- eraseText: 30
+- inputText: "Budi UAT"
+- hideKeyboard
+- tapOn:
+    id: "my.notes.HHHH:id/et_jumlah"
+- eraseText: 20
+- inputText: "500000"
+- hideKeyboard
+- tapOn:
+    id: "my.notes.HHHH:id/et_keterangan"
+- eraseText: 50
+- inputText: "Pinjaman modal usaha"
+- hideKeyboard
+- tapOn: "SIMPAN"
+- takeScreenshot: screen_saved_success

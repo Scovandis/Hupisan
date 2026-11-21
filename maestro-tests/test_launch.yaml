@@ -1,0 +1,7 @@
+appId: my.notes.HHHH
+---
+- launchApp:
+    clearState: false
+- assertVisible: "H.H.H.H"
+- scroll
+- takeScreenshot: screen_home_maestro

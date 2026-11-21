@@ -174,9 +174,7 @@ class AddHutangActivity : AppCompatActivity(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             android.R.id.home -> {
-                val intent = Intent(this, HutangActivity::class.java)
-                intent.putExtra(HutangActivity.EXTRA_TYPE_JENIS, nJenis)
-                startActivity(intent)
+                finish()
                 return true
             }else -> {
                 super.onOptionsItemSelected(item)
@@ -213,10 +211,11 @@ class AddHutangActivity : AppCompatActivity(){
             return
         }
 
-        val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", false, 1, jenis, false, nTime ?: "", "-", nDibayar)
+        val hasNotification = binding.switchReminder.isChecked
+        val data = DataModel(0, nUname, nDeskripsi, nJumlah, nDiBuat ?: "", nJatuhTempo ?: "", hasNotification, 1, jenis, false, nTime ?: "", "-", nDibayar)
         Log.d(TAG, "dataInsert $data")
         dbViewModel.insertData(data)
-        if (binding.switchReminder.isChecked) {
+        if (hasNotification) {
             isNotification()
         }
         Snackbar.make(binding.constraint, getString(R.string.data_berhasil_di_dimpan), Snackbar.LENGTH_SHORT).show()
@@ -232,19 +231,22 @@ class AddHutangActivity : AppCompatActivity(){
             val jtem = sdf1.parse(myDate)
             val mil = jtem?.time ?: System.currentTimeMillis()
             val millis = System.currentTimeMillis()
-            val postDelay = mil - millis
-            if (postDelay > 0) {
-                getNotification("${getString(R.string.ada)} $nJenis ${getString(R.string.yang_harus_dibayar)} ${getString(R.string.dari)} $nUname")?.let { scheduleNotification(it, postDelay.toInt()) }
+            if (mil > millis) {
+                getNotification("${getString(R.string.ada)} $nJenis ${getString(R.string.yang_harus_dibayar)} ${getString(R.string.dari)} $nUname")?.let { 
+                    scheduleNotification(it, mil) 
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error scheduling notification: $e")
         }
     }
 
-    private fun scheduleNotification(notification: Notification, delay: Int) {
-        val notificationIntent = Intent(this, NotificationService::class.java)
-        notificationIntent.putExtra(NotificationService.NOTIFICATION_ID, 1)
-        notificationIntent.putExtra(NotificationService.NOTIFICATION, notification)
+    private fun scheduleNotification(notification: Notification, targetTimeMillis: Long) {
+        val notifId = (System.currentTimeMillis() % 100000).toInt()
+        val notificationIntent = Intent(this, NotificationService::class.java).apply {
+            putExtra(NotificationService.NOTIFICATION_ID, notifId)
+            putExtra(NotificationService.NOTIFICATION, notification)
+        }
         val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         } else {
@@ -252,13 +254,20 @@ class AddHutangActivity : AppCompatActivity(){
         }
         val pendingIntent = PendingIntent.getBroadcast(
             this,
-            0,
+            notifId,
             notificationIntent,
             flags
         )
-        val futureInMillis = SystemClock.elapsedRealtime() + delay
         val alarmManager = (getSystemService(ALARM_SERVICE) as AlarmManager)
-        alarmManager[AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis] = pendingIntent
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
+            } else {
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
+            }
+        } catch (e: SecurityException) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, targetTimeMillis, pendingIntent)
+        }
     }
 
     private fun getNotification(content: String): Notification? {
