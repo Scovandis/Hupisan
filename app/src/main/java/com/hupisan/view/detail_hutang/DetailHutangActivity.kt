@@ -1,5 +1,7 @@
 package com.hupisan.view.detail_hutang
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -166,125 +168,119 @@ class DetailHutangActivity : AppCompatActivity() {
         }
 
         alertBinding.btnSimpan.setOnClickListener {
-            savePaymentData(alertBinding, statusOption)
-            alertDialog.dismiss()
+            if (savePaymentData(alertBinding, statusOption)) {
+                alertDialog.dismiss()
+            }
         }
 
         alertDialog.show()
     }
 
-    private fun savePaymentData(alertBinding: AlertDicicilBinding, statusOption: Int) {
+    private fun savePaymentData(alertBinding: AlertDicicilBinding, statusOption: Int): Boolean {
         val fromUid = intent.getIntExtra(EXTRA_UID, intent.getStringExtra(EXTRA_UID)?.toIntOrNull() ?: 0)
         Log.d(TAG, " savePaymentData uid : $fromUid")
         val dibuat = alertBinding.tvAlertDibuatPada.text.toString()
         val keterangan = alertBinding.etKeteranganAlert.editText!!.text.toString()
-        val aJumlah = alertBinding.etJumlahAlert.editText?.text?.toString() ?: ""
-        val alertJumlah = aJumlah.replace(" ", "").replace(".", "").toIntOrNull() ?: 0
-        //activity
+        val aJumlah = if (statusOption == 0) {
+            activityJumlah.toString()
+        } else {
+            alertBinding.etJumlahAlert.editText?.text?.toString() ?: ""
+        }
+        val alertJumlah = if (statusOption == 0) {
+            activityJumlah
+        } else {
+            aJumlah.replace(" ", "").replace(".", "").replace(",", "").toIntOrNull() ?: 0
+        }
 
         Log.d(TAG , "ACTIVITY JUMLAH ::::::::::::::::: $activityJumlah")
         Log.d(TAG, "ALERT JUMLAH :::::::  $alertJumlah")
         Log.d(TAG, "ALERT SATUS $statusOption")
-        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm a").format(Date())
-        if (aJumlah.length > 9) {
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(Date())
+        if (statusOption != 0 && aJumlah.length > 9) {
             alertBinding.etJumlahAlert.helperText =
                 getString(R.string.jumlah_tidak_boleh_lebih_dari_9)
-        } else {
-            if (aJumlah.isEmpty()) {
-                alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
-            } else {
-                if (keterangan.length > 210) {
-                    alertBinding.etKeteranganAlert.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
-                } else {
-                    if (alertJumlah == 0 || aJumlah.isEmpty()) {
-                        alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
-                    } else {
-                        val dateFormat = DecimalFormat("##,###,###")
-                        val dataBayar = PaymentModel(
-                            0,
-                            fromUid,
-                            dibuat,
-                            alertJumlah,
-                            keterangan,
-                            statusOption,
-                            typeJenis!!
-                        )
-                        val jenisLabel = if (typeJenis == true) getString(R.string.piutang) else getString(R.string.hutang)
-                        when(statusOption){
-                            1 -> {
-                                var total = activityJumlah - alertJumlah
-                                Log.d(TAG, "TOTAL DIKURANGI $total")
-                                if(total < 0){
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, "${getString(R.string.nominal_tidak_boleh_melebihi)} sisa $jenisLabel", Snackbar.LENGTH_SHORT).show()
-                                    },700)
-                                }
-                                else if (total == 0){
-                                    var bayar = activityDibayar + alertJumlah
-                                    Log.d(TAG, "BAYAR $bayar")
-                                    paymentViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
-                                    ReminderScheduler.cancel(this, fromUid)
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, "${getString(R.string.berhasil_dilunasi)} Rp ${dateFormat.format(alertJumlah)}", Snackbar.LENGTH_SHORT).show()
-                                    },700)
-                                }else if(alertJumlah > activityJumlah){
-                                    Toast.makeText(this, getString(R.string.cek_kembali_jumlah_yang_anda_masukkan), Toast.LENGTH_SHORT).show()
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, "${getString(R.string.nominal_tidak_boleh_melebihi)} sisa $jenisLabel", Snackbar.LENGTH_SHORT).show()
-                                    },700)
-                                }else {
-                                    var bayar = activityDibayar + alertJumlah
-                                    paymentViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, false, "-", bayar)
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(
-                                            binding.clRootContent,
-                                            "${getString(R.string.berhasil_dicicil)} Rp ${dateFormat.format(alertJumlah)}",
-                                            Snackbar.LENGTH_SHORT
-                                        ).show() },700)
-                                }
-                            }
-                            2 -> {
-                                var total = activityJumlah + alertJumlah
-                                Log.d(TAG, "TOTAL DITAMBAH $total")
-                                paymentViewModel.insertData(dataBayar)
-                                viewModel.updateDataJumlah(total, fromUid, false, "-", activityDibayar)
-                                Handler(Looper.getMainLooper()).postDelayed({
-                                    Snackbar.make(
-                                        binding.clRootContent,
-                                        "${getString(R.string.berhasil_ditambah)} Rp ${dateFormat.format(alertJumlah)}",
-                                        Snackbar.LENGTH_SHORT
-                                    ).show()
-                                },700)
-                            }
-                            0 -> {
-                                var total = activityJumlah - alertJumlah
-                                Log.d(TAG, "TOTAL LUNAS $total")
-                                if(total == 0){
-                                    var bayar = activityDibayar + alertJumlah
-                                    paymentViewModel.insertData(dataBayar)
-                                    viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat.toString(), bayar)
-                                    ReminderScheduler.cancel(this, fromUid)
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(
-                                            binding.clRootContent,
-                                            "${getString(R.string.berhasil_dilunasi)} Rp ${dateFormat.format(alertJumlah)}",
-                                            Snackbar.LENGTH_SHORT
-                                        ).show()
-                                    },900)
+            return false
+        }
+        if (statusOption != 0 && aJumlah.isEmpty()) {
+            alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
+            return false
+        }
+        if (keterangan.length > 210) {
+            alertBinding.etKeteranganAlert.error = getString(R.string.keterangan_tidak_boleh_lebih_dari_210_huruf)
+            return false
+        }
+        if (alertJumlah <= 0) {
+            alertBinding.etJumlahAlert.error = getString(R.string.nominal_tidak_boleh_kosong)
+            return false
+        }
 
-                                }else {
-                                    Handler(Looper.getMainLooper()).postDelayed({
-                                        Snackbar.make(binding.clRootContent, getString(R.string.nampaknya_mengalami_bug), Snackbar.LENGTH_SHORT).show()
-                                    },700)
-                                }
-                            }
-                        }
-                    }
+        val dateFormat = DecimalFormat("##,###,###")
+        val dataBayar = PaymentModel(
+            0,
+            fromUid,
+            dibuat,
+            alertJumlah,
+            keterangan,
+            statusOption,
+            typeJenis ?: false
+        )
+        val jenisLabel = if (typeJenis == true) getString(R.string.piutang) else getString(R.string.hutang)
+        when (statusOption) {
+            1 -> {
+                val total = activityJumlah - alertJumlah
+                Log.d(TAG, "TOTAL DIKURANGI $total")
+                if (total < 0) {
+                    alertBinding.etJumlahAlert.error = "${getString(R.string.nominal_tidak_boleh_melebihi)} ${getString(R.string.sisa_tagihan)} $jenisLabel"
+                    return false
+                } else if (total == 0) {
+                    val bayar = activityDibayar + alertJumlah
+                    paymentViewModel.insertData(dataBayar)
+                    viewModel.updateDataJumlah(total, fromUid, true, simpleDateFormat, bayar)
+                    ReminderScheduler.cancel(this, fromUid)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        Snackbar.make(binding.clRootContent, "${getString(R.string.berhasil_dilunasi)} ${getString(R.string.prefix_rp)}${dateFormat.format(alertJumlah)}", Snackbar.LENGTH_SHORT).show()
+                    }, 300)
+                } else {
+                    val bayar = activityDibayar + alertJumlah
+                    paymentViewModel.insertData(dataBayar)
+                    viewModel.updateDataJumlah(total, fromUid, false, "-", bayar)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        Snackbar.make(
+                            binding.clRootContent,
+                            "${getString(R.string.berhasil_dicicil)} ${getString(R.string.prefix_rp)}${dateFormat.format(alertJumlah)}",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
+                    }, 300)
+                }
             }
+            2 -> {
+                val total = activityJumlah + alertJumlah
+                Log.d(TAG, "TOTAL DITAMBAH $total")
+                paymentViewModel.insertData(dataBayar)
+                viewModel.updateDataJumlah(total, fromUid, false, "-", activityDibayar)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Snackbar.make(
+                        binding.clRootContent,
+                        "${getString(R.string.berhasil_ditambah)} ${getString(R.string.prefix_rp)}${dateFormat.format(alertJumlah)}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }, 300)
+            }
+            0 -> {
+                val bayar = activityDibayar + alertJumlah
+                paymentViewModel.insertData(dataBayar)
+                viewModel.updateDataJumlah(0, fromUid, true, simpleDateFormat, bayar)
+                ReminderScheduler.cancel(this, fromUid)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    Snackbar.make(
+                        binding.clRootContent,
+                        "${getString(R.string.berhasil_dilunasi)} ${getString(R.string.prefix_rp)}${dateFormat.format(alertJumlah)}",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                }, 300)
             }
         }
+        return true
     }
 
     private fun onRules(alertBinding: AlertDicicilBinding, optionsString: Int) {
@@ -362,7 +358,7 @@ class DetailHutangActivity : AppCompatActivity() {
                     tvProfileName.text = it.username
                     val initial = if (it.username.isNotEmpty()) it.username.first().uppercaseChar().toString() else "U"
                     tvAvatarLetter.text = initial
-                    tvProfileRole.text = if (it.jenisPinjaman) getString(R.string.kreditur) else getString(R.string.debitur)
+                    tvProfileRole.text = if (it.jenisPinjaman) getString(R.string.debitur) else getString(R.string.kreditur)
 
                     // Big Summary Card
                     val totalOriginal = it.jumlah + it.jumlah_dibayar
@@ -430,6 +426,7 @@ class DetailHutangActivity : AppCompatActivity() {
     }
 
     private fun alertEditNama() {
+        val current = currentDataModel ?: return
         val dialogBinding = com.hupisan.databinding.DialogEditNoteBinding.inflate(layoutInflater)
         val alertDialog = AlertDialog.Builder(this)
             .setView(dialogBinding.root)
@@ -437,19 +434,116 @@ class DetailHutangActivity : AppCompatActivity() {
 
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        dialogBinding.etCatatan.setText(binding.tvInfoCatatan.text)
-        dialogBinding.etCatatan.setSelection(dialogBinding.etCatatan.text?.length ?: 0)
+        dialogBinding.etEditNama.setText(current.username)
+        dialogBinding.etEditNama.setSelection(dialogBinding.etEditNama.text?.length ?: 0)
+        dialogBinding.etEditNominal.setText(current.jumlah.toString())
+        dialogBinding.etEditNominal.isEnabled = !current.statusDataSelesai
+        dialogBinding.etCatatan.setText(if (current.deskripsi == "-") "" else current.deskripsi)
+
+        var selectedDate = current.jatuhTempo.ifBlank {
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(Date())
+        }
+        var selectedTime = current.jam_jatuh_tempo.takeIf { it.isNotBlank() && it != "-" } ?: "09:00"
+
+        dialogBinding.tvEditDueDate.text = selectedDate
+        dialogBinding.tvEditReminderTime.text = selectedTime
+        dialogBinding.switchEditReminder.isChecked = current.notif
+        dialogBinding.rowEditTime.visibility = if (current.notif) View.VISIBLE else View.GONE
+
+        dialogBinding.switchEditReminder.setOnCheckedChangeListener { _, isChecked ->
+            dialogBinding.rowEditTime.visibility = if (isChecked) View.VISIBLE else View.GONE
+        }
+
+        val openDatePicker = {
+            val cal = Calendar.getInstance()
+            try {
+                SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(selectedDate)?.let { cal.time = it }
+            } catch (_: Exception) {}
+            DatePickerDialog(
+                this,
+                { _, year, month, day ->
+                    val picked = Calendar.getInstance().apply { set(year, month, day) }
+                    selectedDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(picked.time)
+                    dialogBinding.tvEditDueDate.text = selectedDate
+                },
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+
+        dialogBinding.rowEditDate.setOnClickListener { openDatePicker() }
+        dialogBinding.tvEditDueDate.setOnClickListener { openDatePicker() }
+
+        val openTimePicker = {
+            val parts = selectedTime.split(":")
+            val initH = parts.getOrNull(0)?.toIntOrNull() ?: 9
+            val initM = parts.getOrNull(1)?.toIntOrNull() ?: 0
+            TimePickerDialog(
+                this,
+                R.style.DialogTheme,
+                { _, h, m ->
+                    selectedTime = String.format(Locale.getDefault(), "%02d:%02d", h, m)
+                    dialogBinding.tvEditReminderTime.text = selectedTime
+                },
+                initH,
+                initM,
+                true
+            ).show()
+        }
+
+        dialogBinding.rowEditTime.setOnClickListener { openTimePicker() }
+        dialogBinding.tvEditReminderTime.setOnClickListener { openTimePicker() }
 
         dialogBinding.btnBatal.setOnClickListener {
             alertDialog.dismiss()
         }
 
         dialogBinding.btnSimpan.setOnClickListener {
-            val newDesc = dialogBinding.etCatatan.text.toString().trim()
-            if (newDesc.isNotEmpty()) {
-                binding.tvInfoCatatan.text = newDesc
-                Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_diperbarui), Snackbar.LENGTH_SHORT).show()
+            val newName = dialogBinding.etEditNama.text?.toString()?.trim() ?: ""
+            val newNominalStr = dialogBinding.etEditNominal.text?.toString()?.replace(".", "")?.replace(",", "")?.trim() ?: ""
+            val newNominal = if (current.statusDataSelesai) current.jumlah else (newNominalStr.toIntOrNull() ?: -1)
+            val newDesc = dialogBinding.etCatatan.text?.toString()?.trim() ?: ""
+            val newNotif = dialogBinding.switchEditReminder.isChecked
+
+            if (newName.length < 2) {
+                dialogBinding.tilEditNama.error = getString(R.string.nama_tidak_boleh_kurang_dari_2_huruf)
+                return@setOnClickListener
+            } else {
+                dialogBinding.tilEditNama.error = null
             }
+
+            if (!current.statusDataSelesai && newNominal <= 0) {
+                dialogBinding.tilEditNominal.error = getString(R.string.nominal_tidak_boleh_kosong)
+                return@setOnClickListener
+            } else {
+                dialogBinding.tilEditNominal.error = null
+            }
+
+            val updatedModel = DataModel(
+                id = current.id,
+                username = newName,
+                deskripsi = newDesc,
+                jumlah = newNominal,
+                diBuat = current.diBuat,
+                jatuhTempo = selectedDate,
+                notif = newNotif,
+                genderUser = current.genderUser,
+                jenisPinjaman = current.jenisPinjaman,
+                statusDataSelesai = current.statusDataSelesai,
+                jam_jatuh_tempo = if (newNotif) selectedTime else "-",
+                tanggal_lunas = current.tanggal_lunas,
+                jumlah_dibayar = current.jumlah_dibayar
+            )
+
+            viewModel.updateData(updatedModel)
+            if (newNotif && !current.statusDataSelesai) {
+                ReminderScheduler.schedule(this, updatedModel.id, updatedModel.jatuhTempo, updatedModel.jam_jatuh_tempo)
+            } else {
+                ReminderScheduler.cancel(this, updatedModel.id)
+            }
+
+            Snackbar.make(binding.clRootContent, getString(R.string.catatan_berhasil_diperbarui), Snackbar.LENGTH_SHORT).show()
             alertDialog.dismiss()
         }
 
@@ -481,9 +575,14 @@ class DetailHutangActivity : AppCompatActivity() {
 
     private fun sendWhatsAppReminder() {
         val model = currentDataModel ?: return
-        val jenisLabel = if (model.jenisPinjaman) "piutang" else "hutang"
-        val tempoText = if (model.jatuhTempo.isNotEmpty()) "jatuh tempo pada ${model.jatuhTempo}" else ""
-        val message = "Halo ${model.username}, sekadar mengingatkan catatan $jenisLabel sebesar Rp ${decimalFormat.format(model.jumlah)} $tempoText. Catatan ini dicatat melalui aplikasi Hupisan. Terima kasih banyak ya 🙏"
+        val amountText = getString(R.string.prefix_rp) + decimalFormat.format(model.jumlah)
+        val cleanDesc = model.deskripsi.trim().takeIf { it.isNotEmpty() && it != "-" }
+        val descSuffix = if (cleanDesc != null) " ($cleanDesc)" else ""
+        val message = if (model.jenisPinjaman) {
+            getString(R.string.wa_reminder_piutang_format, model.username, amountText, model.jatuhTempo, descSuffix)
+        } else {
+            getString(R.string.wa_reminder_hutang_format, model.username, amountText, model.jatuhTempo, descSuffix)
+        }
         val waUrl = "https://api.whatsapp.com/send?text=" + java.net.URLEncoder.encode(message, "UTF-8")
         try {
             val intent = Intent(Intent.ACTION_VIEW, android.net.Uri.parse(waUrl))

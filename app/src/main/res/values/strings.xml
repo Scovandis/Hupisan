@@ -427,7 +427,7 @@
     <string name="pilih_bahasa_title">Pilih Bahasa</string>
     <string name="pilih_bahasa_subtitle">Pilih bahasa tampilan aplikasi Hupisan</string>
     <string name="btn_dialog_simpan">Simpan</string>
-    <string name="edit_catatan_subtitle">Perbarui catatan keterangan untuk transaksi ini:</string>
+    <string name="edit_catatan_subtitle">Perbarui detail catatan dan pengingat transaksi ini:</string>
     <string name="catat_baru">Catat Baru</string>
 
     <!-- Hardcoded strings from layouts - Step 1 fix -->

@@ -157,8 +157,8 @@ class AddHutangActivity : AppCompatActivity(){
             binding.tabToggleHutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
 
             binding.tvToolbarTitle.text = getString(R.string.tambah_piutang)
-            binding.tvLabelNama.text = getString(R.string.nama_kreditur)
-            binding.etNamaInput.hint = getString(R.string.masukkan_nama_kreditur)
+            binding.tvLabelNama.text = getString(R.string.nama_debitur)
+            binding.etNamaInput.hint = getString(R.string.masukkan_nama_debitur)
             binding.tvLabelJumlah.text = getString(R.string.total_piutang)
         } else {
             nJenis = getString(R.string.hutang)
@@ -168,8 +168,8 @@ class AddHutangActivity : AppCompatActivity(){
             binding.tabTogglePiutang.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
 
             binding.tvToolbarTitle.text = getString(R.string.tambah_hutang)
-            binding.tvLabelNama.text = getString(R.string.nama_debitur)
-            binding.etNamaInput.hint = getString(R.string.masukkan_nama_debitur)
+            binding.tvLabelNama.text = getString(R.string.nama_kreditur)
+            binding.etNamaInput.hint = getString(R.string.masukkan_nama_kreditur)
             binding.tvLabelJumlah.text = getString(R.string.jumlah_utang)
         }
     }
