@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:gravity="center"
-        android:text="Pilih tindakan yang ingin dilakukan pada catatan ini"
+        android:text="@string/subtitle_dialog_opsi_catatan"
         android:textColor="@color/hupisan_text_secondary"
         android:textSize="12.5sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Kirim pesan konfirmasi rincian tagihan ke kontak"
+                    android:text="@string/subtitle_kirim_wa"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="11.5sp" />
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Hapus permanen catatan ini dari pembukuan Anda"
+                    android:text="@string/subtitle_hapus_catatan_permanen"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="11.5sp" />
             </LinearLayout>

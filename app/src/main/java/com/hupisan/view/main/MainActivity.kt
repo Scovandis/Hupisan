@@ -368,21 +368,21 @@ class MainActivity : AppCompatActivity() {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_lunas)
                 binding.tvNetBalanceStatus.text = getString(R.string.status_surplus)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
-                binding.tvNetBalance.text = "+ Rp " + decimalFormat.format(netBalance)
+                binding.tvNetBalance.text = "+ " + getString(R.string.prefix_rp) + decimalFormat.format(netBalance)
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
             }
             netBalance < 0 -> {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
                 binding.tvNetBalanceStatus.text = getString(R.string.status_defisit)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
-                binding.tvNetBalance.text = "- Rp " + decimalFormat.format(-netBalance)
+                binding.tvNetBalance.text = "- " + getString(R.string.prefix_rp) + decimalFormat.format(-netBalance)
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
             }
             else -> {
                 binding.containerNetBalance.setBackgroundResource(R.drawable.bg_badge_neutral)
                 binding.tvNetBalanceStatus.text = getString(R.string.status_kas_seimbang)
                 binding.tvNetBalanceStatus.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_secondary))
-                binding.tvNetBalance.text = "Rp 0"
+                binding.tvNetBalance.text = getString(R.string.prefix_rp) + "0"
                 binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_text_primary))
             }
         }
@@ -447,7 +447,7 @@ class MainActivity : AppCompatActivity() {
 
                 val typeLabel = if (item.jenisPinjaman) getString(R.string.piutang) else getString(R.string.hutang)
                 itemBinding.tvAttentionTitle.text = "${item.username} ($typeLabel)"
-                itemBinding.tvAttentionAmount.text = "Rp " + decimalFormat.format(item.jumlah)
+                itemBinding.tvAttentionAmount.text = getString(R.string.prefix_rp) + decimalFormat.format(item.jumlah)
                 itemBinding.tvAttentionTag.text = tagText
                 itemBinding.tvAttentionTag.setTextColor(tagColor)
 

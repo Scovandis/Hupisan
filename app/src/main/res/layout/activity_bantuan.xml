@@ -99,7 +99,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pusat Bantuan &amp; Panduan"
+                        android:text="@string/bantuan_hero_title"
                         android:textColor="@color/white"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -108,7 +108,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Temukan jawaban dan panduan lengkap penggunaan aplikasi Hupisan"
+                        android:text="@string/bantuan_hero_subtitle"
                         android:textColor="#CCFFFFFF"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
-            android:text="KONSEP DASAR"
+            android:text="@string/section_konsep_dasar"
             android:textColor="@color/hupisan_text_muted"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -204,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="PENCATATAN &amp; TRANSAKSI"
+            android:text="@string/section_pencatatan_transaksi"
             android:textColor="@color/hupisan_text_muted"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -323,7 +323,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="PENGELOLAAN DATA"
+            android:text="@string/section_pengelolaan_data"
             android:textColor="@color/hupisan_text_muted"
             android:textSize="12sp"
             android:textStyle="bold" />
@@ -406,7 +406,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="PENGATURAN &amp; DUKUNGAN"
+            android:text="@string/section_pengaturan_dukungan"
             android:textColor="@color/hupisan_text_muted"
             android:textSize="12sp"
             android:textStyle="bold" />

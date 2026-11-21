@@ -115,7 +115,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Bayar bertahap untuk mengurangi sisa tagihan"
+                    android:text="@string/subtitle_bayar_cicil"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="11.5sp" />
             </LinearLayout>
@@ -175,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Selesaikan seluruh tagihan menjadi lunas penuh"
+                    android:text="@string/subtitle_lunasi_pembayaran"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="11.5sp" />
             </LinearLayout>
@@ -235,7 +235,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:text="Tambahkan nominal pinjaman baru ke catatan ini"
+                    android:text="@string/subtitle_tambah_pinjaman"
                     android:textColor="@color/hupisan_text_secondary"
                     android:textSize="11.5sp" />
             </LinearLayout>

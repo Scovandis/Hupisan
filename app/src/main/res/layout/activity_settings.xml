@@ -138,7 +138,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Pilih bahasa tampilan aplikasi"
+                                android:text="@string/subtitle_pilih_bahasa"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -204,7 +204,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Ketentuan penggunaan aplikasi Hupisan"
+                                android:text="@string/subtitle_ketentuan"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -270,7 +270,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Kebijakan keamanan data &amp; privasi"
+                                android:text="@string/subtitle_privasi"
                                 android:textColor="@color/hupisan_text_secondary"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -353,7 +353,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="Dukung kelanjutan aplikasi via PayPal"
+                            android:text="@string/subtitle_donasi"
                             android:textColor="@color/hupisan_text_secondary"
                             android:textSize="12sp" />
                     </LinearLayout>

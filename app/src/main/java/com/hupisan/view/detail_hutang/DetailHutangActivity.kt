@@ -128,7 +128,7 @@ class DetailHutangActivity : AppCompatActivity() {
         alertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val decimalFormat = DecimalFormat("##,###,###")
-        alertBinding.tvTotalHutang.text = "Rp " + decimalFormat.format(activityJumlah)
+        alertBinding.tvTotalHutang.text = getString(R.string.prefix_rp) + decimalFormat.format(activityJumlah)
         alertBinding.tvUsername.text = binding.tvProfileName.text
 
         val dibuatPada = alertBinding.tvAlertDibuatPada
@@ -364,9 +364,9 @@ class DetailHutangActivity : AppCompatActivity() {
                     // Big Summary Card
                     val totalOriginal = it.jumlah + it.jumlah_dibayar
                     tvMainTotalLabel.text = getString(R.string.total_format, jenisPinjaman)
-                    tvMainTotalAmount.text = "Rp " + decimalFormat.format(totalOriginal)
-                    tvAmountPaid.text = "Rp " + decimalFormat.format(it.jumlah_dibayar)
-                    tvAmountRemaining.text = "Rp " + decimalFormat.format(it.jumlah)
+                    tvMainTotalAmount.text = getString(R.string.prefix_rp) + decimalFormat.format(totalOriginal)
+                    tvAmountPaid.text = getString(R.string.prefix_rp) + decimalFormat.format(it.jumlah_dibayar)
+                    tvAmountRemaining.text = getString(R.string.prefix_rp) + decimalFormat.format(it.jumlah)
 
                     if (it.statusDataSelesai || it.jumlah == 0) {
                         tvStatusBadgeCard.text = getString(R.string.lunas)
@@ -393,8 +393,8 @@ class DetailHutangActivity : AppCompatActivity() {
                     content.tvNama.text = it.username
                     content.tvTanggalDibuat.text = it.diBuat
                     content.tvDescription.text = it.deskripsi
-                    content.tvJumlah.text = "Rp " + decimalFormat.format(it.jumlah)
-                    content.tvJumlahStatus.text = "Jumlah $jenisPinjaman"
+                    content.tvJumlah.text = getString(R.string.prefix_rp) + decimalFormat.format(it.jumlah)
+                    content.tvJumlahStatus.text = getString(R.string.label_jumlah_jenis, jenisPinjaman)
                 }
             }
         })

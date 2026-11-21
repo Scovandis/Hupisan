@@ -430,4 +430,45 @@
     <string name="edit_catatan_subtitle">Perbarui catatan keterangan untuk transaksi ini:</string>
     <string name="catat_baru">Catat Baru</string>
 
+    <!-- Hardcoded strings from layouts - Step 1 fix -->
+    <string name="bantuan_hero_title">Pusat Bantuan &amp; Panduan</string>
+    <string name="bantuan_hero_subtitle">Temukan jawaban dan panduan lengkap penggunaan aplikasi Hupisan</string>
+    <string name="section_konsep_dasar">KONSEP DASAR</string>
+    <string name="section_pencatatan_transaksi">PENCATATAN &amp; TRANSAKSI</string>
+    <string name="section_pengelolaan_data">PENGELOLAAN DATA</string>
+    <string name="section_pengaturan_dukungan">PENGATURAN &amp; DUKUNGAN</string>
+    <string name="subtitle_dialog_opsi_catatan">Pilih tindakan yang ingin dilakukan pada catatan ini</string>
+    <string name="subtitle_kirim_wa">Kirim pesan konfirmasi rincian tagihan ke kontak</string>
+    <string name="subtitle_hapus_catatan_permanen">Hapus permanen catatan ini dari pembukuan Anda</string>
+    <string name="subtitle_bayar_cicil">Bayar bertahap untuk mengurangi sisa tagihan</string>
+    <string name="subtitle_lunasi_pembayaran">Selesaikan seluruh tagihan menjadi lunas penuh</string>
+    <string name="subtitle_tambah_pinjaman">Tambahkan nominal pinjaman baru ke catatan ini</string>
+    <string name="subtitle_pilih_bahasa">Pilih bahasa tampilan aplikasi</string>
+    <string name="subtitle_ketentuan">Ketentuan penggunaan aplikasi Hupisan</string>
+    <string name="subtitle_privasi">Kebijakan keamanan data &amp; privasi</string>
+    <string name="subtitle_donasi">Dukung kelanjutan aplikasi via PayPal</string>
+    <string name="label_total_hutang">Total Hutang</string>
+    <string name="tab_semua">Semua</string>
+    <string name="tab_belum_lunas">Belum Lunas</string>
+    <string name="tab_sebagian">Sebagian</string>
+    <string name="tab_lunas">Lunas</string>
+    <string name="hint_cari_nama">Cari nama...</string>
+    <string name="splash_tagline">Buku Catatan Hutang &amp; Kas Personal</string>
+    <string name="splash_fitur">Pencatatan Cepat &amp; Aman</string>
+    <string name="label_jatuh_tempo_format">Jatuh Tempo: %1$s &gt;</string>
+    <string name="label_dibuat_format">Dibuat: %1$s &gt;</string>
+    <string name="prefix_rp">Rp </string>
+    <string name="status_lunas">Lunas</string>
+    <string name="status_belum_lunas">Belum Lunas</string>
+    <string name="status_sebagian">Sebagian</string>
+    <string name="label_total_piutang">Total Piutang</string>
+    <string name="label_total_summary">Total %1$s</string>
+    <string name="label_jumlah_jenis">Jumlah %1$s</string>
+    <string name="status_subtitle_selesai">Selesai/Lunas • %1$s</string>
+    <string name="status_subtitle_piutang">Piutang • %1$s</string>
+    <string name="status_subtitle_hutang">Hutang • %1$s</string>
+    <string name="label_sisa_tagihan">Sisa: %1$s</string>
+    <string name="label_baru_saja">Baru saja</string>
+    <string name="label_tempo_format">Tempo: %1$s</string>
+
 </resources>

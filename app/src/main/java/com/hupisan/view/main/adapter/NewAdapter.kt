@@ -51,29 +51,29 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
 
             with(binding) {
                 tvUsername.text = dataModel.username
-                tvJumlahNominal.text = "Rp " + decimalFormat.format(dataModel.jumlah)
+                tvJumlahNominal.text = context.getString(R.string.prefix_rp) + decimalFormat.format(dataModel.jumlah)
 
-                val timeLabel = if (dataModel.diBuat == todayString) "Baru saja" else dataModel.diBuat
+                val timeLabel = if (dataModel.diBuat == todayString) context.getString(R.string.label_baru_saja) else dataModel.diBuat
 
-                val tempoInfo = if (!dataModel.jatuhTempo.isNullOrBlank()) "Tempo: ${dataModel.jatuhTempo}" else timeLabel
+                val tempoInfo = if (!dataModel.jatuhTempo.isNullOrBlank()) context.getString(R.string.label_tempo_format, dataModel.jatuhTempo) else timeLabel
 
                 if (dataModel.statusDataSelesai) {
                     val settleDate = if (!dataModel.tanggal_lunas.isNullOrBlank()) dataModel.tanggal_lunas else timeLabel
-                    tvStatusSubtitle.text = "Selesai/Lunas • $settleDate"
+                    tvStatusSubtitle.text = context.getString(R.string.status_subtitle_selesai, settleDate)
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_paid)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_check_circle)
                     ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
                     ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                 } else if (dataModel.jenisPinjaman) {
-                    tvStatusSubtitle.text = "Piutang • $tempoInfo"
+                    tvStatusSubtitle.text = context.getString(R.string.status_subtitle_piutang, tempoInfo)
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_receivable)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_receivable_arrow)
                     ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                     ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 } else {
-                    tvStatusSubtitle.text = "Hutang • $tempoInfo"
+                    tvStatusSubtitle.text = context.getString(R.string.status_subtitle_hutang, tempoInfo)
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_red))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_debt)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_debt_arrow)

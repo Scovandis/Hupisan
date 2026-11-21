@@ -76,7 +76,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
         supportActionBar?.hide()
 
         binding.tvToolbarTitle.text = typeJenis
-        binding.tvSummaryLabel.text = "Total $typeJenis"
+        binding.tvSummaryLabel.text = getString(R.string.label_total_summary, typeJenis)
 
         binding.btnBack.setOnClickListener {
             finish()
@@ -184,7 +184,7 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
 
             val decimalFormat = java.text.DecimalFormat("##,###,###")
             val totalSum = it.sumOf { item -> item.jumlah }
-            binding.tvTotalSummaryAmount.text = if (totalSum > 0) "Rp " + decimalFormat.format(totalSum) else "Rp 0"
+            binding.tvTotalSummaryAmount.text = if (totalSum > 0) getString(R.string.prefix_rp) + decimalFormat.format(totalSum) else getString(R.string.prefix_rp) + "0"
 
             if (it.isEmpty()) {
                 binding.rvHutang.visibility = View.GONE

@@ -87,23 +87,23 @@ class HutangAdapter(val context: Context, val onButtonClicked: onButtonClicked) 
 
                 // Due date
                 if (!data.jatuhTempo.isNullOrEmpty()) {
-                    tvDibuatPada.text = "Jatuh Tempo: ${data.jatuhTempo} >"
+                    tvDibuatPada.text = context.getString(R.string.label_jatuh_tempo_format, data.jatuhTempo)
                 } else {
-                    tvDibuatPada.text = "Dibuat: ${data.diBuat} >"
+                    tvDibuatPada.text = context.getString(R.string.label_dibuat_format, data.diBuat)
                 }
 
                 // Amount
-                tvJumlah.text = "Rp " + decimalFormat.format(data.jumlah)
+                tvJumlah.text = context.getString(R.string.prefix_rp) + decimalFormat.format(data.jumlah)
 
                 // Status Badge & Avatar Circle colors
                 if (data.statusDataSelesai) {
-                    tvStatusBadge.text = "Lunas"
+                    tvStatusBadge.text = context.getString(R.string.status_lunas)
                     tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_lunas)
                     tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_text))
                     layoutAvatarCircle.setBackgroundResource(R.drawable.bg_badge_lunas)
                     tvAvatarLetter.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_text))
                 } else {
-                    tvStatusBadge.text = "Belum Lunas"
+                    tvStatusBadge.text = context.getString(R.string.status_belum_lunas)
                     tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
                     tvStatusBadge.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_text))
                     layoutAvatarCircle.setBackgroundResource(R.drawable.bg_badge_belum_lunas)
