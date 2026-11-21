@@ -30,7 +30,8 @@
             android:theme="@style/Theme.HHHH.noActionBar" />
         <activity
             android:name=".view.arisan.AddArisanActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".view.arisan.ArisanActivity"
             android:exported="false"
