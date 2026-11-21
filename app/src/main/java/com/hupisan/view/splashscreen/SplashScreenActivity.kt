@@ -12,6 +12,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,10 @@ class SplashScreenActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        window.statusBarColor = ContextCompat.getColor(this, R.color.hupisan_page_bg)
+        androidx.core.view.WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+
         appsConfig = AppsConfig(this)
         val nLanguage = appsConfig.getRegionLanguage()
         Log.d(TAG, "N LANGUAGE $nLanguage")
@@ -69,7 +74,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     loadLanguage(false)
                     startActivity(Intent(this, MainActivity::class.java))
                 }
-            }, 1000)
+            }, 800)
         }catch (e: Exception){
             Log.d(TAG, "ERROR WHILE $e")
         }
