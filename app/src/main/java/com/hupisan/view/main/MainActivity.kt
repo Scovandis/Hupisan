@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
+import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -22,6 +24,7 @@ import com.hupisan.view.statistic.StatisticActivity
 import com.hupisan.view.arisan.FitureArisanActivity
 import com.hupisan.view.bantuan.BantuanActivity
 import com.hupisan.view.hutang.AddHutangActivity
+import com.hupisan.view.hutang.DetailHutangActivity
 import com.hupisan.view.hutang.HutangActivity
 import com.hupisan.view.lunas.LunasActivity
 import com.hupisan.view.main.adapter.NewAdapter
@@ -170,11 +173,11 @@ class MainActivity : AppCompatActivity() {
         binding.chipFilterAll.setOnClickListener {
             setFilter(FILTER_ALL)
         }
-        binding.chipFilterDebt.setOnClickListener {
-            setFilter(FILTER_DEBT)
-        }
         binding.chipFilterReceivable.setOnClickListener {
             setFilter(FILTER_RECEIVABLE)
+        }
+        binding.chipFilterDebt.setOnClickListener {
+            setFilter(FILTER_DEBT)
         }
         binding.chipFilterPaid.setOnClickListener {
             setFilter(FILTER_PAID)
@@ -188,23 +191,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateFilterTabsUI() {
-        val darkBg = ContextCompat.getDrawable(this, R.drawable.bg_pill_dark)
+        val activeBg = ContextCompat.getDrawable(this, R.drawable.bg_filter_pill_active)
+        val inactiveBg = ContextCompat.getDrawable(this, R.drawable.bg_filter_pill_inactive)
         val whiteColor = ContextCompat.getColor(this, R.color.white)
-        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_text_primary)
+        val inactiveTextColor = ContextCompat.getColor(this, R.color.hupisan_text_secondary)
 
         val chips = listOf(
             Pair(binding.chipFilterAll, FILTER_ALL),
-            Pair(binding.chipFilterDebt, FILTER_DEBT),
             Pair(binding.chipFilterReceivable, FILTER_RECEIVABLE),
+            Pair(binding.chipFilterDebt, FILTER_DEBT),
             Pair(binding.chipFilterPaid, FILTER_PAID)
         )
 
         for ((chip, filterType) in chips) {
             if (filterType == currentFilter) {
-                chip.background = darkBg
+                chip.background = activeBg
                 chip.setTextColor(whiteColor)
             } else {
-                chip.background = null
+                chip.background = inactiveBg
                 chip.setTextColor(inactiveTextColor)
             }
         }
@@ -283,6 +287,7 @@ class MainActivity : AppCompatActivity() {
 
             allRecords = ArrayList(list ?: emptyList())
             calculateSummary(allRecords)
+            populatePerluPerhatian(allRecords)
             applyFilter()
         })
     }
@@ -326,6 +331,117 @@ class MainActivity : AppCompatActivity() {
 
         binding.tvTotalReceivable.text = receivableFormatted
         binding.tvCountReceivable.text = "$countReceivable catatan aktif"
+
+        // Calculate Net Balance (Selisih Bersih)
+        val netBalance = totalReceivable - totalDebt
+        val netFormatted = if (netBalance > 0) {
+            "+ Rp " + decimalFormat.format(netBalance)
+        } else if (netBalance < 0) {
+            "- Rp " + decimalFormat.format(-netBalance)
+        } else {
+            "Rp 0"
+        }
+        binding.tvNetBalance.text = netFormatted
+        if (netBalance >= 0) {
+            binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_paid_text))
+        } else {
+            binding.tvNetBalance.setTextColor(ContextCompat.getColor(this, R.color.hupisan_debt_text))
+        }
+    }
+
+    private fun getDaysRemaining(dueDateStr: String?): Long? {
+        if (dueDateStr.isNullOrEmpty()) return null
+        return try {
+            val sdf = java.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val dueDate = sdf.parse(dueDateStr) ?: return null
+            val calendarNow = Calendar.getInstance().apply {
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            val calendarDue = Calendar.getInstance().apply {
+                time = dueDate
+                set(Calendar.HOUR_OF_DAY, 0)
+                set(Calendar.MINUTE, 0)
+                set(Calendar.SECOND, 0)
+                set(Calendar.MILLISECOND, 0)
+            }
+            val diffMillis = calendarDue.timeInMillis - calendarNow.timeInMillis
+            diffMillis / (1000 * 60 * 60 * 24)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun populatePerluPerhatian(records: List<DataModel>) {
+        binding.containerPerluPerhatianItems.removeAllViews()
+
+        val attentionList = records
+            .filter { !it.statusDataSelesai && getDaysRemaining(it.jatuhTempo) != null && (getDaysRemaining(it.jatuhTempo) ?: 99L) <= 7L }
+            .sortedBy { getDaysRemaining(it.jatuhTempo) ?: 99L }
+
+        binding.tvTempoBadge.text = "${attentionList.size} catatan mendekati tempo"
+
+        if (attentionList.isEmpty()) {
+            val emptyTv = TextView(this).apply {
+                text = "🎉 Semua tagihan aman! Tidak ada jatuh tempo dalam 7 hari ke depan."
+                textSize = 13f
+                setTextColor(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
+                setPadding(8, 8, 8, 8)
+            }
+            binding.containerPerluPerhatianItems.addView(emptyTv)
+        } else {
+            val decimalFormat = DecimalFormat("##,###,###")
+            val inflater = LayoutInflater.from(this)
+
+            attentionList.forEachIndexed { index, item ->
+                val itemBinding = com.hupisan.databinding.RowPerluPerhatianBinding.inflate(inflater, binding.containerPerluPerhatianItems, false)
+
+                val days = getDaysRemaining(item.jatuhTempo) ?: 0L
+                val (tagText, tagColor) = when {
+                    days < 0 -> Pair("(Lewat tempo!)", ContextCompat.getColor(this, R.color.hupisan_debt_red))
+                    days == 0L -> Pair("(Hari ini!)", ContextCompat.getColor(this, R.color.hupisan_debt_red))
+                    days == 1L -> Pair("(Besok!)", ContextCompat.getColor(this, R.color.hupisan_partial_text))
+                    else -> Pair("($days Hari lagi)", ContextCompat.getColor(this, R.color.hupisan_partial_text))
+                }
+
+                val typeLabel = if (item.jenisPinjaman) "Piutang" else "Hutang"
+                itemBinding.tvAttentionTitle.text = "${item.username} ($typeLabel)"
+                itemBinding.tvAttentionAmount.text = "Rp " + decimalFormat.format(item.jumlah)
+                itemBinding.tvAttentionTag.text = tagText
+                itemBinding.tvAttentionTag.setTextColor(tagColor)
+
+                if (item.jenisPinjaman) {
+                    itemBinding.dotIndicator.setBackgroundResource(R.drawable.bg_circle_green_badge)
+                } else {
+                    itemBinding.dotIndicator.setBackgroundResource(R.drawable.bg_circle_red_badge)
+                }
+
+                itemBinding.root.setOnClickListener {
+                    val intent = Intent(this, DetailHutangActivity::class.java).apply {
+                        putExtra(DetailHutangActivity.EXTRA_TYPE_JENIS, item.jenisPinjaman)
+                        putExtra(DetailHutangActivity.EXTRA_UID, item.id)
+                    }
+                    startActivity(intent)
+                }
+
+                binding.containerPerluPerhatianItems.addView(itemBinding.root)
+
+                if (index < attentionList.size - 1) {
+                    val divider = View(this).apply {
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            1
+                        ).apply {
+                            setMargins(0, 4, 0, 4)
+                        }
+                        setBackgroundColor(ContextCompat.getColor(context, R.color.hupisan_card_stroke))
+                    }
+                    binding.containerPerluPerhatianItems.addView(divider)
+                }
+            }
+        }
     }
 
     private fun loadLanguage() {

@@ -114,12 +114,12 @@
                     android:background="@drawable/bg_hupisan_card" />
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <!-- FLOATING SUMMARY CARD (White rounded card with 2 sections) -->
+            <!-- KARTU SALDO UTAMA (Hero Card) -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="18dp"
+                android:layout_marginBottom="16dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="3dp"
@@ -129,131 +129,223 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="16dp"
-                    android:paddingTop="18dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="18dp">
+                    android:orientation="vertical"
+                    android:padding="18dp">
 
-                    <!-- Left: Wallet Circle Icon -->
-                    <FrameLayout
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        android:background="@drawable/bg_summary_wallet_circle">
-
-                        <ImageView
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_hupisan_wallet" />
-                    </FrameLayout>
-
-                    <!-- Right: Two rows (Total Hutang & Total Piutang) -->
+                    <!-- Top Row: Piutang & Hutang side-by-side -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
 
-                        <!-- Row 1: Total Hutang -->
-                        <LinearLayout
-                            android:id="@+id/col_summary_debt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackground"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="8dp">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total Hutang"
-                                    android:textColor="@color/hupisan_text_secondary"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_total_debt"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="Rp 0"
-                                    android:textColor="@color/hupisan_text_primary"
-                                    android:textSize="17sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@drawable/ic_baseline_keyboard_arrow_right_24_black"
-                                app:tint="@color/hupisan_text_muted" />
-                        </LinearLayout>
-
-                        <!-- Subtle Divider -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:background="@color/hupisan_card_stroke" />
-
-                        <!-- Row 2: Total Piutang -->
+                        <!-- Left: Piutang (Uang di Teman) -->
                         <LinearLayout
                             android:id="@+id/col_summary_receivable"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:background="?attr/selectableItemBackground"
                             android:clickable="true"
                             android:focusable="true"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="4dp">
+                            android:orientation="vertical">
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <View
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@drawable/bg_circle_green_badge" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Total Piutang"
+                                    android:layout_marginStart="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="Piutang (di Teman)"
                                     android:textColor="@color/hupisan_text_secondary"
                                     android:textSize="12sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_total_receivable"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="2dp"
-                                    android:text="Rp 0"
-                                    android:textColor="@color/hupisan_text_primary"
-                                    android:textSize="17sp"
-                                    android:textStyle="bold" />
                             </LinearLayout>
 
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:src="@drawable/ic_baseline_keyboard_arrow_right_24_black"
-                                app:tint="@color/hupisan_text_muted" />
+                            <TextView
+                                android:id="@+id/tv_total_receivable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="sans-serif-black"
+                                android:text="Rp 0"
+                                android:textColor="@color/hupisan_paid_text"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_count_receivable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="0 catatan aktif"
+                                android:textColor="@color/hupisan_text_muted"
+                                android:textSize="11sp" />
                         </LinearLayout>
 
+                        <!-- Vertical Divider -->
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="12dp"
+                            android:background="@color/hupisan_card_stroke" />
+
+                        <!-- Right: Hutang Saya -->
+                        <LinearLayout
+                            android:id="@+id/col_summary_debt"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <View
+                                    android:layout_width="8dp"
+                                    android:layout_height="8dp"
+                                    android:background="@drawable/bg_circle_red_badge" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:text="Hutang Saya"
+                                    android:textColor="@color/hupisan_text_secondary"
+                                    android:textSize="12sp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_total_debt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:fontFamily="sans-serif-black"
+                                android:text="Rp 0"
+                                android:textColor="@color/hupisan_debt_text"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tv_count_debt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:text="0 catatan aktif"
+                                android:textColor="@color/hupisan_text_muted"
+                                android:textSize="11sp" />
+                        </LinearLayout>
                     </LinearLayout>
+
+                    <!-- Horizontal Divider -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@color/hupisan_card_stroke" />
+
+                    <!-- Bottom Row: Selisih Bersih -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Selisih Bersih"
+                            android:textColor="@color/hupisan_text_secondary"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tv_net_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-bold"
+                            android:text="+ Rp 0"
+                            android:textColor="@color/hupisan_paid_text"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <!-- SECTION: PERLU PERHATIAN (Jatuh Tempo < 7 Hari) -->
+            <LinearLayout
+                android:id="@+id/layout_perlu_perhatian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-bold"
+                        android:text="⚠️ PERLU PERHATIAN"
+                        android:textColor="@color/hupisan_text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_tempo_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge_attention"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:text="Jatuh tempo &lt; 7 hari"
+                        android:textColor="@color/hupisan_partial_text"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="2dp"
+                    app:cardPreventCornerOverlap="false"
+                    app:cardUseCompatPadding="false">
+
+                    <LinearLayout
+                        android:id="@+id/container_perlu_perhatian_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="14dp" />
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
             <!-- 2x2 MENU GRID -->
             <!-- Row 1: Hutang & Piutang -->
@@ -483,16 +575,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="gone" />
-            <TextView
-                android:id="@+id/tv_count_debt"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/tv_count_receivable"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
             <View
                 android:id="@+id/btn_menu_lottery"
                 android:layout_width="0dp"
@@ -503,36 +585,117 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="gone" />
-            <TextView
-                android:id="@+id/chip_filter_all"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/chip_filter_debt"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/chip_filter_receivable"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/chip_filter_paid"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
-            <TextView
-                android:id="@+id/tv_activity_log_badge"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="gone" />
+            <!-- SECTION: DAFTAR CATATAN HEADER & FILTER TABS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-black"
+                    android:text="DAFTAR CATATAN"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_activity_log_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_attention"
+                    android:fontFamily="sans-serif-bold"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:text="0"
+                    android:textColor="@color/hupisan_text_primary"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Horizontal Scrollable Filter Tabs: [ Semua ] [ Piutang ] [ Hutang ] [ Selesai/Lunas ] -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/chip_filter_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_filter_pill_active"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Semua"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/chip_filter_receivable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_filter_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Piutang"
+                        android:textColor="@color/hupisan_text_secondary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/chip_filter_debt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_filter_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Hutang"
+                        android:textColor="@color/hupisan_text_secondary"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:id="@+id/chip_filter_paid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:background="@drawable/bg_filter_pill_inactive"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:paddingHorizontal="16dp"
+                        android:text="Selesai/Lunas"
+                        android:textColor="@color/hupisan_text_secondary"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_activity_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:visibility="gone" />
 
             <!-- EMPTY STATE WELCOME CARD -->

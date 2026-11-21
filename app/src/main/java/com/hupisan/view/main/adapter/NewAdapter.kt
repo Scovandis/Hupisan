@@ -55,23 +55,25 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
 
                 val timeLabel = if (dataModel.diBuat == todayString) "Baru saja" else dataModel.diBuat
 
+                val tempoInfo = if (!dataModel.jatuhTempo.isNullOrBlank()) "Tempo: ${dataModel.jatuhTempo}" else timeLabel
+
                 if (dataModel.statusDataSelesai) {
                     val settleDate = if (!dataModel.tanggal_lunas.isNullOrBlank()) dataModel.tanggal_lunas else timeLabel
-                    tvStatusSubtitle.text = "Paid Off • $settleDate"
+                    tvStatusSubtitle.text = "Selesai/Lunas • $settleDate"
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_paid)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_check_circle)
                     ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_paid_orange))
                     ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                 } else if (dataModel.jenisPinjaman) {
-                    tvStatusSubtitle.text = "Receivable • $timeLabel"
+                    tvStatusSubtitle.text = "Piutang • $tempoInfo"
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_receivable)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_receivable_arrow)
                     ivStatusIcon.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_receivable_green))
                     ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 } else {
-                    tvStatusSubtitle.text = "Debt • $timeLabel"
+                    tvStatusSubtitle.text = "Hutang • $tempoInfo"
                     tvJumlahNominal.setTextColor(ContextCompat.getColor(context, R.color.hupisan_debt_red))
                     boxStatusIcon.setBackgroundResource(R.drawable.bg_activity_icon_debt)
                     ivStatusIcon.setImageResource(R.drawable.ic_hupisan_debt_arrow)
@@ -79,6 +81,9 @@ class NewAdapter(val context: Context) : RecyclerView.Adapter<NewAdapter.ViewHol
                     ivActionCheck.setColorFilter(ContextCompat.getColor(context, R.color.hupisan_text_secondary))
                 }
 
+                root.setOnClickListener {
+                    openDetail(dataModel)
+                }
                 btnActionCheck.setOnClickListener {
                     openDetail(dataModel)
                 }
