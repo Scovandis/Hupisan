@@ -202,18 +202,16 @@ class HutangActivity : AppCompatActivity(), onButtonClicked {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                return true
+                finish()
+                true
             }
             R.id.delete_all -> {
                 alertDeleteAll()
-                return true
+                true
             }
-            else ->{
-                return super.onOptionsItemSelected(item)
-            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
     private fun alertDeleteAll(){

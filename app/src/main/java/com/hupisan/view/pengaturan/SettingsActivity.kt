@@ -49,14 +49,12 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.Pengaturan)
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                return true
+                finish()
+                true
             }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
     private fun replaceFragment(fragment: Fragment){
@@ -169,8 +167,12 @@ class SettingsActivity : AppCompatActivity() {
             configuration.locale = locale
             baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
             binding.progressbar.visibility = View.GONE
-            startActivity(Intent(this, MainActivity::class.java))
-        },1200)
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            }
+            startActivity(intent)
+            finishAffinity()
+        }, 1200)
     }
     private val TAG = SettingsActivity::class.java.simpleName
     companion object{

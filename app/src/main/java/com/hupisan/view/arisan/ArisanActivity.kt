@@ -191,7 +191,7 @@ class ArisanActivity : AppCompatActivity() {
         }
 
         binding.bottomAppBar.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
         binding.swipeRefreshLayout.setOnRefreshListener {
             binding.swipeRefreshLayout.isRefreshing = false

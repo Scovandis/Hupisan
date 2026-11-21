@@ -36,6 +36,7 @@ class IntroActivity : AppCompatActivity() {
         }
         binding.tvSkip.setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         binding.indicatorView.setAnimationType(WORM)

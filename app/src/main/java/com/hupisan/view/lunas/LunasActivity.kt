@@ -36,13 +36,12 @@ class LunasActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             android.R.id.home -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                return true
-            }else -> {
-                super.onOptionsItemSelected(item)
+                finish()
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
     }
     fun setOnBottomSheetCallbacks(onBottomSheetCallbacks: OnBottomSheetCallback) {
